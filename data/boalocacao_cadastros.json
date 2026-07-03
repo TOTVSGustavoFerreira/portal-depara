@@ -1721,8 +1721,8 @@
       "codigoPara": "000088",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": false,
-      "hasDivergenciaDuplicidade": false,
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
       "hasDivergenciaTipo": false
     },
     {
@@ -1738,8 +1738,8 @@
       "codigoPara": "000089",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": false,
-      "hasDivergenciaDuplicidade": false,
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
       "hasDivergenciaTipo": false
     },
     {
