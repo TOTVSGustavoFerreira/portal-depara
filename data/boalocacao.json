@@ -1,4 +1,20 @@
 {
+  "name": "boalocacao.json",
+  "path": "data/boalocacao.json",
+  "sha": "2768321381a6e20079b2333c0261c4b79952a12c",
+  "size": 1406727,
+  "url": "https://api.github.com/repos/TOTVSGustavoFerreira/portal-depara-navarro/contents/data/boalocacao.json?ref=main",
+  "html_url": "https://github.com/TOTVSGustavoFerreira/portal-depara-navarro/blob/main/data/boalocacao.json",
+  "git_url": "https://api.github.com/repos/TOTVSGustavoFerreira/portal-depara-navarro/git/blobs/2768321381a6e20079b2333c0261c4b79952a12c",
+  "download_url": "https://raw.githubusercontent.com/TOTVSGustavoFerreira/portal-depara-navarro/main/data/boalocacao.json",
+  "type": "file",
+  "content": "",
+  "encoding": "none",
+  "_links": {
+    "self": "https://api.github.com/repos/TOTVSGustavoFerreira/portal-depara-navarro/contents/data/boalocacao.json?ref=main",
+    "git": "https://api.github.com/repos/TOTVSGustavoFerreira/portal-depara-navarro/git/blobs/2768321381a6e20079b2333c0261c4b79952a12c",
+    "html": "https://github.com/TOTVSGustavoFerreira/portal-depara-navarro/blob/main/data/boalocacao.json"
+  },
   "ZDEPARA_EVENTOS": [
     {
       "EMPRESA_DE": "0004",
@@ -49984,6 +50000,6 @@
   ],
   "DADOS_RM_SECOES": [],
   "config": {
-    "ultimo_sincronismo": "2026-07-03T02:21:57.363Z"
+    "ultimo_sincronismo": "2026-07-03T02:30:34.174Z"
   }
 }
