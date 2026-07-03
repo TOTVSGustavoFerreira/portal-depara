@@ -2662,7 +2662,7 @@
         }
       }
 
-      if (currentModule === 'funcoes' && hasFuncoesGaps && stats.divergent === 0) {
+      if (currentModule === 'funcoes' && hasFuncoesGaps) {
         if (optBanner) optBanner.style.display = "flex";
       } else {
         if (optBanner) optBanner.style.display = "none";
@@ -4468,6 +4468,10 @@
                     Anotar Observação sobre a Função:
                   </label>
                   <textarea id="edit-OBSERVACAO-${item.rowNum}" class="input-field" style="padding: 10px; font-family: 'Outfit', sans-serif; font-size: 0.85rem; height: 75px; resize: vertical; border: 1px solid #e2e8f0; border-radius: 6px; outline: none; background: #fff;" placeholder="Insira anotações ou necessidades específicas do de-para desta função...">${obsText}</textarea>
+                  <div style="display:flex; align-items:center; gap: 8px; justify-content: flex-end; padding-top: 8px;">
+                    <button class="row-btn row-btn-warning" onclick="setFuncaoRowAsPendingAnalysis(${item.rowNum})">P/ Análise</button>
+                    <button class="row-btn row-btn-secondary" onclick="setFuncaoRowAsBaseCalculo(${item.rowNum})">Não Importar</button>
+                  </div>
                 </div>
               `;
             } else {
@@ -4549,6 +4553,16 @@
       document.getElementById(`edit-codigoPara-${rowNum}`).value = "NAO IMPORTAR";
       document.getElementById(`edit-nomeRm-${rowNum}`).value = "NAO IMPORTAR";
       toggleFichaInputs(rowNum, "NAO IMPORTAR");
+    }
+
+    function setFuncaoRowAsPendingAnalysis(rowNum) {
+      const el = document.getElementById(`edit-CODIGO_PARA-${rowNum}`);
+      if (el) el.value = "P/ ANALISE";
+    }
+
+    function setFuncaoRowAsBaseCalculo(rowNum) {
+      const el = document.getElementById(`edit-CODIGO_PARA-${rowNum}`);
+      if (el) el.value = "NAO IMPORTAR";
     }
 
     function handleCodRmInput(val, rowNum) {
