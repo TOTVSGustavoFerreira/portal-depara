@@ -1714,15 +1714,15 @@
       "NOME_DE": "CALCETEIRO",
       "CBO": "715205",
       "CBO_2002": "715205",
-      "CODIGO_PARA": "",
+      "CODIGO_PARA": "000088",
       "COLIGADA_PARA": "1",
       "rowNum": 95,
       "coligadaPara": "1",
-      "codigoPara": "",
+      "codigoPara": "000088",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": true,
-      "hasDivergenciaDuplicidade": true,
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
       "hasDivergenciaTipo": false
     },
     {
@@ -1738,8 +1738,8 @@
       "codigoPara": "000089",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": true,
-      "hasDivergenciaDuplicidade": true,
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
       "hasDivergenciaTipo": false
     },
     {
