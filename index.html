@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Portal De-Para - TOTVS RM v1.5.5</title>
+  <title>Portal De-Para - TOTVS RM v1.5.6</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -612,6 +612,16 @@
     .col-codigo-rm    { width: 140px; }
     .col-nome-rm      { width: 30%; }
     .col-acoes        { width: 90px; }
+    
+    /* Configurações específicas de colunas para ZDEPARA_FUNCOES */
+    .col-funcao-emp   { width: 70px; }
+    .col-funcao-cod   { width: 80px; }
+    .col-funcao-nome  { width: 32%; }
+    .col-funcao-cbo   { width: 75px; }
+    .col-funcao-coligada { width: 90px; }
+    .col-funcao-codpara { width: 110px; }
+    .col-funcao-obs   { width: 25%; }
+    .col-funcao-acoes { width: 80px; }
 
     /* Row Background Colors */
     tr.row-provento  { background-color: var(--row-provento) !important; }
@@ -1278,7 +1288,7 @@
     </div>
     
     <div class="sidebar-footer">
-      <span style="font-size: 0.72rem; opacity: 0.5;">Versão 1.5.5</span>
+      <span style="font-size: 0.72rem; opacity: 0.5;">Versão 1.5.6</span>
     </div>
   </aside>
 
@@ -1314,6 +1324,15 @@
             <span><strong>Aviso de Inconsistências:</strong> Encontramos problemas na base de dados (códigos duplicados, mapeamentos órfãos, lacunas ou cadastros RM não utilizados).</span>
           </div>
           <button class="row-btn" style="padding: 4px 12px; font-size: 0.75rem; background:#fff; border-color:#f43f5e; color:#e11d48; border-radius:6px; font-weight: 600;" onclick="showInconsistenciesPanel()">Ver Lista</button>
+        </div>
+
+        <!-- SEQUENCE OPTIMIZATION BANNER -->
+        <div id="sequenceOptimizationBanner" class="warning-banner" style="display: none; background-color: #f0fdf4; border-color: rgba(16, 185, 129, 0.2); border-left-color: #10b981; color: #065f46; margin-bottom: 12px;">
+          <div class="warning-banner-text">
+            <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" style="color: #10b981;"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <span><strong>Otimização de Sequência:</strong> A base de dados está estável! Identificamos a oportunidade de ajustar a ordem dos novos códigos criados para remover buracos de numeração.</span>
+          </div>
+          <button class="row-btn" style="padding: 4px 12px; font-size: 0.75rem; background:#fff; border-color:#10b981; color:#047857; border-radius:6px; font-weight: 600;" onclick="optimizeManualCreatedCodesSequence()">Reordenar Sequência</button>
         </div>
 
         <!-- 1. HOME VIEW (PAINEL INICIAL) -->
@@ -1559,7 +1578,7 @@
           <span style="color:#94a3b8;">|</span>
           <span style="display:flex; align-items:center; gap:6px; color:#ea580c;">⚠ <strong id="footerUnmapped">-</strong> não mapeados</span>
         </span>
-        <span style="color:#94a3b8;">Portal De-Para TOTVS RM v1.5.5 — Última sincronização: <strong id="footerLastSync">-</strong></span>
+        <span style="color:#94a3b8;">Portal De-Para TOTVS RM v1.5.6 — Última sincronização: <strong id="footerLastSync">-</strong></span>
       </footer>
     </div>
   </div>
@@ -1951,12 +1970,25 @@
         const arr = db[key];
         if (arr && Array.isArray(arr)) {
           arr.forEach(item => {
-            // Converter todas as chaves existentes do item para string e limpar espaços para evitar erros de tipo
+            // Converter todas as chaves existentes do item para string e limpar espaços
             for (let prop in item) {
               if (prop !== 'rowNum' && item[prop] !== undefined && item[prop] !== null) {
                 item[prop] = String(item[prop]).trim();
               }
             }
+
+            // Normalizar chaves comuns de De-Para para manter compatibilidade de exibição
+            const colPara = String(item.COLIGADA_PARA !== undefined ? item.COLIGADA_PARA : (item.coligadaPara !== undefined ? item.coligadaPara : "1")).trim();
+            item.COLIGADA_PARA = colPara;
+            item.coligadaPara = colPara;
+
+            const codPara = String(item.CODIGO_PARA !== undefined ? item.CODIGO_PARA : (item.codigoPara !== undefined ? item.codigoPara : "")).trim();
+            item.CODIGO_PARA = codPara;
+            item.codigoPara = codPara;
+
+            const obs = String(item.OBSERVACAO !== undefined ? item.OBSERVACAO : (item.observacao !== undefined ? item.observacao : "")).trim();
+            item.OBSERVACAO = obs;
+            item.observacao = obs;
           });
         }
       });
@@ -2212,13 +2244,14 @@
         
         headerHtml = `
           <tr>
-            <th class="sortable" onclick="toggleSort('EMPRESA_DE')">Empresa Origem<span class="sort-indicator" id="sort-EMPRESA_DE"></span></th>
-            <th class="sortable" onclick="toggleSort('CODIGO_DE')">Cód. Origem<span class="sort-indicator" id="sort-CODIGO_DE"></span></th>
-            <th class="sortable" onclick="toggleSort('NOME_DE')">Nome Função Origem<span class="sort-indicator" id="sort-NOME_DE"></span></th>
-            <th class="sortable" onclick="toggleSort('CBO')">CBO<span class="sort-indicator" id="sort-CBO"></span></th>
-            <th class="sortable" onclick="toggleSort('COLIGADA_PARA')">Coligada RM<span class="sort-indicator" id="sort-COLIGADA_PARA"></span></th>
-            <th class="sortable" onclick="toggleSort('CODIGO_PARA')">Função RM<span class="sort-indicator" id="sort-CODIGO_PARA"></span></th>
-            <th class="col-acoes">Ações</th>
+            <th class="sortable col-funcao-emp" onclick="toggleSort('EMPRESA_DE')">Empresa Origem<span class="sort-indicator" id="sort-EMPRESA_DE"></span></th>
+            <th class="sortable col-funcao-cod" onclick="toggleSort('CODIGO_DE')">Cód. Origem<span class="sort-indicator" id="sort-CODIGO_DE"></span></th>
+            <th class="sortable col-funcao-nome" onclick="toggleSort('NOME_DE')">Nome Função Origem<span class="sort-indicator" id="sort-NOME_DE"></span></th>
+            <th class="sortable col-funcao-cbo" onclick="toggleSort('CBO')">CBO<span class="sort-indicator" id="sort-CBO"></span></th>
+            <th class="sortable col-funcao-coligada" onclick="toggleSort('COLIGADA_PARA')">Coligada RM<span class="sort-indicator" id="sort-COLIGADA_PARA"></span></th>
+            <th class="sortable col-funcao-codpara" onclick="toggleSort('CODIGO_PARA')">CÓDIGO PARA<span class="sort-indicator" id="sort-CODIGO_PARA"></span></th>
+            <th class="sortable col-funcao-obs" onclick="toggleSort('OBSERVACAO')">Observação<span class="sort-indicator" id="sort-OBSERVACAO"></span></th>
+            <th class="col-funcao-acoes">Ações</th>
           </tr>
         `;
         
@@ -2226,7 +2259,8 @@
           <option value="global">Busca Geral</option>
           <option value="nomeDe">Nome Função</option>
           <option value="cbo">CBO</option>
-          <option value="codigoPara">Código RM</option>
+          <option value="codigoPara">Código Para</option>
+          <option value="observacao">Observação</option>
         `;
       } 
       else if (moduleName === 'sindicatos') {
@@ -2542,6 +2576,8 @@
 
     function renderWarnings() {
       const banner = document.getElementById("inconsistencyWarningBanner");
+      const optBanner = document.getElementById("sequenceOptimizationBanner");
+      
       const hasDuplicates = (diagnostics.duplicates && diagnostics.duplicates.length > 0);
       const hasOrphans = (diagnostics.orphans && diagnostics.orphans.length > 0);
       const hasUnused = (unusedCreatedEvents && unusedCreatedEvents.length > 0);
@@ -2551,6 +2587,34 @@
         banner.style.display = "flex";
       } else {
         banner.style.display = "none";
+      }
+
+      // Exibe banner de otimização se estiver em funcoes e se houver lacunas numéricas nas funções
+      let hasFuncoesGaps = false;
+      if (currentModule === 'funcoes') {
+        const list = rawJsonDatabase.ZDEPARA_FUNCOES || [];
+        const mappedCodes = list
+          .map(item => parseInt(item.CODIGO_PARA || "", 10))
+          .filter(n => !isNaN(n))
+          .sort((a, b) => a - b);
+        
+        if (mappedCodes.length > 0) {
+          const min = mappedCodes[0];
+          const max = mappedCodes[mappedCodes.length - 1];
+          const mappedSet = new Set(mappedCodes);
+          for (let i = min; i <= max; i++) {
+            if (!mappedSet.has(i)) {
+              hasFuncoesGaps = true;
+              break;
+            }
+          }
+        }
+      }
+
+      if (currentModule === 'funcoes' && hasFuncoesGaps) {
+        if (optBanner) optBanner.style.display = "flex";
+      } else {
+        if (optBanner) optBanner.style.display = "none";
       }
     }
 
@@ -3241,9 +3305,21 @@
         progressLog.innerHTML += "Iniciando commit de sincronização no GitHub...\n";
 
         commitChangesToGitHub(`Importação bilateral seletiva via planilha Excel - ${tempImportFileName}`, () => {}, () => {
-          progressModal.style.display = "none";
-          showToast(`Sucesso! ${totalAbas} abas importadas e sincronizadas com o GitHub.`, "success");
-          switchModule(currentModule);
+          let secondsLeft = 15;
+          progressLabel.innerText = `Organizando os dados... Aguarde um momento para atualizar as informações com segurança. (${secondsLeft}s)`;
+          progressBarFill.style.width = "100%";
+          progressPercentage.innerText = "100%";
+          
+          const interval = setInterval(() => {
+            secondsLeft--;
+            progressLabel.innerText = `Organizando os dados... Aguarde um momento para atualizar as informações com segurança. (${secondsLeft}s)`;
+            if (secondsLeft <= 0) {
+              clearInterval(interval);
+              progressModal.style.display = "none";
+              showToast(`Sucesso! ${totalAbas} abas importadas e sincronizadas com o GitHub.`, "success");
+              switchModule(currentModule);
+            }
+          }, 1000);
         });
       } else {
         // Modo offline (sem salvar remoto)
@@ -3321,6 +3397,62 @@
         hideLoading();
         showToast("Erro ao criar backup: " + err.message, "error");
       });
+    }
+
+    function optimizeManualCreatedCodesSequence() {
+      showCustomConfirm(
+        "Otimização de Sequência de Funções",
+        "Deseja reordenar os códigos das funções mapeadas para remover buracos e lacunas de numeração? Isso re-sequenciará de forma contínua seus códigos de destino e sincronizará no GitHub.",
+        function() {
+          showLoading("Reordenando sequência de funções...");
+
+          const list = rawJsonDatabase.ZDEPARA_FUNCOES || [];
+          // Filtrar itens com código numérico mapeado
+          const validItems = list.filter(item => {
+            const cod = String(item.CODIGO_PARA || "").trim();
+            return cod && !isNaN(parseInt(cod, 10)) && !isCodeIgnored(cod) && !isCodeToCreate(cod);
+          });
+
+          if (validItems.length === 0) {
+            hideLoading();
+            showToast("Nenhum código de função mapeado para reordenar.", "warning");
+            return;
+          }
+
+          // Ordenar os códigos únicos atuais
+          const sortedCodes = [...new Set(validItems.map(item => parseInt(item.CODIGO_PARA, 10)))].sort((a, b) => a - b);
+          const startNum = sortedCodes[0]; // Código base inicial
+
+          // Criar de-para de remapeamento (código antigo -> novo código sem lacunas)
+          const remapping = {};
+          sortedCodes.forEach((codeVal, idx) => {
+            const oldCode = String(codeVal).trim();
+            const newCode = String(startNum + idx);
+            remapping[oldCode] = newCode;
+            // Tratar versão com preenchimento de zeros à esquerda se existia
+            remapping[oldCode.padStart(4, '0')] = newCode.padStart(4, '0');
+          });
+
+          // Enviar alterações para o GitHub
+          commitChangesToGitHub("Otimização de numeração e re-sequenciamento de códigos na aba ZDEPARA_FUNCOES", () => {
+            // Atualizar os códigos na base de dados de ZDEPARA_FUNCOES na memória
+            list.forEach(item => {
+              const oldPara = String(item.CODIGO_PARA || "").trim();
+              if (remapping[oldPara]) {
+                const newCode = remapping[oldPara];
+                item.CODIGO_PARA = newCode;
+                item.codigoPara = newCode;
+              }
+            });
+            
+            rawJsonDatabase.ZDEPARA_FUNCOES = list;
+            database = list;
+          }, () => {
+            showToast("Códigos de funções reordenados e sincronizados com sucesso!", "success");
+            switchModule(currentModule);
+          });
+        }
+      );
     }
 
     function restoreBackupOnGitHub() {
@@ -3588,7 +3720,8 @@
             return (item.EMPRESA_DE || item['EMPRESA _DE'] || "").toLowerCase().includes(val) ||
                    (item.CODIGO_DE || "").toLowerCase().includes(val) ||
                    (item.NOME_DE || "").toLowerCase().includes(val) ||
-                   (item.CODIGO_PARA || "").toLowerCase().includes(val);
+                   (item.CODIGO_PARA || "").toLowerCase().includes(val) ||
+                   (item.OBSERVACAO || "").toLowerCase().includes(val);
           }
         }
         else if (type === 'empresaDe') {
@@ -3619,6 +3752,9 @@
         }
         else if (type === 'cbo') {
           return (item.CBO || "").toLowerCase().includes(val);
+        }
+        else if (type === 'observacao') {
+          return (item.OBSERVACAO || item.observacao || "").toLowerCase().includes(val);
         }
         
         return true;
@@ -3743,7 +3879,12 @@
       else if (normRMVal === "DESCONTO") prettyType = "Desconto";
       else if (normRMVal === "BASE") prettyType = "Base de Cálculo";
       
-      return { isMatch: (normLegacy === normRM), rmType: prettyType };
+      return { 
+        isMatch: (normLegacy === normRM), 
+        rmType: prettyType,
+        legacyNorm: normLegacy === "PROVENTO" ? "Provento" : (normLegacy === "DESCONTO" ? "Desconto" : "Base"),
+        rmNorm: normRM === "PROVENTO" ? "Provento" : (normRM === "DESCONTO" ? "Desconto" : "Base")
+      };
     }
 
     function renderTableContent() {
@@ -3830,7 +3971,7 @@
           if (item.hasDivergenciaDuplicidade) {
             mismatchSpan = ` <span style="color:var(--magenta); font-weight:700;" title="Este nome de evento legado está mapeado para mais de um código RM diferente!">(DIVERGÊNCIA DUPLICIDADE)</span>`;
           } else if (item.hasDivergenciaTipo || !compatibility.isMatch) {
-            mismatchSpan = ` <span style="color:var(--magenta); font-weight:700;" title="O tipo de evento RM não condiz com o tipo legado!">(DIVERGÊNCIA TIPO)</span>`;
+            mismatchSpan = ` <span style="color:var(--magenta); font-weight:700;" title="O tipo de evento RM não condiz com o tipo legado!">(DIVERGÊNCIA TIPO: RM ${compatibility.rmNorm} vs Legado ${compatibility.legacyNorm})</span>`;
           }
 
           rmCellContent = `
@@ -4078,17 +4219,20 @@
           } 
           else if (currentModule === 'funcoes') {
             trHtml = `
-              <td><code>${item.EMPRESA_DE || ''}</code></td>
-              <td><code>${item.CODIGO_DE || ''}</code></td>
-              <td>${item.NOME_DE || ''}</td>
-              <td><code>${item.CBO || ''}</code></td>
-              <td>
+              <td class="col-funcao-emp"><code>${item.EMPRESA_DE || ''}</code></td>
+              <td class="col-funcao-cod"><code>${item.CODIGO_DE || ''}</code></td>
+              <td class="col-funcao-nome" title="${item.NOME_DE || ''}">${item.NOME_DE || ''}</td>
+              <td class="col-funcao-cbo"><code>${item.CBO || ''}</code></td>
+              <td class="col-funcao-coligada">
                 <input type="text" id="edit-COLIGADA_PARA-${item.rowNum}" class="input-field" style="padding: 6px; font-size: 0.8rem;" value="${item.COLIGADA_PARA || '1'}">
               </td>
-              <td style="overflow: visible;">
+              <td class="col-funcao-codpara" style="overflow: visible;">
                 <input type="text" id="edit-CODIGO_PARA-${item.rowNum}" class="input-field" style="padding: 6px; font-size: 0.8rem;" value="${item.CODIGO_PARA || ''}">
               </td>
-              <td class="col-acoes">
+              <td class="col-funcao-obs">
+                <input type="text" id="edit-OBSERVACAO-${item.rowNum}" class="input-field" style="padding: 6px; font-size: 0.8rem;" value="${item.OBSERVACAO || ''}">
+              </td>
+              <td class="col-funcao-acoes">
                 <div class="action-icons">
                   <button class="action-icon-btn" onclick="saveRowEdition(${item.rowNum})" title="Salvar Alterações" style="color: var(--success);"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></button>
                   <button class="action-icon-btn" onclick="cancelRowEdition()" title="Cancelar" style="color: var(--danger);"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"/></svg></button>
@@ -4194,13 +4338,14 @@
           } 
           else if (currentModule === 'funcoes') {
             trHtml = `
-              <td onclick="toggleRowExpansion(${item.rowNum})"><code>${item.EMPRESA_DE || ''}</code></td>
-              <td onclick="toggleRowExpansion(${item.rowNum})"><code>${item.CODIGO_DE || ''}</code></td>
-              <td onclick="toggleRowExpansion(${item.rowNum})">${item.NOME_DE || ''}</td>
-              <td onclick="toggleRowExpansion(${item.rowNum})"><code>${item.CBO || ''}</code></td>
-              <td onclick="toggleRowExpansion(${item.rowNum})">${item.COLIGADA_PARA || ''}</td>
-              <td onclick="toggleRowExpansion(${item.rowNum})">${badgeDest}</td>
-              <td>${actionButtons}</td>
+              <td class="col-funcao-emp" onclick="toggleRowExpansion(${item.rowNum})"><code>${item.EMPRESA_DE || ''}</code></td>
+              <td class="col-funcao-cod" onclick="toggleRowExpansion(${item.rowNum})"><code>${item.CODIGO_DE || ''}</code></td>
+              <td class="col-funcao-nome" onclick="toggleRowExpansion(${item.rowNum})" title="${item.NOME_DE || ''}">${item.NOME_DE || ''}</td>
+              <td class="col-funcao-cbo" onclick="toggleRowExpansion(${item.rowNum})"><code>${item.CBO || ''}</code></td>
+              <td class="col-funcao-coligada" onclick="toggleRowExpansion(${item.rowNum})">${item.COLIGADA_PARA || ''}</td>
+              <td class="col-funcao-codpara" onclick="toggleRowExpansion(${item.rowNum})">${badgeDest}</td>
+              <td class="col-funcao-obs" onclick="toggleRowExpansion(${item.rowNum})" title="${item.OBSERVACAO || ''}">${item.OBSERVACAO || ''}</td>
+              <td class="col-funcao-acoes">${actionButtons}</td>
             `;
           } 
           else if (currentModule === 'sindicatos') {
@@ -4815,7 +4960,15 @@
       else if (currentModule === 'funcoes') {
         const coligadaPara = document.getElementById(`edit-COLIGADA_PARA-${rowNum}`).value;
         const codigoPara = document.getElementById(`edit-CODIGO_PARA-${rowNum}`).value;
-        updatedData = { COLIGADA_PARA: coligadaPara, CODIGO_PARA: codigoPara };
+        const observacao = document.getElementById(`edit-OBSERVACAO-${rowNum}`).value;
+        updatedData = { 
+          COLIGADA_PARA: coligadaPara, 
+          coligadaPara: coligadaPara,
+          CODIGO_PARA: codigoPara, 
+          codigoPara: codigoPara,
+          OBSERVACAO: observacao,
+          observacao: observacao
+        };
         commitMessage = `Atualiza função linha ${rowNum} - ${item.NOME_DE}`;
 
         showLoading("Salvando função...");
