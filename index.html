@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Portal De-Para - TOTVS RM v1.6.3</title>
+  <title>Portal De-Para - TOTVS RM v1.7.0</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -1287,7 +1287,7 @@
     </div>
     
     <div class="sidebar-footer">
-      <span style="font-size: 0.72rem; opacity: 0.5;">Versão 1.6.3</span>
+      <span style="font-size: 0.72rem; opacity: 0.5;">Versão 1.7.0</span>
     </div>
   </aside>
 
@@ -1577,7 +1577,7 @@
           <span style="color:#94a3b8;">|</span>
           <span style="display:flex; align-items:center; gap:6px; color:#ea580c;">⚠ <strong id="footerUnmapped">-</strong> não mapeados</span>
         </span>
-        <span style="color:#94a3b8;">Portal De-Para TOTVS RM v1.6.3 — Última sincronização: <strong id="footerLastSync">-</strong></span>
+        <span style="color:#94a3b8;">Portal De-Para TOTVS RM v1.7.0 — Última sincronização: <strong id="footerLastSync">-</strong></span>
       </footer>
     </div>
   </div>
@@ -1826,81 +1826,82 @@
       // Isso evita o atraso de deploy do GitHub Pages (que pode demorar até 10 minutos).
       // Se não houver token, usa o fallback pelo GitHub Pages como antes.
       let fetchPromise;
-      if (pat) {
-        // ESTRATÉGIA PARA ARQUIVOS GRANDES (>1MB):
-        // A GitHub Contents API retorna content="" para arquivos >1MB (encoding:"none").
-        // Solução: buscar o SHA via Contents API + conteúdo via raw.githubusercontent.com
+      
+      const fileBase = `data/${clientKey}_base.json`;
+      const fileEvHor = `data/${clientKey}_eventos_horarios.json`;
+      const fileCad = `data/${clientKey}_cadastros.json`;
+
+      const getFilePromise = (fileName, usePat) => {
         const timestamp = new Date().getTime();
-        const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}?t=${timestamp}`;
-        const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/main/${filePath}?t=${timestamp}`;
-        
-        // Passo 1: Buscar SHA (metadata) via Contents API
-        const shaPromise = fetch(apiUrl, {
-          headers: {
-            "Authorization": `token ${pat}`,
-            "Accept": "application/vnd.github.v3+json"
-          }
-        })
-        .then(res => {
-          if (res.status === 401) throw new Error("Token do GitHub inválido ou expirado.");
-          if (res.status === 404) throw new Error("Base de dados do cliente não encontrada. Faça a sincronização inicial primeiro.");
-          if (!res.ok) throw new Error("Erro ao acessar a API do GitHub.");
-          return res.json();
-        })
-        .then(info => info.sha);
-        
-        // Passo 2: Buscar conteúdo JSON puro via API URL com header raw (sem Base64, sem limite de 1MB, e com CORS suportado)
-        const contentPromise = fetch(apiUrl, {
-          headers: { 
-            "Authorization": `token ${pat}`,
-            "Accept": "application/vnd.github.v3.raw"
-          }
-        })
-        .then(res => {
-          if (!res.ok) throw new Error("Erro ao buscar conteúdo do banco de dados.");
-          return res.text();
-        })
-        .then(text => {
-          if (!text || text.trim() === "") {
-            throw new Error("O arquivo do banco de dados está vazio no GitHub.");
-          }
-          try {
-            return JSON.parse(text);
-          } catch (e) {
-            throw new Error("O arquivo de dados no GitHub está incompleto ou corrompido. Re-importe a planilha Excel para restaurar o banco.");
-          }
-        });
-        
-        // Combinar SHA + conteúdo
-        fetchPromise = Promise.all([shaPromise, contentPromise])
-          .then(([sha, parsed]) => {
-            rawJsonDatabase = parsed;
-            rawJsonDatabase._sha = sha;
-            return parsed;
-          });
-      } else {
-        // Fallback: GitHub Pages (pode ter atraso de deploy)
-        const timestamp = new Date().getTime();
-        fetchPromise = fetch(`data/${clientKey}.json?t=${timestamp}`)
-          .then(res => {
-            if (!res.ok) throw new Error("Base de dados do cliente não encontrada ou vazia.");
+        const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${fileName}?t=${timestamp}`;
+        if (usePat) {
+          const shaPromise = fetch(apiUrl, { headers: { "Authorization": `token ${pat}`, "Accept": "application/vnd.github.v3+json" } })
+            .then(res => {
+              if (res.status === 401) throw new Error("Token do GitHub inválido ou expirado.");
+              if (res.status === 404) return null; // Arquivo não encontrado (novo banco ou base antiga)
+              if (!res.ok) throw new Error("Erro ao acessar a API do GitHub para " + fileName);
+              return res.json();
+            }).then(info => info ? info.sha : null);
+            
+          const contentPromise = fetch(apiUrl, { headers: { "Authorization": `token ${pat}`, "Accept": "application/vnd.github.v3.raw" } })
+            .then(res => {
+              if (res.status === 404) return null;
+              if (!res.ok) throw new Error("Erro ao buscar conteúdo de " + fileName);
+              return res.text();
+            }).then(text => text ? JSON.parse(text) : null);
+            
+          return Promise.all([shaPromise, contentPromise]).then(([sha, content]) => ({ sha, content }));
+        } else {
+          return fetch(`${fileName}?t=${timestamp}`).then(res => {
+            if (res.status === 404) return { sha: null, content: null };
+            if (!res.ok) throw new Error("Erro ao carregar " + fileName);
             return res.text();
-          })
-          .then(text => {
-            if (!text || text.trim() === "") {
-              throw new Error("O arquivo do banco de dados está vazio no servidor.");
-            }
-            try {
-              return JSON.parse(text);
-            } catch (e) {
-              throw new Error("O arquivo de dados no servidor está incompleto ou corrompido. Re-importe a planilha Excel para corrigir.");
-            }
-          })
-          .then(response => {
-            rawJsonDatabase = response;
-            return response;
-          });
+          }).then(text => ({ sha: null, content: text ? JSON.parse(text) : null }));
+        }
+      };
+
+      if (pat) {
+        fetchPromise = Promise.all([
+          getFilePromise(fileBase, true),
+          getFilePromise(fileEvHor, true),
+          getFilePromise(fileCad, true)
+        ]).then(([resBase, resEvHor, resCad]) => {
+          if (!resBase.content && !resEvHor.content && !resCad.content) {
+            // Tenta fallback para o arquivo monolítico antigo
+            return getFilePromise(`data/${clientKey}.json`, true).then(resMono => {
+              if (!resMono.content) throw new Error("Base de dados não encontrada. Re-importe a planilha.");
+              rawJsonDatabase = resMono.content;
+              rawJsonDatabase._sha = { monolith: resMono.sha };
+              return rawJsonDatabase;
+            });
+          }
+          
+          rawJsonDatabase = { ...(resBase.content || {}), ...(resEvHor.content || {}), ...(resCad.content || {}) };
+          rawJsonDatabase._sha = {
+            base: resBase.sha,
+            eventos_horarios: resEvHor.sha,
+            cadastros: resCad.sha
+          };
+          return rawJsonDatabase;
+        });
+      } else {
+        fetchPromise = Promise.all([
+          getFilePromise(fileBase, false),
+          getFilePromise(fileEvHor, false),
+          getFilePromise(fileCad, false)
+        ]).then(([resBase, resEvHor, resCad]) => {
+          if (!resBase.content && !resEvHor.content && !resCad.content) {
+            return getFilePromise(`data/${clientKey}.json`, false).then(resMono => {
+              if (!resMono.content) throw new Error("Base de dados não encontrada.");
+              rawJsonDatabase = resMono.content;
+              return rawJsonDatabase;
+            });
+          }
+          rawJsonDatabase = { ...(resBase.content || {}), ...(resEvHor.content || {}), ...(resCad.content || {}) };
+          return rawJsonDatabase;
+        });
       }
+      // O fetchPromise já está configurado (com pat ou sem pat)
       
       fetchPromise
         .then(response => {
@@ -3486,7 +3487,7 @@
           }, () => {
             showToast("Códigos de funções reordenados e sincronizados com sucesso!", "success");
             switchModule(currentModule);
-          });
+          }, 'cadastros');
         }
       );
     }
@@ -4735,7 +4736,7 @@
       showToast("Configurações do GitHub salvas com sucesso!", "success");
     }
 
-    function commitChangesToGitHub(commitMessage, updatedDatabaseCallback, onSuccessCallback) {
+    function commitChangesToGitHub(commitMessage, updatedDatabaseCallback, onSuccessCallback, fileCategory = 'all') {
       const pat = localStorage.getItem("gh_pat");
       const owner = localStorage.getItem("gh_owner") || "TOTVSGustavoFerreira";
       const repo = localStorage.getItem("gh_repo") || "portal-depara-navarro";
@@ -4752,125 +4753,134 @@
         const matches = SPREADSHEET_ID.match(/\/d\/([a-zA-Z0-9-_]+)/);
         if (matches) clientKey = matches[1].toLowerCase();
       }
-      
-      const filePath = `data/${clientKey}.json`;
-      // URL sem timestamp para o PUT (o PUT não pode ter query params extras no GitHub API)
-      const putUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}`;
-      
-      // Função interna que faz o PUT com o SHA conhecido
-      function doPut(sha) {
-        // Aplicar as mudanças na memória
-        if (typeof updatedDatabaseCallback === 'function') {
-          updatedDatabaseCallback();
-        }
-        
-        // ═══ CAMADA 1: Bloqueio de gravação com banco vazio ═══
-        const abasProtegidas = ['ZDEPARA_EVENTOS','ZDEPARA_COLIGADAS','ZDEPARA_FUNCOES','ZDEPARA_SINDICATOS','ZDEPARA_SECOES','ZDEPARA_SITUACAO'];
-        const totalRegistros = abasProtegidas.reduce((sum, aba) => sum + (Array.isArray(rawJsonDatabase[aba]) ? rawJsonDatabase[aba].length : 0), 0);
-        if (totalRegistros === 0) {
-          hideLoading();
-          showToast("⛔ Salvamento bloqueado: o banco de dados está vazio na memória. Recarregue a página e reimporte a planilha antes de editar.", "error");
-          return Promise.reject(new Error("BLOQUEADO: banco vazio"));
-        }
-        
-        rawJsonDatabase.config = rawJsonDatabase.config || {};
-        rawJsonDatabase.config.ultimo_sincronismo = new Date().toISOString();
-        
-        // Remover o campo interno _sha antes de serializar (não deve ir ao arquivo JSON)
-        const { _sha: _omit, ...cleanDb } = rawJsonDatabase;
-        const fileContent = JSON.stringify(cleanDb, null, 2);
-        
-        // ═══ CAMADA 2: Validação de integridade do JSON gerado ═══
-        if (fileContent.length < 500) {
-          hideLoading();
-          showToast("⛔ Erro de integridade: o arquivo gerado está muito pequeno e pode estar corrompido. Operação cancelada por segurança.", "error");
-          return Promise.reject(new Error("BLOQUEADO: JSON muito pequeno"));
-        }
-        
-        return fetch(putUrl, {
-          method: "PUT",
-          headers: {
-            "Authorization": `token ${pat}`,
-            "Content-Type": "application/json",
-            "Accept": "application/vnd.github.v3+json"
-          },
-          body: JSON.stringify({
-            message: commitMessage,
-            content: safeBtoa(fileContent),
-            sha: sha
-          })
-        })
-        .then(res => {
-          if (!res.ok) return res.json().then(errData => { throw new Error(errData.message); });
-          return res.json();
-        })
-        .then(response => {
-          hideLoading();
-          showToast("Dados salvos e commitados no GitHub com sucesso!", "success");
-          
-          // Guardar o novo SHA para o próximo commit — evita GET desnecessário
-          if (response.content && response.content.sha) {
-            rawJsonDatabase._sha = response.content.sha;
-          }
-          
-          calculateLocalDiagnosticsAndStats();
-          renderWarnings();
-          updateDashboard();
-          applyFilters();
-          
-          if (typeof onSuccessCallback === 'function') {
-            onSuccessCallback();
-          }
-        });
+
+      // Aplicar as mudanças na memória antes de gerar os arquivos
+      if (typeof updatedDatabaseCallback === 'function') {
+        updatedDatabaseCallback();
       }
+
+      rawJsonDatabase.config = rawJsonDatabase.config || {};
+      rawJsonDatabase.config.ultimo_sincronismo = new Date().toISOString();
       
-      // Usar o SHA já em memória se disponível (carregado pelo loadPortalData via API)
-      // Isso elimina o GET extra e o problema de SHA desatualizado
-      if (rawJsonDatabase._sha) {
-        doPut(rawJsonDatabase._sha)
-          .catch(err => {
-            hideLoading();
-            // Se o SHA em cache falhou (ex: outro dispositivo fez um commit), busca o SHA atualizado
-            if (err.message && err.message.includes("does not match")) {
-              showToast("SHA desatualizado, buscando versão atual...", "error");
-              const getUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}?t=${Date.now()}`;
-              fetch(getUrl, { headers: { "Authorization": `token ${pat}`, "Accept": "application/vnd.github.v3+json" } })
-                .then(r => r.json())
-                .then(info => {
-                  rawJsonDatabase._sha = info.sha;
-                  return doPut(info.sha);
-                })
-                .catch(e => {
-                  hideLoading();
-                  showToast("Erro ao gravar no GitHub: " + e.message, "error");
-                });
-            } else {
-              showToast("Erro ao gravar no GitHub: " + err.message, "error");
+      // Categorias mapeadas
+      const DB_SCHEMAS = {
+        base: ['config', 'DADOS_RM_EVENTOS', 'DADOS_RM_SITUACAO', 'DADOS_RM_MOTIVOS', 'DADOS_RM_SECOES'],
+        eventos_horarios: ['ZDEPARA_EVENTOS', 'ZDEPARA_HORARIO'],
+        cadastros: [
+          'ZDEPARA_COLIGADAS', 'ZDEPARA_FUNCOES', 'ZDEPARA_SINDICATOS', 'ZDEPARA_SECOES', 
+          'ZDEPARA_SITUACAO', 'ZDEPARA_PERIODO_FOLHA', 'ZDEPARA_BANCOS', 'ZDEPARA_MOTIVO_FUNCAO', 
+          'ZDEPARA_MOTIVO_SALARIO', 'ZDEPARA_MOTIVO_SECAO'
+        ]
+      };
+
+      const categoriesToSave = fileCategory === 'all' ? Object.keys(DB_SCHEMAS) : [fileCategory];
+      
+      // Validação: não permitir salvar no modo particionado se a base for monolítica
+      if (rawJsonDatabase._sha && rawJsonDatabase._sha.monolith) {
+         showToast("Sincronização abortada: Você está usando o banco antigo monolítico. Por favor, re-importe a planilha do Excel uma vez para converter o banco para o novo formato de alta performance.", "error");
+         hideLoading();
+         return;
+      }
+
+      // Criar payload para cada categoria
+      let payloads = [];
+      try {
+        payloads = categoriesToSave.map(cat => {
+          const subset = {};
+          DB_SCHEMAS[cat].forEach(key => {
+            if (rawJsonDatabase[key] !== undefined) {
+              subset[key] = rawJsonDatabase[key];
             }
           });
-      } else {
-        // Sem SHA em memória: faz GET para obtê-lo primeiro (primeira gravação da sessão sem token no load)
-        const getUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}?t=${Date.now()}`;
-        fetch(getUrl, {
-          headers: {
-            "Authorization": `token ${pat}`,
-            "Accept": "application/vnd.github.v3+json"
+          const fileContent = JSON.stringify(subset, null, 2);
+          
+          if (cat === 'base' && fileContent.length < 50) {
+             throw new Error("Arquivo base gerado está muito pequeno/corrompido");
           }
-        })
-        .then(res => {
-          if (res.status === 401) throw new Error("Token do GitHub inválido ou expirado.");
-          if (res.status === 404) throw new Error("Arquivo no repositório não encontrado.");
-          return res.json();
-        })
-        .then(fileInfo => {
-          rawJsonDatabase._sha = fileInfo.sha;
-          return doPut(fileInfo.sha);
-        })
-        .catch(err => {
-          hideLoading();
-          showToast("Erro ao gravar no GitHub: " + err.message, "error");
+          
+          return {
+            cat: cat,
+            filePath: `data/${clientKey}_${cat}.json`,
+            contentBase64: safeBtoa(fileContent),
+            sha: (rawJsonDatabase._sha && typeof rawJsonDatabase._sha === 'object') ? rawJsonDatabase._sha[cat] : null
+          };
         });
+      } catch(e) {
+        hideLoading();
+        showToast("Erro na preparação dos arquivos: " + e.message, "error");
+        return;
       }
+
+      const commitFile = (payload) => {
+        const putUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${payload.filePath}`;
+        
+        const doPut = (shaToUse) => {
+          return fetch(putUrl, {
+            method: "PUT",
+            headers: {
+              "Authorization": `token ${pat}`,
+              "Content-Type": "application/json",
+              "Accept": "application/vnd.github.v3+json"
+            },
+            body: JSON.stringify({
+              message: commitMessage,
+              content: payload.contentBase64,
+              sha: shaToUse
+            })
+          }).then(res => {
+            if (!res.ok) return res.json().then(errData => { throw new Error(errData.message); });
+            return res.json();
+          }).then(response => {
+            if (response.content && response.content.sha) {
+              if (!rawJsonDatabase._sha || typeof rawJsonDatabase._sha !== 'object') rawJsonDatabase._sha = {};
+              rawJsonDatabase._sha[payload.cat] = response.content.sha;
+            }
+          });
+        };
+
+        if (payload.sha) {
+          return doPut(payload.sha).catch(err => {
+            if (err.message && err.message.includes("does not match")) {
+              const getUrl = `${putUrl}?t=${Date.now()}`;
+              return fetch(getUrl, { headers: { "Authorization": `token ${pat}`, "Accept": "application/vnd.github.v3+json" } })
+                .then(r => r.json())
+                .then(info => doPut(info.sha));
+            }
+            throw err;
+          });
+        } else {
+          // Arquivo novo ou faltando SHA em cache
+          return doPut(null).catch(err => {
+             // Se falhar porque ja existe mas nao tinhamos o SHA
+             const getUrl = `${putUrl}?t=${Date.now()}`;
+             return fetch(getUrl, { headers: { "Authorization": `token ${pat}`, "Accept": "application/vnd.github.v3+json" } })
+                .then(r => { if(r.status === 404) return null; return r.json(); })
+                .then(info => {
+                  if (info && info.sha) return doPut(info.sha);
+                  throw err;
+                });
+          });
+        }
+      };
+
+      // Salvar sequencialmente para não estourar rate limit e não pesar muito no browser
+      let promiseChain = Promise.resolve();
+      payloads.forEach(p => {
+        promiseChain = promiseChain.then(() => commitFile(p));
+      });
+
+      promiseChain.then(() => {
+        hideLoading();
+        showToast("Dados salvos e commitados no GitHub com sucesso!", "success");
+        calculateLocalDiagnosticsAndStats();
+        renderWarnings();
+        updateDashboard();
+        applyFilters();
+        if (typeof onSuccessCallback === 'function') onSuccessCallback();
+      }).catch(err => {
+        hideLoading();
+        showToast("Erro ao gravar no GitHub: " + err.message, "error");
+      });
     }
 
 
@@ -4896,7 +4906,7 @@
                 if (item.codigoParaVerbasFerias === code) item.codigoParaVerbasFerias = "";
               });
             }
-          });
+          }, null, 'base');
         }
       );
     }
@@ -5036,7 +5046,7 @@
           rawJsonDatabase.ZDEPARA_EVENTOS = database;
           editingRowNumber = null;
           expandedRowNumbers.delete(rowNum);
-        });
+        }, null, 'eventos_horarios');
       } 
       else if (currentModule === 'coligadas') {
         const codColigada = document.getElementById(`edit-CODCOLIGADA-${rowNum}`).value;
@@ -5051,7 +5061,7 @@
           rawJsonDatabase.ZDEPARA_COLIGADAS = database;
           editingRowNumber = null;
           expandedRowNumbers.delete(rowNum);
-        });
+        }, null, 'cadastros');
       } 
       else if (currentModule === 'funcoes') {
         const coligadaPara = document.getElementById(`edit-COLIGADA_PARA-${rowNum}`).value;
@@ -5074,7 +5084,7 @@
           rawJsonDatabase.ZDEPARA_FUNCOES = database;
           editingRowNumber = null;
           expandedRowNumbers.delete(rowNum);
-        });
+        }, null, 'cadastros');
       } 
       else if (currentModule === 'sindicatos') {
         const coligadaPara = document.getElementById(`edit-COLIGADA_PARA-${rowNum}`).value;
@@ -5089,7 +5099,7 @@
           rawJsonDatabase.ZDEPARA_SINDICATOS = database;
           editingRowNumber = null;
           expandedRowNumbers.delete(rowNum);
-        });
+        }, null, 'cadastros');
       } 
       else if (currentModule === 'secoes') {
         const coligadaPara = document.getElementById(`edit-COLIGADA_PARA-${rowNum}`).value;
@@ -5105,7 +5115,7 @@
           rawJsonDatabase.ZDEPARA_SECOES = database;
           editingRowNumber = null;
           expandedRowNumbers.delete(rowNum);
-        });
+        }, null, 'cadastros');
       } 
       else if (currentModule === 'situacao') {
         const codSituacao = document.getElementById(`edit-CODSITUACAO_PARA-${rowNum}`).value;
@@ -5128,7 +5138,7 @@
           rawJsonDatabase.ZDEPARA_SITUACAO = database;
           editingRowNumber = null;
           expandedRowNumbers.delete(rowNum);
-        });
+        }, null, 'cadastros');
       }
     }
   </script>
