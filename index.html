@@ -4746,12 +4746,29 @@
         if (typeof updatedDatabaseCallback === 'function') {
           updatedDatabaseCallback();
         }
+        
+        // ═══ CAMADA 1: Bloqueio de gravação com banco vazio ═══
+        const abasProtegidas = ['ZDEPARA_EVENTOS','ZDEPARA_COLIGADAS','ZDEPARA_FUNCOES','ZDEPARA_SINDICATOS','ZDEPARA_SECOES','ZDEPARA_SITUACAO'];
+        const totalRegistros = abasProtegidas.reduce((sum, aba) => sum + (Array.isArray(rawJsonDatabase[aba]) ? rawJsonDatabase[aba].length : 0), 0);
+        if (totalRegistros === 0) {
+          hideLoading();
+          showToast("⛔ Salvamento bloqueado: o banco de dados está vazio na memória. Recarregue a página e reimporte a planilha antes de editar.", "error");
+          return Promise.reject(new Error("BLOQUEADO: banco vazio"));
+        }
+        
         rawJsonDatabase.config = rawJsonDatabase.config || {};
         rawJsonDatabase.config.ultimo_sincronismo = new Date().toISOString();
         
         // Remover o campo interno _sha antes de serializar (não deve ir ao arquivo JSON)
         const { _sha: _omit, ...cleanDb } = rawJsonDatabase;
         const fileContent = JSON.stringify(cleanDb, null, 2);
+        
+        // ═══ CAMADA 2: Validação de integridade do JSON gerado ═══
+        if (fileContent.length < 500) {
+          hideLoading();
+          showToast("⛔ Erro de integridade: o arquivo gerado está muito pequeno e pode estar corrompido. Operação cancelada por segurança.", "error");
+          return Promise.reject(new Error("BLOQUEADO: JSON muito pequeno"));
+        }
         
         return fetch(putUrl, {
           method: "PUT",
