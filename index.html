@@ -4775,11 +4775,17 @@
 
       const categoriesToSave = fileCategory === 'all' ? Object.keys(DB_SCHEMAS) : [fileCategory];
       
-      // Validação: não permitir salvar no modo particionado se a base for monolítica
+      // Validação: não permitir salvar parcialmente no modo particionado se a base for monolítica
       if (rawJsonDatabase._sha && rawJsonDatabase._sha.monolith) {
-         showToast("Sincronização abortada: Você está usando o banco antigo monolítico. Por favor, re-importe a planilha do Excel uma vez para converter o banco para o novo formato de alta performance.", "error");
-         hideLoading();
-         return;
+         if (fileCategory !== 'all') {
+           showToast("Sincronização abortada: Você está usando o banco antigo monolítico. Por favor, re-importe a planilha do Excel uma vez para converter o banco para o novo formato de alta performance.", "error");
+           hideLoading();
+           return;
+         } else {
+           // Se for 'all', significa que estamos migrando agora (ex: na importação)!
+           // Então removemos a flag de monolith para não bloquear os próximos salvamentos
+           delete rawJsonDatabase._sha.monolith;
+         }
       }
 
       // Criar payload para cada categoria
