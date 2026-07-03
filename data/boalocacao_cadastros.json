@@ -13,7 +13,10 @@
       "CODIGO_PARA": "",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0015",
@@ -28,7 +31,10 @@
       "CODIGO_PARA": "",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0017",
@@ -43,7 +49,10 @@
       "CODIGO_PARA": "",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -58,7 +67,10 @@
       "CODIGO_PARA": "",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0012",
@@ -73,7 +85,10 @@
       "CODIGO_PARA": "",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0022",
@@ -88,7 +103,10 @@
       "CODIGO_PARA": "",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     }
   ],
   "ZDEPARA_FUNCOES": [
@@ -241,8 +259,8 @@
       "codigoPara": "000008",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": true,
-      "hasDivergenciaDuplicidade": true,
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
       "hasDivergenciaTipo": false
     },
     {
@@ -258,8 +276,8 @@
       "codigoPara": "000008",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": true,
-      "hasDivergenciaDuplicidade": true,
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
       "hasDivergenciaTipo": false
     },
     {
@@ -914,11 +932,11 @@
       "NOME_DE": "ASSISTENTE FINANCEIRO",
       "CBO": "413110",
       "CBO_2002": "413110",
-      "CODIGO_PARA": "000045",
-      "COLIGADA_PARA": "",
+      "CODIGO_PARA": "000044",
+      "COLIGADA_PARA": "1",
       "rowNum": 49,
-      "coligadaPara": "",
-      "codigoPara": "000045",
+      "coligadaPara": "1",
+      "codigoPara": "000044",
       "OBSERVACAO": "",
       "observacao": "",
       "hasDivergencia": true,
