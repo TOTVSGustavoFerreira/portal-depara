@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Portal De-Para - TOTVS RM v1.5.8</title>
+  <title>Portal De-Para - TOTVS RM v1.5.9</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -616,11 +616,10 @@
     /* Configurações específicas de colunas para ZDEPARA_FUNCOES */
     .col-funcao-emp   { width: 70px; }
     .col-funcao-cod   { width: 80px; }
-    .col-funcao-nome  { width: 32%; }
+    .col-funcao-nome  { width: 55%; }
     .col-funcao-cbo   { width: 75px; }
     .col-funcao-coligada { width: 90px; }
     .col-funcao-codpara { width: 110px; }
-    .col-funcao-obs   { width: 25%; }
     .col-funcao-acoes { width: 80px; }
 
     /* Row Background Colors */
@@ -1288,7 +1287,7 @@
     </div>
     
     <div class="sidebar-footer">
-      <span style="font-size: 0.72rem; opacity: 0.5;">Versão 1.5.8</span>
+      <span style="font-size: 0.72rem; opacity: 0.5;">Versão 1.5.9</span>
     </div>
   </aside>
 
@@ -1578,7 +1577,7 @@
           <span style="color:#94a3b8;">|</span>
           <span style="display:flex; align-items:center; gap:6px; color:#ea580c;">⚠ <strong id="footerUnmapped">-</strong> não mapeados</span>
         </span>
-        <span style="color:#94a3b8;">Portal De-Para TOTVS RM v1.5.8 — Última sincronização: <strong id="footerLastSync">-</strong></span>
+        <span style="color:#94a3b8;">Portal De-Para TOTVS RM v1.5.9 — Última sincronização: <strong id="footerLastSync">-</strong></span>
       </footer>
     </div>
   </div>
@@ -2273,7 +2272,6 @@
             <th class="sortable col-funcao-cbo" onclick="toggleSort('CBO')">CBO<span class="sort-indicator" id="sort-CBO"></span></th>
             <th class="sortable col-funcao-coligada" onclick="toggleSort('COLIGADA_PARA')">Coligada RM<span class="sort-indicator" id="sort-COLIGADA_PARA"></span></th>
             <th class="sortable col-funcao-codpara" onclick="toggleSort('CODIGO_PARA')">CÓDIGO PARA<span class="sort-indicator" id="sort-CODIGO_PARA"></span></th>
-            <th class="sortable col-funcao-obs" onclick="toggleSort('OBSERVACAO')">Observação<span class="sort-indicator" id="sort-OBSERVACAO"></span></th>
             <th class="col-funcao-acoes">Ações</th>
           </tr>
         `;
@@ -4173,7 +4171,7 @@
     function renderGenericTableContent(tbody, itemsToRender) {
       itemsToRender.forEach(item => {
         const isEditing = editingRowNumber === item.rowNum;
-        const isExpanded = expandedRowNumbers.has(item.rowNum);
+        const isExpanded = expandedRowNumbers.has(item.rowNum) || isEditing;
         
         let rowColorClass = "row-base";
         let trHtml = "";
@@ -4251,9 +4249,6 @@
               </td>
               <td class="col-funcao-codpara" style="overflow: visible;">
                 <input type="text" id="edit-CODIGO_PARA-${item.rowNum}" class="input-field" style="padding: 6px; font-size: 0.8rem;" value="${item.CODIGO_PARA || ''}">
-              </td>
-              <td class="col-funcao-obs">
-                <input type="text" id="edit-OBSERVACAO-${item.rowNum}" class="input-field" style="padding: 6px; font-size: 0.8rem;" value="${item.OBSERVACAO || ''}">
               </td>
               <td class="col-funcao-acoes">
                 <div class="action-icons">
@@ -4365,9 +4360,8 @@
               <td class="col-funcao-cod" onclick="toggleRowExpansion(${item.rowNum})"><code>${item.CODIGO_DE || ''}</code></td>
               <td class="col-funcao-nome" onclick="toggleRowExpansion(${item.rowNum})" title="${item.NOME_DE || ''}">${item.NOME_DE || ''}</td>
               <td class="col-funcao-cbo" onclick="toggleRowExpansion(${item.rowNum})"><code>${item.CBO || ''}</code></td>
-              <td class="col-funcao-coligada" onclick="toggleRowExpansion(${item.rowNum})">${item.COLIGADA_PARA || ''}</td>
+              <td class="col-funcao-coligada" onclick="toggleRowExpansion(${item.rowNum})">${item.COLIGADA_PARA !== undefined ? item.COLIGADA_PARA : (item.coligadaPara !== undefined ? item.coligadaPara : '')}</td>
               <td class="col-funcao-codpara" onclick="toggleRowExpansion(${item.rowNum})">${badgeDest}</td>
-              <td class="col-funcao-obs" onclick="toggleRowExpansion(${item.rowNum})" title="${item.OBSERVACAO || ''}">${item.OBSERVACAO || ''}</td>
               <td class="col-funcao-acoes">${actionButtons}</td>
             `;
           } 
@@ -4418,12 +4412,35 @@
           let colsCount = 6;
           if (currentModule === 'funcoes' || currentModule === 'sindicatos' || currentModule === 'secoes') colsCount = 7;
           
+          let detailHtml = `
+            <p style="margin: 0; font-size: 0.85rem; color: var(--color-text-muted);">
+              📍 Sem detalhes adicionais cadastrados para este de-para. As alterações principais devem ser feitas clicando no ícone de edição.
+            </p>
+          `;
+
+          if (currentModule === 'funcoes') {
+            const obsText = item.OBSERVACAO || item.observacao || "";
+            if (isEditing) {
+              detailHtml = `
+                <div style="font-size: 0.85rem; display: flex; flex-direction: column; gap: 6px; width: 100%; max-width: 600px; padding: 4px 0;">
+                  <label style="font-weight: 600; color: var(--bg-primary);">📝 Editar Observação:</label>
+                  <textarea id="edit-OBSERVACAO-${item.rowNum}" class="input-field" style="padding: 8px; font-size: 0.85rem; height: 60px; resize: vertical;" placeholder="Insira anotações ou necessidades específicas...">${obsText}</textarea>
+                </div>
+              `;
+            } else {
+              const obsLabel = obsText.trim() ? `<strong>📝 Observação:</strong> ${obsText}` : `<span style="font-style: italic; color: #94a3b8;">Nenhuma observação cadastrada para esta função.</span>`;
+              detailHtml = `
+                <div style="font-size: 0.85rem; color: var(--color-text-dark); display: flex; align-items: center; gap: 8px;">
+                  ${obsLabel}
+                </div>
+              `;
+            }
+          }
+
           detailTr.innerHTML = `
             <td colspan="${colsCount}">
               <div class="detail-subrow-content">
-                <p style="margin: 0; font-size: 0.85rem; color: var(--color-text-muted);">
-                  📍 Sem detalhes adicionais cadastrados para este de-para. As alterações principais devem ser feitas clicando no ícone de edição.
-                </p>
+                ${detailHtml}
               </div>
             </td>
           `;
