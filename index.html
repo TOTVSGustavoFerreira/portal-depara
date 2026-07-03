@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Portal De-Para - TOTVS RM v1.6.1</title>
+  <title>Portal De-Para - TOTVS RM v1.6.2</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -1287,7 +1287,7 @@
     </div>
     
     <div class="sidebar-footer">
-      <span style="font-size: 0.72rem; opacity: 0.5;">Versão 1.6.1</span>
+      <span style="font-size: 0.72rem; opacity: 0.5;">Versão 1.6.2</span>
     </div>
   </aside>
 
@@ -1577,7 +1577,7 @@
           <span style="color:#94a3b8;">|</span>
           <span style="display:flex; align-items:center; gap:6px; color:#ea580c;">⚠ <strong id="footerUnmapped">-</strong> não mapeados</span>
         </span>
-        <span style="color:#94a3b8;">Portal De-Para TOTVS RM v1.6.1 — Última sincronização: <strong id="footerLastSync">-</strong></span>
+        <span style="color:#94a3b8;">Portal De-Para TOTVS RM v1.6.2 — Última sincronização: <strong id="footerLastSync">-</strong></span>
       </footer>
     </div>
   </div>
@@ -1827,9 +1827,15 @@
       // Se não houver token, usa o fallback pelo GitHub Pages como antes.
       let fetchPromise;
       if (pat) {
+        // ESTRATÉGIA PARA ARQUIVOS GRANDES (>1MB):
+        // A GitHub Contents API retorna content="" para arquivos >1MB (encoding:"none").
+        // Solução: buscar o SHA via Contents API + conteúdo via raw.githubusercontent.com
         const timestamp = new Date().getTime();
         const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}?t=${timestamp}`;
-        fetchPromise = fetch(apiUrl, {
+        const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/main/${filePath}?t=${timestamp}`;
+        
+        // Passo 1: Buscar SHA (metadata) via Contents API
+        const shaPromise = fetch(apiUrl, {
           headers: {
             "Authorization": `token ${pat}`,
             "Accept": "application/vnd.github.v3+json"
@@ -1841,47 +1847,34 @@
           if (!res.ok) throw new Error("Erro ao acessar a API do GitHub.");
           return res.json();
         })
-        .then(fileInfo => {
-          // Decodificar Base64 em blocos pequenos para suportar arquivos grandes (1MB+)
-          let decoded;
-          try {
-            const cleanB64 = fileInfo.content.replace(/\s/g, "");
-            // Decodificar atob em chunks de 32768 chars (divisível por 4)
-            const B64_CHUNK = 32768;
-            const binaryChunks = [];
-            let totalBinaryLen = 0;
-            for (let i = 0; i < cleanB64.length; i += B64_CHUNK) {
-              const piece = cleanB64.substring(i, Math.min(i + B64_CHUNK, cleanB64.length));
-              const bin = atob(piece);
-              binaryChunks.push(bin);
-              totalBinaryLen += bin.length;
-            }
-            // Montar Uint8Array a partir dos blocos decodificados
-            const bytes = new Uint8Array(totalBinaryLen);
-            let writeOffset = 0;
-            for (const chunk of binaryChunks) {
-              for (let k = 0; k < chunk.length; k++) {
-                bytes[writeOffset++] = chunk.charCodeAt(k);
-              }
-            }
-            decoded = new TextDecoder("utf-8").decode(bytes);
-          } catch (err) {
-            // Fallback legado para navegadores antigos
-            decoded = decodeURIComponent(escape(atob(fileInfo.content.replace(/\n/g, ""))));
+        .then(info => info.sha);
+        
+        // Passo 2: Buscar conteúdo JSON puro via raw URL (sem Base64, sem limite de 1MB)
+        const contentPromise = fetch(rawUrl, {
+          headers: { "Authorization": `token ${pat}` }
+        })
+        .then(res => {
+          if (!res.ok) throw new Error("Erro ao buscar conteúdo do banco de dados.");
+          return res.text();
+        })
+        .then(text => {
+          if (!text || text.trim() === "") {
+            throw new Error("O arquivo do banco de dados está vazio no GitHub.");
           }
-          
-          let parsed;
           try {
-            parsed = JSON.parse(decoded);
+            return JSON.parse(text);
           } catch (e) {
             throw new Error("O arquivo de dados no GitHub está incompleto ou corrompido. Re-importe a planilha Excel para restaurar o banco.");
           }
-          
-          // Guardar o SHA para futuros commits sem precisar de um GET extra
-          rawJsonDatabase = parsed;
-          rawJsonDatabase._sha = fileInfo.sha;
-          return parsed;
         });
+        
+        // Combinar SHA + conteúdo
+        fetchPromise = Promise.all([shaPromise, contentPromise])
+          .then(([sha, parsed]) => {
+            rawJsonDatabase = parsed;
+            rawJsonDatabase._sha = sha;
+            return parsed;
+          });
       } else {
         // Fallback: GitHub Pages (pode ter atraso de deploy)
         const timestamp = new Date().getTime();
