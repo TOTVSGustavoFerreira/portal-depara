@@ -14,9 +14,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": false,
-      "hasDivergenciaDuplicidade": false,
-      "hasDivergenciaTipo": false
+      "hasDivergencia": "false",
+      "hasDivergenciaDuplicidade": "false",
+      "hasDivergenciaTipo": "false"
     },
     {
       "EMPRESA_DE": "0015",
@@ -32,9 +32,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": false,
-      "hasDivergenciaDuplicidade": false,
-      "hasDivergenciaTipo": false
+      "hasDivergencia": "false",
+      "hasDivergenciaDuplicidade": "false",
+      "hasDivergenciaTipo": "false"
     },
     {
       "EMPRESA_DE": "0017",
@@ -50,9 +50,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": false,
-      "hasDivergenciaDuplicidade": false,
-      "hasDivergenciaTipo": false
+      "hasDivergencia": "false",
+      "hasDivergenciaDuplicidade": "false",
+      "hasDivergenciaTipo": "false"
     },
     {
       "EMPRESA_DE": "0005",
@@ -68,9 +68,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": false,
-      "hasDivergenciaDuplicidade": false,
-      "hasDivergenciaTipo": false
+      "hasDivergencia": "false",
+      "hasDivergenciaDuplicidade": "false",
+      "hasDivergenciaTipo": "false"
     },
     {
       "EMPRESA_DE": "0012",
@@ -86,9 +86,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": false,
-      "hasDivergenciaDuplicidade": false,
-      "hasDivergenciaTipo": false
+      "hasDivergencia": "false",
+      "hasDivergenciaDuplicidade": "false",
+      "hasDivergenciaTipo": "false"
     },
     {
       "EMPRESA_DE": "0022",
@@ -104,9 +104,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": false,
-      "hasDivergenciaDuplicidade": false,
-      "hasDivergenciaTipo": false
+      "hasDivergencia": "false",
+      "hasDivergenciaDuplicidade": "false",
+      "hasDivergenciaTipo": "false"
     }
   ],
   "ZDEPARA_FUNCOES": [
@@ -117,9 +117,9 @@
       "CBO": "252105",
       "CBO_2002": "252105",
       "CODIGO_PARA": "000001",
-      "COLIGADA_PARA": "",
+      "COLIGADA_PARA": "1",
       "rowNum": 1,
-      "coligadaPara": "",
+      "coligadaPara": "1",
       "codigoPara": "000001",
       "OBSERVACAO": "",
       "observacao": "",
@@ -922,8 +922,8 @@
       "codigoPara": "000044",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": true,
-      "hasDivergenciaDuplicidade": true,
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
       "hasDivergenciaTipo": false
     },
     {
@@ -939,8 +939,8 @@
       "codigoPara": "000044",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": true,
-      "hasDivergenciaDuplicidade": true,
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
       "hasDivergenciaTipo": false
     },
     {
