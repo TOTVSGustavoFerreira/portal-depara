@@ -1,18 +1,18 @@
 {
   "name": "boalocacao.json",
   "path": "data/boalocacao.json",
-  "sha": "a0977f34e162896a3a3d7c9612c2d3cd4b7a0581",
-  "size": 1405650,
+  "sha": "2768321381a6e20079b2333c0261c4b79952a12c",
+  "size": 1406727,
   "url": "https://api.github.com/repos/TOTVSGustavoFerreira/portal-depara-navarro/contents/data/boalocacao.json?ref=main",
   "html_url": "https://github.com/TOTVSGustavoFerreira/portal-depara-navarro/blob/main/data/boalocacao.json",
-  "git_url": "https://api.github.com/repos/TOTVSGustavoFerreira/portal-depara-navarro/git/blobs/a0977f34e162896a3a3d7c9612c2d3cd4b7a0581",
+  "git_url": "https://api.github.com/repos/TOTVSGustavoFerreira/portal-depara-navarro/git/blobs/2768321381a6e20079b2333c0261c4b79952a12c",
   "download_url": "https://raw.githubusercontent.com/TOTVSGustavoFerreira/portal-depara-navarro/main/data/boalocacao.json",
   "type": "file",
   "content": "",
   "encoding": "none",
   "_links": {
     "self": "https://api.github.com/repos/TOTVSGustavoFerreira/portal-depara-navarro/contents/data/boalocacao.json?ref=main",
-    "git": "https://api.github.com/repos/TOTVSGustavoFerreira/portal-depara-navarro/git/blobs/a0977f34e162896a3a3d7c9612c2d3cd4b7a0581",
+    "git": "https://api.github.com/repos/TOTVSGustavoFerreira/portal-depara-navarro/git/blobs/2768321381a6e20079b2333c0261c4b79952a12c",
     "html": "https://github.com/TOTVSGustavoFerreira/portal-depara-navarro/blob/main/data/boalocacao.json"
   },
   "ZDEPARA_EVENTOS": [
@@ -50000,6 +50000,6 @@
   ],
   "DADOS_RM_SECOES": [],
   "config": {
-    "ultimo_sincronismo": "2026-07-03T02:29:38.827Z"
+    "ultimo_sincronismo": "2026-07-03T02:30:34.174Z"
   }
 }
