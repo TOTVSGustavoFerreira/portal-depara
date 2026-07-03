@@ -6,7 +6,7 @@
       "NOME_DE": "# 1ª via cartão hapvida",
       "TIPO_EVENTO": "D-DESCONTO",
       "COLIGADA_PARA": "1",
-      "CODIGO_PARA": "",
+      "CODIGO_PARA": "P/ ANALISE",
       "NOME_RM": "DESC. 2A VIA PASSCARD",
       "CODIGO_PARA_FICHA_MES1": "",
       "NOME_RM_1": "",
@@ -20,7 +20,7 @@
       "nomeDe": "# 1ª via cartão hapvida",
       "tipoEvento": "D-DESCONTO",
       "coligadaPara": "1",
-      "codigoPara": "",
+      "codigoPara": "P/ ANALISE",
       "codigoParaFichaMes1": "",
       "codigoParaFichaMes2": "",
       "codigoParaVerbasFerias": "",
@@ -28815,7 +28815,10 @@
       "CODIGO_PARA": "",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "CODIGO_DE": "3",
@@ -28831,7 +28834,10 @@
       "CODIGO_PARA": "",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "CODIGO_DE": "15",
@@ -28847,7 +28853,10 @@
       "CODIGO_PARA": "",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "CODIGO_DE": "17",
@@ -28863,7 +28872,10 @@
       "CODIGO_PARA": "",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "CODIGO_DE": "29",
@@ -28879,7 +28891,10 @@
       "CODIGO_PARA": "",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "CODIGO_DE": "99",
@@ -28895,7 +28910,10 @@
       "CODIGO_PARA": "",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     }
   ],
   "ZDEPARA_HORARIO": [
@@ -52828,6 +52846,6 @@
   ],
   "DADOS_RM_SECOES": [],
   "config": {
-    "ultimo_sincronismo": "2026-07-03T01:27:07.862Z"
+    "ultimo_sincronismo": "2026-07-03T01:41:14.905Z"
   }
 }
