@@ -104,7 +104,10 @@
       "coligadaPara": "",
       "codigoPara": "000001",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -118,7 +121,10 @@
       "coligadaPara": "",
       "codigoPara": "000002",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -132,7 +138,10 @@
       "coligadaPara": "",
       "codigoPara": "000003",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -146,7 +155,10 @@
       "coligadaPara": "",
       "codigoPara": "000004",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -160,7 +172,10 @@
       "coligadaPara": "",
       "codigoPara": "000005",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -174,7 +189,10 @@
       "coligadaPara": "",
       "codigoPara": "000006",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -188,7 +206,10 @@
       "coligadaPara": "",
       "codigoPara": "000007",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0017",
@@ -202,7 +223,10 @@
       "coligadaPara": "",
       "codigoPara": "000007",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0015",
@@ -216,7 +240,10 @@
       "coligadaPara": "",
       "codigoPara": "000008",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -224,13 +251,16 @@
       "NOME_DE": "ANALISTA ADMINISTRATIVO",
       "CBO": "252105",
       "CBO_2002": "252105",
-      "CODIGO_PARA": "000009",
-      "COLIGADA_PARA": "",
+      "CODIGO_PARA": "000008",
+      "COLIGADA_PARA": "1",
       "rowNum": 10,
-      "coligadaPara": "",
-      "codigoPara": "000009",
+      "coligadaPara": "1",
+      "codigoPara": "000008",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -244,7 +274,10 @@
       "coligadaPara": "",
       "codigoPara": "000010",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -258,7 +291,10 @@
       "coligadaPara": "",
       "codigoPara": "000011",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -272,7 +308,10 @@
       "coligadaPara": "",
       "codigoPara": "000012",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -286,7 +325,10 @@
       "coligadaPara": "",
       "codigoPara": "000013",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -300,7 +342,10 @@
       "coligadaPara": "",
       "codigoPara": "000014",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -314,7 +359,10 @@
       "coligadaPara": "",
       "codigoPara": "000015",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -328,7 +376,10 @@
       "coligadaPara": "",
       "codigoPara": "000016",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -342,7 +393,10 @@
       "coligadaPara": "",
       "codigoPara": "000017",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0015",
@@ -356,7 +410,10 @@
       "coligadaPara": "",
       "codigoPara": "000017",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -370,7 +427,10 @@
       "coligadaPara": "",
       "codigoPara": "000018",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -384,7 +444,10 @@
       "coligadaPara": "",
       "codigoPara": "000019",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -398,7 +461,10 @@
       "coligadaPara": "",
       "codigoPara": "000020",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -412,7 +478,10 @@
       "coligadaPara": "",
       "codigoPara": "000021",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -426,7 +495,10 @@
       "coligadaPara": "",
       "codigoPara": "000022",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -440,7 +512,10 @@
       "coligadaPara": "",
       "codigoPara": "000023",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -454,7 +529,10 @@
       "coligadaPara": "",
       "codigoPara": "000024",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -468,7 +546,10 @@
       "coligadaPara": "",
       "codigoPara": "000025",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -482,7 +563,10 @@
       "coligadaPara": "",
       "codigoPara": "000026",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -496,7 +580,10 @@
       "coligadaPara": "",
       "codigoPara": "000027",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -510,7 +597,10 @@
       "coligadaPara": "",
       "codigoPara": "000028",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -524,7 +614,10 @@
       "coligadaPara": "",
       "codigoPara": "000029",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0012",
@@ -538,7 +631,10 @@
       "coligadaPara": "",
       "codigoPara": "000030",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -552,7 +648,10 @@
       "coligadaPara": "",
       "codigoPara": "000031",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -566,7 +665,10 @@
       "coligadaPara": "",
       "codigoPara": "000032",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0012",
@@ -580,7 +682,10 @@
       "coligadaPara": "",
       "codigoPara": "000032",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0015",
@@ -594,7 +699,10 @@
       "coligadaPara": "",
       "codigoPara": "000032",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -608,7 +716,10 @@
       "coligadaPara": "",
       "codigoPara": "000033",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -622,7 +733,10 @@
       "coligadaPara": "",
       "codigoPara": "000034",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -636,7 +750,10 @@
       "coligadaPara": "",
       "codigoPara": "000035",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -650,7 +767,10 @@
       "coligadaPara": "",
       "codigoPara": "000036",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -664,7 +784,10 @@
       "coligadaPara": "",
       "codigoPara": "000037",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -678,7 +801,10 @@
       "coligadaPara": "",
       "codigoPara": "000038",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -692,7 +818,10 @@
       "coligadaPara": "",
       "codigoPara": "000039",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -706,7 +835,10 @@
       "coligadaPara": "",
       "codigoPara": "000040",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -720,7 +852,10 @@
       "coligadaPara": "",
       "codigoPara": "000041",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -734,7 +869,10 @@
       "coligadaPara": "",
       "codigoPara": "000042",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -748,7 +886,10 @@
       "coligadaPara": "",
       "codigoPara": "000043",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0012",
@@ -762,7 +903,10 @@
       "coligadaPara": "",
       "codigoPara": "000044",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -776,7 +920,10 @@
       "coligadaPara": "",
       "codigoPara": "000045",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -790,7 +937,10 @@
       "coligadaPara": "",
       "codigoPara": "000046",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -804,7 +954,10 @@
       "coligadaPara": "",
       "codigoPara": "000047",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -818,7 +971,10 @@
       "coligadaPara": "",
       "codigoPara": "000048",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -832,7 +988,10 @@
       "coligadaPara": "",
       "codigoPara": "000049",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0022",
@@ -846,7 +1005,10 @@
       "coligadaPara": "",
       "codigoPara": "000050",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -860,7 +1022,10 @@
       "coligadaPara": "",
       "codigoPara": "000051",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -874,7 +1039,10 @@
       "coligadaPara": "",
       "codigoPara": "000052",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -888,7 +1056,10 @@
       "coligadaPara": "",
       "codigoPara": "000053",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0017",
@@ -902,7 +1073,10 @@
       "coligadaPara": "",
       "codigoPara": "000054",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -916,7 +1090,10 @@
       "coligadaPara": "",
       "codigoPara": "000055",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -930,7 +1107,10 @@
       "coligadaPara": "",
       "codigoPara": "000056",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -944,7 +1124,10 @@
       "coligadaPara": "",
       "codigoPara": "000057",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -958,7 +1141,10 @@
       "coligadaPara": "",
       "codigoPara": "000058",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -972,7 +1158,10 @@
       "coligadaPara": "",
       "codigoPara": "000059",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -986,7 +1175,10 @@
       "coligadaPara": "",
       "codigoPara": "000060",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1000,7 +1192,10 @@
       "coligadaPara": "",
       "codigoPara": "000061",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1014,7 +1209,10 @@
       "coligadaPara": "",
       "codigoPara": "000062",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1028,7 +1226,10 @@
       "coligadaPara": "",
       "codigoPara": "000063",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1042,7 +1243,10 @@
       "coligadaPara": "",
       "codigoPara": "000064",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1056,7 +1260,10 @@
       "coligadaPara": "",
       "codigoPara": "000065",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1070,7 +1277,10 @@
       "coligadaPara": "",
       "codigoPara": "000066",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1084,7 +1294,10 @@
       "coligadaPara": "",
       "codigoPara": "000067",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1098,7 +1311,10 @@
       "coligadaPara": "",
       "codigoPara": "000068",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1112,7 +1328,10 @@
       "coligadaPara": "",
       "codigoPara": "000069",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1126,7 +1345,10 @@
       "coligadaPara": "",
       "codigoPara": "000070",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0017",
@@ -1140,7 +1362,10 @@
       "coligadaPara": "",
       "codigoPara": "000071",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1154,7 +1379,10 @@
       "coligadaPara": "",
       "codigoPara": "000072",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0017",
@@ -1168,7 +1396,10 @@
       "coligadaPara": "",
       "codigoPara": "000072",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1182,7 +1413,10 @@
       "coligadaPara": "",
       "codigoPara": "000073",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1196,7 +1430,10 @@
       "coligadaPara": "",
       "codigoPara": "000074",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1210,7 +1447,10 @@
       "coligadaPara": "",
       "codigoPara": "000075",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1224,7 +1464,10 @@
       "coligadaPara": "",
       "codigoPara": "000076",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1238,7 +1481,10 @@
       "coligadaPara": "",
       "codigoPara": "000077",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1252,7 +1498,10 @@
       "coligadaPara": "",
       "codigoPara": "000078",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1266,7 +1515,10 @@
       "coligadaPara": "",
       "codigoPara": "000079",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -1280,7 +1532,10 @@
       "coligadaPara": "",
       "codigoPara": "000079",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1294,7 +1549,10 @@
       "coligadaPara": "",
       "codigoPara": "000080",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1308,7 +1566,10 @@
       "coligadaPara": "",
       "codigoPara": "000081",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1322,7 +1583,10 @@
       "coligadaPara": "",
       "codigoPara": "000082",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1336,7 +1600,10 @@
       "coligadaPara": "",
       "codigoPara": "000083",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1350,7 +1617,10 @@
       "coligadaPara": "",
       "codigoPara": "000084",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1364,7 +1634,10 @@
       "coligadaPara": "",
       "codigoPara": "000085",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1378,7 +1651,10 @@
       "coligadaPara": "",
       "codigoPara": "000086",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0017",
@@ -1392,7 +1668,10 @@
       "coligadaPara": "",
       "codigoPara": "000086",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -1406,7 +1685,10 @@
       "coligadaPara": "",
       "codigoPara": "000087",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1420,7 +1702,10 @@
       "coligadaPara": "",
       "codigoPara": "000088",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -1434,7 +1719,10 @@
       "coligadaPara": "",
       "codigoPara": "000089",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1448,7 +1736,10 @@
       "coligadaPara": "",
       "codigoPara": "000090",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0012",
@@ -1462,7 +1753,10 @@
       "coligadaPara": "",
       "codigoPara": "000090",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0017",
@@ -1476,7 +1770,10 @@
       "coligadaPara": "",
       "codigoPara": "000090",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1490,7 +1787,10 @@
       "coligadaPara": "",
       "codigoPara": "000091",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1504,7 +1804,10 @@
       "coligadaPara": "",
       "codigoPara": "000092",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0012",
@@ -1518,7 +1821,10 @@
       "coligadaPara": "",
       "codigoPara": "000093",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1532,7 +1838,10 @@
       "coligadaPara": "",
       "codigoPara": "000094",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -1546,7 +1855,10 @@
       "coligadaPara": "",
       "codigoPara": "000094",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1560,7 +1872,10 @@
       "coligadaPara": "",
       "codigoPara": "000095",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1574,7 +1889,10 @@
       "coligadaPara": "",
       "codigoPara": "000096",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1588,7 +1906,10 @@
       "coligadaPara": "",
       "codigoPara": "000097",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -1602,7 +1923,10 @@
       "coligadaPara": "",
       "codigoPara": "000098",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -1616,7 +1940,10 @@
       "coligadaPara": "",
       "codigoPara": "000099",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1630,7 +1957,10 @@
       "coligadaPara": "",
       "codigoPara": "000100",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1644,7 +1974,10 @@
       "coligadaPara": "",
       "codigoPara": "000101",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0012",
@@ -1658,7 +1991,10 @@
       "coligadaPara": "",
       "codigoPara": "000102",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1672,7 +2008,10 @@
       "coligadaPara": "",
       "codigoPara": "000103",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1686,7 +2025,10 @@
       "coligadaPara": "",
       "codigoPara": "000104",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1700,7 +2042,10 @@
       "coligadaPara": "",
       "codigoPara": "000105",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1714,7 +2059,10 @@
       "coligadaPara": "",
       "codigoPara": "000106",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1728,7 +2076,10 @@
       "coligadaPara": "",
       "codigoPara": "000107",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1742,7 +2093,10 @@
       "coligadaPara": "",
       "codigoPara": "000108",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1756,7 +2110,10 @@
       "coligadaPara": "",
       "codigoPara": "000109",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1770,7 +2127,10 @@
       "coligadaPara": "",
       "codigoPara": "000110",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -1784,7 +2144,10 @@
       "coligadaPara": "",
       "codigoPara": "000111",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1798,7 +2161,10 @@
       "coligadaPara": "",
       "codigoPara": "000112",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1812,7 +2178,10 @@
       "coligadaPara": "",
       "codigoPara": "000113",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1826,7 +2195,10 @@
       "coligadaPara": "",
       "codigoPara": "000114",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1840,7 +2212,10 @@
       "coligadaPara": "",
       "codigoPara": "000115",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1854,7 +2229,10 @@
       "coligadaPara": "",
       "codigoPara": "000116",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1868,7 +2246,10 @@
       "coligadaPara": "",
       "codigoPara": "000117",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1882,7 +2263,10 @@
       "coligadaPara": "",
       "codigoPara": "000118",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1896,7 +2280,10 @@
       "coligadaPara": "",
       "codigoPara": "000119",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1910,7 +2297,10 @@
       "coligadaPara": "",
       "codigoPara": "000120",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1924,7 +2314,10 @@
       "coligadaPara": "",
       "codigoPara": "000121",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1938,7 +2331,10 @@
       "coligadaPara": "",
       "codigoPara": "000122",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1952,7 +2348,10 @@
       "coligadaPara": "",
       "codigoPara": "000123",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0012",
@@ -1966,7 +2365,10 @@
       "coligadaPara": "",
       "codigoPara": "000123",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1980,7 +2382,10 @@
       "coligadaPara": "",
       "codigoPara": "000124",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -1994,7 +2399,10 @@
       "coligadaPara": "",
       "codigoPara": "000125",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2008,7 +2416,10 @@
       "coligadaPara": "",
       "codigoPara": "000126",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2022,7 +2433,10 @@
       "coligadaPara": "",
       "codigoPara": "000127",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2036,7 +2450,10 @@
       "coligadaPara": "",
       "codigoPara": "000128",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2050,7 +2467,10 @@
       "coligadaPara": "",
       "codigoPara": "000129",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2064,7 +2484,10 @@
       "coligadaPara": "",
       "codigoPara": "000130",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2078,7 +2501,10 @@
       "coligadaPara": "",
       "codigoPara": "000131",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2092,7 +2518,10 @@
       "coligadaPara": "",
       "codigoPara": "000132",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2106,7 +2535,10 @@
       "coligadaPara": "",
       "codigoPara": "000133",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2120,7 +2552,10 @@
       "coligadaPara": "",
       "codigoPara": "000134",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2134,7 +2569,10 @@
       "coligadaPara": "",
       "codigoPara": "000135",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2148,7 +2586,10 @@
       "coligadaPara": "",
       "codigoPara": "000136",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2162,7 +2603,10 @@
       "coligadaPara": "",
       "codigoPara": "000137",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2176,7 +2620,10 @@
       "coligadaPara": "",
       "codigoPara": "000138",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2190,7 +2637,10 @@
       "coligadaPara": "",
       "codigoPara": "000139",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -2204,7 +2654,10 @@
       "coligadaPara": "",
       "codigoPara": "000139",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -2218,7 +2671,10 @@
       "coligadaPara": "",
       "codigoPara": "000140",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2232,7 +2688,10 @@
       "coligadaPara": "",
       "codigoPara": "000141",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2246,7 +2705,10 @@
       "coligadaPara": "",
       "codigoPara": "000142",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0017",
@@ -2260,7 +2722,10 @@
       "coligadaPara": "",
       "codigoPara": "000142",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2274,7 +2739,10 @@
       "coligadaPara": "",
       "codigoPara": "000143",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2288,7 +2756,10 @@
       "coligadaPara": "",
       "codigoPara": "000144",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -2302,7 +2773,10 @@
       "coligadaPara": "",
       "codigoPara": "000145",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2316,7 +2790,10 @@
       "coligadaPara": "",
       "codigoPara": "000146",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2330,7 +2807,10 @@
       "coligadaPara": "",
       "codigoPara": "000147",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2344,7 +2824,10 @@
       "coligadaPara": "",
       "codigoPara": "000148",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2358,7 +2841,10 @@
       "coligadaPara": "",
       "codigoPara": "000149",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2372,7 +2858,10 @@
       "coligadaPara": "",
       "codigoPara": "000150",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2386,7 +2875,10 @@
       "coligadaPara": "",
       "codigoPara": "000151",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2400,7 +2892,10 @@
       "coligadaPara": "",
       "codigoPara": "000152",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -2414,7 +2909,10 @@
       "coligadaPara": "",
       "codigoPara": "000153",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2428,7 +2926,10 @@
       "coligadaPara": "",
       "codigoPara": "000154",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2442,7 +2943,10 @@
       "coligadaPara": "",
       "codigoPara": "000155",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2456,7 +2960,10 @@
       "coligadaPara": "",
       "codigoPara": "000156",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2470,7 +2977,10 @@
       "coligadaPara": "",
       "codigoPara": "000157",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2484,7 +2994,10 @@
       "coligadaPara": "",
       "codigoPara": "000158",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -2498,7 +3011,10 @@
       "coligadaPara": "",
       "codigoPara": "000158",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2512,7 +3028,10 @@
       "coligadaPara": "",
       "codigoPara": "000159",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -2526,7 +3045,10 @@
       "coligadaPara": "",
       "codigoPara": "000159",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2540,7 +3062,10 @@
       "coligadaPara": "",
       "codigoPara": "000160",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2554,7 +3079,10 @@
       "coligadaPara": "",
       "codigoPara": "000161",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -2568,7 +3096,10 @@
       "coligadaPara": "",
       "codigoPara": "000162",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -2582,7 +3113,10 @@
       "coligadaPara": "",
       "codigoPara": "000162",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2596,7 +3130,10 @@
       "coligadaPara": "",
       "codigoPara": "000163",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2610,7 +3147,10 @@
       "coligadaPara": "",
       "codigoPara": "000164",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2624,7 +3164,10 @@
       "coligadaPara": "",
       "codigoPara": "000165",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2638,7 +3181,10 @@
       "coligadaPara": "",
       "codigoPara": "000166",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -2652,7 +3198,10 @@
       "coligadaPara": "",
       "codigoPara": "000166",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2666,7 +3215,10 @@
       "coligadaPara": "",
       "codigoPara": "000167",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -2680,7 +3232,10 @@
       "coligadaPara": "",
       "codigoPara": "000167",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2694,7 +3249,10 @@
       "coligadaPara": "",
       "codigoPara": "000168",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2708,7 +3266,10 @@
       "coligadaPara": "",
       "codigoPara": "000169",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2722,7 +3283,10 @@
       "coligadaPara": "",
       "codigoPara": "000170",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2736,7 +3300,10 @@
       "coligadaPara": "",
       "codigoPara": "000171",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2750,7 +3317,10 @@
       "coligadaPara": "",
       "codigoPara": "000172",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2764,7 +3334,10 @@
       "coligadaPara": "",
       "codigoPara": "000173",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -2778,7 +3351,10 @@
       "coligadaPara": "",
       "codigoPara": "000174",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0012",
@@ -2792,7 +3368,10 @@
       "coligadaPara": "",
       "codigoPara": "000174",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2806,7 +3385,10 @@
       "coligadaPara": "",
       "codigoPara": "000175",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0022",
@@ -2820,7 +3402,10 @@
       "coligadaPara": "",
       "codigoPara": "000176",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2834,7 +3419,10 @@
       "coligadaPara": "",
       "codigoPara": "000177",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2848,7 +3436,10 @@
       "coligadaPara": "",
       "codigoPara": "000178",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -2862,7 +3453,10 @@
       "coligadaPara": "",
       "codigoPara": "000179",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2876,7 +3470,10 @@
       "coligadaPara": "",
       "codigoPara": "000180",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2890,7 +3487,10 @@
       "coligadaPara": "",
       "codigoPara": "000181",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2904,7 +3504,10 @@
       "coligadaPara": "",
       "codigoPara": "000182",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2918,7 +3521,10 @@
       "coligadaPara": "",
       "codigoPara": "000183",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0017",
@@ -2932,7 +3538,10 @@
       "coligadaPara": "",
       "codigoPara": "000184",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2946,7 +3555,10 @@
       "coligadaPara": "",
       "codigoPara": "000185",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2960,7 +3572,10 @@
       "coligadaPara": "",
       "codigoPara": "000186",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -2974,7 +3589,10 @@
       "coligadaPara": "",
       "codigoPara": "000187",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0017",
@@ -2988,7 +3606,10 @@
       "coligadaPara": "",
       "codigoPara": "000187",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3002,7 +3623,10 @@
       "coligadaPara": "",
       "codigoPara": "000188",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3016,7 +3640,10 @@
       "coligadaPara": "",
       "codigoPara": "000189",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3030,7 +3657,10 @@
       "coligadaPara": "",
       "codigoPara": "000190",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3044,7 +3674,10 @@
       "coligadaPara": "",
       "codigoPara": "000191",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3058,7 +3691,10 @@
       "coligadaPara": "",
       "codigoPara": "000192",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0012",
@@ -3072,7 +3708,10 @@
       "coligadaPara": "",
       "codigoPara": "000193",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3086,7 +3725,10 @@
       "coligadaPara": "",
       "codigoPara": "000194",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -3100,7 +3742,10 @@
       "coligadaPara": "",
       "codigoPara": "000194",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -3114,7 +3759,10 @@
       "coligadaPara": "",
       "codigoPara": "000195",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3128,7 +3776,10 @@
       "coligadaPara": "",
       "codigoPara": "000196",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3142,7 +3793,10 @@
       "coligadaPara": "",
       "codigoPara": "000197",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3156,7 +3810,10 @@
       "coligadaPara": "",
       "codigoPara": "000198",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3170,7 +3827,10 @@
       "coligadaPara": "",
       "codigoPara": "000199",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3184,7 +3844,10 @@
       "coligadaPara": "",
       "codigoPara": "000200",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3198,7 +3861,10 @@
       "coligadaPara": "",
       "codigoPara": "000201",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0015",
@@ -3212,7 +3878,10 @@
       "coligadaPara": "",
       "codigoPara": "000202",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0017",
@@ -3226,7 +3895,10 @@
       "coligadaPara": "",
       "codigoPara": "000202",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3240,7 +3912,10 @@
       "coligadaPara": "",
       "codigoPara": "000203",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3254,7 +3929,10 @@
       "coligadaPara": "",
       "codigoPara": "000204",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0017",
@@ -3268,7 +3946,10 @@
       "coligadaPara": "",
       "codigoPara": "000204",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3282,7 +3963,10 @@
       "coligadaPara": "",
       "codigoPara": "000205",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3296,7 +3980,10 @@
       "coligadaPara": "",
       "codigoPara": "000206",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3310,7 +3997,10 @@
       "coligadaPara": "",
       "codigoPara": "000207",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3324,7 +4014,10 @@
       "coligadaPara": "",
       "codigoPara": "000208",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -3338,7 +4031,10 @@
       "coligadaPara": "",
       "codigoPara": "000209",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -3352,7 +4048,10 @@
       "coligadaPara": "",
       "codigoPara": "000210",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3366,7 +4065,10 @@
       "coligadaPara": "",
       "codigoPara": "000211",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -3380,7 +4082,10 @@
       "coligadaPara": "",
       "codigoPara": "000211",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3394,7 +4099,10 @@
       "coligadaPara": "",
       "codigoPara": "000212",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3408,7 +4116,10 @@
       "coligadaPara": "",
       "codigoPara": "000213",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0012",
@@ -3422,7 +4133,10 @@
       "coligadaPara": "",
       "codigoPara": "000213",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -3436,7 +4150,10 @@
       "coligadaPara": "",
       "codigoPara": "000214",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3450,7 +4167,10 @@
       "coligadaPara": "",
       "codigoPara": "000215",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3464,7 +4184,10 @@
       "coligadaPara": "",
       "codigoPara": "000216",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -3478,7 +4201,10 @@
       "coligadaPara": "",
       "codigoPara": "000216",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0012",
@@ -3492,7 +4218,10 @@
       "coligadaPara": "",
       "codigoPara": "000216",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0017",
@@ -3506,7 +4235,10 @@
       "coligadaPara": "",
       "codigoPara": "000216",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3520,7 +4252,10 @@
       "coligadaPara": "",
       "codigoPara": "000217",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3534,7 +4269,10 @@
       "coligadaPara": "",
       "codigoPara": "000218",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3548,7 +4286,10 @@
       "coligadaPara": "",
       "codigoPara": "000219",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3562,7 +4303,10 @@
       "coligadaPara": "",
       "codigoPara": "000220",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3576,7 +4320,10 @@
       "coligadaPara": "",
       "codigoPara": "000221",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -3590,7 +4337,10 @@
       "coligadaPara": "",
       "codigoPara": "000221",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0017",
@@ -3604,7 +4354,10 @@
       "coligadaPara": "",
       "codigoPara": "000221",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3618,7 +4371,10 @@
       "coligadaPara": "",
       "codigoPara": "000222",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3632,7 +4388,10 @@
       "coligadaPara": "",
       "codigoPara": "000223",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3646,7 +4405,10 @@
       "coligadaPara": "",
       "codigoPara": "000224",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -3660,7 +4422,10 @@
       "coligadaPara": "",
       "codigoPara": "000225",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0012",
@@ -3674,7 +4439,10 @@
       "coligadaPara": "",
       "codigoPara": "000226",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3688,7 +4456,10 @@
       "coligadaPara": "",
       "codigoPara": "000227",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -3702,7 +4473,10 @@
       "coligadaPara": "",
       "codigoPara": "000227",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3716,7 +4490,10 @@
       "coligadaPara": "",
       "codigoPara": "000228",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0012",
@@ -3730,7 +4507,10 @@
       "coligadaPara": "",
       "codigoPara": "000228",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3744,7 +4524,10 @@
       "coligadaPara": "",
       "codigoPara": "000229",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3758,7 +4541,10 @@
       "coligadaPara": "",
       "codigoPara": "000230",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0017",
@@ -3772,7 +4558,10 @@
       "coligadaPara": "",
       "codigoPara": "000230",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3786,7 +4575,10 @@
       "coligadaPara": "",
       "codigoPara": "000231",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3800,7 +4592,10 @@
       "coligadaPara": "",
       "codigoPara": "000232",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0012",
@@ -3814,7 +4609,10 @@
       "coligadaPara": "",
       "codigoPara": "000232",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -3828,7 +4626,10 @@
       "coligadaPara": "",
       "codigoPara": "000233",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3842,7 +4643,10 @@
       "coligadaPara": "",
       "codigoPara": "000234",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3856,7 +4660,10 @@
       "coligadaPara": "",
       "codigoPara": "000235",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3870,7 +4677,10 @@
       "coligadaPara": "",
       "codigoPara": "000236",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3884,7 +4694,10 @@
       "coligadaPara": "",
       "codigoPara": "000237",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3898,7 +4711,10 @@
       "coligadaPara": "",
       "codigoPara": "000238",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -3912,7 +4728,10 @@
       "coligadaPara": "",
       "codigoPara": "000239",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3926,7 +4745,10 @@
       "coligadaPara": "",
       "codigoPara": "000240",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3940,7 +4762,10 @@
       "coligadaPara": "",
       "codigoPara": "000241",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -3954,7 +4779,10 @@
       "coligadaPara": "",
       "codigoPara": "000242",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3968,7 +4796,10 @@
       "coligadaPara": "",
       "codigoPara": "000243",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0015",
@@ -3982,7 +4813,10 @@
       "coligadaPara": "",
       "codigoPara": "000243",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -3996,7 +4830,10 @@
       "coligadaPara": "",
       "codigoPara": "000244",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -4010,7 +4847,10 @@
       "coligadaPara": "",
       "codigoPara": "000245",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0017",
@@ -4024,7 +4864,10 @@
       "coligadaPara": "",
       "codigoPara": "000245",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -4038,7 +4881,10 @@
       "coligadaPara": "",
       "codigoPara": "000246",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -4052,7 +4898,10 @@
       "coligadaPara": "",
       "codigoPara": "000247",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -4066,7 +4915,10 @@
       "coligadaPara": "",
       "codigoPara": "000248",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -4080,7 +4932,10 @@
       "coligadaPara": "",
       "codigoPara": "000249",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -4094,7 +4949,10 @@
       "coligadaPara": "",
       "codigoPara": "000250",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -4108,7 +4966,10 @@
       "coligadaPara": "",
       "codigoPara": "000251",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -4122,7 +4983,10 @@
       "coligadaPara": "",
       "codigoPara": "000252",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -4136,7 +5000,10 @@
       "coligadaPara": "",
       "codigoPara": "000253",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -4150,7 +5017,10 @@
       "coligadaPara": "",
       "codigoPara": "000254",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -4164,7 +5034,10 @@
       "coligadaPara": "",
       "codigoPara": "000255",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -4178,7 +5051,10 @@
       "coligadaPara": "",
       "codigoPara": "000256",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -4192,7 +5068,10 @@
       "coligadaPara": "",
       "codigoPara": "000256",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0012",
@@ -4206,7 +5085,10 @@
       "coligadaPara": "",
       "codigoPara": "000256",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -4220,7 +5102,10 @@
       "coligadaPara": "",
       "codigoPara": "000257",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -4234,7 +5119,10 @@
       "coligadaPara": "",
       "codigoPara": "000258",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -4248,7 +5136,10 @@
       "coligadaPara": "",
       "codigoPara": "000259",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0012",
@@ -4262,7 +5153,10 @@
       "coligadaPara": "",
       "codigoPara": "000260",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     }
   ],
   "ZDEPARA_SINDICATOS": [
