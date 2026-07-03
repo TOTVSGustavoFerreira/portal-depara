@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Portal De-Para - TOTVS RM v1.5.9</title>
+  <title>Portal De-Para - TOTVS RM v1.6.0</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -1287,7 +1287,7 @@
     </div>
     
     <div class="sidebar-footer">
-      <span style="font-size: 0.72rem; opacity: 0.5;">Versão 1.5.9</span>
+      <span style="font-size: 0.72rem; opacity: 0.5;">Versão 1.6.0</span>
     </div>
   </aside>
 
@@ -1577,7 +1577,7 @@
           <span style="color:#94a3b8;">|</span>
           <span style="display:flex; align-items:center; gap:6px; color:#ea580c;">⚠ <strong id="footerUnmapped">-</strong> não mapeados</span>
         </span>
-        <span style="color:#94a3b8;">Portal De-Para TOTVS RM v1.5.9 — Última sincronização: <strong id="footerLastSync">-</strong></span>
+        <span style="color:#94a3b8;">Portal De-Para TOTVS RM v1.6.0 — Última sincronização: <strong id="footerLastSync">-</strong></span>
       </footer>
     </div>
   </div>
@@ -1842,14 +1842,19 @@
           return res.json();
         })
         .then(fileInfo => {
-          // Decodificar Base64 com suporte a UTF-8 robusto para arquivos grandes
-          const binaryString = atob(fileInfo.content.replace(/\s/g, ""));
-          const len = binaryString.length;
-          const bytes = new Uint8Array(len);
-          for (let i = 0; i < len; i++) {
-            bytes[i] = binaryString.charCodeAt(i);
+          // Decodificar Base64 de forma híbrida e ultra-segura para arquivos grandes e acentos
+          let decoded;
+          try {
+            const binaryString = atob(fileInfo.content.replace(/\s/g, ""));
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+              bytes[i] = binaryString.charCodeAt(i);
+            }
+            decoded = new TextDecoder("utf-8").decode(bytes);
+          } catch (err) {
+            decoded = decodeURIComponent(escape(atob(fileInfo.content.replace(/\n/g, ""))));
           }
-          const decoded = new TextDecoder("utf-8").decode(bytes);
           
           let parsed;
           try {
@@ -3857,8 +3862,11 @@
     function safeBtoa(str) {
       const bytes = new TextEncoder().encode(str);
       let binString = "";
-      for (let i = 0; i < bytes.byteLength; i++) {
-        binString += String.fromCharCode(bytes[i]);
+      const len = bytes.byteLength;
+      const chunkSize = 16384;
+      for (let i = 0; i < len; i += chunkSize) {
+        const chunk = bytes.subarray(i, Math.min(i + chunkSize, len));
+        binString += String.fromCharCode.apply(null, chunk);
       }
       return btoa(binString);
     }
@@ -4422,15 +4430,29 @@
             const obsText = item.OBSERVACAO || item.observacao || "";
             if (isEditing) {
               detailHtml = `
-                <div style="font-size: 0.85rem; display: flex; flex-direction: column; gap: 6px; width: 100%; max-width: 600px; padding: 4px 0;">
-                  <label style="font-weight: 600; color: var(--bg-primary);">📝 Editar Observação:</label>
-                  <textarea id="edit-OBSERVACAO-${item.rowNum}" class="input-field" style="padding: 8px; font-size: 0.85rem; height: 60px; resize: vertical;" placeholder="Insira anotações ou necessidades específicas...">${obsText}</textarea>
+                <div style="font-family: 'Outfit', sans-serif; font-size: 0.85rem; display: flex; flex-direction: column; gap: 8px; width: 100%; max-width: 650px; padding: 12px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px;">
+                  <label style="font-weight: 600; color: var(--color-primary); display: flex; align-items: center; gap: 6px; margin: 0;">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                    Anotar Observação sobre a Função:
+                  </label>
+                  <textarea id="edit-OBSERVACAO-${item.rowNum}" class="input-field" style="padding: 10px; font-family: 'Outfit', sans-serif; font-size: 0.85rem; height: 75px; resize: vertical; border: 1px solid #e2e8f0; border-radius: 6px; outline: none; background: #fff;" placeholder="Insira anotações ou necessidades específicas do de-para desta função...">${obsText}</textarea>
                 </div>
               `;
             } else {
-              const obsLabel = obsText.trim() ? `<strong>📝 Observação:</strong> ${obsText}` : `<span style="font-style: italic; color: #94a3b8;">Nenhuma observação cadastrada para esta função.</span>`;
+              const obsLabel = obsText.trim() 
+                ? `<div style="display:flex; flex-direction:column; gap:6px;">
+                     <strong style="color: var(--color-primary); font-weight:600; display:flex; align-items:center; gap:6px;">
+                       <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                       Observação Cadastrada:
+                     </strong>
+                     <span style="color: #475569; line-height: 1.4; white-space: pre-wrap;">${obsText}</span>
+                   </div>` 
+                : `<span style="font-style: italic; color: #94a3b8; display:flex; align-items:center; gap:6px;">
+                     <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                     Nenhuma observação cadastrada para esta função. Clique no ícone de lápis para editar.
+                   </span>`;
               detailHtml = `
-                <div style="font-size: 0.85rem; color: var(--color-text-dark); display: flex; align-items: center; gap: 8px;">
+                <div style="font-family: 'Outfit', sans-serif; font-size: 0.85rem; padding: 12px; background: #f8fafc; border-radius: 8px; border: 1px solid #f1f5f9; width: 100%; max-width: 650px;">
                   ${obsLabel}
                 </div>
               `;
