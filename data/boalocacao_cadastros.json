@@ -14,9 +14,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0015",
@@ -32,9 +32,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0017",
@@ -50,9 +50,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -68,9 +68,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0012",
@@ -86,9 +86,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0022",
@@ -104,9 +104,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     }
   ],
   "ZDEPARA_FUNCOES": [
@@ -116,11 +116,11 @@
       "NOME_DE": "ADMINISTRADOR",
       "CBO": "252105",
       "CBO_2002": "252105",
-      "CODIGO_PARA": "000001",
+      "CODIGO_PARA": "P/ ANALISE",
       "COLIGADA_PARA": "1",
       "rowNum": 1,
       "coligadaPara": "1",
-      "codigoPara": "000001",
+      "codigoPara": "P/ ANALISE",
       "OBSERVACAO": "teste",
       "observacao": "teste",
       "hasDivergencia": false,
