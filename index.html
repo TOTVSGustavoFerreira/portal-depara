@@ -616,8 +616,8 @@
     /* Configurações específicas de colunas para ZDEPARA_FUNCOES */
     .col-funcao-emp   { width: 70px; }
     .col-funcao-cod   { width: 80px; }
-    .col-funcao-nome  { width: 55%; }
-    .col-funcao-cbo   { width: 75px; }
+    .col-funcao-nome  { width: 45%; }
+    .col-funcao-cbo   { width: 110px; }
     .col-funcao-coligada { width: 90px; }
     .col-funcao-codpara { width: 110px; }
     .col-funcao-acoes { width: 80px; }
@@ -2398,17 +2398,28 @@
       const dupes = [];
       database.forEach(item => {
         let key = "";
+        let codeLabel = "";
         if (currentModule === 'eventos') {
+          if (!item.empresaDe || !item.codigoDe) return;
           key = `${item.empresaDe}-${item.codigoDe}-${item.tipoEvento}`;
+          codeLabel = item.codigoDe;
         } else if (currentModule === 'coligadas') {
+          if (!item.EMP_CODIGO) return;
           key = `${item.EMP_CODIGO}`;
+          codeLabel = item.EMP_CODIGO;
         } else if (currentModule === 'situacao') {
+          if (!item.CODIGO_DE) return;
           key = `${item.CODIGO_DE}`;
+          codeLabel = item.CODIGO_DE;
         } else {
-          key = `${item.EMPRESA_DE || item['EMPRESA _DE'] || ''}-${item.CODIGO_DE}`;
+          const emp = item.EMPRESA_DE || item['EMPRESA _DE'];
+          const cod = item.CODIGO_DE;
+          if (!emp || !cod) return;
+          key = `${emp}-${cod}`;
+          codeLabel = cod;
         }
         if (seen.has(key)) {
-          dupes.push(item.CODIGO_DE || item.codigoDe || item.EMP_CODIGO);
+          dupes.push(codeLabel);
         } else {
           seen.add(key);
         }
@@ -2619,9 +2630,9 @@
       const optBanner = document.getElementById("sequenceOptimizationBanner");
       
       const hasDuplicates = (diagnostics.duplicates && diagnostics.duplicates.length > 0);
-      const hasOrphans = (diagnostics.orphans && diagnostics.orphans.length > 0);
-      const hasUnused = (unusedCreatedEvents && unusedCreatedEvents.length > 0);
-      const hasGaps = (diagnostics.gaps && diagnostics.gaps.length > 0);
+      const hasOrphans = (currentModule === 'eventos' && diagnostics.orphans && diagnostics.orphans.length > 0);
+      const hasUnused = (currentModule === 'eventos' && unusedCreatedEvents && unusedCreatedEvents.length > 0);
+      const hasGaps = (currentModule === 'eventos' && diagnostics.gaps && diagnostics.gaps.length > 0);
       
       if (hasDuplicates || hasOrphans || hasUnused || hasGaps) {
         banner.style.display = "flex";
@@ -2651,7 +2662,7 @@
         }
       }
 
-      if (currentModule === 'funcoes' && hasFuncoesGaps) {
+      if (currentModule === 'funcoes' && hasFuncoesGaps && stats.divergent === 0) {
         if (optBanner) optBanner.style.display = "flex";
       } else {
         if (optBanner) optBanner.style.display = "none";
@@ -2673,7 +2684,7 @@
           <div style="border: 1px solid #fee2e2; background: #fff5f5; padding: 12px; border-radius: 8px; margin-bottom: 12px;">
             <h4 style="color:#b91c1c; margin:0 0 6px 0; font-size:0.9rem; display:flex; align-items:center; gap:6px;">
               <span style="background:#ef4444; color:#fff; width:18px; height:18px; display:inline-flex; align-items:center; justify-content:center; border-radius:50%; font-size:0.75rem; font-weight:700;">!</span>
-              Códigos Duplicados na DADOS_RM_EVENTOS (${diagnostics.duplicates.length})
+              Códigos Duplicados na ${currentModule === 'eventos' ? 'DADOS_RM_EVENTOS' : 'BASE DE DADOS'} (${diagnostics.duplicates.length})
             </h4>
             <p style="font-size:0.8rem; margin:0 0 8px 0; color:#7f1d1d;">Estes códigos de evento foram cadastrados mais de uma vez na aba de referência oficial do RM. Remova as linhas duplicadas na planilha:</p>
             <div style="display:flex; flex-wrap:wrap; gap:6px;">
@@ -4389,7 +4400,7 @@
               <td class="col-funcao-cod" onclick="toggleRowExpansion(${item.rowNum})"><code>${item.CODIGO_DE || ''}</code></td>
               <td class="col-funcao-nome" onclick="toggleRowExpansion(${item.rowNum})" title="${item.NOME_DE || ''}">${item.NOME_DE || ''}</td>
               <td class="col-funcao-cbo" onclick="toggleRowExpansion(${item.rowNum})"><code>${item.CBO || ''}</code></td>
-              <td class="col-funcao-coligada" onclick="toggleRowExpansion(${item.rowNum})">${item.COLIGADA_PARA !== undefined ? item.COLIGADA_PARA : (item.coligadaPara !== undefined ? item.coligadaPara : '')}</td>
+              <td class="col-funcao-coligada" onclick="toggleRowExpansion(${item.rowNum})">${item.COLIGADA_PARA || item.coligadaPara || '1'}</td>
               <td class="col-funcao-codpara" onclick="toggleRowExpansion(${item.rowNum})">${badgeDest}</td>
               <td class="col-funcao-acoes">${actionButtons}</td>
             `;
