@@ -4250,7 +4250,7 @@
         } else if (item.hasDivergencia) {
           rowColorClass = "row-mismatch";
           mapBadge = "badge-divergent";
-          statusLabel = "DIVERGÊNCIA";
+          statusLabel = destCode ? `DIVERGÊNCIA (${destCode})` : "DIVERGÊNCIA";
         }
 
         const tr = document.createElement("tr");
