@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Portal De-Para - TOTVS RM v1.7.0</title>
+  <title>Portal De-Para - TOTVS RM v1.7.1</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -1287,7 +1287,7 @@
     </div>
     
     <div class="sidebar-footer">
-      <span style="font-size: 0.72rem; opacity: 0.5;">Versão 1.7.0</span>
+      <span style="font-size: 0.72rem; opacity: 0.5;">Versão 1.7.1</span>
     </div>
   </aside>
 
@@ -1577,7 +1577,7 @@
           <span style="color:#94a3b8;">|</span>
           <span style="display:flex; align-items:center; gap:6px; color:#ea580c;">⚠ <strong id="footerUnmapped">-</strong> não mapeados</span>
         </span>
-        <span style="color:#94a3b8;">Portal De-Para TOTVS RM v1.7.0 — Última sincronização: <strong id="footerLastSync">-</strong></span>
+        <span style="color:#94a3b8;">Portal De-Para TOTVS RM v1.7.1 — Última sincronização: <strong id="footerLastSync">-</strong></span>
       </footer>
     </div>
   </div>
@@ -1835,22 +1835,25 @@
         const timestamp = new Date().getTime();
         const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${fileName}?t=${timestamp}`;
         if (usePat) {
-          const shaPromise = fetch(apiUrl, { headers: { "Authorization": `token ${pat}`, "Accept": "application/vnd.github.v3+json" } })
+          return fetch(apiUrl, { headers: { "Authorization": `token ${pat}`, "Accept": "application/vnd.github.v3+json" } })
             .then(res => {
               if (res.status === 401) throw new Error("Token do GitHub inválido ou expirado.");
               if (res.status === 404) return null; // Arquivo não encontrado (novo banco ou base antiga)
               if (!res.ok) throw new Error("Erro ao acessar a API do GitHub para " + fileName);
               return res.json();
-            }).then(info => info ? info.sha : null);
-            
-          const contentPromise = fetch(apiUrl, { headers: { "Authorization": `token ${pat}`, "Accept": "application/vnd.github.v3.raw" } })
-            .then(res => {
-              if (res.status === 404) return null;
-              if (!res.ok) throw new Error("Erro ao buscar conteúdo de " + fileName);
-              return res.text();
-            }).then(text => text ? JSON.parse(text) : null);
-            
-          return Promise.all([shaPromise, contentPromise]).then(([sha, content]) => ({ sha, content }));
+            }).then(info => {
+              if (!info) return { sha: null, content: null };
+              if (!info.content) {
+                // Se o fallback do monolito for disparado e ele for >1MB, o content vem vazio.
+                // Nesse caso (que só acontece se a pessoa não tiver migrado), jogamos um erro claro.
+                if (fileName.includes('_base')) {
+                   throw new Error("Arquivo no GitHub corrompido ou acima do limite. Por favor, reimporte a planilha.");
+                }
+                return { sha: info.sha, content: null };
+              }
+              const jsonText = decodeURIComponent(escape(window.atob(info.content)));
+              return { sha: info.sha, content: JSON.parse(jsonText) };
+            });
         } else {
           return fetch(`${fileName}?t=${timestamp}`).then(res => {
             if (res.status === 404) return { sha: null, content: null };
