@@ -5245,6 +5245,9 @@ let pendingImportContext = [];
         return;
       }
       
+      if (!rawJsonDatabase) rawJsonDatabase = {};
+      if (!rawJsonDatabase.CONFIG_ALIASES) rawJsonDatabase.CONFIG_ALIASES = {};
+      
       closeModal('importSelectionModal');
       
       const container = document.getElementById('columnMappingContainer');
