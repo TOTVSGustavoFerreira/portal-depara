@@ -1201,7 +1201,26 @@
       </div>
       <div class="modal-footer" style="justify-content: flex-end; gap: 12px;">
         <button class="row-btn" style="background-color: #f1f5f9;" onclick="closeModal('importSelectionModal')">Cancelar</button>
-        <button class="row-btn row-btn-primary" onclick="proceedWithExcelImport()">Confirmar e Importar</button>
+        <button class="row-btn row-btn-primary" onclick="openColumnMappingModal()">Confirmar e Importar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DE MAPEAMENTO DE COLUNAS (INTERATIVO) -->
+  <div id="columnMappingModal" class="modal-overlay" style="display: none; z-index: 11500;">
+    <div class="modal-card" style="max-width: 750px; width: 95%; max-height: 90vh; display: flex; flex-direction: column;">
+      <div class="modal-header">Revisão de Mapeamento de Colunas</div>
+      <div class="modal-body" style="padding: 20px; overflow-y: auto; flex-grow: 1;">
+        <p style="font-size: 0.88rem; color: var(--color-text-muted); margin-bottom: 16px; line-height: 1.4;">
+          Confirme ou ajuste a relação entre as colunas oficiais do portal e as colunas encontradas na sua planilha. Novas colunas desconhecidas podem ser marcadas para importação como "Campos Customizados".
+        </p>
+        <div id="columnMappingContainer" style="display: flex; flex-direction: column; gap: 20px;">
+          <!-- Blocos de mapeamento por aba injetados dinamicamente -->
+        </div>
+      </div>
+      <div class="modal-footer" style="justify-content: flex-end; gap: 12px; padding: 16px 20px; border-top: 1px solid var(--border-color); flex-shrink: 0;">
+        <button class="row-btn" style="background-color: #f1f5f9;" onclick="closeModal('columnMappingModal')">Cancelar</button>
+        <button class="row-btn row-btn-primary" onclick="confirmColumnMappingAndImport()">Iniciar Importação</button>
       </div>
     </div>
   </div>
@@ -4495,6 +4514,39 @@
             }
           }
 
+
+          // Adicionar campos customizados (extras)
+          let customFieldsHtml = '';
+          const modKey = (currentModule.startsWith('dados_rm_') ? currentModule.toUpperCase() : 'ZDEPARA_' + currentModule.toUpperCase());
+          const official = OFFICIAL_HEADERS[modKey] || [];
+          const ignoreKeys = ['rowNum', 'codigoParaFichaMes1', 'codigoParaFichaMes2', 'codigoParaVerbasFerias', 'observacao'];
+          
+          Object.keys(item).forEach(k => {
+            if (!official.includes(k) && !ignoreKeys.includes(k)) {
+              const val = item[k];
+              if (val !== undefined && val !== null) {
+                if (isEditing) {
+                  customFieldsHtml += `<div style="display:flex; flex-direction:column; gap:4px;">
+                    <label style="font-size:0.75rem; color:#64748b; font-weight:600;">${k}</label>
+                    <input type="text" class="input-field" id="edit-custom-${k}-${item.rowNum}" value="${val}" style="padding:6px; font-size:0.8rem; border:1px solid #cbd5e1; border-radius:4px;">
+                  </div>`;
+                } else {
+                  customFieldsHtml += `<div style="background:#fff; border:1px solid #e2e8f0; padding:8px; border-radius:6px; min-width:120px;">
+                    <div style="font-size:0.7rem; color:#94a3b8; font-weight:600; text-transform:uppercase; margin-bottom:4px;">${k}</div>
+                    <div style="font-size:0.85rem; color:#334155;">${val}</div>
+                  </div>`;
+                }
+              }
+            }
+          });
+          
+          if (customFieldsHtml) {
+            const containerStyle = isEditing ? 'display:grid; grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); gap:12px; margin-top:16px; padding-top:16px; border-top:1px dashed #cbd5e1;' : 'display:flex; flex-wrap:wrap; gap:12px; margin-top:16px; padding-top:16px; border-top:1px dashed #cbd5e1;';
+            detailHtml += `<div style="${containerStyle}">
+              <div style="flex-basis:100%; font-weight:600; color:var(--bg-primary); font-size:0.85rem; margin-bottom:4px;">Campos Customizados</div>
+              ${customFieldsHtml}
+            </div>`;
+          }
           detailTr.innerHTML = `
             <td colspan="${colsCount}">
               <div class="detail-subrow-content">
@@ -5025,6 +5077,14 @@
       if (!item) return;
       
       let updatedData = {};
+      
+      // Capturar todos os campos customizados editados
+      const customInputs = document.querySelectorAll(`input[id^="edit-custom-"][id$="-${rowNum}"]`);
+      customInputs.forEach(input => {
+        const fieldName = input.id.split('-')[2];
+        updatedData[fieldName] = input.value;
+      });
+
       let commitMessage = `Atualiza de-para linha ${rowNum}`;
       
       if (currentModule === 'eventos') {
@@ -5175,6 +5235,256 @@
         }, null, 'cadastros');
       }
     }
+
+let pendingImportContext = [];
+
+    function openColumnMappingModal() {
+      const selectedCheckboxes = document.querySelectorAll('input[name="importTabCheckbox"]:checked');
+      if (selectedCheckboxes.length === 0) {
+        showToast("Você precisa selecionar pelo menos uma aba para importar.", "error");
+        return;
+      }
+      
+      closeModal('importSelectionModal');
+      
+      const container = document.getElementById('columnMappingContainer');
+      container.innerHTML = '';
+      pendingImportContext = [];
+
+      selectedCheckboxes.forEach(cb => {
+        const key = cb.value;
+        const sheetName = cb.getAttribute("data-sheetname");
+        
+        try {
+          const ws = tempImportWorkbook.Sheets[sheetName];
+          if (ws) {
+            // Pegar apenas os headers (primeira linha)
+            const headers = XLSX.utils.sheet_to_json(ws, { header: 1 })[0] || [];
+            
+            pendingImportContext.push({
+              key,
+              sheetName,
+              excelHeaders: headers
+            });
+            
+            const officialHeaders = OFFICIAL_HEADERS[key] || [];
+            
+            // Container para esta aba
+            const abaBlock = document.createElement('div');
+            abaBlock.className = 'mapping-aba-block';
+            abaBlock.style.cssText = 'background: #fff; border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden;';
+            
+            let html = `
+              <div style="background: #f8fafc; padding: 12px 16px; border-bottom: 1px solid #e2e8f0; font-weight: 600; color: var(--bg-primary); display: flex; justify-content: space-between; align-items: center;">
+                <span>Aba: ${sheetName}</span>
+                <span style="font-size: 0.75rem; color: #64748b; font-weight: normal;">${headers.length} colunas no Excel</span>
+              </div>
+              <div style="padding: 16px; display: flex; flex-direction: column; gap: 12px;">
+            `;
+            
+            // Para cada header oficial, tentar achar a melhor correspondência (Fuzzy Match básico para pre-seleção)
+            const mappedExcelHeaders = new Set();
+            
+            officialHeaders.forEach(off => {
+              const cleanOff = off.toUpperCase().replace(/[\s_-]/g, "").normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+              let bestMatch = "";
+              
+              // Se tiver alias no config, dar preferencia
+              if (rawJsonDatabase.CONFIG_ALIASES && rawJsonDatabase.CONFIG_ALIASES[key] && rawJsonDatabase.CONFIG_ALIASES[key][off]) {
+                 bestMatch = rawJsonDatabase.CONFIG_ALIASES[key][off];
+                 if (headers.includes(bestMatch)) {
+                     mappedExcelHeaders.add(bestMatch);
+                 } else {
+                     bestMatch = ""; // não achou a coluna alias nessa planilha atual
+                 }
+              }
+              
+              // Se não achou por alias, tenta fuzzy
+              if (!bestMatch) {
+                for (let h of headers) {
+                  const cleanH = h.toUpperCase().replace(/[\s_-]/g, "").normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                  if (cleanOff === cleanH || cleanOff.includes(cleanH) || cleanH.includes(cleanOff)) {
+                    bestMatch = h;
+                    mappedExcelHeaders.add(h);
+                    break;
+                  }
+                }
+              }
+              
+              let options = `<option value="">-- Não Mapear (ficará em branco) --</option>`;
+              headers.forEach(h => {
+                options += `<option value="${h}" ${h === bestMatch ? 'selected' : ''}>${h}</option>`;
+              });
+              
+              html += `
+                <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 0.85rem;">
+                  <div style="flex: 1; color: #334155; font-weight: 500;">
+                    ${off} <span style="color:red">*</span>
+                  </div>
+                  <div style="color: #cbd5e1;">➡️</div>
+                  <div style="flex: 1;">
+                    <select id="map_${key}_${off}" class="input-field mapping-select" data-key="${key}" data-official="${off}" style="padding: 6px; font-size: 0.8rem; height: auto;">
+                      ${options}
+                    </select>
+                  </div>
+                </div>
+              `;
+            });
+            
+            // Campos desconhecidos (Customizados)
+            const unknownHeaders = headers.filter(h => !mappedExcelHeaders.has(h));
+            if (unknownHeaders.length > 0) {
+              html += `<hr style="border: 0; border-top: 1px dashed #cbd5e1; margin: 12px 0;">`;
+              html += `<div style="font-weight: 600; color: #475569; font-size: 0.85rem; margin-bottom: 8px;">Colunas Extras / Customizadas</div>`;
+              
+              unknownHeaders.forEach((uh, i) => {
+                html += `
+                  <div style="display: flex; align-items: center; gap: 12px; font-size: 0.85rem; padding-left: 8px;">
+                    <input type="checkbox" id="custom_${key}_${i}" value="${uh}" data-key="${key}" class="custom-field-checkbox" style="width:16px; height:16px; cursor:pointer;" checked>
+                    <label for="custom_${key}_${i}" style="cursor:pointer; flex: 1;">
+                      <span style="background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-family: monospace;">${uh}</span>
+                      <span style="color: #64748b; font-size: 0.75rem; margin-left: 6px;">(Importar como customizado)</span>
+                    </label>
+                  </div>
+                `;
+              });
+            }
+            
+            html += `</div>`;
+            abaBlock.innerHTML = html;
+            container.appendChild(abaBlock);
+          }
+        } catch (err) {
+          console.error(err);
+        }
+      });
+      
+      document.getElementById("columnMappingModal").style.display = "flex";
+    }
+
+    function confirmColumnMappingAndImport() {
+      closeModal('columnMappingModal');
+      
+      const progressModal = document.getElementById("progressModal");
+      const progressTitle = document.getElementById("progressTitle");
+      const progressLabel = document.getElementById("progressLabel");
+      const progressBarFill = document.getElementById("progressBarFill");
+      const progressPercentage = document.getElementById("progressPercentage");
+      const progressLog = document.getElementById("progressLog");
+      
+      progressLog.innerHTML = "";
+      progressTitle.innerText = "Importando Planilha Excel";
+      progressModal.style.display = "flex";
+
+      if (!rawJsonDatabase) rawJsonDatabase = {};
+      if (!rawJsonDatabase.CONFIG_ALIASES) rawJsonDatabase.CONFIG_ALIASES = {};
+
+      const totalAbas = pendingImportContext.length;
+      let abasProcessadas = 0;
+      
+      pendingImportContext.forEach((ctx) => {
+        const key = ctx.key;
+        const sheetName = ctx.sheetName;
+        
+        progressLabel.innerText = `Processando aba ${sheetName}...`;
+        
+        try {
+          const ws = tempImportWorkbook.Sheets[sheetName];
+          if (ws) {
+            let rawJson = XLSX.utils.sheet_to_json(ws, { raw: false, defval: "" });
+            
+            // Coletar mapeamentos da tela
+            const officialHeaders = OFFICIAL_HEADERS[key] || [];
+            const mappings = {}; // { oficial: colunaDoExcel }
+            if (!rawJsonDatabase.CONFIG_ALIASES[key]) rawJsonDatabase.CONFIG_ALIASES[key] = {};
+
+            officialHeaders.forEach(off => {
+              const sel = document.getElementById(`map_${key}_${off}`);
+              if (sel && sel.value) {
+                mappings[off] = sel.value;
+                // Salvar como alias para o futuro
+                rawJsonDatabase.CONFIG_ALIASES[key][off] = sel.value;
+              }
+            });
+            
+            // Coletar colunas customizadas selecionadas
+            const customFieldsToKeep = new Set();
+            const checkboxes = document.querySelectorAll(`.custom-field-checkbox[data-key="${key}"]:checked`);
+            checkboxes.forEach(cb => customFieldsToKeep.add(cb.value));
+
+            // Aplicar mapeamento linha a linha
+            const finalJson = [];
+            
+            rawJson.forEach((row, idx) => {
+              const newRow = { rowNum: idx + 1 };
+              
+              // 1. Preencher oficiais
+              officialHeaders.forEach(off => {
+                const excelColName = mappings[off];
+                if (excelColName && row[excelColName] !== undefined) {
+                  newRow[off] = row[excelColName];
+                } else {
+                  newRow[off] = "";
+                  if (idx === 0) progressLog.innerHTML += `   ❌ [Aba ${sheetName}]: Coluna "${off}" ficou vazia.\n`;
+                }
+              });
+              
+              // 2. Preencher customizados
+              customFieldsToKeep.forEach(cf => {
+                if (row[cf] !== undefined) {
+                  newRow[cf] = row[cf];
+                }
+              });
+              
+              finalJson.push(newRow);
+            });
+            
+            rawJsonDatabase[key] = finalJson;
+            progressLog.innerHTML += `Aba [${sheetName}]: ${finalJson.length} registros processados e mapeados.\n`;
+          }
+        } catch (err) {
+          progressLog.innerHTML += `Aba [${sheetName}]: Erro de leitura - ${err.message}.\n`;
+        }
+
+        abasProcessadas++;
+        const pct = Math.round((abasProcessadas / totalAbas) * 100);
+        progressBarFill.style.width = `${pct}%`;
+        progressPercentage.innerText = `${pct}%`;
+      });
+
+      normalizeDatabaseProperties(rawJsonDatabase);
+      progressLog.innerHTML += `Propriedades e customizações normalizadas com sucesso.\n`;
+
+      const pat = localStorage.getItem("gh_pat");
+      if (pat) {
+        progressLabel.innerText = "Enviando alterações para o repositório GitHub...";
+        progressLog.innerHTML += "Iniciando commit de sincronização...\n";
+
+        commitChangesToGitHub(`Importação com mapeamento customizado via Excel - ${tempImportFileName}`, () => {}, () => {
+          let secondsLeft = 15;
+          progressLabel.innerText = `Organizando os dados... Aguarde um momento. (${secondsLeft}s)`;
+          progressBarFill.style.width = "100%";
+          const intv = setInterval(() => {
+            secondsLeft--;
+            progressLabel.innerText = `Organizando os dados... Aguarde um momento. (${secondsLeft}s)`;
+            if (secondsLeft <= 0) {
+              clearInterval(intv);
+              closeModal("progressModal");
+              showToast("Sincronização concluída com sucesso!", "success");
+              switchMenu('eventos');
+            }
+          }, 1000);
+        }, null, 'cadastros');
+      } else {
+        setTimeout(() => {
+          closeModal("progressModal");
+          showToast("Base carregada apenas localmente. Configure o GitHub para persistir os dados.", "warning");
+          switchMenu('eventos');
+        }, 2000);
+      }
+    }
+
+
   </script>
 </body>
 </html>
