@@ -14,9 +14,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": false,
-      "hasDivergenciaDuplicidade": false,
-      "hasDivergenciaTipo": false
+      "hasDivergencia": "false",
+      "hasDivergenciaDuplicidade": "false",
+      "hasDivergenciaTipo": "false"
     },
     {
       "rowNum": 2,
@@ -32,9 +32,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": false,
-      "hasDivergenciaDuplicidade": false,
-      "hasDivergenciaTipo": false
+      "hasDivergencia": "false",
+      "hasDivergenciaDuplicidade": "false",
+      "hasDivergenciaTipo": "false"
     },
     {
       "rowNum": 3,
@@ -50,9 +50,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": false,
-      "hasDivergenciaDuplicidade": false,
-      "hasDivergenciaTipo": false
+      "hasDivergencia": "false",
+      "hasDivergenciaDuplicidade": "false",
+      "hasDivergenciaTipo": "false"
     },
     {
       "rowNum": 4,
@@ -68,9 +68,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": false,
-      "hasDivergenciaDuplicidade": false,
-      "hasDivergenciaTipo": false
+      "hasDivergencia": "false",
+      "hasDivergenciaDuplicidade": "false",
+      "hasDivergenciaTipo": "false"
     },
     {
       "rowNum": 5,
@@ -86,9 +86,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": false,
-      "hasDivergenciaDuplicidade": false,
-      "hasDivergenciaTipo": false
+      "hasDivergencia": "false",
+      "hasDivergenciaDuplicidade": "false",
+      "hasDivergenciaTipo": "false"
     },
     {
       "rowNum": 6,
@@ -104,9 +104,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": false,
-      "hasDivergenciaDuplicidade": false,
-      "hasDivergenciaTipo": false
+      "hasDivergencia": "false",
+      "hasDivergenciaDuplicidade": "false",
+      "hasDivergenciaTipo": "false"
     }
   ],
   "ZDEPARA_FUNCOES": [
@@ -6477,16 +6477,19 @@
       "EMPRESA_DE": "",
       "CODIGO_DE": "1",
       "NOME_DE": "Acidente/Doença do trabalho",
-      "CODSITUACAO_PARA": "T",
+      "CODSITUACAO_PARA": "0A",
       "CODMOTIVO_PARA": "40",
-      "CODSITUACAO_RETORNO_PARA": "A",
-      "CODMOTIVO_RETORNO_PARA": "38",
+      "CODSITUACAO_RETORNO_PARA": "",
+      "CODMOTIVO_RETORNO_PARA": "",
       "COLIGADA_PARA": "1",
       "coligadaPara": "1",
       "CODIGO_PARA": "",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 2,
@@ -6502,7 +6505,10 @@
       "CODIGO_PARA": "",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 3,
@@ -6518,7 +6524,10 @@
       "CODIGO_PARA": "",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 4,
@@ -6534,7 +6543,10 @@
       "CODIGO_PARA": "",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 5,
@@ -6550,7 +6562,10 @@
       "CODIGO_PARA": "",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 6,
@@ -6566,7 +6581,10 @@
       "CODIGO_PARA": "",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     }
   ],
   "ZDEPARA_PERIODO_FOLHA": [
