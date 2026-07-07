@@ -14,9 +14,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0015",
@@ -32,9 +32,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0017",
@@ -50,9 +50,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -68,9 +68,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0012",
@@ -86,9 +86,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0022",
@@ -104,9 +104,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     }
   ],
   "ZDEPARA_FUNCOES": [
@@ -5184,15 +5184,15 @@
       "NOME_DE": "SIND. DOS EMPREG. EM EMP. FUNERARIAS E CEMIT. PART. EST. CE",
       "CNPJ": "09464265000115",
       "COLIGADA_PARA": "4",
-      "CODIGO_PARA": "",
+      "CODIGO_PARA": "001",
       "rowNum": 1,
       "coligadaPara": "4",
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -5206,9 +5206,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0012",
@@ -5222,9 +5222,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0012",
@@ -5238,9 +5238,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -5254,9 +5254,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0022",
@@ -5270,9 +5270,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -5286,9 +5286,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0012",
@@ -5302,9 +5302,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -5318,9 +5318,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -5334,9 +5334,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0015",
@@ -5350,9 +5350,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -5366,9 +5366,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0022",
@@ -5382,9 +5382,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -5398,9 +5398,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -5414,9 +5414,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -5430,9 +5430,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0012",
@@ -5446,9 +5446,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0005",
@@ -5462,9 +5462,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -5478,9 +5478,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -5494,9 +5494,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -5510,9 +5510,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0015",
@@ -5526,9 +5526,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0017",
@@ -5542,9 +5542,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0012",
@@ -5558,9 +5558,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -5574,9 +5574,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -5590,9 +5590,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0004",
@@ -5606,9 +5606,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "EMPRESA_DE": "0012",
@@ -5622,9 +5622,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     }
   ],
   "ZDEPARA_SECOES": [
