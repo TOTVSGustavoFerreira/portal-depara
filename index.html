@@ -5811,43 +5811,112 @@
     }
 
     function createManualMotivo(selectElement) {
-      // Pedir o nome via prompt nativo simples e amigável
-      const motivoName = prompt("Digite o nome do Novo Motivo Manual (ex: Motivo Específico):");
-      if (!motivoName || !motivoName.trim()) {
-        // Se cancelou, volta para o valor vazio
-        selectElement.value = "";
-        return;
-      }
-
-      if (!rawJsonDatabase.DADOS_RM_MOTIVOS) rawJsonDatabase.DADOS_RM_MOTIVOS = [];
-      const motivos = rawJsonDatabase.DADOS_RM_MOTIVOS;
-
-      // Encontrar maior CODCLIENTE <= 90
-      let maxCod = 0;
-      motivos.forEach(m => {
-        const cod = parseInt(m.CODCLIENTE, 10);
-        if (!isNaN(cod) && cod <= 90 && cod > maxCod) {
-          maxCod = cod;
-        }
-      });
-
-      const nextCod = String(maxCod + 1).padStart(2, '0');
-      const finalName = `[INCLUSAO MANUAL] ${motivoName.trim().toUpperCase()}`;
-
-      motivos.push({
-        CODCLIENTE: nextCod,
-        DESCRICAO: finalName
-      });
-
-      // Atualiza o select atual (e outros que existirem) re-renderizando a linha
-      showToast(`Novo motivo '${finalName}' criado com o código ${nextCod}!`, "success");
+      const overlay = document.createElement('div');
+      overlay.style.position = 'fixed';
+      overlay.style.top = '0'; overlay.style.left = '0';
+      overlay.style.width = '100vw'; overlay.style.height = '100vh';
+      overlay.style.backgroundColor = 'rgba(0,0,0,0.6)';
+      overlay.style.zIndex = '9999';
+      overlay.style.display = 'flex';
+      overlay.style.alignItems = 'center'; overlay.style.justifyContent = 'center';
+      overlay.style.backdropFilter = 'blur(4px)';
       
-      // Salva o novo motivo no arquivo config/base do github também
-      commitChangesToGitHub(`Criação de Motivo Manual: ${nextCod}`, () => {
-         // Depois de salvo com sucesso, re-renderiza a tabela
-         renderTableContent();
-         updateDashboard();
-      }, null, 'cadastros');
+      const modal = document.createElement('div');
+      modal.style.backgroundColor = 'var(--bg-secondary)';
+      modal.style.padding = '24px';
+      modal.style.borderRadius = 'var(--border-radius-md)';
+      modal.style.width = '420px';
+      modal.style.boxShadow = '0 10px 30px rgba(0,0,0,0.5)';
+      modal.style.color = 'var(--color-text-light)';
+      
+      const title = document.createElement('h3');
+      title.innerText = "Criar Novo Motivo Manual";
+      title.style.marginBottom = '12px';
+      
+      const p = document.createElement('p');
+      p.innerText = "Digite o nome da restrição (ex: AFASTAMENTO TEMPORARIO):";
+      p.style.marginBottom = '16px'; 
+      p.style.fontSize = '0.9rem';
+      p.style.color = 'var(--color-text-muted)';
+      
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.className = 'input-field';
+      input.style.width = '100%'; input.style.marginBottom = '24px';
+      
+      const btnContainer = document.createElement('div');
+      btnContainer.style.display = 'flex'; btnContainer.style.justifyContent = 'flex-end'; btnContainer.style.gap = '12px';
+      
+      const btnCancel = document.createElement('button');
+      btnCancel.innerText = "Cancelar";
+      btnCancel.className = 'btn';
+      btnCancel.style.backgroundColor = 'transparent'; btnCancel.style.border = '1px solid rgba(255,255,255,0.2)';
+      
+      const btnSave = document.createElement('button');
+      btnSave.innerText = "Criar e Aplicar";
+      btnSave.className = 'btn btn-primary';
+      
+      btnContainer.appendChild(btnCancel); btnContainer.appendChild(btnSave);
+      modal.appendChild(title); modal.appendChild(p); modal.appendChild(input); modal.appendChild(btnContainer);
+      overlay.appendChild(modal);
+      document.body.appendChild(overlay);
+      
+      input.focus();
+      
+      const closeModal = () => { document.body.removeChild(overlay); };
+      
+      btnCancel.onclick = () => {
+        selectElement.value = "";
+        closeModal();
+      };
+      
+      btnSave.onclick = () => {
+        const motivoName = input.value;
+        if (!motivoName || !motivoName.trim()) {
+          selectElement.value = "";
+          closeModal();
+          return;
+        }
+        
+        if (!rawJsonDatabase.DADOS_RM_MOTIVOS) rawJsonDatabase.DADOS_RM_MOTIVOS = [];
+        const motivos = rawJsonDatabase.DADOS_RM_MOTIVOS;
+
+        let maxCod = 0;
+        motivos.forEach(m => {
+          const cod = parseInt(m.CODCLIENTE, 10);
+          if (!isNaN(cod) && cod <= 90 && cod > maxCod) { maxCod = cod; }
+        });
+
+        const nextCod = String(maxCod + 1).padStart(2, '0');
+        const finalName = `[INCLUSAO MANUAL] ${motivoName.trim().toUpperCase()}`;
+
+        motivos.push({ CODCLIENTE: nextCod, DESCRICAO: finalName });
+
+        // Atualiza todos os selects de motivo em tela para incluir a nova opção
+        document.querySelectorAll('select[id^="edit-CODMOTIVO_"]').forEach(sel => {
+          const opt = document.createElement('option');
+          opt.value = nextCod;
+          opt.text = `${nextCod} - ${finalName}`;
+          // Inserir logo antes da última opção (que é "+ Criar Novo Motivo Manual")
+          const newOptIndex = sel.options.length > 0 ? sel.options.length - 1 : 0;
+          sel.add(opt, sel.options[newOptIndex]);
+        });
+        
+        selectElement.value = nextCod;
+        closeModal();
+        
+        showToast(`Motivo '${finalName}' criado com código ${nextCod}! Salvando na nuvem...`, "success");
+        
+        // Salva na nuvem no background sem re-renderizar a tabela inteira e perder a edição atual
+        commitChangesToGitHub(`Criação de Motivo Manual: ${nextCod}`, () => {}, null, 'cadastros');
+        
+        // Extrai a linha e tenta salvar automaticamente a alteração da linha
+        const parts = selectElement.id.split('-');
+        const rowNum = parseInt(parts[parts.length - 1], 10);
+        if (!isNaN(rowNum)) {
+           saveRowEdition(rowNum);
+        }
+      };
     }
 
     function saveRowEdition(rowNum) {
