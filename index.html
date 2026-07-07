@@ -2159,6 +2159,11 @@
         document.getElementById('homeView').style.display = 'flex';
         document.getElementById('deparaView').style.display = 'none';
         document.getElementById('configView').style.display = 'none';
+        
+        // Esconde os banners globais na tela inicial
+        const banner = document.getElementById("inconsistencyWarningBanner");
+        if (banner) banner.style.display = "none";
+        
         updateHomeProgress();
       } 
       else if (moduleName === 'config') {
@@ -2167,6 +2172,11 @@
         document.getElementById('homeView').style.display = 'none';
         document.getElementById('deparaView').style.display = 'none';
         document.getElementById('configView').style.display = 'flex';
+        
+        // Esconde os banners globais na tela de configuração
+        const banner = document.getElementById("inconsistencyWarningBanner");
+        if (banner) banner.style.display = "none";
+        
         loadConfigInputs();
       } 
       else {
