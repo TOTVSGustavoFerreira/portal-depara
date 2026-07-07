@@ -4529,7 +4529,11 @@
           let customFieldsHtml = '';
           const modKey = (currentModule.startsWith('dados_rm_') ? currentModule.toUpperCase() : 'ZDEPARA_' + currentModule.toUpperCase());
           const official = OFFICIAL_HEADERS[modKey] || [];
-          const ignoreKeys = ['rowNum', 'codigoParaFichaMes1', 'codigoParaFichaMes2', 'codigoParaVerbasFerias', 'observacao'];
+          const ignoreKeys = [
+            'rowNum', 'codigoParaFichaMes1', 'codigoParaFichaMes2', 'codigoParaVerbasFerias', 
+            'observacao', 'OBSERVACAO', 'coligadaPara', 'COLIGADA_PARA', 'codigoPara', 'CODIGO_PARA',
+            'hasDivergencia', 'hasDivergenciaDuplicidade', 'hasDivergenciaTipo', 'isOrphan', 'nomeRm'
+          ];
           
           Object.keys(item).forEach(k => {
             if (!official.includes(k) && !ignoreKeys.includes(k)) {
