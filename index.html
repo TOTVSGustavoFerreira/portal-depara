@@ -1456,7 +1456,7 @@
                 <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"/></svg>
               </div>
             </div>
-            <div class="kpi-card kpi-manual" id="kpiCardManual" style="display: none; cursor: default;">
+            <div class="kpi-card kpi-manual" id="kpiCardManual" style="display: none; cursor: pointer;" onclick="toggleKpiFilter('manual_motives')">
               <div class="kpi-text-area">
                 <div class="kpi-label" style="font-size: 0.75rem;">Motivos Manuais Criados</div>
                 <div class="kpi-value" id="valManual">0</div>
@@ -2424,13 +2424,12 @@
         
         headerHtml = `
           <tr>
-            <th class="sortable" onclick="toggleSort('CODIGO_DE')">Código Origem<span class="sort-indicator" id="sort-CODIGO_DE"></span></th>
-            <th class="sortable" onclick="toggleSort('NOME_DE')">Situação Origem<span class="sort-indicator" id="sort-NOME_DE"></span></th>
+            <th class="sortable" style="width: 10%;" onclick="toggleSort('CODIGO_DE')">Código Origem<span class="sort-indicator" id="sort-CODIGO_DE"></span></th>
+            <th class="sortable" style="width: 25%;" onclick="toggleSort('NOME_DE')">Situação Origem<span class="sort-indicator" id="sort-NOME_DE"></span></th>
             <th class="sortable" onclick="toggleSort('CODSITUACAO_PARA')">Situação RM<span class="sort-indicator" id="sort-CODSITUACAO_PARA"></span></th>
             <th class="sortable" onclick="toggleSort('CODMOTIVO_PARA')">Motivo RM<span class="sort-indicator" id="sort-CODMOTIVO_PARA"></span></th>
             <th class="sortable" onclick="toggleSort('CODSITUACAO_RETORNO_PARA')">Sit. Retorno RM<span class="sort-indicator" id="sort-CODSITUACAO_RETORNO_PARA"></span></th>
             <th class="sortable" onclick="toggleSort('CODMOTIVO_RETORNO_PARA')">Motivo Retorno RM<span class="sort-indicator" id="sort-CODMOTIVO_RETORNO_PARA"></span></th>
-            <th>Status</th>
             <th class="col-acoes">Ações</th>
           </tr>
         `;
@@ -4298,10 +4297,14 @@
       // Situação exibe o card de Motivos Manuais
       if (currentModule === 'situacao') {
         manualCard.style.display = 'flex';
-        // Contar quantos motivos criados manualmente existem (codigo > 90)
+        // Contar quantos motivos criados manualmente existem EM USO nesta aba
         let manualCount = 0;
-        if (rawJsonDatabase && rawJsonDatabase.DADOS_RM_MOTIVOS) {
-           manualCount = rawJsonDatabase.DADOS_RM_MOTIVOS.filter(m => parseInt(m.CODCLIENTE) > 90).length;
+        if (database) {
+           manualCount = database.filter(i => {
+             const m1 = parseInt(i.CODMOTIVO_PARA);
+             const m2 = parseInt(i.CODMOTIVO_RETORNO_PARA);
+             return (m1 > 90) || (m2 > 90);
+           }).length;
         }
         document.getElementById("valManual").innerText = manualCount;
       } else {
@@ -4378,6 +4381,7 @@
         else if (filterType === 'unmapped') cardId = 'kpiCardUnmapped';
         else if (filterType === 'pending') cardId = 'kpiCardPending';
         else if (filterType === 'divergent') cardId = 'kpiCardDivergent';
+        else if (filterType === 'manual_motives') cardId = 'kpiCardManual';
         
         if (cardId) document.getElementById(cardId).classList.add('active-filter');
       }
@@ -4425,6 +4429,12 @@
         }
         if (activeKpiFilter === 'pending' && !isPending) return false;
         if (activeKpiFilter === 'divergent' && !item.hasDivergencia) return false;
+        if (activeKpiFilter === 'manual_motives') {
+          if (currentModule !== 'situacao') return false;
+          const m1 = parseInt(item.CODMOTIVO_PARA);
+          const m2 = parseInt(item.CODMOTIVO_RETORNO_PARA);
+          if (!(m1 > 90 || m2 > 90)) return false;
+        }
         
         // 2. Filtro de Input do Usuário
         if (!val) return true;
@@ -4594,8 +4604,8 @@
     function getSituacaoName(cod) {
       if (!cod) return '';
       if (!rawJsonDatabase || !rawJsonDatabase.DADOS_RM_SITUACAO) return '';
-      const codStr = String(cod).padStart(2, '0');
-      const item = rawJsonDatabase.DADOS_RM_SITUACAO.find(s => String(s.CODCLIENTE).padStart(2, '0') === codStr);
+      const codStr = String(cod).trim();
+      const item = rawJsonDatabase.DADOS_RM_SITUACAO.find(s => String(s.CODCLIENTE).trim() === codStr);
       return item ? item.DESCRICAO : '';
     }
 
@@ -4611,8 +4621,8 @@
       let html = `<option value="">-- Selecione --</option>`;
       if (rawJsonDatabase && rawJsonDatabase.DADOS_RM_SITUACAO) {
         rawJsonDatabase.DADOS_RM_SITUACAO.forEach(s => {
-          const cod = String(s.CODCLIENTE).padStart(2, '0');
-          const sel = (cod === String(selectedVal || "").padStart(2, '0')) ? 'selected' : '';
+          const cod = String(s.CODCLIENTE).trim();
+          const sel = (cod === String(selectedVal || "").trim()) ? 'selected' : '';
           html += `<option value="${cod}" ${sel}>${cod} - ${s.DESCRICAO}</option>`;
         });
       }
@@ -5178,9 +5188,6 @@
               </td>
               <td onclick="toggleRowExpansion(${item.rowNum})">
                 ${item.CODMOTIVO_RETORNO_PARA ? `<code>${item.CODMOTIVO_RETORNO_PARA}</code> <span style="font-size:0.75rem; color:#64748b;">${motRetName}</span>` : ''}
-              </td>
-              <td onclick="toggleRowExpansion(${item.rowNum})">
-                ${badgeDest}
               </td>
               <td>${actionButtons}</td>
             `;
