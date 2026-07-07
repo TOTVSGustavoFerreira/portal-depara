@@ -1116,11 +1116,11 @@
         </div>
         <div style="display: flex; flex-direction: column; gap: 6px;">
           <label style="font-size: 0.8rem; font-weight: 600;">Proprietário do Repositório (User/Org)</label>
-          <input type="text" id="ghOwnerInput" class="input-field" placeholder="Ex: TOTVSGustavoFerreira">
+          <input type="text" id="wrapperGhOwnerInput" class="input-field" placeholder="Ex: TOTVSGustavoFerreira">
         </div>
         <div style="display: flex; flex-direction: column; gap: 6px;">
           <label style="font-size: 0.8rem; font-weight: 600;">Nome do Repositório</label>
-          <input type="text" id="ghRepoInput" class="input-field" placeholder="Ex: portal-depara-navarro">
+          <input type="text" id="wrapperGhRepoInput" class="input-field" placeholder="Ex: portal-depara-navarro">
         </div>
       </div>
       <div class="modal-footer">
@@ -1560,7 +1560,7 @@
                   <div class="detail-field-group">
                     <span class="detail-label" style="font-size:0.75rem;">Personal Access Token (PAT)</span>
                     <div style="display:flex; gap:8px;">
-                      <input type="password" id="ghTokenInput" class="input-field" placeholder="ghp_..." style="padding: 8px 12px; font-size: 0.85rem; flex-grow:1;">
+                      <input type="password" id="wrapperGhTokenInput" class="input-field" placeholder="ghp_..." style="padding: 8px 12px; font-size: 0.85rem; flex-grow:1;">
                       <button class="row-btn row-btn-secondary" style="padding:8px 12px; font-size:0.8rem;" onclick="toggleTokenVisibility()">👁️</button>
                     </div>
                   </div>
@@ -4792,7 +4792,7 @@
     }
 
     function toggleTokenVisibility() {
-      const input = document.getElementById("ghTokenInput");
+      const input = document.getElementById("wrapperGhTokenInput") || document.getElementById("ghTokenInput");
       if (input.type === "password") {
         input.type = "text";
       } else {
@@ -4801,9 +4801,9 @@
     }
 
     function saveGitHubConfig() {
-      const token = document.getElementById("ghTokenInput").value.trim();
-      const owner = document.getElementById("ghOwnerInput").value.trim();
-      const repo = document.getElementById("ghRepoInput").value.trim();
+      const token = (document.getElementById("wrapperGhTokenInput") ? document.getElementById("wrapperGhTokenInput").value : document.getElementById("ghTokenInput").value).trim();
+      const owner = (document.getElementById("wrapperGhOwnerInput") ? document.getElementById("wrapperGhOwnerInput").value : document.getElementById("ghOwnerInput").value).trim();
+      const repo = (document.getElementById("wrapperGhRepoInput") ? document.getElementById("wrapperGhRepoInput").value : document.getElementById("ghRepoInput").value).trim();
       
       localStorage.setItem("gh_pat", token);
       localStorage.setItem("gh_owner", owner);
