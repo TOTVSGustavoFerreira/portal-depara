@@ -5907,15 +5907,18 @@
         
         showToast(`Motivo '${finalName}' criado com código ${nextCod}! Salvando na nuvem...`, "success");
         
-        // Salva na nuvem no background sem re-renderizar a tabela inteira e perder a edição atual
-        commitChangesToGitHub(`Criação de Motivo Manual: ${nextCod}`, () => {}, null, 'cadastros');
-        
-        // Extrai a linha e tenta salvar automaticamente a alteração da linha
+        // Extrai a linha que deve ser salva
         const parts = selectElement.id.split('-');
         const rowNum = parseInt(parts[parts.length - 1], 10);
-        if (!isNaN(rowNum)) {
-           saveRowEdition(rowNum);
-        }
+        
+        // Primeiro salva a nova base de motivos na nuvem (categoria 'base')
+        commitChangesToGitHub(`Criação de Motivo Manual: ${nextCod}`, () => {
+           // Só depois de salvar a base com sucesso, dispara o salvamento da linha,
+           // que chamará internamente outro commit para 'cadastros', evitando conflito de concorrência (409)
+           if (!isNaN(rowNum)) {
+              saveRowEdition(rowNum);
+           }
+        }, null, 'base');
       };
     }
 
