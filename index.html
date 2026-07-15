@@ -4301,9 +4301,9 @@
         let manualCount = 0;
         if (database) {
            manualCount = database.filter(i => {
-             const m1 = parseInt(i.CODMOTIVO_PARA);
-             const m2 = parseInt(i.CODMOTIVO_RETORNO_PARA);
-             return (m1 > 90) || (m2 > 90);
+             const m1 = getMotivoName(i.CODMOTIVO_PARA) || "";
+             const m2 = getMotivoName(i.CODMOTIVO_RETORNO_PARA) || "";
+             return m1.includes('[INCLUSAO MANUAL]') || m2.includes('[INCLUSAO MANUAL]') || parseInt(i.CODMOTIVO_PARA) > 90 || parseInt(i.CODMOTIVO_RETORNO_PARA) > 90;
            }).length;
         }
         document.getElementById("valManual").innerText = manualCount;
@@ -4431,9 +4431,9 @@
         if (activeKpiFilter === 'divergent' && !item.hasDivergencia) return false;
         if (activeKpiFilter === 'manual_motives') {
           if (currentModule !== 'situacao') return false;
-          const m1 = parseInt(item.CODMOTIVO_PARA);
-          const m2 = parseInt(item.CODMOTIVO_RETORNO_PARA);
-          if (!(m1 > 90 || m2 > 90)) return false;
+          const m1 = getMotivoName(item.CODMOTIVO_PARA) || "";
+          const m2 = getMotivoName(item.CODMOTIVO_RETORNO_PARA) || "";
+          if (!(m1.includes('[INCLUSAO MANUAL]') || m2.includes('[INCLUSAO MANUAL]') || parseInt(item.CODMOTIVO_PARA) > 90 || parseInt(item.CODMOTIVO_RETORNO_PARA) > 90)) return false;
         }
         
         // 2. Filtro de Input do Usuário
@@ -5912,13 +5912,13 @@
         const rowNum = parseInt(parts[parts.length - 1], 10);
         
         // Primeiro salva a nova base de motivos na nuvem (categoria 'base')
-        commitChangesToGitHub(`Criação de Motivo Manual: ${nextCod}`, () => {
-           // Só depois de salvar a base com sucesso, dispara o salvamento da linha,
+        commitChangesToGitHub(`Criação de Motivo Manual: ${nextCod}`, () => {}, () => {
+           // Só depois de salvar a base com sucesso (onSuccessCallback), dispara o salvamento da linha,
            // que chamará internamente outro commit para 'cadastros', evitando conflito de concorrência (409)
            if (!isNaN(rowNum)) {
               saveRowEdition(rowNum);
            }
-        }, null, 'base');
+        }, 'base');
       };
     }
 
