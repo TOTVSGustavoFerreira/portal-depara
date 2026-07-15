@@ -1,6 +1,6 @@
 {
   "config": {
-    "ultimo_sincronismo": "2026-07-07T01:12:06.421Z"
+    "ultimo_sincronismo": "2026-07-15T23:29:31.801Z"
   },
   "DADOS_RM_EVENTOS": [
     {
@@ -12357,6 +12357,10 @@
       "DESCRICAO": "Afastamento por COVID-19",
       "codcliente": "CV",
       "descricao": "Afastamento por COVID-19"
+    },
+    {
+      "CODCLIENTE": "44",
+      "DESCRICAO": "[INCLUSAO MANUAL] AFAST"
     }
   ],
   "DADOS_RM_SECOES": []
