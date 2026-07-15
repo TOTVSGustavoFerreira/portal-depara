@@ -5539,9 +5539,11 @@
     }
 
     function saveGitHubConfig() {
-      const token = (document.getElementById("wrapperGhTokenInput") ? document.getElementById("wrapperGhTokenInput").value : document.getElementById("ghTokenInput").value).trim();
-      const owner = (document.getElementById("wrapperGhOwnerInput") ? document.getElementById("wrapperGhOwnerInput").value : document.getElementById("ghOwnerInput").value).trim();
-      const repo = (document.getElementById("wrapperGhRepoInput") ? document.getElementById("wrapperGhRepoInput").value : document.getElementById("ghRepoInput").value).trim();
+      const isModal = document.getElementById("githubConfigModal") && document.getElementById("githubConfigModal").style.display !== "none";
+      
+      const token = isModal ? document.getElementById("ghTokenInput").value.trim() : document.getElementById("wrapperGhTokenInput").value.trim();
+      const owner = isModal ? document.getElementById("ghOwnerInput").value.trim() : document.getElementById("wrapperGhOwnerInput").value.trim();
+      const repo = isModal ? document.getElementById("ghRepoInput").value.trim() : document.getElementById("wrapperGhRepoInput").value.trim();
       
       localStorage.setItem("gh_pat", token);
       localStorage.setItem("gh_owner", owner);
