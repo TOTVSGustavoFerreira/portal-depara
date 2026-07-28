@@ -2124,17 +2124,17 @@
           item.FILIAL = fil;
           item.filial = fil;
 
-          const sec = String(item.COD_SECAO !== undefined ? item.COD_SECAO : (item.cod_secao !== undefined ? item.cod_secao : "")).trim();
-          item.COD_SECAO = sec;
-          item.cod_secao = sec;
+          const sec = String(item.CODIGO !== undefined ? item.CODIGO : (item.codigo !== undefined ? item.codigo : "")).trim();
+          item.CODIGO = sec;
+          item.codigo = sec;
 
           const desc = String(item.DESCRICAO !== undefined ? item.DESCRICAO : (item.descricao !== undefined ? item.descricao : "")).trim();
           item.DESCRICAO = desc;
           item.descricao = desc;
 
-          const set = String(item.SETOR !== undefined ? item.SETOR : (item.setor !== undefined ? item.setor : "")).trim();
-          item.SETOR = set;
-          item.setor = set;
+          const cnpj = String(item.CNPJ !== undefined ? item.CNPJ : (item.cnpj !== undefined ? item.cnpj : "")).trim();
+          item.CNPJ = cnpj;
+          item.cnpj = cnpj;
         });
       }
       
@@ -3898,7 +3898,7 @@
       DADOS_RM_EVENTOS: ["CODIGO", "DESCRICAO", "TIPOEVENTO", "VALHORDIAREF", "NAT_ESOCIAL"],
       DADOS_RM_SITUACAO: ["CODCLIENTE", "DESCRICAO"],
       DADOS_RM_MOTIVOS: ["CODCLIENTE", "DESCRICAO"],
-      DADOS_RM_SECOES: ["COLIGADA", "FILIAL", "COD_SECAO", "DESCRICAO", "SETOR"]
+      DADOS_RM_SECOES: ["COLIGADA", "FILIAL", "CODIGO", "DESCRICAO", "CNPJ"]
     };
 
     function normalizeHeaderFuzzy(row, officialHeaders, progressLog, sheetName) {
@@ -4612,7 +4612,7 @@
       const item = rawJsonDatabase.DADOS_RM_SECOES.find(s => 
         String(s.COLIGADA).trim() === colStr && 
         String(s.FILIAL).trim() === filStr && 
-        String(s.COD_SECAO).trim() === codStr
+        String(s.CODIGO).trim() === codStr
       );
       return item ? item.DESCRICAO : '';
     }
@@ -4629,17 +4629,17 @@
         let prefix = "";
         for (let i = 0; i < parts.length - 1; i++) {
           prefix += (i > 0 ? "." : "") + parts[i];
-          parentCodes.add(`${s.CODCOLIGADA}_${s.CODFILIAL}_${prefix}`);
+          parentCodes.add(`${s.COLIGADA}_${s.FILIAL}_${prefix}`);
         }
       });
 
       secoes.forEach(s => {
-        const key = `${s.CODCOLIGADA}_${s.CODFILIAL}_${s.CODIGO}`;
+        const key = `${s.COLIGADA}_${s.FILIAL}_${s.CODIGO}`;
         const isParent = parentCodes.has(key);
-        const optionValue = `${s.CODCOLIGADA}|${s.CODFILIAL}|${s.CODIGO}`;
+        const optionValue = `${s.COLIGADA}|${s.FILIAL}|${s.CODIGO}`;
         const isSelected = (optionValue === currentVal) ? "selected" : "";
-        const cnpjText = s.CNPJ ? ` (CNPJ: ${s.CNPJ})` : (s.CGC ? ` (CNPJ: ${s.CGC})` : '');
-        const label = `[Col: ${s.CODCOLIGADA} | Fil: ${s.CODFILIAL}] ${s.CODIGO} - ${s.DESCRICAO}${cnpjText}`;
+        const cnpjText = s.CNPJ ? ` (CNPJ: ${s.CNPJ})` : '';
+        const label = `[Col: ${s.COLIGADA} | Fil: ${s.FILIAL}] ${s.CODIGO} - ${s.DESCRICAO}${cnpjText}`;
         
         if (isParent) {
           html += `<option value="${optionValue}" disabled style="color:#a0aec0;">${label} (NÍVEL INCOMPLETO)</option>`;
@@ -5267,7 +5267,7 @@
             const obsText = item.OBSERVACAO || item.observacao || "";
             if (isEditing) {
               detailHtml = `
-                <div style="font-family: 'Outfit', sans-serif; font-size: 0.85rem; display: flex; flex-direction: column; gap: 8px; width: 100%; max-width: 650px; padding: 12px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px;">
+                <div style="font-family: 'Outfit', sans-serif; font-size: 0.85rem; display: flex; flex-direction: column; gap: 8px; width: 100%; padding: 12px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px;">
                   <label style="font-weight: 600; color: var(--color-primary); display: flex; align-items: center; gap: 6px; margin: 0;">
                     <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
                     Anotar Observação sobre a Função:
@@ -5293,7 +5293,7 @@
                      Nenhuma observação cadastrada para esta função. Clique no ícone de lápis para editar.
                    </span>`;
               detailHtml = `
-                <div style="font-family: 'Outfit', sans-serif; font-size: 0.85rem; padding: 12px; background: #f8fafc; border-radius: 8px; border: 1px solid #f1f5f9; width: 100%; max-width: 650px;">
+                <div style="font-family: 'Outfit', sans-serif; font-size: 0.85rem; padding: 12px; background: #f8fafc; border-radius: 8px; border: 1px solid #f1f5f9; width: 100%;">
                   ${obsLabel}
                 </div>
               `;
@@ -5302,7 +5302,7 @@
             const obsText = item.OBSERVACAO || item.observacao || "";
             if (isEditing) {
               detailHtml = `
-                <div style="font-family: 'Outfit', sans-serif; font-size: 0.85rem; display: flex; flex-direction: column; gap: 8px; width: 100%; max-width: 650px; padding: 12px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px;">
+                <div style="font-family: 'Outfit', sans-serif; font-size: 0.85rem; display: flex; flex-direction: column; gap: 8px; width: 100%; padding: 12px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px;">
                   <label style="font-weight: 600; color: var(--color-primary); display: flex; align-items: center; gap: 6px; margin: 0;">
                     <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
                     Anotar Observação sobre a Seção:
@@ -5324,7 +5324,7 @@
                      Nenhuma observação cadastrada para esta seção. Clique no ícone de lápis para editar.
                    </span>`;
               detailHtml = `
-                <div style="font-family: 'Outfit', sans-serif; font-size: 0.85rem; padding: 12px; background: #f8fafc; border-radius: 8px; border: 1px solid #f1f5f9; width: 100%; max-width: 650px;">
+                <div style="font-family: 'Outfit', sans-serif; font-size: 0.85rem; padding: 12px; background: #f8fafc; border-radius: 8px; border: 1px solid #f1f5f9; width: 100%;">
                   ${obsLabel}
                 </div>
               `;
