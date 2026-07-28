@@ -25,10 +25,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "",
-      "hasDivergencia": false,
+      "nomeRm": "ATESTADO MEDICO (PREVIDENCIA) (D)",
+      "hasDivergencia": true,
       "hasDivergenciaDuplicidade": false,
-      "hasDivergenciaTipo": false
+      "hasDivergenciaTipo": true
     },
     {
       "rowNum": 2,
