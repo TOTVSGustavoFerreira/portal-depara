@@ -4674,7 +4674,7 @@
       "NOME_DE": "(S/M) SISTEMA DE GESTÃO DA QUALIDADE",
       "COLIGADA_PARA": "1",
       "FILIAL_PARA": "1",
-      "CODIGO_PARA": "001.01.001.02",
+      "CODIGO_PARA": "",
       "FILIAL_DE": "0001",
       "coligadaPara": "1",
       "codigoPara": "001.01.001.02",
