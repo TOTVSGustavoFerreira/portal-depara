@@ -4625,21 +4625,21 @@
       
       const parentCodes = new Set();
       secoes.forEach(s => {
-        const parts = String(s.COD_SECAO).split('.');
+        const parts = String(s.CODIGO).split('.');
         let prefix = "";
         for (let i = 0; i < parts.length - 1; i++) {
           prefix += (i > 0 ? "." : "") + parts[i];
-          parentCodes.add(`${s.COLIGADA}_${s.FILIAL}_${prefix}`);
+          parentCodes.add(`${s.CODCOLIGADA}_${s.CODFILIAL}_${prefix}`);
         }
       });
 
       secoes.forEach(s => {
-        const key = `${s.COLIGADA}_${s.FILIAL}_${s.COD_SECAO}`;
+        const key = `${s.CODCOLIGADA}_${s.CODFILIAL}_${s.CODIGO}`;
         const isParent = parentCodes.has(key);
-        const optionValue = `${s.COLIGADA}|${s.FILIAL}|${s.COD_SECAO}`;
+        const optionValue = `${s.CODCOLIGADA}|${s.CODFILIAL}|${s.CODIGO}`;
         const isSelected = (optionValue === currentVal) ? "selected" : "";
-        const cnpjText = s.CNPJ ? ` (CNPJ: ${s.CNPJ})` : '';
-        const label = `[Col: ${s.COLIGADA} | Fil: ${s.FILIAL}] ${s.COD_SECAO} - ${s.DESCRICAO}${cnpjText}`;
+        const cnpjText = s.CNPJ ? ` (CNPJ: ${s.CNPJ})` : (s.CGC ? ` (CNPJ: ${s.CGC})` : '');
+        const label = `[Col: ${s.CODCOLIGADA} | Fil: ${s.CODFILIAL}] ${s.CODIGO} - ${s.DESCRICAO}${cnpjText}`;
         
         if (isParent) {
           html += `<option value="${optionValue}" disabled style="color:#a0aec0;">${label} (NÍVEL INCOMPLETO)</option>`;
@@ -4651,7 +4651,7 @@
       if (currentVal && currentVal.includes('|')) {
          const parts = currentVal.split('|');
          const fallbackKey = `${parts[0]}_${parts[1]}_${parts[2]}`;
-         const exists = secoes.some(s => `${s.COLIGADA}_${s.FILIAL}_${s.COD_SECAO}` === fallbackKey);
+         const exists = secoes.some(s => `${s.CODCOLIGADA}_${s.CODFILIAL}_${s.CODIGO}` === fallbackKey);
          if (!exists) {
             html += `<option value="${currentVal}" selected>${currentVal.replace(/\|/g, ' ')} (Inválido/Inexistente)</option>`;
          }
@@ -5254,7 +5254,8 @@
           detailTr.className = "row-expanded-detail";
           
           let colsCount = 6;
-          if (currentModule === 'funcoes' || currentModule === 'sindicatos' || currentModule === 'secoes') colsCount = 7;
+          if (currentModule === 'funcoes' || currentModule === 'sindicatos') colsCount = 7;
+          if (currentModule === 'secoes') colsCount = 3;
           
           let detailHtml = `
             <p style="margin: 0; font-size: 0.85rem; color: var(--color-text-muted);">
