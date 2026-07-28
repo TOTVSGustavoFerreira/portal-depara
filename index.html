@@ -2397,13 +2397,8 @@
         
         headerHtml = `
           <tr>
-            <th class="sortable" onclick="toggleSort('EMPRESA_DE')">Empresa Origem<span class="sort-indicator" id="sort-EMPRESA_DE"></span></th>
-            <th class="sortable" onclick="toggleSort('FILIAL_DE')">Filial Origem<span class="sort-indicator" id="sort-FILIAL_DE"></span></th>
-            <th class="sortable" onclick="toggleSort('CODIGO_DE')">Cód. Origem<span class="sort-indicator" id="sort-CODIGO_DE"></span></th>
-            <th class="sortable" onclick="toggleSort('NOME_DE')">Nome Seção<span class="sort-indicator" id="sort-NOME_DE"></span></th>
-            <th class="sortable" onclick="toggleSort('COLIGADA_PARA')">Colig. RM<span class="sort-indicator" id="sort-COLIGADA_PARA"></span></th>
-            <th class="sortable" onclick="toggleSort('FILIAL_PARA')">Filial RM<span class="sort-indicator" id="sort-FILIAL_PARA"></span></th>
-            <th class="sortable" onclick="toggleSort('CODIGO_PARA')">Seção RM<span class="sort-indicator" id="sort-CODIGO_PARA"></span></th>
+            <th class="sortable" onclick="toggleSort('CODIGO_DE')">Seção Origem (Legado)<span class="sort-indicator" id="sort-CODIGO_DE"></span></th>
+            <th class="sortable" onclick="toggleSort('CODIGO_PARA')">Seção Destino (RM)<span class="sort-indicator" id="sort-CODIGO_PARA"></span></th>
             <th class="col-acoes">Ações</th>
           </tr>
         `;
@@ -4609,6 +4604,62 @@
       return item ? item.DESCRICAO : '';
     }
 
+    function getSecaoName(coligada, filial, cod) {
+      if (!cod || !rawJsonDatabase || !rawJsonDatabase.DADOS_RM_SECOES) return '';
+      const codStr = String(cod).trim();
+      const colStr = String(coligada || "1").trim();
+      const filStr = String(filial || "1").trim();
+      const item = rawJsonDatabase.DADOS_RM_SECOES.find(s => 
+        String(s.COLIGADA).trim() === colStr && 
+        String(s.FILIAL).trim() === filStr && 
+        String(s.COD_SECAO).trim() === codStr
+      );
+      return item ? item.DESCRICAO : '';
+    }
+
+    function getSecoesOptionsHtml(currentVal) {
+      let html = `<option value="">-- Selecione a Seção --</option>`;
+      if (!rawJsonDatabase || !rawJsonDatabase.DADOS_RM_SECOES) return html;
+      
+      const secoes = rawJsonDatabase.DADOS_RM_SECOES;
+      
+      const parentCodes = new Set();
+      secoes.forEach(s => {
+        const parts = String(s.COD_SECAO).split('.');
+        let prefix = "";
+        for (let i = 0; i < parts.length - 1; i++) {
+          prefix += (i > 0 ? "." : "") + parts[i];
+          parentCodes.add(`${s.COLIGADA}_${s.FILIAL}_${prefix}`);
+        }
+      });
+
+      secoes.forEach(s => {
+        const key = `${s.COLIGADA}_${s.FILIAL}_${s.COD_SECAO}`;
+        const isParent = parentCodes.has(key);
+        const optionValue = `${s.COLIGADA}|${s.FILIAL}|${s.COD_SECAO}`;
+        const isSelected = (optionValue === currentVal) ? "selected" : "";
+        const cnpjText = s.CNPJ ? ` (CNPJ: ${s.CNPJ})` : '';
+        const label = `[Col: ${s.COLIGADA} | Fil: ${s.FILIAL}] ${s.COD_SECAO} - ${s.DESCRICAO}${cnpjText}`;
+        
+        if (isParent) {
+          html += `<option value="${optionValue}" disabled style="color:#a0aec0;">${label} (NÍVEL INCOMPLETO)</option>`;
+        } else {
+          html += `<option value="${optionValue}" ${isSelected}>${label}</option>`;
+        }
+      });
+      
+      if (currentVal && currentVal.includes('|')) {
+         const parts = currentVal.split('|');
+         const fallbackKey = `${parts[0]}_${parts[1]}_${parts[2]}`;
+         const exists = secoes.some(s => `${s.COLIGADA}_${s.FILIAL}_${s.COD_SECAO}` === fallbackKey);
+         if (!exists) {
+            html += `<option value="${currentVal}" selected>${currentVal.replace(/\|/g, ' ')} (Inválido/Inexistente)</option>`;
+         }
+      }
+
+      return html;
+    }
+
     function getMotivoName(cod) {
       if (!cod) return '';
       if (!rawJsonDatabase || !rawJsonDatabase.DADOS_RM_MOTIVOS) return '';
@@ -4985,6 +5036,16 @@
           statusLabel = destCode ? `DIVERGÊNCIA (${destCode})` : "DIVERGÊNCIA";
         }
 
+        if (currentModule === 'secoes' && destCode && !isCodeIgnored(destCode) && !isCodeToCreate(destCode) && !item.hasDivergencia) {
+          const sName = getSecaoName(item.COLIGADA_PARA, item.FILIAL_PARA, destCode);
+          if (sName) {
+            statusLabel = `[Col: ${item.COLIGADA_PARA || '1'} | Fil: ${item.FILIAL_PARA || '1'}] ${destCode} - ${sName}`;
+          } else {
+            statusLabel = `[Col: ${item.COLIGADA_PARA || '1'} | Fil: ${item.FILIAL_PARA || '1'}] ${destCode} - (Inválido/Inexistente)`;
+            mapBadge = "badge-divergent";
+          }
+        }
+
         const tr = document.createElement("tr");
         tr.className = `row-item ${rowColorClass} ${isEditing ? 'row-editing' : ''} ${isExpanded ? 'row-expanded' : ''}`;
         
@@ -5051,19 +5112,13 @@
             `;
           } 
           else if (currentModule === 'secoes') {
+            const currentVal = `${item.COLIGADA_PARA || '1'}|${item.FILIAL_PARA || '1'}|${item.CODIGO_PARA || ''}`;
             trHtml = `
-              <td><code>${item.EMPRESA_DE || ''}</code></td>
-              <td><code>${item.FILIAL_DE || ''}</code></td>
-              <td><code>${item.CODIGO_DE || ''}</code></td>
-              <td>${item.NOME_DE || ''}</td>
-              <td>
-                <input type="text" id="edit-COLIGADA_PARA-${item.rowNum}" class="input-field" style="padding: 6px; font-size: 0.8rem;" value="${item.COLIGADA_PARA || '1'}">
-              </td>
-              <td>
-                <input type="text" id="edit-FILIAL_PARA-${item.rowNum}" class="input-field" style="padding: 6px; font-size: 0.8rem;" value="${item.FILIAL_PARA || ''}">
-              </td>
+              <td><code>[EMP: ${item.EMPRESA_DE || ''} | FILIAL: ${item.FILIAL_DE || ''}] COD_DE: ${item.CODIGO_DE || ''} | ${item.NOME_DE || ''}</code></td>
               <td style="overflow: visible;">
-                <input type="text" id="edit-CODIGO_PARA-${item.rowNum}" class="input-field" style="padding: 6px; font-size: 0.8rem;" value="${item.CODIGO_PARA || ''}">
+                <select id="edit-CODIGO_PARA-${item.rowNum}" class="input-field" style="padding: 6px; font-size: 0.8rem; width: 100%;">
+                   ${getSecoesOptionsHtml(currentVal)}
+                </select>
               </td>
               <td class="col-acoes">
                 <div class="action-icons">
@@ -5108,9 +5163,7 @@
         } 
         else {
           // Linha de Exibição normal
-          const arrowSymbol = isExpanded ? "▲" : "▼";
-          
-          let actionButtons = `
+          const actionButtons = `
             <div class="action-icons">
               <button class="action-icon-btn" onclick="toggleRowExpansion(${item.rowNum})" title="Ver Detalhes">
                 <span style="font-size: 0.8rem;">${arrowSymbol}</span>
@@ -5157,14 +5210,11 @@
             `;
           } 
           else if (currentModule === 'secoes') {
+            const hasObs = !!(item.OBSERVACAO || item.observacao);
+            const obsIcon = hasObs ? `<span title="Possui observação" style="margin-left: 6px; cursor: pointer; font-size: 1.1em;">💬</span>` : '';
             trHtml = `
-              <td onclick="toggleRowExpansion(${item.rowNum})"><code>${item.EMPRESA_DE || ''}</code></td>
-              <td onclick="toggleRowExpansion(${item.rowNum})"><code>${item.FILIAL_DE || ''}</code></td>
-              <td onclick="toggleRowExpansion(${item.rowNum})"><code>${item.CODIGO_DE || ''}</code></td>
-              <td onclick="toggleRowExpansion(${item.rowNum})">${item.NOME_DE || ''}</td>
-              <td onclick="toggleRowExpansion(${item.rowNum})">${item.COLIGADA_PARA || ''}</td>
-              <td onclick="toggleRowExpansion(${item.rowNum})"><code>${item.FILIAL_PARA || ''}</code></td>
-              <td onclick="toggleRowExpansion(${item.rowNum})">${badgeDest}</td>
+              <td onclick="toggleRowExpansion(${item.rowNum})"><code>[EMP: ${item.EMPRESA_DE || ''} | FILIAL: ${item.FILIAL_DE || ''}] COD_DE: ${item.CODIGO_DE || ''} | ${item.NOME_DE || ''}</code></td>
+              <td onclick="toggleRowExpansion(${item.rowNum})">${badgeDest}${obsIcon}</td>
               <td>${actionButtons}</td>
             `;
           } 
@@ -5239,6 +5289,38 @@
                 : `<span style="font-style: italic; color: #94a3b8; display:flex; align-items:center; gap:6px;">
                      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
                      Nenhuma observação cadastrada para esta função. Clique no ícone de lápis para editar.
+                   </span>`;
+              detailHtml = `
+                <div style="font-family: 'Outfit', sans-serif; font-size: 0.85rem; padding: 12px; background: #f8fafc; border-radius: 8px; border: 1px solid #f1f5f9; width: 100%; max-width: 650px;">
+                  ${obsLabel}
+                </div>
+              `;
+            }
+          }
+          } else if (currentModule === 'secoes') {
+            const obsText = item.OBSERVACAO || item.observacao || "";
+            if (isEditing) {
+              detailHtml = `
+                <div style="font-family: 'Outfit', sans-serif; font-size: 0.85rem; display: flex; flex-direction: column; gap: 8px; width: 100%; max-width: 650px; padding: 12px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px;">
+                  <label style="font-weight: 600; color: var(--color-primary); display: flex; align-items: center; gap: 6px; margin: 0;">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                    Anotar Observação sobre a Seção:
+                  </label>
+                  <textarea id="edit-OBSERVACAO-${item.rowNum}" class="input-field" style="padding: 10px; font-family: 'Outfit', sans-serif; font-size: 0.85rem; height: 75px; resize: vertical; border: 1px solid #e2e8f0; border-radius: 6px; outline: none; background: #fff;" placeholder="Insira justificativas ou observações sobre o mapeamento desta seção...">${obsText}</textarea>
+                </div>
+              `;
+            } else {
+              const obsLabel = obsText.trim() 
+                ? `<div style="display:flex; flex-direction:column; gap:6px;">
+                     <strong style="color: var(--color-primary); font-weight:600; display:flex; align-items:center; gap:6px;">
+                       <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                       Observação Cadastrada:
+                     </strong>
+                     <span style="color: #475569; line-height: 1.4; white-space: pre-wrap;">${obsText}</span>
+                   </div>` 
+                : `<span style="font-style: italic; color: #94a3b8; display:flex; align-items:center; gap:6px;">
+                     <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                     Nenhuma observação cadastrada para esta seção. Clique no ícone de lápis para editar.
                    </span>`;
               detailHtml = `
                 <div style="font-family: 'Outfit', sans-serif; font-size: 0.85rem; padding: 12px; background: #f8fafc; border-radius: 8px; border: 1px solid #f1f5f9; width: 100%; max-width: 650px;">
@@ -6048,10 +6130,30 @@
         }, null, 'cadastros');
       } 
       else if (currentModule === 'secoes') {
-        const coligadaPara = document.getElementById(`edit-COLIGADA_PARA-${rowNum}`).value;
-        const filialPara = document.getElementById(`edit-FILIAL_PARA-${rowNum}`).value;
-        const codigoPara = document.getElementById(`edit-CODIGO_PARA-${rowNum}`).value;
-        updatedData = { COLIGADA_PARA: coligadaPara, FILIAL_PARA: filialPara, CODIGO_PARA: codigoPara };
+        const aglutinado = document.getElementById(`edit-CODIGO_PARA-${rowNum}`).value;
+        const observacao = document.getElementById(`edit-OBSERVACAO-${rowNum}`) ? document.getElementById(`edit-OBSERVACAO-${rowNum}`).value : '';
+        
+        let coligadaPara = item.COLIGADA_PARA || '';
+        let filialPara = item.FILIAL_PARA || '';
+        let codigoPara = item.CODIGO_PARA || '';
+        
+        if (aglutinado && aglutinado.includes('|')) {
+          const parts = aglutinado.split('|');
+          coligadaPara = parts[0] || '';
+          filialPara = parts[1] || '';
+          codigoPara = parts[2] || '';
+        } else if (aglutinado) {
+          codigoPara = aglutinado;
+        } else {
+          codigoPara = '';
+        }
+        
+        updatedData = { 
+          COLIGADA_PARA: coligadaPara, 
+          FILIAL_PARA: filialPara, 
+          CODIGO_PARA: codigoPara,
+          OBSERVACAO: observacao
+        };
         commitMessage = `Atualiza seção linha ${rowNum} - ${item.NOME_DE}`;
 
         showLoading("Salvando seção...");
