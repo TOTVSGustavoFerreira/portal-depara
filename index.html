@@ -5002,11 +5002,11 @@
         // 1. Identificar Status/Badge do Destino para colorir a linha
         let destCode = "";
         if (currentModule === 'coligadas') {
-          destCode = (item.CODCOLIGADA || "").trim();
+          destCode = String(item.CODCOLIGADA || "").trim();
         } else if (currentModule === 'situacao') {
-          destCode = (item.CODSITUACAO_PARA || "").trim();
+          destCode = String(item.CODSITUACAO_PARA || "").trim();
         } else {
-          destCode = (item.CODIGO_PARA || "").trim();
+          destCode = String(item.CODIGO_PARA || "").trim();
         }
 
         let mapBadge = "badge-mapped";
