@@ -3176,7 +3176,23 @@
             ];
  
             abasMap.forEach(aba => {
-              const rows = rawJsonDatabase[aba.key] || [];
+              let rows = [...(rawJsonDatabase[aba.key] || [])];
+              
+              if (aba.key === 'DADOS_RM_SECOES') {
+                rows.sort((a, b) => {
+                  const colA = parseInt(a.COLIGADA || a.coligada || 0, 10);
+                  const colB = parseInt(b.COLIGADA || b.coligada || 0, 10);
+                  if (colA !== colB) return colA - colB;
+
+                  const filA = parseInt(a.FILIAL || a.filial || 0, 10);
+                  const filB = parseInt(b.FILIAL || b.filial || 0, 10);
+                  if (filA !== filB) return filA - filB;
+
+                  const codA = String(a.CODIGO || a.codigo || a.COD_SECAO || "").trim();
+                  const codB = String(b.CODIGO || b.codigo || b.COD_SECAO || "").trim();
+                  return codA.localeCompare(codB, undefined, { numeric: true, sensitivity: 'base' });
+                });
+              }
               
               // Monta a matriz de dados (Primeira linha são os cabeçalhos litérios)
               const sheetData = [aba.headers];
