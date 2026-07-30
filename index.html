@@ -3212,10 +3212,35 @@
                 });
               }
               
-              // Monta a matriz de dados (Primeira linha são os cabeçalhos litérios)
-              const sheetData = [aba.headers];
+              // Identificar colunas customizadas (propriedades extras não padrão) presentes nos registros
+              const standardHeaderSet = new Set(aba.headers.map(h => h.toUpperCase()));
+              const internalKeys = new Set([
+                'rowNum', 'isEditing', 'hasDivergencia', 'divergenciasInfo', 
+                'empresaDe', 'codigoDe', 'nomeDe', 'tipoEvento', 'coligadaPara', 
+                'codigoPara', 'codigoParaFichaMes1', 'codigoParaFichaMes2', 
+                'codigoParaVerbasFerias', 'observacao', 'nomeRm', 'coligada', 
+                'filial', 'cod_secao', 'descricao', 'cnpj', 'codigo'
+              ]);
+              
+              const extraCustomKeys = [];
               rows.forEach(item => {
-                sheetData.push(aba.mapper(item));
+                Object.keys(item).forEach(k => {
+                  if (!standardHeaderSet.has(k.toUpperCase()) && !internalKeys.has(k) && !extraCustomKeys.includes(k)) {
+                    extraCustomKeys.push(k);
+                  }
+                });
+              });
+
+              const finalHeaders = [...aba.headers, ...extraCustomKeys];
+              
+              // Monta a matriz de dados (Primeira linha são os cabeçalhos litérios)
+              const sheetData = [finalHeaders];
+              rows.forEach(item => {
+                const baseValues = aba.mapper(item);
+                extraCustomKeys.forEach(k => {
+                  baseValues.push(item[k] !== undefined && item[k] !== null ? String(item[k]) : "");
+                });
+                sheetData.push(baseValues);
               });
               
               const ws = XLSX.utils.aoa_to_sheet(sheetData);
@@ -3230,7 +3255,7 @@
               
               // 2. Aplicar colorização de cabeçalhos por coluna (linha 0 no Excel)
               const isDadosRm = aba.name.startsWith("DADOS_RM");
-              aba.headers.forEach((h, colIdx) => {
+              finalHeaders.forEach((h, colIdx) => {
                 const cellRef = XLSX.utils.encode_cell({ r: 0, c: colIdx });
                 if (ws[cellRef]) {
                   let colorHex = "5B95F9"; // Azul padrão para Legados Origem
@@ -3244,6 +3269,8 @@
                     const isParaCol = hNorm.includes("_PARA") || hNorm === "CODCOLIGADA" || hNorm === "NOME_RM" || hNorm.includes("FICHA_MES") || hNorm.includes("VERBAS_FERIAS");
                     if (isParaCol) {
                       colorHex = "F7CB4D"; // Amarelo
+                    } else if (extraCustomKeys.includes(h)) {
+                      colorHex = "A7F3D0"; // Verde Claro para colunas customizadas extras
                     }
                   }
                   
