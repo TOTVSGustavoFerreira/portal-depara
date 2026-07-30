@@ -2871,6 +2871,22 @@
       applyFilters();
     }
 
+    function matchesSearch(fieldValue, searchTerm) {
+      if (fieldValue === null || fieldValue === undefined) return false;
+      const str = String(fieldValue).toLowerCase().trim();
+      const search = String(searchTerm).toLowerCase().trim();
+      if (!search || !str) return false;
+
+      if (str.includes(search)) return true;
+      if (str.padStart(4, '0').includes(search)) return true;
+
+      const numSearch = parseInt(search, 10);
+      const numStr = parseInt(str, 10);
+      if (!isNaN(numSearch) && !isNaN(numStr) && numSearch === numStr) return true;
+
+      return false;
+    }
+
     function applyFilters() {
       const type = document.getElementById("filterTypeDropdown").value;
       const valueInput = document.getElementById("filterValueInput");
@@ -2928,38 +2944,89 @@
         if (!val) return true;
         
         if (type === 'global') {
-          // Busca geral customizada por tipo de módulo
           if (currentModule === 'eventos') {
-            return (item.empresaDe || "").toLowerCase().includes(val) ||
-                   (item.codigoDe || "").toLowerCase().includes(val) ||
-                   (item.nomeDe || "").toLowerCase().includes(val) ||
-                   (item.codigoPara || "").toLowerCase().includes(val) ||
-                   (item.nomeRm || "").toLowerCase().includes(val);
+            return matchesSearch(item.empresaDe || item.EMPRESA_DE, val) ||
+                   matchesSearch(item.codigoDe || item.CODIGO_DE, val) ||
+                   matchesSearch(item.nomeDe || item.NOME_DE, val) ||
+                   matchesSearch(item.codigoPara || item.CODIGO_PARA, val) ||
+                   matchesSearch(item.nomeRm || item.NOME_RM, val) ||
+                   matchesSearch(item.codigoParaFichaMes1 || item.CODIGO_PARA_FICHA_MES1, val) ||
+                   matchesSearch(item.codigoParaFichaMes2 || item.CODIGO_PARA_FICHA_MES2, val) ||
+                   matchesSearch(item.codigoParaVerbasFerias || item.CODIGO_PARA_VERBAS_FERIAS, val) ||
+                   matchesSearch(item.observacao || item.OBSERVACAO, val);
           } else if (currentModule === 'coligadas') {
-            return (item.EMP_CODIGO || "").toLowerCase().includes(val) ||
-                   (item.NOME || "").toLowerCase().includes(val) ||
-                   (item['RAZAO SOCIAL'] || "").toLowerCase().includes(val) ||
-                   (item.CNPJ || "").toLowerCase().includes(val) ||
-                   (item.CODCOLIGADA || "").toLowerCase().includes(val);
+            return matchesSearch(item.EMPRESA_DE || item.empresaDe || item.EMP_CODIGO, val) ||
+                   matchesSearch(item.ID || item.FILIAL_DE || item.filialDe, val) ||
+                   matchesSearch(item.NOME_DE || item.nomeDe || item.NOME || item['RAZAO SOCIAL'], val) ||
+                   matchesSearch(item.CNPJ, val) ||
+                   matchesSearch(item.CODCOLIGADA || item.coligadaPara, val) ||
+                   matchesSearch(item.CODFILIAL_PARA || item.filialPara, val);
           } else if (currentModule === 'situacao') {
-            return (item.CODIGO_DE || "").toLowerCase().includes(val) ||
-                   (item.NOME_DE || "").toLowerCase().includes(val) ||
-                   (item.CODSITUACAO_PARA || "").toLowerCase().includes(val) ||
-                   (item.CODMOTIVO_PARA || "").toLowerCase().includes(val);
+            return matchesSearch(item.CODIGO_DE || item.codigoDe, val) ||
+                   matchesSearch(item.NOME_DE || item.nomeDe, val) ||
+                   matchesSearch(item.CODSITUACAO_PARA || item.codSituacaoPara, val) ||
+                   matchesSearch(item.CODMOTIVO_PARA || item.codMotivoPara, val) ||
+                   matchesSearch(getMotivoName(item.CODMOTIVO_PARA), val) ||
+                   matchesSearch(item.CODSITUACAO_RETORNO_PARA, val) ||
+                   matchesSearch(item.CODMOTIVO_RETORNO_PARA, val) ||
+                   matchesSearch(getMotivoName(item.CODMOTIVO_RETORNO_PARA), val) ||
+                   matchesSearch(item.OBSERVACAO || item.observacao, val);
+          } else if (currentModule === 'secoes') {
+            return matchesSearch(item.EMPRESA_DE || item.empresaDe, val) ||
+                   matchesSearch(item.FILIAL_DE || item.filialDe, val) ||
+                   matchesSearch(item.CODIGO_DE || item.codigoDe, val) ||
+                   matchesSearch(item.NOME_DE || item.nomeDe, val) ||
+                   matchesSearch(item.COLIGADA_PARA || item.coligadaPara, val) ||
+                   matchesSearch(item.FILIAL_PARA || item.filialPara, val) ||
+                   matchesSearch(item.CODIGO_PARA || item.codigoPara, val) ||
+                   matchesSearch(getSecaoName(item.COLIGADA_PARA, item.FILIAL_PARA, item.CODIGO_PARA), val) ||
+                   matchesSearch(item.OBSERVACAO || item.observacao, val);
+          } else if (currentModule === 'funcoes') {
+            return matchesSearch(item.EMPRESA_DE || item.empresaDe, val) ||
+                   matchesSearch(item.CODIGO_DE || item.codigoDe, val) ||
+                   matchesSearch(item.NOME_DE || item.nomeDe, val) ||
+                   matchesSearch(item.CBO || item.CBO_2002, val) ||
+                   matchesSearch(item.COLIGADA_PARA || item.coligadaPara, val) ||
+                   matchesSearch(item.CODIGO_PARA || item.codigoPara, val) ||
+                   matchesSearch(getFuncaoName(item.COLIGADA_PARA, item.CODIGO_PARA), val) ||
+                   matchesSearch(item.OBSERVACAO || item.observacao, val);
+          } else if (currentModule === 'sindicatos') {
+            return matchesSearch(item.EMPRESA_DE || item['EMPRESA _DE'] || item.empresaDe, val) ||
+                   matchesSearch(item.CODIGO_DE || item.codigoDe, val) ||
+                   matchesSearch(item.NOME_DE || item.nomeDe, val) ||
+                   matchesSearch(item.CNPJ, val) ||
+                   matchesSearch(item.COLIGADA_PARA || item.coligadaPara, val) ||
+                   matchesSearch(item.CODIGO_PARA || item.codigoPara, val) ||
+                   matchesSearch(item.OBSERVACAO || item.observacao, val);
+          } else if (currentModule === 'bancos') {
+            return matchesSearch(item.EMPRESA_DE || item.empresaDe, val) ||
+                   matchesSearch(item.NUMBANCO_DE || item.ID_BANCO_EPG, val) ||
+                   matchesSearch(item.NOME_BANCO_DE || item.NOME_DE, val) ||
+                   matchesSearch(item.NUMAGENCIA_DE || item.ID_AGENCIA_EPG, val) ||
+                   matchesSearch(item.NOME_AGENCIA_DE, val) ||
+                   matchesSearch(item.CODIGO_BANCO_PARA, val) ||
+                   matchesSearch(item.CODIGO_AGENCIA_PARA, val);
+          } else if (currentModule === 'horario') {
+            return matchesSearch(item.EMPRESA_DE || item.empresaDe, val) ||
+                   matchesSearch(item.CODIGO_DE || item.codigoDe, val) ||
+                   matchesSearch(item.NOME_DE || item.nomeDe, val) ||
+                   matchesSearch(item.COLIGADA_PARA || item.coligadaPara, val) ||
+                   matchesSearch(item.CODIGO_PARA || item.codigoPara, val);
           } else {
-            return (item.EMPRESA_DE || item['EMPRESA _DE'] || "").toLowerCase().includes(val) ||
-                   (item.CODIGO_DE || "").toLowerCase().includes(val) ||
-                   (item.NOME_DE || "").toLowerCase().includes(val) ||
-                   (item.CODIGO_PARA || "").toLowerCase().includes(val) ||
-                   (item.OBSERVACAO || "").toLowerCase().includes(val);
+            return matchesSearch(item.EMPRESA_DE || item['EMPRESA _DE'] || item.empresaDe, val) ||
+                   matchesSearch(item.CODIGO_DE || item.codigoDe || item.CODIGO_MOTIVO_DE, val) ||
+                   matchesSearch(item.NOME_DE || item.nomeDe || item.NOME_MOTIVO_DE, val) ||
+                   matchesSearch(item.CODIGO_PARA || item.codigoPara || item.CODIGO_MOTIVO_PARA || item.CODMOTIVO_PARA, val) ||
+                   matchesSearch(item.COLIGADA_PARA || item.coligadaPara, val) ||
+                   matchesSearch(item.OBSERVACAO || item.observacao, val);
           }
         }
         else if (type === 'empresaDe') {
           const emp = item.empresaDe || item.EMPRESA_DE || item['EMPRESA _DE'] || item.EMP_CODIGO || "";
-          return String(emp).toLowerCase() === val;
+          return matchesSearch(emp, val);
         }
         else if (type === 'tipoEvento') {
-          return (item.tipoEvento || "").toLowerCase().includes(val.replace("b-", ""));
+          return matchesSearch(item.tipoEvento || item.TIPO_EVENTO, val.replace("b-", ""));
         }
         else if (type === 'status') {
           if (val === 'mapeado') return isMapped;
@@ -2968,27 +3035,27 @@
         }
         else if (type === 'coligadaPara' || type === 'coligadaDest') {
           const col = item.coligadaPara || item.COLIGADA_PARA || item.CODCOLIGADA || "";
-          return String(col).toLowerCase().includes(val);
+          return matchesSearch(col, val);
         }
         else if (type === 'codigoPara' || type === 'codColigada') {
-          return String(destCode).toLowerCase().includes(val);
+          return matchesSearch(destCode, val) || matchesSearch(item.CODIGO_PARA || item.codigoPara || item.CODCOLIGADA, val);
         }
         else if (type === 'nomeRm' || type === 'nome') {
           const name = item.nomeRm || item.NOME || item.NOME_DE || "";
-          return String(name).toLowerCase().includes(val);
+          return matchesSearch(name, val);
         }
         else if (type === 'nomeDe' || type === 'nomeSecao') {
           const n = item.NOME_DE || item.nomeDe || item.NOME || "";
-          return String(n).toLowerCase().includes(val);
+          return matchesSearch(n, val);
         }
         else if (type === 'cnpj') {
-          return (item.CNPJ || "").toLowerCase().includes(val);
+          return matchesSearch(item.CNPJ, val);
         }
         else if (type === 'cbo') {
-          return (item.CBO || "").toLowerCase().includes(val);
+          return matchesSearch(item.CBO || item.CBO_2002, val);
         }
         else if (type === 'observacao') {
-          return (item.OBSERVACAO || item.observacao || "").toLowerCase().includes(val);
+          return matchesSearch(item.OBSERVACAO || item.observacao, val);
         }
         
         return true;
