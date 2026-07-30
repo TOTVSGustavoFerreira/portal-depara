@@ -3165,13 +3165,31 @@
                 key: 'DADOS_RM_SECOES',
                 name: 'DADOS_RM_SECOES',
                 headers: ["COLIGADA", "FILIAL", "COD_SECAO", "DESCRICAO", "CNPJ"],
-                mapper: item => [
-                  item.COLIGADA !== undefined ? item.COLIGADA : (item.coligada || ""),
-                  item.FILIAL !== undefined ? item.FILIAL : (item.filial || ""),
-                  item.CODIGO !== undefined ? item.CODIGO : (item.codigo !== undefined ? item.codigo : (item.COD_SECAO || item.cod_secao || "")),
-                  item.DESCRICAO !== undefined ? item.DESCRICAO : (item.descricao || ""),
-                  item.CNPJ !== undefined ? item.CNPJ : (item.cnpj || "")
-                ]
+                mapper: item => {
+                  let cnpjVal = item.CNPJ !== undefined ? item.CNPJ : (item.cnpj || "");
+                  if (!cnpjVal && rawJsonDatabase) {
+                    const itemCol = String(item.COLIGADA || item.coligada || "1").trim();
+                    const itemFil = String(item.FILIAL || item.filial || "1").trim();
+                    const refSec = (rawJsonDatabase.DADOS_RM_SECOES || []).find(s => 
+                      String(s.COLIGADA).trim() === itemCol && 
+                      String(s.FILIAL).trim() === itemFil && 
+                      s.CNPJ
+                    );
+                    if (refSec && refSec.CNPJ) {
+                      cnpjVal = refSec.CNPJ;
+                    } else if (rawJsonDatabase.ZDEPARA_COLIGADAS) {
+                      const colObj = rawJsonDatabase.ZDEPARA_COLIGADAS.find(c => String(c.CODCOLIGADA).trim() === itemCol);
+                      if (colObj && colObj.CNPJ) cnpjVal = colObj.CNPJ;
+                    }
+                  }
+                  return [
+                    item.COLIGADA !== undefined ? item.COLIGADA : (item.coligada || ""),
+                    item.FILIAL !== undefined ? item.FILIAL : (item.filial || ""),
+                    item.CODIGO !== undefined ? item.CODIGO : (item.codigo !== undefined ? item.codigo : (item.COD_SECAO || item.cod_secao || "")),
+                    item.DESCRICAO !== undefined ? item.DESCRICAO : (item.descricao || ""),
+                    cnpjVal
+                  ];
+                }
               }
             ];
  
@@ -6501,11 +6519,21 @@
 
         const finalDesc = `[INCLUSAO MANUAL] ${newDesc.toUpperCase()}`;
 
+        let colCnpj = "";
+        const refSec = secoesTarget.find(s => s.CNPJ);
+        if (refSec && refSec.CNPJ) {
+          colCnpj = refSec.CNPJ;
+        } else if (rawJsonDatabase.ZDEPARA_COLIGADAS) {
+          const colObj = rawJsonDatabase.ZDEPARA_COLIGADAS.find(c => String(c.CODCOLIGADA).trim() === targetColigada);
+          if (colObj && colObj.CNPJ) colCnpj = colObj.CNPJ;
+        }
+
         rawJsonDatabase.DADOS_RM_SECOES.push({
           COLIGADA: targetColigada,
           FILIAL: targetFilial,
           CODIGO: newCod,
-          DESCRICAO: finalDesc
+          DESCRICAO: finalDesc,
+          CNPJ: colCnpj
         });
 
         const optionVal = `${targetColigada}|${targetFilial}|${newCod}`;
