@@ -1,6 +1,6 @@
 {
   "config": {
-    "ultimo_sincronismo": "2026-07-30T01:43:16.799Z"
+    "ultimo_sincronismo": "2026-07-30T02:29:41.175Z"
   },
   "DADOS_RM_EVENTOS": [
     {
@@ -13713,20 +13713,14 @@
     {
       "COLIGADA": "5",
       "FILIAL": "1",
-      "CODIGO": "001.01.03",
-      "DESCRICAO": "[INCLUSAO MANUAL] TESTE",
+      "CODIGO": "001.01.04",
+      "DESCRICAO": "[INCLUSAO MANUAL] TETE 2 (001.01.04)",
       "coligada": "5",
       "filial": "1",
-      "codigo": "001.01.03",
-      "descricao": "[INCLUSAO MANUAL] TESTE",
+      "codigo": "001.01.04",
+      "descricao": "[INCLUSAO MANUAL] TETE 2 (001.01.04)",
       "CNPJ": "",
       "cnpj": ""
-    },
-    {
-      "COLIGADA": "5",
-      "FILIAL": "1",
-      "CODIGO": "001.01.04",
-      "DESCRICAO": "[INCLUSAO MANUAL] TETE 2 (001.01.04)"
     }
   ]
 }
