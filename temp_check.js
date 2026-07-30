@@ -9,6 +9,7 @@
     let database = [];
     let rmEvents = [];
     let unusedCreatedEvents = [];
+    let unusedCreatedSecoes = [];
     let diagnostics = { gaps: [], duplicates: [] };
     let stats = {};
     let filteredData = [];
@@ -910,6 +911,26 @@
         unusedCreatedEvents = [];
       }
 
+      if (currentModule === 'secoes') {
+        const usedSecoesKeys = new Set();
+        (rawJsonDatabase.ZDEPARA_SECOES || []).forEach(item => {
+          if (item.CODIGO_PARA) {
+            const key = `${item.COLIGADA_PARA || '1'}_${item.FILIAL_PARA || '1'}_${String(item.CODIGO_PARA).trim()}`;
+            usedSecoesKeys.add(key);
+          }
+        });
+
+        const allSecoes = rawJsonDatabase.DADOS_RM_SECOES || [];
+        unusedCreatedSecoes = allSecoes.filter(s => {
+          const desc = s.DESCRICAO || s.descricao || "";
+          const isManual = desc.includes("[INCLUSAO MANUAL]") || desc.includes("INCLUSAO MANUAL");
+          const key = `${s.COLIGADA || '1'}_${s.FILIAL || '1'}_${String(s.CODIGO).trim()}`;
+          return isManual && !usedSecoesKeys.has(key);
+        });
+      } else {
+        unusedCreatedSecoes = [];
+      }
+
       // 2. Estatísticas do Módulo Corrente
       const total = database.length;
       let preenchidos = 0;
@@ -1071,7 +1092,7 @@
       
       const hasDuplicates = (diagnostics.duplicates && diagnostics.duplicates.length > 0);
       const hasOrphans = (currentModule === 'eventos' && diagnostics.orphans && diagnostics.orphans.length > 0);
-      const hasUnused = (currentModule === 'eventos' && unusedCreatedEvents && unusedCreatedEvents.length > 0);
+      const hasUnused = (currentModule === 'eventos' && unusedCreatedEvents && unusedCreatedEvents.length > 0) || (currentModule === 'secoes' && unusedCreatedSecoes && unusedCreatedSecoes.length > 0);
       const hasGaps = (currentModule === 'eventos' && diagnostics.gaps && diagnostics.gaps.length > 0);
       
       if (hasDuplicates || hasOrphans || hasUnused || hasGaps) {
@@ -1169,6 +1190,27 @@
                 <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 10px; background:#fff; border:1px solid #fbcfe8; border-radius:6px; font-size:0.78rem;">
                   <span>Código <strong>${ev.codigo}</strong> - ${ev.descricao} (${ev.tipo})</span>
                   <button class="row-btn" style="padding:2px 8px; font-size:0.7rem; background:#fee2e2; border-color:#fca5a5; color:#b91c1c; border-radius:4px;" onclick="deleteManualEvent('${ev.codigo}')">Excluir</button>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }
+
+      // 3.1 SEÇÕES MANUAIS NÃO UTILIZADAS
+      if (unusedCreatedSecoes && unusedCreatedSecoes.length > 0) {
+        html += `
+          <div style="border: 1px solid #fce7f3; background: #fdf2f8; padding: 12px; border-radius: 8px; margin-bottom: 12px;">
+            <h4 style="color:#c026d3; margin:0 0 6px 0; font-size:0.9rem; display:flex; align-items:center; gap:6px;">
+              <span style="background:#d946ef; color:#fff; width:18px; height:18px; display:inline-flex; align-items:center; justify-content:center; border-radius:50%; font-size:0.75rem; font-weight:700;">*</span>
+              Seções Manuais Criadas Não Utilizadas (${unusedCreatedSecoes.length})
+            </h4>
+            <p style="font-size:0.8rem; margin:0 0 8px 0; color:#701a75;">Novas seções criadas manualmente via portal que ainda não possuem nenhum vínculo no De-Para. Se desistiu delas, você pode excluí-los:</p>
+            <div style="display:flex; flex-direction:column; gap:6px; max-height: 180px; overflow-y: auto; padding-right: 4px;">
+              ${unusedCreatedSecoes.map(sec => `
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 10px; background:#fff; border:1px solid #fbcfe8; border-radius:6px; font-size:0.78rem;">
+                  <span>[Col: <strong>${sec.COLIGADA}</strong> | Fil: <strong>${sec.FILIAL}</strong>] Código <strong>${sec.CODIGO}</strong> - ${sec.DESCRICAO}</span>
+                  <button class="row-btn" style="padding:2px 8px; font-size:0.7rem; background:#fee2e2; border-color:#fca5a5; color:#b91c1c; border-radius:4px;" onclick="deleteManualSecao('${sec.COLIGADA}', '${sec.FILIAL}', '${sec.CODIGO}')">Excluir</button>
                 </div>
               `).join('')}
             </div>
@@ -1367,7 +1409,7 @@
               {
                 key: 'ZDEPARA_SECOES',
                 name: 'ZDEPARA_SECOES',
-                headers: ["EMPRESA_DE", "FILIAL_DE", "CODIGO_DE", "NOME_DE", "COLIGADA_PARA", "FILIAL_PARA", "CODIGO_PARA"],
+                headers: ["EMPRESA_DE", "FILIAL_DE", "CODIGO_DE", "NOME_DE", "COLIGADA_PARA", "FILIAL_PARA", "CODIGO_PARA", "NOME SECAO PARA"],
                 mapper: item => [
                   item.EMPRESA_DE || "",
                   item.FILIAL_DE || "",
@@ -1375,7 +1417,8 @@
                   item.NOME_DE || "",
                   item.COLIGADA_PARA || "1",
                   item.FILIAL_PARA || "",
-                  item.CODIGO_PARA || ""
+                  item.CODIGO_PARA || "",
+                  getSecaoName(item.COLIGADA_PARA, item.FILIAL_PARA, item.CODIGO_PARA)
                 ]
               },
               {
@@ -1497,13 +1540,13 @@
               {
                 key: 'DADOS_RM_SECOES',
                 name: 'DADOS_RM_SECOES',
-                headers: ["COLIGADA", "FILIAL", "COD_SECAO", "DESCRICAO", "SETOR"],
+                headers: ["COLIGADA", "FILIAL", "COD_SECAO", "DESCRICAO", "CNPJ"],
                 mapper: item => [
-                  item.COLIGADA || item.coligada || "",
-                  item.FILIAL || item.filial || "",
-                  item.COD_SECAO || item.cod_secao || "",
-                  item.DESCRICAO || item.descricao || "",
-                  item.SETOR || item.setor || ""
+                  item.COLIGADA !== undefined ? item.COLIGADA : (item.coligada || ""),
+                  item.FILIAL !== undefined ? item.FILIAL : (item.filial || ""),
+                  item.CODIGO !== undefined ? item.CODIGO : (item.codigo !== undefined ? item.codigo : (item.COD_SECAO || item.cod_secao || "")),
+                  item.DESCRICAO !== undefined ? item.DESCRICAO : (item.descricao || ""),
+                  item.CNPJ !== undefined ? item.CNPJ : (item.cnpj || "")
                 ]
               }
             ];
@@ -2722,11 +2765,8 @@
       const container = document.getElementById("filterValueContainer");
       container.innerHTML = "";
       
-      if (type === "global" || type === "coligadaPara" || type === "codigoPara" || type === "nomeRm") {
-        container.innerHTML = `<input type="text" id="filterValueInput" class="input-field" placeholder="Digite para filtrar..." oninput="applyFilters()">`;
-      } 
-      else if (type === "empresaDe") {
-        const uniqueEmpresas = [...new Set(database.map(i => i.empresaDe).filter(Boolean))].sort();
+      if (type === "empresaDe") {
+        const uniqueEmpresas = [...new Set(database.map(i => i.empresaDe || i.EMPRESA_DE || i['EMPRESA _DE']).filter(Boolean))].sort();
         let options = uniqueEmpresas.map(e => `<option value="${e}">${e}</option>`).join('');
         container.innerHTML = `
           <select id="filterValueInput" class="filter-select" style="width:100%;" onchange="applyFilters()">
@@ -2759,6 +2799,9 @@
             <option value="sim">Sim (Com Observação)</option>
             <option value="nao">Não (Vazia)</option>
           </select>`;
+      }
+      else {
+        container.innerHTML = `<input type="text" id="filterValueInput" class="input-field" placeholder="Digite para filtrar..." oninput="applyFilters()">`;
       }
     }
 
@@ -2887,6 +2930,10 @@
         else if (type === 'nomeRm' || type === 'nome') {
           const name = item.nomeRm || item.NOME || item.NOME_DE || "";
           return String(name).toLowerCase().includes(val);
+        }
+        else if (type === 'nomeDe' || type === 'nomeSecao') {
+          const n = item.NOME_DE || item.nomeDe || item.NOME || "";
+          return String(n).toLowerCase().includes(val);
         }
         else if (type === 'cnpj') {
           return (item.CNPJ || "").toLowerCase().includes(val);
@@ -4272,6 +4319,35 @@
                 if (item.codigoParaVerbasFerias === code) item.codigoParaVerbasFerias = "";
               });
             }
+          }, null, 'base');
+        }
+      );
+    }
+
+    function deleteManualSecao(coligada, filial, codigo) {
+      const colStr = String(coligada).trim();
+      const filStr = String(filial).trim();
+      const codStr = String(codigo).trim();
+
+      showCustomConfirm(
+        "Excluir Seção Manual",
+        `Tem certeza que deseja excluir a seção manual [Col: ${colStr} | Fil: ${filStr}] ${codStr}? Essa ação atualizará a base de seções no GitHub.`,
+        function() {
+          closeModal('diagnosticsModal');
+          showLoading("Removendo seção manual...");
+          
+          if (rawJsonDatabase && rawJsonDatabase.DADOS_RM_SECOES) {
+            rawJsonDatabase.DADOS_RM_SECOES = rawJsonDatabase.DADOS_RM_SECOES.filter(s => 
+              !(String(s.COLIGADA).trim() === colStr && String(s.FILIAL).trim() === filStr && String(s.CODIGO).trim() === codStr)
+            );
+          }
+
+          commitChangesToGitHub(`Exclui seção manual ${codStr}`, () => {
+            showToast(`Seção manual ${codStr} excluída com sucesso!`, "success");
+            calculateLocalDiagnosticsAndStats();
+            renderWarnings();
+            updateDashboard();
+            applyFilters();
           }, null, 'base');
         }
       );
