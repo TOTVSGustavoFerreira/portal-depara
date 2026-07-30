@@ -5570,9 +5570,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 2,
@@ -5588,9 +5588,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 3,
@@ -5606,9 +5606,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 4,
@@ -5624,9 +5624,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 5,
@@ -5642,9 +5642,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 6,
@@ -5660,9 +5660,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 7,
@@ -5678,9 +5678,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 8,
@@ -5696,9 +5696,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 9,
@@ -5714,9 +5714,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 10,
@@ -5732,9 +5732,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 11,
@@ -5750,9 +5750,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 12,
@@ -5768,9 +5768,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 13,
@@ -5786,9 +5786,9 @@
       "codigoPara": "001.01.001.09",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 14,
@@ -5804,9 +5804,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 15,
@@ -5822,9 +5822,9 @@
       "codigoPara": "001.01.001.03",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 16,
@@ -5840,9 +5840,9 @@
       "codigoPara": "001.01.001.14",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 17,
@@ -5858,9 +5858,9 @@
       "codigoPara": "001.01.001.07",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 18,
@@ -5876,9 +5876,9 @@
       "codigoPara": "001.01.001.06",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 19,
@@ -5894,9 +5894,9 @@
       "codigoPara": "001.01.001.03",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 20,
@@ -5912,9 +5912,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 21,
@@ -5930,9 +5930,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 22,
@@ -5948,9 +5948,9 @@
       "codigoPara": "001.01.001.11",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 23,
@@ -5966,9 +5966,9 @@
       "codigoPara": "001.01.001.10",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 24,
@@ -5984,9 +5984,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 25,
@@ -6002,9 +6002,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 26,
@@ -6020,9 +6020,9 @@
       "codigoPara": "001.01.001.04",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 27,
@@ -6038,9 +6038,9 @@
       "codigoPara": "001.03.002.01",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 28,
@@ -6056,9 +6056,9 @@
       "codigoPara": "001.03.002.02",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 29,
@@ -6074,9 +6074,9 @@
       "codigoPara": "001.03.002.03",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 30,
@@ -6092,9 +6092,9 @@
       "codigoPara": "001.03.002.04",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 31,
@@ -6110,9 +6110,9 @@
       "codigoPara": "001.03.002.05",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 32,
@@ -6128,9 +6128,9 @@
       "codigoPara": "001.03.002.06",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 33,
@@ -6146,9 +6146,9 @@
       "codigoPara": "001.03.002.01",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 34,
@@ -6164,9 +6164,9 @@
       "codigoPara": "001.03.002.01",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 35,
@@ -6182,9 +6182,9 @@
       "codigoPara": "001.03.002.03",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 36,
@@ -6200,9 +6200,9 @@
       "codigoPara": "001.03.002.04",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 37,
@@ -6218,9 +6218,9 @@
       "codigoPara": "001.03.002.08",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 38,
@@ -6236,9 +6236,9 @@
       "codigoPara": "001.03.002.07",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 39,
@@ -6254,9 +6254,9 @@
       "codigoPara": "001.03.002.07",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 40,
@@ -6272,9 +6272,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 41,
@@ -6290,9 +6290,9 @@
       "codigoPara": "001.03.002.02",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 42,
@@ -6308,9 +6308,9 @@
       "codigoPara": "001.03.002.02",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 43,
@@ -6326,9 +6326,9 @@
       "codigoPara": "001.03.002.03",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 44,
@@ -6344,9 +6344,9 @@
       "codigoPara": "001.03.002.03",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 45,
@@ -6362,9 +6362,9 @@
       "codigoPara": "001.03.002.04",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 46,
@@ -6380,9 +6380,9 @@
       "codigoPara": "001.03.002.04",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 47,
@@ -6398,9 +6398,9 @@
       "codigoPara": "001.03.002.05",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 48,
@@ -6416,9 +6416,9 @@
       "codigoPara": "001.03.002.05",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 49,
@@ -6434,9 +6434,9 @@
       "codigoPara": "001.03.002.06",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 50,
@@ -6452,9 +6452,9 @@
       "codigoPara": "001.03.002.06",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 51,
@@ -6470,9 +6470,9 @@
       "codigoPara": "001.03.002.06",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 52,
@@ -6488,9 +6488,9 @@
       "codigoPara": "001.03.002.06",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 53,
@@ -6506,9 +6506,9 @@
       "codigoPara": "001.03.002.01",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 54,
@@ -6524,9 +6524,9 @@
       "codigoPara": "001.03.002.01",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 55,
@@ -6542,9 +6542,9 @@
       "codigoPara": "001.03.002.02",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 56,
@@ -6560,9 +6560,9 @@
       "codigoPara": "001.03.002.03",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 57,
@@ -6578,9 +6578,9 @@
       "codigoPara": "001.03.002.03",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 58,
@@ -6596,9 +6596,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 59,
@@ -6614,9 +6614,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 60,
@@ -6632,9 +6632,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 61,
@@ -6650,9 +6650,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 62,
@@ -6668,9 +6668,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 63,
@@ -6686,9 +6686,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 64,
@@ -6704,9 +6704,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 65,
@@ -6722,9 +6722,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 66,
@@ -6740,9 +6740,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 67,
@@ -6758,9 +6758,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 68,
@@ -6776,9 +6776,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 69,
@@ -6794,9 +6794,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 70,
@@ -6812,9 +6812,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 71,
@@ -6830,9 +6830,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 72,
@@ -6848,9 +6848,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 73,
@@ -6866,9 +6866,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 74,
@@ -6884,9 +6884,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 75,
@@ -6902,9 +6902,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 76,
@@ -6920,9 +6920,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 77,
@@ -6938,9 +6938,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 78,
@@ -6956,9 +6956,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 79,
@@ -6974,9 +6974,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 80,
@@ -6992,9 +6992,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 81,
@@ -7010,9 +7010,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 82,
@@ -7028,9 +7028,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 83,
@@ -7046,9 +7046,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 84,
@@ -7064,9 +7064,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 85,
@@ -7082,9 +7082,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 86,
@@ -7100,9 +7100,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 87,
@@ -7118,9 +7118,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 88,
@@ -7136,9 +7136,9 @@
       "codigoPara": "001.01.001.01",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 89,
@@ -7154,9 +7154,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 90,
@@ -7172,9 +7172,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 91,
@@ -7190,9 +7190,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 92,
@@ -7208,9 +7208,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 93,
@@ -7226,9 +7226,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 94,
@@ -7244,9 +7244,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 95,
@@ -7262,9 +7262,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 96,
@@ -7280,9 +7280,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 97,
@@ -7298,9 +7298,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 98,
@@ -7316,9 +7316,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 99,
@@ -7334,9 +7334,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 100,
@@ -7352,9 +7352,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 101,
@@ -7370,9 +7370,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 102,
@@ -7388,9 +7388,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 103,
@@ -7406,9 +7406,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 104,
@@ -7424,9 +7424,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 105,
@@ -7442,9 +7442,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 106,
@@ -7460,9 +7460,9 @@
       "codigoPara": "001.03.002.01",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 107,
@@ -7478,9 +7478,9 @@
       "codigoPara": "001.03.002.02",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 108,
@@ -7496,9 +7496,9 @@
       "codigoPara": "001.03.002.03",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 109,
@@ -7514,9 +7514,9 @@
       "codigoPara": "001.03.002.04",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 110,
@@ -7532,9 +7532,9 @@
       "codigoPara": "001.03.002.05",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 111,
@@ -7550,9 +7550,9 @@
       "codigoPara": "001.03.002.06",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 112,
@@ -7568,9 +7568,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 113,
@@ -7586,9 +7586,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 114,
@@ -7604,9 +7604,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 115,
@@ -7622,9 +7622,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 116,
@@ -7640,9 +7640,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 117,
@@ -7658,9 +7658,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 118,
@@ -7676,9 +7676,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 119,
@@ -7694,9 +7694,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 120,
@@ -7712,9 +7712,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 121,
@@ -7730,9 +7730,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 122,
@@ -7748,9 +7748,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 123,
@@ -7766,9 +7766,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 124,
@@ -7784,9 +7784,9 @@
       "codigoPara": "001.01.001.05",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 125,
@@ -7802,9 +7802,9 @@
       "codigoPara": "001.01.001.05",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 126,
@@ -7820,9 +7820,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 127,
@@ -7838,9 +7838,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 128,
@@ -7856,9 +7856,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 129,
@@ -7874,9 +7874,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 130,
@@ -7892,9 +7892,9 @@
       "codigoPara": "001.01.001.06",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 131,
@@ -7910,9 +7910,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 132,
@@ -7928,9 +7928,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 133,
@@ -7946,9 +7946,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 134,
@@ -7964,9 +7964,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 135,
@@ -7982,9 +7982,9 @@
       "codigoPara": "001.01.001.15",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 136,
@@ -8000,9 +8000,9 @@
       "codigoPara": "001.01.001.15",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 137,
@@ -8018,9 +8018,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 138,
@@ -8036,9 +8036,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 139,
@@ -8054,9 +8054,9 @@
       "codigoPara": "001.03.01",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 140,
@@ -8072,9 +8072,9 @@
       "codigoPara": "001.03.02",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 141,
@@ -8090,9 +8090,9 @@
       "codigoPara": "001.03.01",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 142,
@@ -8108,9 +8108,9 @@
       "codigoPara": "001.03.02",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 143,
@@ -8126,9 +8126,9 @@
       "codigoPara": "001.03.01",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 144,
@@ -8144,9 +8144,9 @@
       "codigoPara": "001.03.02",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 145,
@@ -8162,9 +8162,9 @@
       "codigoPara": "001.03.01",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 146,
@@ -8180,9 +8180,9 @@
       "codigoPara": "001.03.02",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 147,
@@ -8198,9 +8198,9 @@
       "codigoPara": "001.03.01",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 148,
@@ -8216,9 +8216,9 @@
       "codigoPara": "001.03.02",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 149,
@@ -8234,9 +8234,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 150,
@@ -8252,9 +8252,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 151,
@@ -8270,9 +8270,9 @@
       "codigoPara": "001.01.01",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 152,
@@ -8288,9 +8288,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 153,
@@ -8306,9 +8306,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 154,
@@ -8324,9 +8324,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 155,
@@ -8342,9 +8342,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 156,
@@ -8360,9 +8360,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 157,
@@ -8378,9 +8378,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 158,
@@ -8396,9 +8396,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 159,
@@ -8414,9 +8414,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 160,
@@ -8432,9 +8432,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 161,
@@ -8450,9 +8450,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 162,
@@ -8468,9 +8468,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 163,
@@ -8486,9 +8486,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 164,
@@ -8504,9 +8504,9 @@
       "codigoPara": "001.03.02",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 165,
@@ -8522,9 +8522,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 166,
@@ -8540,9 +8540,9 @@
       "codigoPara": "001.02.01",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 167,
@@ -8551,16 +8551,16 @@
       "NOME_DE": "OBRA PRACA",
       "COLIGADA_PARA": "5",
       "FILIAL_PARA": "1",
-      "CODIGO_PARA": "",
+      "CODIGO_PARA": "001.01.04",
       "FILIAL_DE": "0012",
       "DESCRICAO_SECAO_PARA": "",
       "coligadaPara": "5",
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 168,
@@ -8576,9 +8576,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 169,
@@ -8587,16 +8587,16 @@
       "NOME_DE": "OBRA MATRIZ",
       "COLIGADA_PARA": "5",
       "FILIAL_PARA": "1",
-      "CODIGO_PARA": "",
+      "CODIGO_PARA": "001.01.03",
       "FILIAL_DE": "0012",
       "DESCRICAO_SECAO_PARA": "",
       "coligadaPara": "5",
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 170,
@@ -8612,9 +8612,9 @@
       "codigoPara": "001.01.01",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 171,
@@ -8630,9 +8630,9 @@
       "codigoPara": "001.01.01",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 172,
@@ -8648,9 +8648,9 @@
       "codigoPara": "001.02.01",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 173,
@@ -8666,9 +8666,9 @@
       "codigoPara": "001.02.01",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 174,
@@ -8684,9 +8684,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 175,
@@ -8702,9 +8702,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 176,
@@ -8720,9 +8720,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 177,
@@ -8738,9 +8738,9 @@
       "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 178,
@@ -8756,9 +8756,9 @@
       "codigoPara": "001.01.01",
       "OBSERVACAO": "",
       "observacao": "",
-      "hasDivergencia": "false",
-      "hasDivergenciaDuplicidade": "false",
-      "hasDivergenciaTipo": "false"
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     }
   ],
   "ZDEPARA_SITUACAO": [
