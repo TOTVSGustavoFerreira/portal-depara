@@ -3038,14 +3038,18 @@
       let targetColigada = "1";
       let targetFilial = "1";
 
-      if (empresaDe !== undefined && filialDe !== undefined && rawJsonDatabase.ZDEPARA_COLIGADAS) {
-        const mappedCol = rawJsonDatabase.ZDEPARA_COLIGADAS.find(c => 
-          String(c.EMPRESA_DE).trim() === String(empresaDe).trim() && 
-          String(c.ID || c.FILIAL_DE || "").trim() === String(filialDe).trim()
-        );
+      if (empresaDe !== undefined && rawJsonDatabase.ZDEPARA_COLIGADAS) {
+        const empNum = parseInt(empresaDe, 10);
+        const mappedCol = rawJsonDatabase.ZDEPARA_COLIGADAS.find(c => {
+          const cEmpNum = parseInt(c.EMPRESA_DE, 10);
+          if (!isNaN(empNum) && !isNaN(cEmpNum)) {
+            return cEmpNum === empNum;
+          }
+          return String(c.EMPRESA_DE).trim() === String(empresaDe).trim();
+        });
         if (mappedCol && mappedCol.CODCOLIGADA) {
           targetColigada = String(mappedCol.CODCOLIGADA).trim();
-          targetFilial = String(mappedCol.CODFILIAL_PARA || "1").trim();
+          targetFilial = String(mappedCol.CODFILIAL_PARA || mappedCol.FILIAL_PARA || "1").trim();
         }
       }
 
@@ -3078,7 +3082,7 @@
         const label = `[Col: ${s.COLIGADA} | Fil: ${s.FILIAL}] ${s.CODIGO} - ${s.DESCRICAO}${cnpjText}`;
         
         if (isParent) {
-          html += `<option value="${optionValue}" disabled style="color:#a0aec0;">${label} (NÍVEL INCOMPLETO)</option>`;
+          html += `<option value="${optionValue}" disabled style="color:#a0aec0;">${label}</option>`;
         } else {
           html += `<option value="${optionValue}" ${isSelected}>${label}</option>`;
         }
@@ -3092,10 +3096,13 @@
 
       if (currentVal && currentVal.includes('|')) {
          const parts = currentVal.split('|');
-         const fallbackKey = `${parts[0]}_${parts[1]}_${parts[2]}`;
-         const exists = secoes.some(s => `${s.COLIGADA}_${s.FILIAL}_${s.CODIGO}` === fallbackKey);
-         if (!exists) {
-            html += `<option value="${currentVal}" selected>${currentVal.replace(/\|/g, ' ')} (Inválido/Inexistente)</option>`;
+         const secCode = parts[2] ? parts[2].trim() : '';
+         if (secCode) {
+           const fallbackKey = `${parts[0]}_${parts[1]}_${secCode}`;
+           const exists = secoes.some(s => `${s.COLIGADA}_${s.FILIAL}_${s.CODIGO}` === fallbackKey);
+           if (!exists) {
+              html += `<option value="${currentVal}" selected>[Col: ${parts[0]} | Fil: ${parts[1]}] ${secCode} (Código Inexistente no RM)</option>`;
+           }
          }
       }
 
@@ -4464,14 +4471,18 @@
       let targetColigada = "1";
       let targetFilial = "1";
 
-      if (empresaDe !== undefined && filialDe !== undefined && rawJsonDatabase.ZDEPARA_COLIGADAS) {
-        const mappedCol = rawJsonDatabase.ZDEPARA_COLIGADAS.find(c => 
-          String(c.EMPRESA_DE).trim() === String(empresaDe).trim() && 
-          String(c.ID || c.FILIAL_DE || "").trim() === String(filialDe).trim()
-        );
+      if (empresaDe !== undefined && rawJsonDatabase.ZDEPARA_COLIGADAS) {
+        const empNum = parseInt(empresaDe, 10);
+        const mappedCol = rawJsonDatabase.ZDEPARA_COLIGADAS.find(c => {
+          const cEmpNum = parseInt(c.EMPRESA_DE, 10);
+          if (!isNaN(empNum) && !isNaN(cEmpNum)) {
+            return cEmpNum === empNum;
+          }
+          return String(c.EMPRESA_DE).trim() === String(empresaDe).trim();
+        });
         if (mappedCol && mappedCol.CODCOLIGADA) {
           targetColigada = String(mappedCol.CODCOLIGADA).trim();
-          targetFilial = String(mappedCol.CODFILIAL_PARA || "1").trim();
+          targetFilial = String(mappedCol.CODFILIAL_PARA || mappedCol.FILIAL_PARA || "1").trim();
         }
       }
 
@@ -4535,27 +4546,57 @@
       inputDesc.style.width = '100%'; inputDesc.style.padding = '8px'; inputDesc.style.marginBottom = '16px'; inputDesc.style.backgroundColor = '#fff'; inputDesc.style.color = '#000';
 
       function updateSuggestedCode() {
-        const parentCode = parentSelect.value;
-        if (!parentCode) {
+        const selectedVal = parentSelect.value;
+        if (!selectedVal) {
           let maxRoot = 0;
+          let padLen = 2;
           secoesTarget.forEach(s => {
             const rootPart = String(s.CODIGO).split('.')[0];
+            padLen = Math.max(padLen, rootPart.length);
             const num = parseInt(rootPart, 10);
             if (!isNaN(num) && num > maxRoot) maxRoot = num;
           });
-          const nextRoot = String(maxRoot + 1).padStart(2, '0');
+          const nextRoot = String(maxRoot + 1).padStart(padLen, '0');
           inputCod.value = nextRoot;
           return;
         }
 
-        const prefix = parentCode + '.';
-        const siblings = secoesTarget.filter(s => String(s.CODIGO).startsWith(prefix));
+        const directPrefix = selectedVal + '.';
+        const hasChildren = secoesTarget.some(s => String(s.CODIGO).startsWith(directPrefix));
+
+        let parentPrefix = "";
+        if (hasChildren) {
+          parentPrefix = directPrefix;
+        } else {
+          const parts = selectedVal.split('.');
+          if (parts.length > 1) {
+            parts.pop();
+            parentPrefix = parts.join('.') + '.';
+          } else {
+            parentPrefix = "";
+          }
+        }
+
+        if (!parentPrefix) {
+          let maxRoot = 0;
+          let padLen = 2;
+          secoesTarget.forEach(s => {
+            const rootPart = String(s.CODIGO).split('.')[0];
+            padLen = Math.max(padLen, rootPart.length);
+            const num = parseInt(rootPart, 10);
+            if (!isNaN(num) && num > maxRoot) maxRoot = num;
+          });
+          inputCod.value = String(maxRoot + 1).padStart(padLen, '0');
+          return;
+        }
+
+        const siblings = secoesTarget.filter(s => String(s.CODIGO).startsWith(parentPrefix));
         
         let maxSeq = 0;
         let padLen = 2;
 
         siblings.forEach(s => {
-          const rest = String(s.CODIGO).substring(prefix.length);
+          const rest = String(s.CODIGO).substring(parentPrefix.length);
           const nextSegment = rest.split('.')[0];
           if (nextSegment) {
             padLen = Math.max(padLen, nextSegment.length);
@@ -4565,7 +4606,7 @@
         });
 
         const nextSeq = String(maxSeq + 1).padStart(padLen, '0');
-        inputCod.value = `${parentCode}.${nextSeq}`;
+        inputCod.value = `${parentPrefix}${nextSeq}`;
       }
 
       parentSelect.onchange = updateSuggestedCode;
@@ -4609,6 +4650,17 @@
 
         if (!newCod || !newDesc) {
           showToast("Preencha o Código e a Descrição da nova seção.", "error");
+          return;
+        }
+
+        const existsExact = secoesTarget.some(s => String(s.CODIGO).trim() === newCod);
+        if (existsExact) {
+          showToast(`Código duplicado! A seção '${newCod}' já existe nesta Coligada/Filial. Informe um código único.`, "error");
+          return;
+        }
+
+        if (parentSelect.value && newCod === parentSelect.value) {
+          showToast(`Você informou apenas o código da pasta pai (${newCod}). É necessário incluir a seção analítica completa.`, "error");
           return;
         }
 
