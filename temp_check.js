@@ -1234,6 +1234,18 @@
         `;
       }
       
+      if (currentModule === 'secoes') {
+        html += `
+          <div style="border: 1px solid #e0e7ff; background: #eef2ff; padding: 12px; border-radius: 8px; margin-top: 12px; display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <h4 style="color:#3730a3; margin:0 0 4px 0; font-size:0.88rem;">Otimização Sequencial de Seções Manuais</h4>
+              <p style="font-size:0.78rem; margin:0; color:#4338ca;">Elimine lacunas na numeração (ex: ajustar 001.01.04 para 001.01.03) e atualize os vínculos no De-Para.</p>
+            </div>
+            <button class="row-btn row-btn-primary" style="font-size:0.78rem; white-space:nowrap; margin-left:12px;" onclick="triggerReorganizeSecoesManuais()">⚡ Reorganizar Sequência</button>
+          </div>
+        `;
+      }
+      
       if (!html) {
         content.innerHTML = `<p style="text-align:center; padding:20px; color:var(--color-text-muted);">Nenhuma inconsistência ou alerta de integridade identificado na base de dados.</p>`;
       } else {
@@ -4324,6 +4336,113 @@
       );
     }
 
+    function reorganizeSecoesManuais(targetColigada, targetFilial) {
+      if (!rawJsonDatabase || !rawJsonDatabase.DADOS_RM_SECOES) return 0;
+
+      const colStr = String(targetColigada || "1").trim();
+      const filStr = String(targetFilial || "1").trim();
+
+      const list = rawJsonDatabase.DADOS_RM_SECOES.filter(s => 
+        String(s.COLIGADA).trim() === colStr && 
+        String(s.FILIAL).trim() === filStr
+      );
+
+      const groups = {};
+      list.forEach(s => {
+        const parts = String(s.CODIGO).split('.');
+        let parentPrefix = "";
+        if (parts.length > 1) {
+          const parentParts = parts.slice(0, parts.length - 1);
+          parentPrefix = parentParts.join('.') + '.';
+        }
+        if (!groups[parentPrefix]) groups[parentPrefix] = [];
+        groups[parentPrefix].push(s);
+      });
+
+      const codeMapping = {};
+
+      Object.keys(groups).forEach(parentPrefix => {
+        const groupSecs = groups[parentPrefix];
+        const officialSecs = groupSecs.filter(s => !(String(s.DESCRICAO || "").includes("[INCLUSAO MANUAL]")));
+        const manualSecs = groupSecs.filter(s => String(s.DESCRICAO || "").includes("[INCLUSAO MANUAL]"));
+
+        if (manualSecs.length === 0) return;
+
+        let maxOfficialSeq = 0;
+        let padLen = 2;
+
+        officialSecs.forEach(s => {
+          const rest = parentPrefix ? String(s.CODIGO).substring(parentPrefix.length) : String(s.CODIGO);
+          const seg = rest.split('.')[0];
+          if (seg) {
+            padLen = Math.max(padLen, seg.length);
+            const num = parseInt(seg, 10);
+            if (!isNaN(num) && num > maxOfficialSeq) maxOfficialSeq = num;
+          }
+        });
+
+        manualSecs.sort((a, b) => {
+          const restA = parentPrefix ? String(a.CODIGO).substring(parentPrefix.length) : String(a.CODIGO);
+          const restB = parentPrefix ? String(b.CODIGO).substring(parentPrefix.length) : String(b.CODIGO);
+          const numA = parseInt(restA, 10) || 0;
+          const numB = parseInt(restB, 10) || 0;
+          return numA - numB;
+        });
+
+        let currentSeq = maxOfficialSeq + 1;
+        manualSecs.forEach(sec => {
+          const oldCod = String(sec.CODIGO).trim();
+          const nextSegment = String(currentSeq).padStart(padLen, '0');
+          const newCod = `${parentPrefix}${nextSegment}`;
+          if (oldCod !== newCod) {
+            sec.CODIGO = newCod;
+            codeMapping[`${colStr}_${filStr}_${oldCod}`] = newCod;
+          }
+          currentSeq++;
+        });
+      });
+
+      if (Object.keys(codeMapping).length > 0 && rawJsonDatabase.ZDEPARA_SECOES) {
+        rawJsonDatabase.ZDEPARA_SECOES.forEach(row => {
+          const key = `${String(row.COLIGADA_PARA || '1').trim()}_${String(row.FILIAL_PARA || '1').trim()}_${String(row.CODIGO_PARA || '').trim()}`;
+          if (codeMapping[key]) {
+            row.CODIGO_PARA = codeMapping[key];
+          }
+        });
+      }
+
+      return Object.keys(codeMapping).length;
+    }
+
+    function triggerReorganizeSecoesManuais() {
+      showCustomConfirm(
+        "Reorganizar Numeração de Seções Manuais",
+        "Deseja reorganizar sequencialmente os códigos de todas as seções manuais criadas para eliminar lacunas (gaps) na numeração? Os vínculos existentes na tabela De-Para serão atualizados automaticamente.",
+        function() {
+          showLoading("Reorganizando numeração das seções...");
+          
+          let totalAdjusted = 0;
+          const uniqueCols = [...new Set((rawJsonDatabase.DADOS_RM_SECOES || []).map(s => String(s.COLIGADA || '1').trim()))];
+          uniqueCols.forEach(col => {
+            const uniqueFils = [...new Set((rawJsonDatabase.DADOS_RM_SECOES || []).filter(s => String(s.COLIGADA || '1').trim() === col).map(s => String(s.FILIAL || '1').trim()))];
+            uniqueFils.forEach(fil => {
+              totalAdjusted += reorganizeSecoesManuais(col, fil);
+            });
+          });
+
+          commitChangesToGitHub("Reorganiza numeração sequencial das seções manuais", () => {
+            showToast(`Reorganização concluída! ${totalAdjusted} seção(ões) tiveram a numeração ajustada sem deixar lacunas.`, "success");
+            const modal = document.getElementById("diagnosticsModal");
+            if (modal) modal.style.display = "none";
+            calculateLocalDiagnosticsAndStats();
+            renderWarnings();
+            updateDashboard();
+            applyFilters();
+          }, null, 'base');
+        }
+      );
+    }
+
     function deleteManualSecao(coligada, filial, codigo) {
       const colStr = String(coligada).trim();
       const filStr = String(filial).trim();
@@ -4331,10 +4450,10 @@
 
       showCustomConfirm(
         "Excluir Seção Manual",
-        `Tem certeza que deseja excluir a seção manual [Col: ${colStr} | Fil: ${filStr}] ${codStr}? Essa ação atualizará a base de seções no GitHub.`,
+        `Tem certeza que deseja excluir a seção manual [Col: ${colStr} | Fil: ${filStr}] ${codStr}? A numeração das seções manuais restantes será reorganizada automaticamente para evitar lacunas.`,
         function() {
           closeModal('diagnosticsModal');
-          showLoading("Removendo seção manual...");
+          showLoading("Removendo seção manual e reorganizando códigos...");
           
           if (rawJsonDatabase && rawJsonDatabase.DADOS_RM_SECOES) {
             rawJsonDatabase.DADOS_RM_SECOES = rawJsonDatabase.DADOS_RM_SECOES.filter(s => 
@@ -4342,8 +4461,20 @@
             );
           }
 
-          commitChangesToGitHub(`Exclui seção manual ${codStr}`, () => {
-            showToast(`Seção manual ${codStr} excluída com sucesso!`, "success");
+          if (rawJsonDatabase && rawJsonDatabase.ZDEPARA_SECOES) {
+            rawJsonDatabase.ZDEPARA_SECOES.forEach(row => {
+              if (String(row.COLIGADA_PARA || '1').trim() === colStr &&
+                  String(row.FILIAL_PARA || '1').trim() === filStr &&
+                  String(row.CODIGO_PARA || '').trim() === codStr) {
+                row.CODIGO_PARA = "";
+              }
+            });
+          }
+
+          reorganizeSecoesManuais(colStr, filStr);
+
+          commitChangesToGitHub(`Exclui e reorganiza seções manuais após remoção de ${codStr}`, () => {
+            showToast(`Seção manual ${codStr} excluída e numeração reorganizada com sucesso!`, "success");
             calculateLocalDiagnosticsAndStats();
             renderWarnings();
             updateDashboard();
