@@ -1,6 +1,6 @@
 {
   "config": {
-    "ultimo_sincronismo": "2026-07-28T14:45:17.621Z"
+    "ultimo_sincronismo": "2026-07-30T01:35:50.250Z"
   },
   "DADOS_RM_EVENTOS": [
     {
@@ -13709,6 +13709,12 @@
       "codigo": "001.02.01",
       "descricao": "FRENTE DE LOJA",
       "cnpj": "60.538.885/0001-09"
+    },
+    {
+      "COLIGADA": "5",
+      "FILIAL": "1",
+      "CODIGO": "001.01.03",
+      "DESCRICAO": "[INCLUSAO MANUAL] TESTE"
     }
   ]
 }
