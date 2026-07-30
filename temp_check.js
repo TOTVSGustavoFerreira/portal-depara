@@ -4693,13 +4693,13 @@
 
         commitChangesToGitHub(`Criação de Seção Manual: ${newCod}`, () => {}, () => {
            if (!isNaN(rowNum)) {
-              saveRowEdition(rowNum);
+              saveRowEdition(rowNum, optionVal);
            }
         }, 'base');
       };
     }
 
-    function saveRowEdition(rowNum) {
+    function saveRowEdition(rowNum, overrideOptionVal) {
       const item = database.find(i => i.rowNum === rowNum);
       if (!item) return;
       
@@ -4824,8 +4824,9 @@
         }, null, 'cadastros');
       } 
       else if (currentModule === 'secoes') {
-        const aglutinado = document.getElementById(`edit-CODIGO_PARA-${rowNum}`).value;
-        const observacao = document.getElementById(`edit-OBSERVACAO-${rowNum}`) ? document.getElementById(`edit-OBSERVACAO-${rowNum}`).value : '';
+        const aglutinadoEl = document.getElementById(`edit-CODIGO_PARA-${rowNum}`);
+        const aglutinado = overrideOptionVal || (aglutinadoEl ? aglutinadoEl.value : '');
+        const observacao = document.getElementById(`edit-OBSERVACAO-${rowNum}`) ? document.getElementById(`edit-OBSERVACAO-${rowNum}`).value : (item.OBSERVACAO || '');
         
         let coligadaPara = item.COLIGADA_PARA || '';
         let filialPara = item.FILIAL_PARA || '';
