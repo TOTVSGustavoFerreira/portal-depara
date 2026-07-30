@@ -1,6 +1,6 @@
 {
   "config": {
-    "ultimo_sincronismo": "2026-07-30T02:29:41.175Z"
+    "ultimo_sincronismo": "2026-07-30T02:38:08.156Z"
   },
   "DADOS_RM_EVENTOS": [
     {
@@ -13713,7 +13713,7 @@
     {
       "COLIGADA": "5",
       "FILIAL": "1",
-      "CODIGO": "001.01.04",
+      "CODIGO": "001.01.03",
       "DESCRICAO": "[INCLUSAO MANUAL] TETE 2 (001.01.04)",
       "coligada": "5",
       "filial": "1",
