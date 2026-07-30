@@ -1,6 +1,6 @@
 {
   "config": {
-    "ultimo_sincronismo": "2026-07-30T02:41:21.046Z"
+    "ultimo_sincronismo": "2026-07-30T16:30:38.948Z"
   },
   "DADOS_RM_EVENTOS": [
     {
@@ -11975,6 +11975,11 @@
       "tipo": "PROVENTO",
       "valhordiaref": "",
       "nat_esocial": ""
+    },
+    {
+      "codigo": "1130",
+      "descricao": "[INCLUSAO MANUAL] Vale Combustivel",
+      "tipo": "DESCONTO"
     }
   ],
   "DADOS_RM_SITUACAO": [
@@ -13726,7 +13731,13 @@
       "COLIGADA": "1",
       "FILIAL": "1",
       "CODIGO": "001.03.001.15",
-      "DESCRICAO": "[INCLUSAO MANUAL] TESTE 03"
+      "DESCRICAO": "[INCLUSAO MANUAL] TESTE 03",
+      "coligada": "1",
+      "filial": "1",
+      "codigo": "001.03.001.15",
+      "descricao": "[INCLUSAO MANUAL] TESTE 03",
+      "CNPJ": "",
+      "cnpj": ""
     }
   ]
 }
