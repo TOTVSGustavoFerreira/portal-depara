@@ -5201,7 +5201,10 @@
       "coligadaPara": "4",
       "codigoPara": "001",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 2,
@@ -5214,7 +5217,10 @@
       "coligadaPara": "4",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 3,
@@ -5227,7 +5233,10 @@
       "coligadaPara": "5",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 4,
@@ -5240,7 +5249,10 @@
       "coligadaPara": "5",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 5,
@@ -5253,7 +5265,10 @@
       "coligadaPara": "1",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 6,
@@ -5266,7 +5281,10 @@
       "coligadaPara": "6",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 7,
@@ -5279,7 +5297,10 @@
       "coligadaPara": "1",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 8,
@@ -5292,7 +5313,10 @@
       "coligadaPara": "5",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 9,
@@ -5305,7 +5329,10 @@
       "coligadaPara": "1",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 10,
@@ -5318,7 +5345,10 @@
       "coligadaPara": "1",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 11,
@@ -5331,7 +5361,10 @@
       "coligadaPara": "2",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 12,
@@ -5344,7 +5377,10 @@
       "coligadaPara": "1",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 13,
@@ -5357,7 +5393,10 @@
       "coligadaPara": "6",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 14,
@@ -5370,7 +5409,10 @@
       "coligadaPara": "4",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 15,
@@ -5383,7 +5425,10 @@
       "coligadaPara": "4",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 16,
@@ -5396,7 +5441,10 @@
       "coligadaPara": "1",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 17,
@@ -5409,7 +5457,10 @@
       "coligadaPara": "5",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 18,
@@ -5422,7 +5473,10 @@
       "coligadaPara": "4",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 19,
@@ -5435,7 +5489,10 @@
       "coligadaPara": "1",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 20,
@@ -5448,7 +5505,10 @@
       "coligadaPara": "1",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 21,
@@ -5461,7 +5521,10 @@
       "coligadaPara": "1",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 22,
@@ -5474,7 +5537,10 @@
       "coligadaPara": "2",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 23,
@@ -5487,7 +5553,10 @@
       "coligadaPara": "3",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 24,
@@ -5500,7 +5569,10 @@
       "coligadaPara": "5",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 25,
@@ -5513,7 +5585,10 @@
       "coligadaPara": "1",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 26,
@@ -5526,7 +5601,10 @@
       "coligadaPara": "1",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 27,
@@ -5539,7 +5617,10 @@
       "coligadaPara": "1",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 28,
@@ -5552,7 +5633,10 @@
       "coligadaPara": "5",
       "codigoPara": "",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     }
   ],
   "ZDEPARA_SECOES": [
@@ -5581,7 +5665,7 @@
       "NOME_DE": "(S/M) SISTEMA DE GESTÃO DA QUALIDADE",
       "COLIGADA_PARA": "1",
       "FILIAL_PARA": "1",
-      "CODIGO_PARA": "",
+      "CODIGO_PARA": "P/ ANALISE",
       "FILIAL_DE": "0001",
       "DESCRICAO_SECAO_PARA": "",
       "coligadaPara": "1",
@@ -5599,7 +5683,7 @@
       "NOME_DE": "(S/M) GERÊNCIA DE OBRAS",
       "COLIGADA_PARA": "1",
       "FILIAL_PARA": "1",
-      "CODIGO_PARA": "",
+      "CODIGO_PARA": "001.03.001.15",
       "FILIAL_DE": "0001",
       "DESCRICAO_SECAO_PARA": "",
       "coligadaPara": "1",
@@ -5995,7 +6079,7 @@
       "NOME_DE": "(S/M) MAQ. EQUIPAMENTOS",
       "COLIGADA_PARA": "1",
       "FILIAL_PARA": "1",
-      "CODIGO_PARA": "",
+      "CODIGO_PARA": "NAO IMPORTAR",
       "FILIAL_DE": "0001",
       "DESCRICAO_SECAO_PARA": "",
       "coligadaPara": "1",
@@ -8551,11 +8635,11 @@
       "NOME_DE": "OBRA PRACA",
       "COLIGADA_PARA": "5",
       "FILIAL_PARA": "1",
-      "CODIGO_PARA": "001.01.04",
+      "CODIGO_PARA": "",
       "FILIAL_DE": "0012",
       "DESCRICAO_SECAO_PARA": "",
       "coligadaPara": "5",
-      "codigoPara": "001.01.04",
+      "codigoPara": "",
       "OBSERVACAO": "",
       "observacao": "",
       "hasDivergencia": false,
@@ -8587,7 +8671,7 @@
       "NOME_DE": "OBRA MATRIZ",
       "COLIGADA_PARA": "5",
       "FILIAL_PARA": "1",
-      "CODIGO_PARA": "",
+      "CODIGO_PARA": "001.01.03",
       "FILIAL_DE": "0012",
       "DESCRICAO_SECAO_PARA": "",
       "coligadaPara": "5",
