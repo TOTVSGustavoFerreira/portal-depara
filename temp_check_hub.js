@@ -17,6 +17,7 @@
     function verifyPin() {
       const pin = document.getElementById('pinInput').value;
       if (pin === hubConfig.pin) {
+        localStorage.setItem('hub_session_auth', 'true');
         document.getElementById('loginOverlay').style.display = 'none';
         showToast("Acesso concedido ao Hub 360°!", "success");
         initHub();
@@ -24,6 +25,21 @@
         showToast("Senha Mestra incorreta! Tente novamente.", "error");
       }
     }
+
+    function logoutHub() {
+      localStorage.removeItem('hub_session_auth');
+      document.getElementById('pinInput').value = '';
+      document.getElementById('loginOverlay').style.display = 'flex';
+      showToast("Sessão encerrada. Hub bloqueado.", "info");
+    }
+
+    function checkAuthOnLoad() {
+      if (localStorage.getItem('hub_session_auth') === 'true') {
+        document.getElementById('loginOverlay').style.display = 'none';
+        initHub();
+      }
+    }
+    window.addEventListener('DOMContentLoaded', checkAuthOnLoad);
 
     function initHub() {
       document.getElementById('configOwner').value = hubConfig.owner;
