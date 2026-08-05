@@ -1643,12 +1643,26 @@
     let sortColumn = 'rowNum';
     let sortAscending = true;
 
-    let clientPasskey = "";
-    let currentModule = 'home'; // Roteamento padrão inicial
+    function getClientKey() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const rawId = urlParams.get('id') || SPREADSHEET_ID || "";
+      if (rawId) {
+        let key = rawId.toLowerCase();
+        if (rawId.includes("docs.google.com")) {
+          const matches = rawId.match(/\/d\/([a-zA-Z0-9-_]+)/);
+          if (matches) key = matches[1].toLowerCase();
+        }
+        return key;
+      }
+      
+      const repoParam = urlParams.get('repo') || urlParams.get('cliente') || localStorage.getItem("gh_repo") || "portal-depara-navarro";
+      return repoParam.replace(/^portal-depara-/, '').toLowerCase().trim() || "database";
+    }
 
     window.onload = function() {
-      if (!SPREADSHEET_ID) {
-        showToast("ATENÇÃO: ID da planilha de origem não informado na URL (?id=ID_PLANILHA)", "error");
+      const clientKey = getClientKey();
+      if (!clientKey) {
+        showToast("ATENÇÃO: Repositório do cliente não informado na URL (?repo=REPOSITORIO)", "error");
         return;
       }
       
@@ -1666,13 +1680,7 @@
     };
 
     function checkPasskeyAccess() {
-      // 1. Identificar o cliente a partir do ID da URL (ex: ?id=boalocacao)
-      // Se for uma URL completa de planilha, extraímos o ID do arquivo ou usamos o texto simples
-      let clientKey = SPREADSHEET_ID.toLowerCase();
-      if (SPREADSHEET_ID.includes("docs.google.com")) {
-        const matches = SPREADSHEET_ID.match(/\/d\/([a-zA-Z0-9-_]+)/);
-        if (matches) clientKey = matches[1].toLowerCase();
-      }
+      let clientKey = getClientKey();
       
       // 2. Verificar se já temos a chave salva localmente para esse cliente
       const savedKey = localStorage.getItem(`passkey_${clientKey}`);
@@ -1846,11 +1854,7 @@
     function loadPortalData() {
       showLoading("Carregando base de dados do GitHub...");
       
-      let clientKey = SPREADSHEET_ID.toLowerCase();
-      if (SPREADSHEET_ID.includes("docs.google.com")) {
-        const matches = SPREADSHEET_ID.match(/\/d\/([a-zA-Z0-9-_]+)/);
-        if (matches) clientKey = matches[1].toLowerCase();
-      }
+      let clientKey = getClientKey();
 
       const pat = localStorage.getItem("gh_pat");
       const owner = localStorage.getItem("gh_owner") || "TOTVSGustavoFerreira";
@@ -4175,11 +4179,7 @@
 
       showLoading("Criando ponto de restauração (Backup)...");
 
-      let clientKey = SPREADSHEET_ID.toLowerCase();
-      if (SPREADSHEET_ID.includes("docs.google.com")) {
-        const matches = SPREADSHEET_ID.match(/\/d\/([a-zA-Z0-9-_]+)/);
-        if (matches) clientKey = matches[1].toLowerCase();
-      }
+      let clientKey = getClientKey();
 
       const owner = localStorage.getItem("gh_owner") || "TOTVSGustavoFerreira";
       const repo = localStorage.getItem("gh_repo") || "portal-depara-navarro";
@@ -4306,11 +4306,7 @@
 
       showLoading("Restaurando banco a partir do backup...");
 
-      let clientKey = SPREADSHEET_ID.toLowerCase();
-      if (SPREADSHEET_ID.includes("docs.google.com")) {
-        const matches = SPREADSHEET_ID.match(/\/d\/([a-zA-Z0-9-_]+)/);
-        if (matches) clientKey = matches[1].toLowerCase();
-      }
+      let clientKey = getClientKey();
 
       const owner = localStorage.getItem("gh_owner") || "TOTVSGustavoFerreira";
       const repo = localStorage.getItem("gh_repo") || "portal-depara-navarro";
@@ -5914,11 +5910,7 @@
         return;
       }
       
-      let clientKey = SPREADSHEET_ID.toLowerCase();
-      if (SPREADSHEET_ID.includes("docs.google.com")) {
-        const matches = SPREADSHEET_ID.match(/\/d\/([a-zA-Z0-9-_]+)/);
-        if (matches) clientKey = matches[1].toLowerCase();
-      }
+      let clientKey = getClientKey();
 
       // Aplicar as mudanças na memória antes de gerar os arquivos
       if (typeof updatedDatabaseCallback === 'function') {
