@@ -3,6 +3,12 @@
     const urlParams = new URLSearchParams(window.location.search);
     const SPREADSHEET_ID = urlParams.get('id') || "";
     
+    // Captura o repositório do cliente vindo da URL (?repo=... ou ?cliente=...)
+    const urlRepoParam = urlParams.get('repo') || urlParams.get('cliente');
+    if (urlRepoParam) {
+      localStorage.setItem("gh_repo", urlRepoParam.trim());
+    }
+    
     // ATENÇÃO: COLOQUE AQUI A URL DO WEB APP PUBLICADO NA CONTA PESSOAL DO GOOGLE
     const API_URL = "https://script.google.com/macros/s/AKfycbyb2-OlbTZRuiDyQ9ZQ5jQkAwHO0JcwzOIWh3OAn_kdEKKQy-BL9An3SD5l3c9hPWTh/exec";
 
@@ -236,7 +242,8 @@
 
       const pat = localStorage.getItem("gh_pat");
       const owner = localStorage.getItem("gh_owner") || "TOTVSGustavoFerreira";
-      const repo = localStorage.getItem("gh_repo") || "portal-depara-navarro";
+      const urlRepo = new URLSearchParams(window.location.search).get('repo') || new URLSearchParams(window.location.search).get('cliente');
+      const repo = urlRepo || localStorage.getItem("gh_repo") || "portal-depara-navarro";
       const filePath = `data/${clientKey}.json`;
       
       // Se o token estiver configurado, lê DIRETAMENTE da API do GitHub (sempre atualizado).
