@@ -55,15 +55,30 @@
 
       for (let client of clientList) {
         try {
-          const res = await fetch(`https://api.github.com/repos/${hubConfig.owner}/${client.repo}/contents/database.json`, {
-            headers: { 'Authorization': `token ${hubConfig.token}` }
-          });
+          const clientSlug = client.repo.replace(/^portal-depara-/, '').toLowerCase().trim();
+          const candidatePaths = [
+            `data/${clientSlug}_eventos_horarios.json`,
+            `data/${clientSlug}_cadastros.json`,
+            `data/${clientSlug}_base.json`,
+            `data/${clientSlug}.json`,
+            `database.json`
+          ];
 
-          if (res.ok) {
-            const data = await res.json();
-            const content = JSON.parse(atob(data.content));
-            
-            // Calcular métricas
+          let content = {};
+          for (let path of candidatePaths) {
+            const res = await fetch(`https://api.github.com/repos/${hubConfig.owner}/${client.repo}/contents/${path}`, {
+              headers: { 'Authorization': `token ${hubConfig.token}` }
+            });
+            if (res.ok) {
+              const data = await res.json();
+              if (data && data.content) {
+                const parsed = JSON.parse(decodeURIComponent(escape(atob(data.content))));
+                content = { ...content, ...parsed };
+              }
+            }
+          }
+
+          if (Object.keys(content).length > 0) {
             const ev = content.ZDEPARA_EVENTOS || [];
             const sec = content.ZDEPARA_SECOES || [];
             const func = content.ZDEPARA_FUNCOES || [];
