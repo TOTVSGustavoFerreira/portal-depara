@@ -3766,11 +3766,15 @@
             `;
           } 
           else if (currentModule === 'funcoes') {
-            const duplicates = database.filter(i => 
-              i.rowNum !== item.rowNum &&
-              ((i.NOME_DE && item.NOME_DE && i.NOME_DE.toLowerCase() === item.NOME_DE.toLowerCase()) || 
-               (i.CBO && item.CBO && i.CBO === item.CBO))
-            );
+            const itemNome = (item.NOME_DE || item.nomeDe || item.NOME || '').trim().toLowerCase();
+            const itemCbo = String(item.CBO || item.cbo || '').trim();
+
+            const duplicates = database.filter(i => {
+              if (i.rowNum === item.rowNum) return false;
+              const n = (i.NOME_DE || i.nomeDe || i.NOME || '').trim().toLowerCase();
+              const c = String(i.CBO || i.cbo || '').trim();
+              return (itemNome && n && n === itemNome) || (itemCbo && c && c === itemCbo);
+            });
             const hasDupes = duplicates.length > 0;
             const bulkText = hasDupes ? `<div style="margin-top:6px; font-size:0.75rem; color:#6d28d9; font-weight:600; display:flex; align-items:center; gap:6px;"><input type="checkbox" id="edit-chkBulk-${item.rowNum}"> <label for="edit-chkBulk-${item.rowNum}">Replicar para outras ${duplicates.length} funções (mesmo Nome / CBO)</label></div>` : '';
 
@@ -3795,11 +3799,15 @@
             `;
           } 
           else if (currentModule === 'sindicatos') {
-            const duplicates = database.filter(i => 
-              i.rowNum !== item.rowNum &&
-              ((i.NOME_DE && item.NOME_DE && i.NOME_DE.toLowerCase() === item.NOME_DE.toLowerCase()) || 
-               (i.CNPJ && item.CNPJ && i.CNPJ === item.CNPJ))
-            );
+            const itemNome = (item.NOME_DE || item.nomeDe || item.NOME || '').trim().toLowerCase();
+            const itemCnpj = String(item.CNPJ || item.cnpj || '').trim();
+
+            const duplicates = database.filter(i => {
+              if (i.rowNum === item.rowNum) return false;
+              const n = (i.NOME_DE || i.nomeDe || i.NOME || '').trim().toLowerCase();
+              const c = String(i.CNPJ || i.cnpj || '').trim();
+              return (itemNome && n && n === itemNome) || (itemCnpj && c && c === itemCnpj);
+            });
             const hasDupes = duplicates.length > 0;
             const bulkText = hasDupes ? `<div style="margin-top:6px; font-size:0.75rem; color:#6d28d9; font-weight:600; display:flex; align-items:center; gap:6px;"><input type="checkbox" id="edit-chkBulk-${item.rowNum}"> <label for="edit-chkBulk-${item.rowNum}">Replicar para outros ${duplicates.length} sindicatos (mesmo Nome / CNPJ)</label></div>` : '';
 
@@ -5221,10 +5229,14 @@
           if (idx !== -1) Object.assign(database[idx], updatedData);
 
           if (applyToAllMatches) {
+            const itemNome = (item.NOME_DE || item.nomeDe || item.NOME || '').trim().toLowerCase();
+            const itemCbo = String(item.CBO || item.cbo || '').trim();
+
             database.forEach(otherItem => {
-              if (otherItem.rowNum !== rowNum && 
-                  ((otherItem.NOME_DE && item.NOME_DE && otherItem.NOME_DE.toLowerCase() === item.NOME_DE.toLowerCase()) ||
-                   (otherItem.CBO && item.CBO && otherItem.CBO === item.CBO))) {
+              if (otherItem.rowNum === rowNum) return;
+              const n = (otherItem.NOME_DE || otherItem.nomeDe || otherItem.NOME || '').trim().toLowerCase();
+              const c = String(otherItem.CBO || otherItem.cbo || '').trim();
+              if ((itemNome && n && n === itemNome) || (itemCbo && c && c === itemCbo)) {
                 otherItem.COLIGADA_PARA = coligadaPara;
                 otherItem.coligadaPara = coligadaPara;
                 otherItem.CODIGO_PARA = codigoPara;
@@ -5252,10 +5264,14 @@
           if (idx !== -1) Object.assign(database[idx], updatedData);
 
           if (applyToAllMatches) {
+            const itemNome = (item.NOME_DE || item.nomeDe || item.NOME || '').trim().toLowerCase();
+            const itemCnpj = String(item.CNPJ || item.cnpj || '').trim();
+
             database.forEach(otherItem => {
-              if (otherItem.rowNum !== rowNum && 
-                  ((otherItem.NOME_DE && item.NOME_DE && otherItem.NOME_DE.toLowerCase() === item.NOME_DE.toLowerCase()) ||
-                   (otherItem.CNPJ && item.CNPJ && otherItem.CNPJ === item.CNPJ))) {
+              if (otherItem.rowNum === rowNum) return;
+              const n = (otherItem.NOME_DE || otherItem.nomeDe || otherItem.NOME || '').trim().toLowerCase();
+              const c = String(otherItem.CNPJ || otherItem.cnpj || '').trim();
+              if ((itemNome && n && n === itemNome) || (itemCnpj && c && c === itemCnpj)) {
                 otherItem.COLIGADA_PARA = coligadaPara;
                 otherItem.CODIGO_PARA = codigoPara;
               }
