@@ -784,6 +784,15 @@
     function initHub() {
       // Exclui automaticamente o repositório navarro obsoleto
       clientList = clientList.filter(c => c.repo !== 'portal-depara-navarro');
+      
+      // Garante que SPO Tecnologia e BARI AUTOMOVEIS existam na lista do navegador
+      if (!clientList.some(c => c.repo === 'portal-depara-spotecnologia')) {
+        clientList.push({ name: 'SPO Tecnologia', repo: 'portal-depara-spotecnologia', status: 'progress', progress: 45, events: 40, coligadas: 100, funcoes: 20, sindicatos: 0, secoes: 30, situacao: 100, totalCount: 0, totalMappedCount: 0, updated: 'Há 1 dia' });
+      }
+      if (!clientList.some(c => c.repo === 'portal-depara-bari-automoveis')) {
+        clientList.push({ name: 'BARI AUTOMOVEIS', repo: 'portal-depara-bari-automoveis', status: 'completed', progress: 100, events: 100, coligadas: 100, funcoes: 100, sindicatos: 100, secoes: 100, situacao: 100, totalCount: 0, totalMappedCount: 0, updated: 'Criado Agora' });
+      }
+
       localStorage.setItem('hub_client_list', JSON.stringify(clientList));
 
       document.getElementById('configOwner').value = hubConfig.owner;
