@@ -7,8 +7,8 @@
     };
 
     let clientList = JSON.parse(localStorage.getItem('hub_client_list')) || [
-      { name: 'Navarro', repo: 'portal-depara-navarro', status: 'progress', progress: 88, events: 80, secoes: 70, funcoes: 69, updated: 'Recente' },
-      { name: 'SPO Tecnologia', repo: 'portal-depara-spotecnologia', status: 'progress', progress: 45, events: 40, secoes: 30, funcoes: 20, updated: 'Há 1 dia' }
+      { name: 'SPO Tecnologia', repo: 'portal-depara-spotecnologia', status: 'progress', progress: 45, events: 40, coligadas: 100, funcoes: 20, sindicatos: 0, secoes: 30, situacao: 100, totalCount: 0, totalMappedCount: 0, updated: 'Há 1 dia' },
+      { name: 'BARI AUTOMOVEIS', repo: 'portal-depara-bari-automoveis', status: 'completed', progress: 100, events: 100, coligadas: 100, funcoes: 100, sindicatos: 100, secoes: 100, situacao: 100, totalCount: 0, totalMappedCount: 0, updated: 'Criado Agora' }
     ];
 
     let currentFilter = 'all';
@@ -42,6 +42,10 @@
     window.addEventListener('DOMContentLoaded', checkAuthOnLoad);
 
     function initHub() {
+      // Exclui automaticamente o repositório navarro obsoleto
+      clientList = clientList.filter(c => c.repo !== 'portal-depara-navarro');
+      localStorage.setItem('hub_client_list', JSON.stringify(clientList));
+
       document.getElementById('configOwner').value = hubConfig.owner;
       document.getElementById('configToken').value = hubConfig.token;
       document.getElementById('configPin').value = hubConfig.pin;
@@ -80,26 +84,47 @@
 
           if (Object.keys(content).length > 0) {
             const ev = content.ZDEPARA_EVENTOS || [];
-            const sec = content.ZDEPARA_SECOES || [];
+            const col = content.ZDEPARA_COLIGADAS || [];
             const func = content.ZDEPARA_FUNCOES || [];
+            const sind = content.ZDEPARA_SINDICATOS || [];
+            const sec = content.ZDEPARA_SECOES || [];
+            const sit = content.ZDEPARA_SITUACAO || [];
             
             const evMapped = ev.filter(i => i.CODIGO_PARA && i.CODIGO_PARA !== 'CRIAR').length;
-            const secMapped = sec.filter(i => i.CODIGO_PARA).length;
-            const funcMapped = func.filter(i => i.CODIGO_PARA).length;
+            const colMapped = col.filter(i => i.CODCOLIGADA).length;
+            const funcMapped = func.filter(i => i.CODIGO_PARA && i.CODIGO_PARA !== 'CRIAR').length;
+            const sindMapped = sind.filter(i => i.CODIGO_PARA && i.CODIGO_PARA !== 'CRIAR').length;
+            const secMapped = sec.filter(i => i.CODIGO_PARA && i.CODIGO_PARA !== 'CRIAR').length;
+            const sitMapped = sit.filter(i => i.CODSITUACAO_PARA).length;
             
-            const totalItems = ev.length + sec.length + func.length;
-            const totalMapped = evMapped + secMapped + funcMapped;
-            
+            const totalItems = ev.length + col.length + func.length + sind.length + sec.length + sit.length;
+            const totalMapped = evMapped + colMapped + funcMapped + sindMapped + secMapped + sitMapped;
+
+            client.evTotal = ev.length; client.evMapped = evMapped;
+            client.colTotal = col.length; client.colMapped = colMapped;
+            client.funcTotal = func.length; client.funcMapped = funcMapped;
+            client.sindTotal = sind.length; client.sindMapped = sindMapped;
+            client.secTotal = sec.length; client.secMapped = secMapped;
+            client.sitTotal = sit.length; client.sitMapped = sitMapped;
+
             client.progress = totalItems > 0 ? Math.round((totalMapped / totalItems) * 100) : 0;
             client.events = ev.length > 0 ? Math.round((evMapped / ev.length) * 100) : 0;
-            client.secoes = sec.length > 0 ? Math.round((secMapped / sec.length) * 100) : 0;
+            client.coligadas = col.length > 0 ? Math.round((colMapped / col.length) * 100) : 0;
             client.funcoes = func.length > 0 ? Math.round((funcMapped / func.length) * 100) : 0;
+            client.sindicatos = sind.length > 0 ? Math.round((sindMapped / sind.length) * 100) : 0;
+            client.secoes = sec.length > 0 ? Math.round((secMapped / sec.length) * 100) : 0;
+            client.situacao = sit.length > 0 ? Math.round((sitMapped / sit.length) * 100) : 0;
+            
+            client.totalCount = totalItems;
+            client.totalMappedCount = totalMapped;
+
             client.status = client.progress === 100 ? 'completed' : (client.progress > 0 ? 'progress' : 'pending');
           }
         } catch (e) {
           console.warn(`Não foi possível atualizar em tempo real para ${client.repo}`, e);
         }
       }
+      localStorage.setItem('hub_client_list', JSON.stringify(clientList));
       renderClients();
     }
 
@@ -110,6 +135,7 @@
       grid.innerHTML = '';
 
       let totalMappedSum = 0;
+      let totalItemsSum = 0;
       let completedCount = 0;
       let progressCount = 0;
       let pendingCount = 0;
@@ -126,13 +152,14 @@
         if (c.status === 'completed') completedCount++;
         else if (c.status === 'progress') progressCount++;
         else pendingCount++;
-        totalMappedSum += (c.progress || 0);
+        totalMappedSum += (c.totalMappedCount || 0);
+        totalItemsSum += (c.totalCount || 0);
       });
 
       document.getElementById('kpiTotalClients').innerText = clientList.length;
       document.getElementById('kpiCompleted').innerText = completedCount;
       document.getElementById('kpiInProgress').innerText = progressCount;
-      document.getElementById('kpiTotalRecords').innerText = `${totalMappedSum}% Mapeado`;
+      document.getElementById('kpiTotalRecords').innerText = `${totalMappedSum.toLocaleString('pt-BR')} Itens`;
 
       if (filtered.length === 0) {
         grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--color-text-muted);">Nenhum cliente encontrado com os filtros atuais.</div>`;
@@ -150,6 +177,13 @@
 
         const portalUrl = `index.html?repo=${c.repo}`;
 
+        const evTotal = c.evTotal || c.eventsCount || 0;
+        const colTotal = c.colTotal || 0;
+        const funcTotal = c.funcTotal || 0;
+        const sindTotal = c.sindTotal || 0;
+        const secTotal = c.secTotal || 0;
+        const sitTotal = c.sitTotal || 0;
+
         card.innerHTML = `
           <div>
             <div class="card-header">
@@ -163,7 +197,7 @@
             <div class="progress-section">
               <div class="progress-header">
                 <span>Progresso Geral</span>
-                <span>${c.progress || 0}%</span>
+                <span>${c.totalMappedCount || 0}/${c.totalCount || 0} (${c.progress || 0}%)</span>
               </div>
               <div class="progress-bar-bg">
                 <div class="progress-bar-fill" style="width: ${c.progress || 0}%"></div>
@@ -171,10 +205,12 @@
             </div>
 
             <div class="modules-breakdown">
-              <div class="module-item"><span>Eventos:</span><strong>${c.events || 0}%</strong></div>
-              <div class="module-item"><span>Seções:</span><strong>${c.secoes || 0}%</strong></div>
-              <div class="module-item"><span>Funções:</span><strong>${c.funcoes || 0}%</strong></div>
-              <div class="module-item"><span>Status:</span><strong>${c.updated || 'Ativo'}</strong></div>
+              <div class="module-item"><span>Eventos:</span><strong>${c.evMapped || 0}/${evTotal} (${c.events || 0}%)</strong></div>
+              <div class="module-item"><span>Coligadas:</span><strong>${c.colMapped || 0}/${colTotal} (${c.coligadas || 0}%)</strong></div>
+              <div class="module-item"><span>Funções:</span><strong>${c.funcMapped || 0}/${funcTotal} (${c.funcoes || 0}%)</strong></div>
+              <div class="module-item"><span>Sindicatos:</span><strong>${c.sindMapped || 0}/${sindTotal} (${c.sindicatos || 0}%)</strong></div>
+              <div class="module-item"><span>Seções:</span><strong>${c.secMapped || 0}/${secTotal} (${c.secoes || 0}%)</strong></div>
+              <div class="module-item"><span>Situação:</span><strong>${c.sitMapped || 0}/${sitTotal} (${c.situacao || 0}%)</strong></div>
             </div>
           </div>
 
