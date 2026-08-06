@@ -42,10 +42,6 @@
     window.addEventListener('DOMContentLoaded', checkAuthOnLoad);
 
     function initHub() {
-      // Exclui automaticamente o repositório navarro obsoleto
-      clientList = clientList.filter(c => c.repo !== 'portal-depara-navarro');
-      localStorage.setItem('hub_client_list', JSON.stringify(clientList));
-
       document.getElementById('configOwner').value = hubConfig.owner;
       document.getElementById('configToken').value = hubConfig.token;
       document.getElementById('configPin').value = hubConfig.pin;
@@ -55,7 +51,39 @@
 
     // --- CARREGAR DADOS EM TEMPO REAL VIA GITHUB API ---
     async function loadClientDataFromGitHub() {
-      if (!hubConfig.token) return;
+      // 1. Auto-descoberta dinâmica de todos os repositórios da conta (que começam com portal-depara-)
+      try {
+        const headers = hubConfig.token ? { 'Authorization': `token ${hubConfig.token}` } : {};
+        const repoRes = await fetch(`https://api.github.com/users/${hubConfig.owner}/repos?per_page=100&t=${Date.now()}`, { headers });
+        if (repoRes.ok) {
+          const repos = await repoRes.json();
+          // Filtra repositórios de clientes (exclui o master 'portal-depara')
+          const clientRepos = repos.filter(r => r.name.startsWith('portal-depara-') && r.name !== 'portal-depara');
+          
+          if (clientRepos.length > 0) {
+            const discoveredClients = [];
+            for (let r of clientRepos) {
+              const rawSlug = r.name.replace(/^portal-depara-/, '');
+              const cleanName = rawSlug.split('-').map(w => w.toUpperCase()).join(' ');
+              
+              let existing = clientList.find(c => c.repo === r.name);
+              discoveredClients.push({
+                name: existing ? existing.name : cleanName,
+                repo: r.name,
+                status: 'pending',
+                progress: 0,
+                events: 0, coligadas: 0, funcoes: 0, sindicatos: 0, secoes: 0, situacao: 0,
+                totalCount: 0, totalMappedCount: 0,
+                updated: new Date(r.updated_at).toLocaleDateString('pt-BR')
+              });
+            }
+            clientList = discoveredClients;
+            localStorage.setItem('hub_client_list', JSON.stringify(clientList));
+          }
+        }
+      } catch (err) {
+        console.warn("Auto-descoberta de repositórios via GitHub API falhou:", err);
+      }
 
       for (let client of clientList) {
         try {
