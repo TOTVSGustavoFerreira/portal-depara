@@ -2012,8 +2012,8 @@
       "SUGESTOES": "",
       "sugestoes": "",
       "nomeRm": "( - ) DESC. ADIANTAMENTO SALARIAL",
-      "hasDivergencia": true,
-      "hasDivergenciaDuplicidade": true,
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
       "hasDivergenciaTipo": false
     },
     {
@@ -2044,8 +2044,8 @@
       "SUGESTOES": "",
       "sugestoes": "",
       "nomeRm": "ESTOURO DO MES ( + )",
-      "hasDivergencia": true,
-      "hasDivergenciaDuplicidade": true,
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
       "hasDivergenciaTipo": false
     },
     {
@@ -2076,8 +2076,8 @@
       "SUGESTOES": "",
       "sugestoes": "",
       "nomeRm": "DESC. ESTOURO DO MES ANTERIOR ( - )",
-      "hasDivergencia": true,
-      "hasDivergenciaDuplicidade": true,
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
       "hasDivergenciaTipo": false
     },
     {
@@ -2791,7 +2791,7 @@
       "NOME_DE": "Desconto Ticket Alimentação",
       "TIPO_EVENTO": "DESCONTOS",
       "COLIGADA_PARA": "",
-      "CODIGO_PARA": "0430",
+      "CODIGO_PARA": "0092",
       "NOME_RM": "AUXILIO ALIMENTACAO",
       "CODIGO_PARA_FICHA_MES1": "",
       "CODIGO_PARA_FICHA_MES2": "",
@@ -2803,7 +2803,7 @@
       "nomeDe": "Desconto Ticket Alimentação",
       "tipoEvento": "DESCONTOS",
       "coligadaPara": "",
-      "codigoPara": "0430",
+      "codigoPara": "0092",
       "codigoParaFichaMes1": "",
       "codigoParaFichaMes2": "",
       "codigoParaVerbasFerias": "",
