@@ -2360,7 +2360,10 @@
       "coligadaPara": "1",
       "codigoPara": "0001",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 2,
@@ -2373,7 +2376,10 @@
       "coligadaPara": "1",
       "codigoPara": "0002",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 3,
@@ -2386,7 +2392,10 @@
       "coligadaPara": "1",
       "codigoPara": "0003",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 4,
@@ -2399,7 +2408,10 @@
       "coligadaPara": "1",
       "codigoPara": "0004",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 5,
@@ -2412,7 +2424,10 @@
       "coligadaPara": "2",
       "codigoPara": "0001",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 6,
@@ -2425,7 +2440,10 @@
       "coligadaPara": "3",
       "codigoPara": "NÃO CRIAR",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 7,
@@ -2438,7 +2456,10 @@
       "coligadaPara": "3",
       "codigoPara": "0001",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     }
   ],
   "ZDEPARA_SECOES": [
@@ -2454,7 +2475,10 @@
       "coligadaPara": "1",
       "codigoPara": "001.01.01",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 2,
@@ -2468,7 +2492,10 @@
       "coligadaPara": "1",
       "codigoPara": "002.01.01",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 3,
@@ -2482,7 +2509,10 @@
       "coligadaPara": "1",
       "codigoPara": "003.01.01",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 4,
@@ -2496,7 +2526,10 @@
       "coligadaPara": "1",
       "codigoPara": "004.01.01",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 5,
@@ -2510,7 +2543,10 @@
       "coligadaPara": "1",
       "codigoPara": "005.01.01",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 6,
@@ -2524,7 +2560,10 @@
       "coligadaPara": "1",
       "codigoPara": "006.01.01",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 7,
@@ -2538,7 +2577,10 @@
       "coligadaPara": "1",
       "codigoPara": "007.01.01",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 8,
@@ -2552,7 +2594,10 @@
       "coligadaPara": "1",
       "codigoPara": "008.01.01",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 9,
@@ -2566,7 +2611,10 @@
       "coligadaPara": "1",
       "codigoPara": "009.01.01",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 10,
@@ -2580,7 +2628,10 @@
       "coligadaPara": "1",
       "codigoPara": "010.01.01",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 11,
@@ -2594,7 +2645,10 @@
       "coligadaPara": "1",
       "codigoPara": "011.01.01",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 12,
@@ -2608,7 +2662,10 @@
       "coligadaPara": "1",
       "codigoPara": "012.01.01",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 13,
@@ -2622,7 +2679,10 @@
       "coligadaPara": "1",
       "codigoPara": "013.01.01",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 14,
@@ -2636,7 +2696,10 @@
       "coligadaPara": "1",
       "codigoPara": "002.01.01",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 15,
@@ -2650,7 +2713,10 @@
       "coligadaPara": "1",
       "codigoPara": "003.01.01",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 16,
@@ -2664,7 +2730,10 @@
       "coligadaPara": "1",
       "codigoPara": "004.01.01",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 17,
@@ -2678,7 +2747,10 @@
       "coligadaPara": "1",
       "codigoPara": "005.01.01",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 18,
@@ -2692,7 +2764,10 @@
       "coligadaPara": "1",
       "codigoPara": "010.01.01",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 19,
@@ -2706,7 +2781,10 @@
       "coligadaPara": "1",
       "codigoPara": "012.01.01",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 20,
@@ -2720,7 +2798,10 @@
       "coligadaPara": "2",
       "codigoPara": "001.01.01",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 21,
@@ -2734,7 +2815,10 @@
       "coligadaPara": "3",
       "codigoPara": "001.01.01",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 22,
@@ -2748,7 +2832,10 @@
       "coligadaPara": "4",
       "codigoPara": "001.01.01",
       "OBSERVACAO": "",
-      "observacao": ""
+      "observacao": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     }
   ],
   "ZDEPARA_SITUACAO": [
