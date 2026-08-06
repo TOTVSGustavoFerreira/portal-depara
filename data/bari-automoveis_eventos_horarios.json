@@ -2046,7 +2046,7 @@
       "nomeRm": "ESTOURO DO MES ( + )",
       "hasDivergencia": true,
       "hasDivergenciaDuplicidade": true,
-      "hasDivergenciaTipo": true
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 65,
@@ -2055,7 +2055,7 @@
       "NOME_DE": "Desconto Adiantamento Salário",
       "TIPO_EVENTO": "DESCONTOS",
       "COLIGADA_PARA": "",
-      "CODIGO_PARA": "0021",
+      "CODIGO_PARA": "0019",
       "NOME_RM": "DESC. ESTOURO DO MES ANTERIOR ( - )",
       "CODIGO_PARA_FICHA_MES1": "",
       "CODIGO_PARA_FICHA_MES2": "",
@@ -2067,7 +2067,7 @@
       "nomeDe": "Desconto Adiantamento Salário",
       "tipoEvento": "DESCONTOS",
       "coligadaPara": "",
-      "codigoPara": "0021",
+      "codigoPara": "0019",
       "codigoParaFichaMes1": "",
       "codigoParaFichaMes2": "",
       "codigoParaVerbasFerias": "",
