@@ -839,7 +839,14 @@
             
             const totalItems = ev.length + col.length + func.length + sind.length + sec.length + sit.length;
             const totalMapped = evMapped + colMapped + funcMapped + sindMapped + secMapped + sitMapped;
-            
+
+            client.evTotal = ev.length; client.evMapped = evMapped;
+            client.colTotal = col.length; client.colMapped = colMapped;
+            client.funcTotal = func.length; client.funcMapped = funcMapped;
+            client.sindTotal = sind.length; client.sindMapped = sindMapped;
+            client.secTotal = sec.length; client.secMapped = secMapped;
+            client.sitTotal = sit.length; client.sitMapped = sitMapped;
+
             client.progress = totalItems > 0 ? Math.round((totalMapped / totalItems) * 100) : 0;
             client.events = ev.length > 0 ? Math.round((evMapped / ev.length) * 100) : 0;
             client.coligadas = col.length > 0 ? Math.round((colMapped / col.length) * 100) : 0;
@@ -889,12 +896,10 @@
         totalItemsSum += (c.totalCount || 0);
       });
 
-      const avgPercent = totalItemsSum > 0 ? Math.round((totalMappedSum / totalItemsSum) * 100) : (clientList.length > 0 ? Math.round(clientList.reduce((acc, curr) => acc + (curr.progress || 0), 0) / clientList.length) : 0);
-
       document.getElementById('kpiTotalClients').innerText = clientList.length;
       document.getElementById('kpiCompleted').innerText = completedCount;
       document.getElementById('kpiInProgress').innerText = progressCount;
-      document.getElementById('kpiTotalRecords').innerText = `${avgPercent}% Média`;
+      document.getElementById('kpiTotalRecords').innerText = `${totalMappedSum.toLocaleString('pt-BR')} Itens`;
 
       if (filtered.length === 0) {
         grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--color-text-muted);">Nenhum cliente encontrado com os filtros atuais.</div>`;
@@ -912,6 +917,13 @@
 
         const portalUrl = `index.html?repo=${c.repo}`;
 
+        const evTotal = c.evTotal || c.eventsCount || 0;
+        const colTotal = c.colTotal || 0;
+        const funcTotal = c.funcTotal || 0;
+        const sindTotal = c.sindTotal || 0;
+        const secTotal = c.secTotal || 0;
+        const sitTotal = c.sitTotal || 0;
+
         card.innerHTML = `
           <div>
             <div class="card-header">
@@ -925,7 +937,7 @@
             <div class="progress-section">
               <div class="progress-header">
                 <span>Progresso Geral</span>
-                <span>${c.progress || 0}%</span>
+                <span>${c.totalMappedCount || 0}/${c.totalCount || 0} (${c.progress || 0}%)</span>
               </div>
               <div class="progress-bar-bg">
                 <div class="progress-bar-fill" style="width: ${c.progress || 0}%"></div>
@@ -933,12 +945,12 @@
             </div>
 
             <div class="modules-breakdown">
-              <div class="module-item"><span>Eventos:</span><strong>${c.events || 0}%</strong></div>
-              <div class="module-item"><span>Coligadas:</span><strong>${c.coligadas || 0}%</strong></div>
-              <div class="module-item"><span>Funções:</span><strong>${c.funcoes || 0}%</strong></div>
-              <div class="module-item"><span>Sindicatos:</span><strong>${c.sindicatos || 0}%</strong></div>
-              <div class="module-item"><span>Seções:</span><strong>${c.secoes || 0}%</strong></div>
-              <div class="module-item"><span>Situação:</span><strong>${c.situacao || 0}%</strong></div>
+              <div class="module-item"><span>Eventos:</span><strong>${c.evMapped || 0}/${evTotal} (${c.events || 0}%)</strong></div>
+              <div class="module-item"><span>Coligadas:</span><strong>${c.colMapped || 0}/${colTotal} (${c.coligadas || 0}%)</strong></div>
+              <div class="module-item"><span>Funções:</span><strong>${c.funcMapped || 0}/${funcTotal} (${c.funcoes || 0}%)</strong></div>
+              <div class="module-item"><span>Sindicatos:</span><strong>${c.sindMapped || 0}/${sindTotal} (${c.sindicatos || 0}%)</strong></div>
+              <div class="module-item"><span>Seções:</span><strong>${c.secMapped || 0}/${secTotal} (${c.secoes || 0}%)</strong></div>
+              <div class="module-item"><span>Situação:</span><strong>${c.sitMapped || 0}/${sitTotal} (${c.situacao || 0}%)</strong></div>
             </div>
           </div>
 

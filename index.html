@@ -2489,8 +2489,25 @@
         }
       });
       
+      let sindDuplicates = [];
+      if (currentModule === 'sindicatos') {
+        const sindMap = {};
+        database.forEach(item => {
+          if (item.CODIGO_PARA && item.CODIGO_PARA !== 'CRIAR') {
+            const key = String(item.CODIGO_PARA).trim();
+            const cnpj = (item.CNPJ || 'SEM_CNPJ').trim();
+            if (sindMap[key] && sindMap[key].cnpj !== cnpj) {
+              sindDuplicates.push(`Sindicato RM ${key} vinculado a múltiplos CNPJs (${sindMap[key].nome} - ${sindMap[key].cnpj} vs ${item.NOME_DE || 'Sindicato'} - ${cnpj})`);
+            } else if (!sindMap[key]) {
+              sindMap[key] = { cnpj: cnpj, nome: item.NOME_DE || 'Sindicato' };
+            }
+          }
+        });
+      }
+      
       diagnostics = {
         duplicates: [...new Set(dupes)],
+        sindDuplicates: sindDuplicates,
         gaps: [],
         orphans: []
       };
@@ -2852,6 +2869,21 @@
             <p style="font-size:0.8rem; margin:0 0 8px 0; color:#334155;">Numerações manuais que foram puladas/liberadas. Recomendamos usar estes códigos ao cadastrar novos eventos:</p>
             <div style="display:flex; flex-wrap:wrap; gap:6px;">
               ${diagnostics.gaps.map(g => `<span class="badge" style="background:#e2e8f0; color:#475569; border:1px solid #cbd5e1; font-family:monospace; padding:2px 6px; border-radius:4px; font-size:0.75rem;">${g}</span>`).join('')}
+            </div>
+          </div>
+        `;
+      }
+      
+      if (currentModule === 'sindicatos' && diagnostics.sindDuplicates && diagnostics.sindDuplicates.length > 0) {
+        html += `
+          <div style="border: 1px solid #fee2e2; background: #fff5f5; padding: 12px; border-radius: 8px; margin-bottom: 12px;">
+            <h4 style="color:#b91c1c; margin:0 0 6px 0; font-size:0.9rem; display:flex; align-items:center; gap:6px;">
+              <span style="background:#ef4444; color:#fff; width:18px; height:18px; display:inline-flex; align-items:center; justify-content:center; border-radius:50%; font-size:0.75rem; font-weight:700;">!</span>
+              Código Sindicato RM Mapeado para CNPJs Diferentes (${diagnostics.sindDuplicates.length})
+            </h4>
+            <p style="font-size:0.8rem; margin:0 0 8px 0; color:#7f1d1d;">Foi identificado o mesmo Código de Sindicato RM associado a mais de um CNPJ distinto na planilha:</p>
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              ${diagnostics.sindDuplicates.map(d => `<div style="font-size:0.78rem; color:#b91c1c; background:#fff; padding:4px 8px; border:1px solid #fca5a5; border-radius:4px;">${d}</div>`).join('')}
             </div>
           </div>
         `;
@@ -3300,6 +3332,18 @@
               XLSX.utils.book_append_sheet(wb, ws, aba.name);
             });
             
+            // Exportar quaisquer abas adicionais preservadas (ex: DADOS FUNCIONARIOS, CENTRO_CUSTO, etc.)
+            const standardSheetKeys = abasMap.map(a => a.key);
+            for (let key in rawJsonDatabase) {
+              if (!standardSheetKeys.includes(key) && !key.startsWith('_') && key !== 'config') {
+                const extraData = rawJsonDatabase[key];
+                if (Array.isArray(extraData) && extraData.length > 0) {
+                  const wsExtra = XLSX.utils.json_to_sheet(extraData);
+                  XLSX.utils.book_append_sheet(wb, wsExtra, key);
+                }
+              }
+            }
+            
             // Salvar arquivo XLSX com padrão de nome
             let clientKey = SPREADSHEET_ID.toLowerCase();
             if (SPREADSHEET_ID.includes("docs.google.com")) {
@@ -3361,6 +3405,13 @@
             { name: 'DADOS_RM_MOTIVOS', key: 'DADOS_RM_MOTIVOS' },
             { name: 'DADOS_RM_SECOES', key: 'DADOS_RM_SECOES' }
           ];
+
+          const knownNames = abasToImport.map(a => a.name);
+          workbook.SheetNames.forEach(sheetName => {
+            if (!knownNames.includes(sheetName)) {
+              abasToImport.push({ name: sheetName, key: sheetName, isExtra: true });
+            }
+          });
 
           const abasValidas = [];
           abasToImport.forEach(aba => {
@@ -5327,6 +5378,14 @@
             `;
           } 
           else if (currentModule === 'funcoes') {
+            const duplicates = database.filter(i => 
+              i.rowNum !== item.rowNum &&
+              ((i.NOME_DE && item.NOME_DE && i.NOME_DE.toLowerCase() === item.NOME_DE.toLowerCase()) || 
+               (i.CBO && item.CBO && i.CBO === item.CBO))
+            );
+            const hasDupes = duplicates.length > 0;
+            const bulkText = hasDupes ? `<div style="margin-top:6px; font-size:0.75rem; color:#6d28d9; font-weight:600; display:flex; align-items:center; gap:6px;"><input type="checkbox" id="edit-chkBulk-${item.rowNum}"> <label for="edit-chkBulk-${item.rowNum}">Replicar para outras ${duplicates.length} funções (mesmo Nome / CBO)</label></div>` : '';
+
             trHtml = `
               <td class="col-funcao-emp"><code>${item.EMPRESA_DE || ''}</code></td>
               <td class="col-funcao-cod"><code>${item.CODIGO_DE || ''}</code></td>
@@ -5337,6 +5396,7 @@
               </td>
               <td class="col-funcao-codpara" style="overflow: visible;">
                 <input type="text" id="edit-CODIGO_PARA-${item.rowNum}" class="input-field" style="padding: 6px; font-size: 0.8rem;" value="${item.CODIGO_PARA || ''}">
+                ${bulkText}
               </td>
               <td class="col-funcao-acoes">
                 <div class="action-icons">
@@ -5347,6 +5407,14 @@
             `;
           } 
           else if (currentModule === 'sindicatos') {
+            const duplicates = database.filter(i => 
+              i.rowNum !== item.rowNum &&
+              ((i.NOME_DE && item.NOME_DE && i.NOME_DE.toLowerCase() === item.NOME_DE.toLowerCase()) || 
+               (i.CNPJ && item.CNPJ && i.CNPJ === item.CNPJ))
+            );
+            const hasDupes = duplicates.length > 0;
+            const bulkText = hasDupes ? `<div style="margin-top:6px; font-size:0.75rem; color:#6d28d9; font-weight:600; display:flex; align-items:center; gap:6px;"><input type="checkbox" id="edit-chkBulk-${item.rowNum}"> <label for="edit-chkBulk-${item.rowNum}">Replicar para outros ${duplicates.length} sindicatos (mesmo Nome / CNPJ)</label></div>` : '';
+
             trHtml = `
               <td><code>${item.EMPRESA_DE || item['EMPRESA _DE'] || ''}</code></td>
               <td><code>${item.CODIGO_DE || ''}</code></td>
@@ -5357,6 +5425,7 @@
               </td>
               <td style="overflow: visible;">
                 <input type="text" id="edit-CODIGO_PARA-${item.rowNum}" class="input-field" style="padding: 6px; font-size: 0.8rem;" value="${item.CODIGO_PARA || ''}">
+                ${bulkText}
               </td>
               <td class="col-acoes">
                 <div class="action-icons">
@@ -6744,7 +6813,10 @@
       else if (currentModule === 'funcoes') {
         const coligadaPara = document.getElementById(`edit-COLIGADA_PARA-${rowNum}`).value;
         const codigoPara = document.getElementById(`edit-CODIGO_PARA-${rowNum}`).value;
-        const observacao = document.getElementById(`edit-OBSERVACAO-${rowNum}`).value;
+        const observacaoInput = document.getElementById(`edit-OBSERVACAO-${rowNum}`);
+        const observacao = observacaoInput ? observacaoInput.value : (item.OBSERVACAO || '');
+        const applyToAllMatches = document.getElementById(`edit-chkBulk-${rowNum}`)?.checked || false;
+
         updatedData = { 
           COLIGADA_PARA: coligadaPara, 
           coligadaPara: coligadaPara,
@@ -6759,6 +6831,20 @@
         commitChangesToGitHub(commitMessage, () => {
           const idx = database.findIndex(i => i.rowNum === rowNum);
           if (idx !== -1) Object.assign(database[idx], updatedData);
+
+          if (applyToAllMatches) {
+            database.forEach(otherItem => {
+              if (otherItem.rowNum !== rowNum && 
+                  ((otherItem.NOME_DE && item.NOME_DE && otherItem.NOME_DE.toLowerCase() === item.NOME_DE.toLowerCase()) ||
+                   (otherItem.CBO && item.CBO && otherItem.CBO === item.CBO))) {
+                otherItem.COLIGADA_PARA = coligadaPara;
+                otherItem.coligadaPara = coligadaPara;
+                otherItem.CODIGO_PARA = codigoPara;
+                otherItem.codigoPara = codigoPara;
+              }
+            });
+          }
+
           rawJsonDatabase.ZDEPARA_FUNCOES = database;
           editingRowNumber = null;
           expandedRowNumbers.delete(rowNum);
@@ -6767,6 +6853,8 @@
       else if (currentModule === 'sindicatos') {
         const coligadaPara = document.getElementById(`edit-COLIGADA_PARA-${rowNum}`).value;
         const codigoPara = document.getElementById(`edit-CODIGO_PARA-${rowNum}`).value;
+        const applyToAllMatches = document.getElementById(`edit-chkBulk-${rowNum}`)?.checked || false;
+
         updatedData = { COLIGADA_PARA: coligadaPara, CODIGO_PARA: codigoPara };
         commitMessage = `Atualiza sindicato linha ${rowNum} - ${item.NOME_DE}`;
 
@@ -6774,6 +6862,18 @@
         commitChangesToGitHub(commitMessage, () => {
           const idx = database.findIndex(i => i.rowNum === rowNum);
           if (idx !== -1) Object.assign(database[idx], updatedData);
+
+          if (applyToAllMatches) {
+            database.forEach(otherItem => {
+              if (otherItem.rowNum !== rowNum && 
+                  ((otherItem.NOME_DE && item.NOME_DE && otherItem.NOME_DE.toLowerCase() === item.NOME_DE.toLowerCase()) ||
+                   (otherItem.CNPJ && item.CNPJ && otherItem.CNPJ === item.CNPJ))) {
+                otherItem.COLIGADA_PARA = coligadaPara;
+                otherItem.CODIGO_PARA = codigoPara;
+              }
+            });
+          }
+
           rawJsonDatabase.ZDEPARA_SINDICATOS = database;
           editingRowNumber = null;
           expandedRowNumbers.delete(rowNum);
