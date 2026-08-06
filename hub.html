@@ -838,8 +838,20 @@
 
           let content = {};
           for (let path of candidatePaths) {
+            try {
+              // 1. Tenta carregar via raw.githubusercontent.com (rápido, sem limites de API e sem token necessário)
+              const rawRes = await fetch(`https://raw.githubusercontent.com/${hubConfig.owner}/${client.repo}/main/${path}?t=${Date.now()}`);
+              if (rawRes.ok) {
+                const parsed = await rawRes.json();
+                content = { ...content, ...parsed };
+                continue;
+              }
+            } catch (errRaw) {
+              // Fallback para API do GitHub se o raw falhar
+            }
+
             const res = await fetch(`https://api.github.com/repos/${hubConfig.owner}/${client.repo}/contents/${path}`, {
-              headers: { 'Authorization': `token ${hubConfig.token}` }
+              headers: hubConfig.token ? { 'Authorization': `token ${hubConfig.token}` } : {}
             });
             if (res.ok) {
               const data = await res.json();
