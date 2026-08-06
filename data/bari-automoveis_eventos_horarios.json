@@ -27,7 +27,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "1/3 ABONO DE FERIAS"
+      "nomeRm": "1/3 ABONO DE FERIAS",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 2,
@@ -56,7 +59,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "1/3 ABONO DE FERIAS"
+      "nomeRm": "1/3 ABONO DE FERIAS",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 3,
@@ -85,7 +91,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "1/3 ABONO DE FERIAS EM DOBRO"
+      "nomeRm": "1/3 ABONO DE FERIAS EM DOBRO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 4,
@@ -114,7 +123,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "1/3 ABONO DE FERIAS EM DOBRO"
+      "nomeRm": "1/3 ABONO DE FERIAS EM DOBRO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 5,
@@ -143,7 +155,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "1/3 ABONO DE FERIAS"
+      "nomeRm": "1/3 ABONO DE FERIAS",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 6,
@@ -172,7 +187,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "1/3 ABONO DE FERIAS"
+      "nomeRm": "1/3 ABONO DE FERIAS",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 7,
@@ -201,7 +219,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "1/3 DE FERIAS (RECIBO)"
+      "nomeRm": "1/3 DE FERIAS (RECIBO)",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 8,
@@ -230,7 +251,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "2ª PARCELA 13º SALARIO"
+      "nomeRm": "2ª PARCELA 13º SALARIO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 9,
@@ -259,7 +283,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "13º SALARIO INDENIZADO"
+      "nomeRm": "13º SALARIO INDENIZADO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 10,
@@ -288,7 +315,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "SEGUNDA PARCELA 13º LICENCA MATERNIDADE"
+      "nomeRm": "SEGUNDA PARCELA 13º LICENCA MATERNIDADE",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 11,
@@ -317,7 +347,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "13º SALARIO RESCISAO"
+      "nomeRm": "13º SALARIO RESCISAO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 12,
@@ -346,7 +379,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "ABONO"
+      "nomeRm": "ABONO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 13,
@@ -375,7 +411,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "ABONO DE FERIAS"
+      "nomeRm": "ABONO DE FERIAS",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 14,
@@ -404,7 +443,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "ABONO DE FERIAS"
+      "nomeRm": "ABONO DE FERIAS",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 15,
@@ -433,7 +475,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "ABONO DE FERIAS EM DOBRO"
+      "nomeRm": "ABONO DE FERIAS EM DOBRO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 16,
@@ -462,7 +507,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "ABONO SALARIAL COVID 19"
+      "nomeRm": "ABONO SALARIAL COVID 19",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 17,
@@ -491,7 +539,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "ADIAMENTO COMPULSORIO"
+      "nomeRm": "ADIAMENTO COMPULSORIO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 18,
@@ -520,7 +571,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "1ª PARCELA 13º SALARIO"
+      "nomeRm": "1ª PARCELA 13º SALARIO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 19,
@@ -549,7 +603,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "ADIANTAMENTO DE FERIAS"
+      "nomeRm": "ADIANTAMENTO DE FERIAS",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 20,
@@ -578,7 +635,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "( - ) DESC. ADIANTAMENTO SALARIAL"
+      "nomeRm": "( - ) DESC. ADIANTAMENTO SALARIAL",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 21,
@@ -607,7 +667,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "( + ) ADIANTAMENTO SALARIAL (P)"
+      "nomeRm": "( + ) ADIANTAMENTO SALARIAL (P)",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 22,
@@ -636,7 +699,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "( + ) ADIANTAMENTO SALARIAL (P)"
+      "nomeRm": "( + ) ADIANTAMENTO SALARIAL (P)",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 23,
@@ -665,7 +731,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "ADICIONAL NOTURNO 20%"
+      "nomeRm": "ADICIONAL NOTURNO 20%",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 24,
@@ -694,7 +763,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "ADICIONAL NOTURNO 20%"
+      "nomeRm": "ADICIONAL NOTURNO 20%",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 25,
@@ -723,7 +795,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": ""
+      "nomeRm": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 26,
@@ -752,7 +827,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": ""
+      "nomeRm": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 27,
@@ -781,7 +859,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "AUXILIO ALIMENTACAO"
+      "nomeRm": "AUXILIO ALIMENTACAO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 28,
@@ -810,7 +891,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "MP936 - AJUDA COMPENSATORIA"
+      "nomeRm": "MP936 - AJUDA COMPENSATORIA",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 29,
@@ -839,7 +923,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "AJUDA DE CUSTO S/INCIDENCIA"
+      "nomeRm": "AJUDA DE CUSTO S/INCIDENCIA",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 30,
@@ -868,7 +955,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": ""
+      "nomeRm": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 31,
@@ -897,7 +987,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "AJUSTE DESCONTO DE FERIAS"
+      "nomeRm": "AJUSTE DESCONTO DE FERIAS",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 32,
@@ -926,7 +1019,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": ""
+      "nomeRm": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 33,
@@ -955,7 +1051,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": ""
+      "nomeRm": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 34,
@@ -984,7 +1083,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": ""
+      "nomeRm": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 35,
@@ -1013,7 +1115,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "ADICIONAL POR TEMPO SERVICO ANUENIO"
+      "nomeRm": "ADICIONAL POR TEMPO SERVICO ANUENIO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 36,
@@ -1042,7 +1147,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "ARREDONDAMENTO LIQUIDO INSUFICIENTE"
+      "nomeRm": "ARREDONDAMENTO LIQUIDO INSUFICIENTE",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 37,
@@ -1071,7 +1179,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "( - ) DESC. ADIANTAMENTO SALARIAL"
+      "nomeRm": "( - ) DESC. ADIANTAMENTO SALARIAL",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 38,
@@ -1100,7 +1211,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. ESTOURO DO MES ANTERIOR ( - )"
+      "nomeRm": "DESC. ESTOURO DO MES ANTERIOR ( - )",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 39,
@@ -1129,7 +1243,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "AUXILIO ALIMENTACAO"
+      "nomeRm": "AUXILIO ALIMENTACAO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 40,
@@ -1158,7 +1275,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "AUXILIO CRECHE"
+      "nomeRm": "AUXILIO CRECHE",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 41,
@@ -1187,7 +1307,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "AUXILIO TRANSPORTE"
+      "nomeRm": "AUXILIO TRANSPORTE",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 42,
@@ -1216,7 +1339,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "AVISO PREVIO INDENIZADO / API"
+      "nomeRm": "AVISO PREVIO INDENIZADO / API",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 43,
@@ -1245,7 +1371,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DIAS TRABALHADOS EM RESCISAO"
+      "nomeRm": "DIAS TRABALHADOS EM RESCISAO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 44,
@@ -1274,7 +1403,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": ""
+      "nomeRm": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 45,
@@ -1303,7 +1435,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "ESTAGIARIO - DIAS DE BOLSA"
+      "nomeRm": "ESTAGIARIO - DIAS DE BOLSA",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 46,
@@ -1332,7 +1467,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "PAGTO BONIFICACAO"
+      "nomeRm": "PAGTO BONIFICACAO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 47,
@@ -1361,7 +1499,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "COMAL OVOS - CONVENIO"
+      "nomeRm": "COMAL OVOS - CONVENIO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 48,
@@ -1390,7 +1531,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "COMISSAO"
+      "nomeRm": "COMISSAO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 49,
@@ -1419,7 +1563,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "COMISSAO"
+      "nomeRm": "COMISSAO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 50,
@@ -1448,7 +1595,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. CONTRIBUICAO ASSISTENCIAL"
+      "nomeRm": "DESC. CONTRIBUICAO ASSISTENCIAL",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 51,
@@ -1477,7 +1627,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. CONTRIBUICAO ASSISTENCIAL"
+      "nomeRm": "DESC. CONTRIBUICAO ASSISTENCIAL",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 52,
@@ -1506,7 +1659,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. CONTRIBUICAO ASSISTENCIAL"
+      "nomeRm": "DESC. CONTRIBUICAO ASSISTENCIAL",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 53,
@@ -1535,7 +1691,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. INSS  FERIAS"
+      "nomeRm": "DESC. INSS  FERIAS",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 54,
@@ -1564,7 +1723,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. CONTRIBUICAO SINDICAL COMPULSORIA"
+      "nomeRm": "DESC. CONTRIBUICAO SINDICAL COMPULSORIA",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 55,
@@ -1593,7 +1755,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. CONTRIBUICAO SINDICAL COMPULSORIA"
+      "nomeRm": "DESC. CONTRIBUICAO SINDICAL COMPULSORIA",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 56,
@@ -1622,7 +1787,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. CONTRIBUICAO ASSISTENCIAL"
+      "nomeRm": "DESC. CONTRIBUICAO ASSISTENCIAL",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 57,
@@ -1651,7 +1819,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "RSR S/REMUNERACAO VARIAVEL"
+      "nomeRm": "RSR S/REMUNERACAO VARIAVEL",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 58,
@@ -1680,7 +1851,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESCANSO REMUNERADO INDENIZADO"
+      "nomeRm": "DESCANSO REMUNERADO INDENIZADO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 59,
@@ -1709,7 +1883,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "RSR S/ADICIONAL NOTURNO"
+      "nomeRm": "RSR S/ADICIONAL NOTURNO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 60,
@@ -1738,7 +1915,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "RSR S/HORA EXTRA"
+      "nomeRm": "RSR S/HORA EXTRA",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 61,
@@ -1767,7 +1947,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "RSR S/REMUNERACAO VARIAVEL"
+      "nomeRm": "RSR S/REMUNERACAO VARIAVEL",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 62,
@@ -1796,7 +1979,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. ADIANTAMENTO 13º SALARIO"
+      "nomeRm": "DESC. ADIANTAMENTO 13º SALARIO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 63,
@@ -1825,7 +2011,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "( - ) DESC. ADIANTAMENTO SALARIAL"
+      "nomeRm": "( - ) DESC. ADIANTAMENTO SALARIAL",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 64,
@@ -1834,7 +2023,7 @@
       "NOME_DE": "Desconto Adiantamento Salário",
       "TIPO_EVENTO": "DESCONTOS",
       "COLIGADA_PARA": "",
-      "CODIGO_PARA": "0020",
+      "CODIGO_PARA": "0019",
       "NOME_RM": "ESTOURO DO MES ( + )",
       "CODIGO_PARA_FICHA_MES1": "",
       "CODIGO_PARA_FICHA_MES2": "",
@@ -1846,7 +2035,7 @@
       "nomeDe": "Desconto Adiantamento Salário",
       "tipoEvento": "DESCONTOS",
       "coligadaPara": "",
-      "codigoPara": "0020",
+      "codigoPara": "0019",
       "codigoParaFichaMes1": "",
       "codigoParaFichaMes2": "",
       "codigoParaVerbasFerias": "",
@@ -1854,7 +2043,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "ESTOURO DO MES ( + )"
+      "nomeRm": "ESTOURO DO MES ( + )",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": true
     },
     {
       "rowNum": 65,
@@ -1883,7 +2075,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. ESTOURO DO MES ANTERIOR ( - )"
+      "nomeRm": "DESC. ESTOURO DO MES ANTERIOR ( - )",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 66,
@@ -1912,7 +2107,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. ADIANTAMENTO 13º SALARIO"
+      "nomeRm": "DESC. ADIANTAMENTO 13º SALARIO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 67,
@@ -1941,7 +2139,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. ADTO LIQUIDO DE FERIAS"
+      "nomeRm": "DESC. ADTO LIQUIDO DE FERIAS",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 68,
@@ -1970,7 +2171,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. HORAS DE ATRASOS"
+      "nomeRm": "DESC. HORAS DE ATRASOS",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 69,
@@ -1999,7 +2203,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. AVISO PREVIO (API)"
+      "nomeRm": "DESC. AVISO PREVIO (API)",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 70,
@@ -2028,7 +2235,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. CESTA BASICA"
+      "nomeRm": "DESC. CESTA BASICA",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 71,
@@ -2057,7 +2267,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESCONTO DE COMPRAS NA EMPRESA"
+      "nomeRm": "DESCONTO DE COMPRAS NA EMPRESA",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 72,
@@ -2086,7 +2299,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. DSR PERDIDO"
+      "nomeRm": "DESC. DSR PERDIDO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 73,
@@ -2115,7 +2331,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. FALTAS (EM DIAS)"
+      "nomeRm": "DESC. FALTAS (EM DIAS)",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 74,
@@ -2144,7 +2363,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. FALTAS (EM HORAS)"
+      "nomeRm": "DESC. FALTAS (EM HORAS)",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 75,
@@ -2173,7 +2395,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. FALTAS (EM HORAS)"
+      "nomeRm": "DESC. FALTAS (EM HORAS)",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 76,
@@ -2202,7 +2427,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. ADTO LIQUIDO DE FERIAS"
+      "nomeRm": "DESC. ADTO LIQUIDO DE FERIAS",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 77,
@@ -2231,7 +2459,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "LIQUIDO DE RESCISAO (D)"
+      "nomeRm": "LIQUIDO DE RESCISAO (D)",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 78,
@@ -2260,7 +2491,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. ARTIGO 480 - MULTA  DA CLT"
+      "nomeRm": "DESC. ARTIGO 480 - MULTA  DA CLT",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 79,
@@ -2289,7 +2523,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "OUTROS DESCONTOS(D)"
+      "nomeRm": "OUTROS DESCONTOS(D)",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 80,
@@ -2318,7 +2555,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. INSS SEGURADO"
+      "nomeRm": "DESC. INSS SEGURADO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 81,
@@ -2347,7 +2587,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. INSS 2ª PARCELA 13º SALARIO"
+      "nomeRm": "DESC. INSS 2ª PARCELA 13º SALARIO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 82,
@@ -2376,7 +2619,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. IRRF NA FONTE"
+      "nomeRm": "DESC. IRRF NA FONTE",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 83,
@@ -2405,7 +2651,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. IRRF S/13º  SALARIO"
+      "nomeRm": "DESC. IRRF S/13º  SALARIO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 84,
@@ -2434,7 +2683,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. IRRF FERIAS"
+      "nomeRm": "DESC. IRRF FERIAS",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 85,
@@ -2463,7 +2715,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. IRRF FERIAS"
+      "nomeRm": "DESC. IRRF FERIAS",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 86,
@@ -2492,7 +2747,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESCONTO LANCHONETE"
+      "nomeRm": "DESCONTO LANCHONETE",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 87,
@@ -2521,7 +2779,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. VALE REFEICAO"
+      "nomeRm": "DESC. VALE REFEICAO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 88,
@@ -2550,7 +2811,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "AUXILIO ALIMENTACAO"
+      "nomeRm": "AUXILIO ALIMENTACAO",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": true
     },
     {
       "rowNum": 89,
@@ -2579,7 +2843,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. VALE REFEICAO"
+      "nomeRm": "DESC. VALE REFEICAO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 90,
@@ -2608,7 +2875,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESCONTO TREIN VIA WEB  FIAT"
+      "nomeRm": "DESCONTO TREIN VIA WEB  FIAT",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 91,
@@ -2637,7 +2907,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DEVOLUCAO RECEBIMENTO INDEVIDO(D)"
+      "nomeRm": "DEVOLUCAO RECEBIMENTO INDEVIDO(D)",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 92,
@@ -2666,7 +2939,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DEVOLUCAO DESC. INDEVIDO(P)"
+      "nomeRm": "DEVOLUCAO DESC. INDEVIDO(P)",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 93,
@@ -2695,7 +2971,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DEVOLUCAO DE DESCONTO INDEVIDO COM TRIBUTACAO"
+      "nomeRm": "DEVOLUCAO DE DESCONTO INDEVIDO COM TRIBUTACAO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 94,
@@ -2724,7 +3003,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DEVOLUCAO DE DESCONTO INDEVIDO SEM TRIBUTACAO"
+      "nomeRm": "DEVOLUCAO DE DESCONTO INDEVIDO SEM TRIBUTACAO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 95,
@@ -2753,7 +3035,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DEVOLUCAO DIF SALARIO MATERNIDADE"
+      "nomeRm": "DEVOLUCAO DIF SALARIO MATERNIDADE",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 96,
@@ -2782,7 +3067,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DEVOLUCAO PLANO ODONTOLOGICO"
+      "nomeRm": "DEVOLUCAO PLANO ODONTOLOGICO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 97,
@@ -2811,7 +3099,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DIF ABONO SALARIAL COVID 19"
+      "nomeRm": "DIF ABONO SALARIAL COVID 19",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 98,
@@ -2840,7 +3131,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DIF COMISSAO"
+      "nomeRm": "DIF COMISSAO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 99,
@@ -2869,7 +3163,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DIF PLANO INCENTIVOS DE METAS"
+      "nomeRm": "DIF PLANO INCENTIVOS DE METAS",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 100,
@@ -2898,7 +3195,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DIF. ADICIONAL INSALUBRIDADE"
+      "nomeRm": "DIF. ADICIONAL INSALUBRIDADE",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 101,
@@ -2927,7 +3227,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DIF. AD. QUEBRA DE CAIXA"
+      "nomeRm": "DIF. AD. QUEBRA DE CAIXA",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 102,
@@ -2956,7 +3259,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DIF. 1/3 ABONO PECUNICARIO"
+      "nomeRm": "DIF. 1/3 ABONO PECUNICARIO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 103,
@@ -2985,7 +3291,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DIF. 1/3 ABONO PECUNICARIO"
+      "nomeRm": "DIF. 1/3 ABONO PECUNICARIO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 104,
@@ -3014,7 +3323,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DIFERENCA AUXILIO CRECHE"
+      "nomeRm": "DIFERENCA AUXILIO CRECHE",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 105,
@@ -3043,7 +3355,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DIF. 13º SALARIO"
+      "nomeRm": "DIF. 13º SALARIO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 106,
@@ -3072,7 +3387,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DIF. 13º SALARIO"
+      "nomeRm": "DIF. 13º SALARIO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 107,
@@ -3101,7 +3419,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DIF. ABONO PEC DE FERIAS"
+      "nomeRm": "DIF. ABONO PEC DE FERIAS",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 108,
@@ -3130,7 +3451,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DIF. ABONO PEC DE FERIAS"
+      "nomeRm": "DIF. ABONO PEC DE FERIAS",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 109,
@@ -3159,7 +3483,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DIF. FERIAS PAGAS NO MES"
+      "nomeRm": "DIF. FERIAS PAGAS NO MES",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 110,
@@ -3188,7 +3515,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DIF. FERIAS PAGAS NO MES"
+      "nomeRm": "DIF. FERIAS PAGAS NO MES",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 111,
@@ -3217,7 +3547,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DIFERENCA DE GARANTIA MINIMA"
+      "nomeRm": "DIFERENCA DE GARANTIA MINIMA",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 112,
@@ -3246,7 +3579,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DIF. HORA EXTRA 50%"
+      "nomeRm": "DIF. HORA EXTRA 50%",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 113,
@@ -3275,7 +3611,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DIF. SALARIAL"
+      "nomeRm": "DIF. SALARIAL",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 114,
@@ -3304,7 +3643,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DIF. SALARIO MATERNIDADE"
+      "nomeRm": "DIF. SALARIO MATERNIDADE",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 115,
@@ -3333,7 +3675,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DIFERENCA DESCANSO REMUNERADO"
+      "nomeRm": "DIFERENCA DESCANSO REMUNERADO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 116,
@@ -3362,7 +3707,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DIFERENCA GRATIFICACAO DE FUNCAO"
+      "nomeRm": "DIFERENCA GRATIFICACAO DE FUNCAO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 117,
@@ -3391,7 +3739,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DIFERENCA INSS FERIAS"
+      "nomeRm": "DIFERENCA INSS FERIAS",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 118,
@@ -3420,7 +3771,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DIFERENCA PLANO INCENTIVO E META"
+      "nomeRm": "DIFERENCA PLANO INCENTIVO E META",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 119,
@@ -3449,7 +3803,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DIFERENCA PLUS SALARIAL"
+      "nomeRm": "DIFERENCA PLUS SALARIAL",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 120,
@@ -3478,7 +3835,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DIF. SALARIO FAMILIA"
+      "nomeRm": "DIF. SALARIO FAMILIA",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 121,
@@ -3507,7 +3867,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DIF. SALARIO SUBSTITUICAO"
+      "nomeRm": "DIF. SALARIO SUBSTITUICAO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 122,
@@ -3536,7 +3899,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC EMPRESTIMO CREDITO TRABALHADOR X"
+      "nomeRm": "DESC EMPRESTIMO CREDITO TRABALHADOR X",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 123,
@@ -3565,7 +3931,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC EMPRESTIMO CREDITO TRABALHADOR I"
+      "nomeRm": "DESC EMPRESTIMO CREDITO TRABALHADOR I",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 124,
@@ -3594,7 +3963,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC EMPRESTIMO CREDITO TRABALHADOR II"
+      "nomeRm": "DESC EMPRESTIMO CREDITO TRABALHADOR II",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 125,
@@ -3623,7 +3995,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC EMPRESTIMO CREDITO TRABALHADOR III"
+      "nomeRm": "DESC EMPRESTIMO CREDITO TRABALHADOR III",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 126,
@@ -3652,7 +4027,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC EMPRESTIMO CREDITO TRABALHADOR IV"
+      "nomeRm": "DESC EMPRESTIMO CREDITO TRABALHADOR IV",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 127,
@@ -3681,7 +4059,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC EMPRESTIMO CREDITO TRABALHADOR V"
+      "nomeRm": "DESC EMPRESTIMO CREDITO TRABALHADOR V",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 128,
@@ -3710,7 +4091,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC EMPRESTIMO CREDITO TRABALHADOR VI"
+      "nomeRm": "DESC EMPRESTIMO CREDITO TRABALHADOR VI",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 129,
@@ -3739,7 +4123,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC EMPRESTIMO CREDITO TRABALHADOR VII"
+      "nomeRm": "DESC EMPRESTIMO CREDITO TRABALHADOR VII",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 130,
@@ -3768,7 +4155,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC EMPRESTIMO CREDITO TRABALHADOR VIII"
+      "nomeRm": "DESC EMPRESTIMO CREDITO TRABALHADOR VIII",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 131,
@@ -3797,7 +4187,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC EMPRESTIMO CREDITO TRABALHADOR IX"
+      "nomeRm": "DESC EMPRESTIMO CREDITO TRABALHADOR IX",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 132,
@@ -3826,7 +4219,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "EMPRESTIMOS"
+      "nomeRm": "EMPRESTIMOS",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 133,
@@ -3855,7 +4251,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. MEDICAMENTOS FARMACIA"
+      "nomeRm": "DESC. MEDICAMENTOS FARMACIA",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 134,
@@ -3884,7 +4283,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. MEDICAMENTOS FARMACIA"
+      "nomeRm": "DESC. MEDICAMENTOS FARMACIA",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 135,
@@ -3913,7 +4315,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "FERIAS NO MES"
+      "nomeRm": "FERIAS NO MES",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 136,
@@ -3942,7 +4347,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "FERIAS NO MES"
+      "nomeRm": "FERIAS NO MES",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 137,
@@ -3971,7 +4379,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "FERIAS (AVISO-PREVIO INDENIZADO)"
+      "nomeRm": "FERIAS (AVISO-PREVIO INDENIZADO)",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 138,
@@ -4000,7 +4411,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "ABONO DE FERIAS EM DOBRO"
+      "nomeRm": "ABONO DE FERIAS EM DOBRO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 139,
@@ -4029,7 +4443,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "FERIAS EM DOBRO RESCISAO"
+      "nomeRm": "FERIAS EM DOBRO RESCISAO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 140,
@@ -4058,7 +4475,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "FERIAS PROPORCIONAIS"
+      "nomeRm": "FERIAS PROPORCIONAIS",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 141,
@@ -4087,7 +4507,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "FERIAS INDENIZADAS RESCISAO"
+      "nomeRm": "FERIAS INDENIZADAS RESCISAO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 142,
@@ -4116,7 +4539,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "FRETE"
+      "nomeRm": "FRETE",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 143,
@@ -4145,7 +4571,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "FUNCIONARIO DO MES"
+      "nomeRm": "FUNCIONARIO DO MES",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 144,
@@ -4174,7 +4603,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "GARANTIA MINIMA"
+      "nomeRm": "GARANTIA MINIMA",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 145,
@@ -4203,7 +4635,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "GRATIFICAÇÃO FIXA VALOR"
+      "nomeRm": "GRATIFICAÇÃO FIXA VALOR",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 146,
@@ -4232,7 +4667,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "GRATIFICAÇÃO FIXA PERCENTUAL"
+      "nomeRm": "GRATIFICAÇÃO FIXA PERCENTUAL",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 147,
@@ -4261,7 +4699,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "HORA EXTRA 100%"
+      "nomeRm": "HORA EXTRA 100%",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 148,
@@ -4290,7 +4731,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "HORA EXTRA 110%"
+      "nomeRm": "HORA EXTRA 110%",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 149,
@@ -4319,7 +4763,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "HORA EXTRA 120 %"
+      "nomeRm": "HORA EXTRA 120 %",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 150,
@@ -4348,7 +4795,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "HORA EXTRA 50%"
+      "nomeRm": "HORA EXTRA 50%",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 151,
@@ -4377,7 +4827,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "HORA EXTRA 55%"
+      "nomeRm": "HORA EXTRA 55%",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 152,
@@ -4406,7 +4859,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "HORA EXTRA 60%"
+      "nomeRm": "HORA EXTRA 60%",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 153,
@@ -4435,7 +4891,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "HORA EXTRA 70%"
+      "nomeRm": "HORA EXTRA 70%",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 154,
@@ -4464,7 +4923,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "HORA EXTRA 75%"
+      "nomeRm": "HORA EXTRA 75%",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 155,
@@ -4493,7 +4955,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": ""
+      "nomeRm": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 156,
@@ -4522,7 +4987,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "INDENIZ ART. 9º LEI Nº 7.238/84"
+      "nomeRm": "INDENIZ ART. 9º LEI Nº 7.238/84",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 157,
@@ -4551,7 +5019,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "INDENIZACAO CONVENCAO COLETIVA"
+      "nomeRm": "INDENIZACAO CONVENCAO COLETIVA",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 158,
@@ -4580,7 +5051,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "ART 479 - INDENIZACAO DA CLT"
+      "nomeRm": "ART 479 - INDENIZACAO DA CLT",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 159,
@@ -4609,7 +5083,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "INDENIZACAO RESCISORIA – MP 936"
+      "nomeRm": "INDENIZACAO RESCISORIA – MP 936",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 160,
@@ -4638,7 +5115,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "INDENIZACAO(RESCISAO) LEI 5889/73"
+      "nomeRm": "INDENIZACAO(RESCISAO) LEI 5889/73",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 161,
@@ -4667,7 +5147,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "ADICIONAL INSALUBRIDADE 20%"
+      "nomeRm": "ADICIONAL INSALUBRIDADE 20%",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 162,
@@ -4696,7 +5179,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "ADICIONAL INSALUBRIDADE 20%"
+      "nomeRm": "ADICIONAL INSALUBRIDADE 20%",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 163,
@@ -4725,7 +5211,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "ADICIONAL INSALUBRIDADE 20%"
+      "nomeRm": "ADICIONAL INSALUBRIDADE 20%",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 164,
@@ -4754,7 +5243,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "ADICIONAL INSALUBRIDADE 40%"
+      "nomeRm": "ADICIONAL INSALUBRIDADE 40%",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 165,
@@ -4783,7 +5275,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "ADICIONAL INSALUBRIDADE 20%"
+      "nomeRm": "ADICIONAL INSALUBRIDADE 20%",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 166,
@@ -4812,7 +5307,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. INSS DIRETORES 11%"
+      "nomeRm": "DESC. INSS DIRETORES 11%",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 167,
@@ -4841,7 +5339,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. ESTOURO DO MES ANTERIOR ( - )"
+      "nomeRm": "DESC. ESTOURO DO MES ANTERIOR ( - )",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 168,
@@ -4870,7 +5371,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "ARREDONDAMENTO LIQUIDO INSUFICIENTE"
+      "nomeRm": "ARREDONDAMENTO LIQUIDO INSUFICIENTE",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 169,
@@ -4899,7 +5403,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "LICENCA REMUNERADA"
+      "nomeRm": "LICENCA REMUNERADA",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 170,
@@ -4928,7 +5435,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "MEDIA VALOR 13 SALARIO"
+      "nomeRm": "MEDIA VALOR 13 SALARIO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 171,
@@ -4957,7 +5467,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "MEDIA 13º SALARIO MATERNIDADE"
+      "nomeRm": "MEDIA 13º SALARIO MATERNIDADE",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 172,
@@ -4986,7 +5499,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "MEDIA VALOR 13 SALARIO"
+      "nomeRm": "MEDIA VALOR 13 SALARIO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 173,
@@ -5015,7 +5531,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DIF. MEDIA HORA 13 SALARIO"
+      "nomeRm": "DIF. MEDIA HORA 13 SALARIO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 174,
@@ -5044,7 +5563,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "MEDIA SALARIAL"
+      "nomeRm": "MEDIA SALARIAL",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 175,
@@ -5073,7 +5595,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. MENSALIDADE SINDICAL"
+      "nomeRm": "DESC. MENSALIDADE SINDICAL",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 176,
@@ -5102,7 +5627,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "MULTA DO ARTIGO 477 DA CLT"
+      "nomeRm": "MULTA DO ARTIGO 477 DA CLT",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 177,
@@ -5131,7 +5659,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "MULTA DO ARTIGO 477 DA CLT"
+      "nomeRm": "MULTA DO ARTIGO 477 DA CLT",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 178,
@@ -5160,7 +5691,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "MP927 1/3 FERIAS ANTECIPADAS VENC"
+      "nomeRm": "MP927 1/3 FERIAS ANTECIPADAS VENC",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 179,
@@ -5189,7 +5723,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "REEMBOLSO DESC. FALTAS"
+      "nomeRm": "REEMBOLSO DESC. FALTAS",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 180,
@@ -5218,7 +5755,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. PENSAO ALIMENTICIA JUDICIAL"
+      "nomeRm": "DESC. PENSAO ALIMENTICIA JUDICIAL",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 181,
@@ -5247,7 +5787,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. PENSAO ALIMENTICIA JUDICIAL"
+      "nomeRm": "DESC. PENSAO ALIMENTICIA JUDICIAL",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 182,
@@ -5276,7 +5819,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. PENSAO ALIMENTICIA S/13º SALARIO"
+      "nomeRm": "DESC. PENSAO ALIMENTICIA S/13º SALARIO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 183,
@@ -5305,7 +5851,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. PENSAO ALIMENTICIA S/FERIAS"
+      "nomeRm": "DESC. PENSAO ALIMENTICIA S/FERIAS",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 184,
@@ -5334,7 +5883,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. PENSAO ALIMENTICIA S/FERIAS"
+      "nomeRm": "DESC. PENSAO ALIMENTICIA S/FERIAS",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 185,
@@ -5363,7 +5915,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "ADIC DE PERICULOSIDADE"
+      "nomeRm": "ADIC DE PERICULOSIDADE",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 186,
@@ -5392,7 +5947,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "ADIC DE PERICULOSIDADE"
+      "nomeRm": "ADIC DE PERICULOSIDADE",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 187,
@@ -5421,7 +5979,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "PLANO DE INCENTIVOS DE METAS"
+      "nomeRm": "PLANO DE INCENTIVOS DE METAS",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 188,
@@ -5450,7 +6011,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. PL SAUDE UNIMED TIT"
+      "nomeRm": "DESC. PL SAUDE UNIMED TIT",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 189,
@@ -5479,7 +6043,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "PLANO ODONTOLOGICO"
+      "nomeRm": "PLANO ODONTOLOGICO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 190,
@@ -5508,7 +6075,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "PLUS SALARIAL"
+      "nomeRm": "PLUS SALARIAL",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 191,
@@ -5537,7 +6107,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "PREMIO POR PRODUCAO"
+      "nomeRm": "PREMIO POR PRODUCAO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 192,
@@ -5566,7 +6139,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "PROV CREDITO DO TRABALHADOR FERIAS 1"
+      "nomeRm": "PROV CREDITO DO TRABALHADOR FERIAS 1",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 193,
@@ -5595,7 +6171,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "AD. QUEBRA DE CAIXA 10%"
+      "nomeRm": "AD. QUEBRA DE CAIXA 10%",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 194,
@@ -5624,7 +6203,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": ""
+      "nomeRm": "",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 195,
@@ -5653,7 +6235,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "AD. QUEBRA DE CAIXA 10%"
+      "nomeRm": "AD. QUEBRA DE CAIXA 10%",
+      "hasDivergencia": true,
+      "hasDivergenciaDuplicidade": true,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 196,
@@ -5682,7 +6267,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DIAS RECESSO ESTAGIO"
+      "nomeRm": "DIAS RECESSO ESTAGIO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 197,
@@ -5711,7 +6299,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "REEMBOLSO DE CONTRIBUICAO SINDICAL"
+      "nomeRm": "REEMBOLSO DE CONTRIBUICAO SINDICAL",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 198,
@@ -5740,7 +6331,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "REEMBOLSO DE PLANO DE SAUDE"
+      "nomeRm": "REEMBOLSO DE PLANO DE SAUDE",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 199,
@@ -5769,7 +6363,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "PRO-LABORE DIRETORES PROPRIET/SOCIOS"
+      "nomeRm": "PRO-LABORE DIRETORES PROPRIET/SOCIOS",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 200,
@@ -5798,7 +6395,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "PRO-LABORE DIRETORES NAO EMPREGADOS"
+      "nomeRm": "PRO-LABORE DIRETORES NAO EMPREGADOS",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 201,
@@ -5827,7 +6427,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "ATESTADO MEDICO (PREVIDENCIA) (D)"
+      "nomeRm": "ATESTADO MEDICO (PREVIDENCIA) (D)",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 202,
@@ -5856,7 +6459,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "SALARIO BASE EM DIAS"
+      "nomeRm": "SALARIO BASE EM DIAS",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 203,
@@ -5885,7 +6491,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "COTA DE SALARIO FAMILIA"
+      "nomeRm": "COTA DE SALARIO FAMILIA",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 204,
@@ -5914,7 +6523,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": ""
+      "nomeRm": "",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 205,
@@ -5943,7 +6555,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "SALARIO LIQUIDO REFERENTE AO MES ANT. A RESCISAO"
+      "nomeRm": "SALARIO LIQUIDO REFERENTE AO MES ANT. A RESCISAO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 206,
@@ -5972,7 +6587,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "SALARIO MATERNIDADE"
+      "nomeRm": "SALARIO MATERNIDADE",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 207,
@@ -6001,7 +6619,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "SALARIO SUBSTITUICAO"
+      "nomeRm": "SALARIO SUBSTITUICAO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 208,
@@ -6030,7 +6651,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DIAS TRABALHADOS EM RESCISAO"
+      "nomeRm": "DIAS TRABALHADOS EM RESCISAO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 209,
@@ -6059,7 +6683,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "RPA - RECIBO PAGAMENTO AUTONOMO"
+      "nomeRm": "RPA - RECIBO PAGAMENTO AUTONOMO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 210,
@@ -6088,7 +6715,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. SEST"
+      "nomeRm": "DESC. SEST",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 211,
@@ -6117,7 +6747,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. FALTAS X SUSPENSAO (EM HORAS)"
+      "nomeRm": "DESC. FALTAS X SUSPENSAO (EM HORAS)",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 212,
@@ -6146,7 +6779,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "SYSTEM SAUDE"
+      "nomeRm": "SYSTEM SAUDE",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 213,
@@ -6175,7 +6811,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. CONTRIBUICAO ASSISTENCIAL"
+      "nomeRm": "DESC. CONTRIBUICAO ASSISTENCIAL",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 214,
@@ -6204,7 +6843,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "TREINAMENTO NAO REALIZADO"
+      "nomeRm": "TREINAMENTO NAO REALIZADO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 215,
@@ -6233,7 +6875,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "ADICIONAL POR TEMPO SERVICO TRIENIO"
+      "nomeRm": "ADICIONAL POR TEMPO SERVICO TRIENIO",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 216,
@@ -6262,7 +6907,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. VALE TRANSPORTE"
+      "nomeRm": "DESC. VALE TRANSPORTE",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     },
     {
       "rowNum": 217,
@@ -6291,7 +6939,10 @@
       "observacao": "",
       "SUGESTOES": "",
       "sugestoes": "",
-      "nomeRm": "DESC. VALE TRANSPORTE"
+      "nomeRm": "DESC. VALE TRANSPORTE",
+      "hasDivergencia": false,
+      "hasDivergenciaDuplicidade": false,
+      "hasDivergenciaTipo": false
     }
   ]
 }
