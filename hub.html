@@ -952,7 +952,8 @@
     // --- RENDERIZAR GRID E KPIS 360° ---
     function renderClients() {
       const grid = document.getElementById('clientsGrid');
-      const search = document.getElementById('searchClients').value.toLowerCase();
+      const searchEl = document.getElementById('searchInput') || document.getElementById('searchClients');
+      const search = searchEl ? searchEl.value.toLowerCase().trim() : '';
       grid.innerHTML = '';
 
       let completedCount = 0;
