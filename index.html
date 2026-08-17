@@ -1856,7 +1856,10 @@
       
       let clientKey = getClientKey();
 
-      const pat = localStorage.getItem("gh_pat");
+      const pat = localStorage.getItem("gh_pat") || localStorage.getItem("hub_token") || "";
+      if (pat && !localStorage.getItem("gh_pat")) {
+        localStorage.setItem("gh_pat", pat);
+      }
       const owner = localStorage.getItem("gh_owner") || "TOTVSGustavoFerreira";
       const urlRepo = new URLSearchParams(window.location.search).get('repo') || new URLSearchParams(window.location.search).get('cliente');
       const repo = urlRepo || localStorage.getItem("gh_repo") || "portal-depara-navarro";
@@ -5965,7 +5968,9 @@
       const repo = isModal ? document.getElementById("ghRepoInput").value.trim() : document.getElementById("wrapperGhRepoInput").value.trim();
       
       localStorage.setItem("gh_pat", token);
+      localStorage.setItem("hub_token", token);
       localStorage.setItem("gh_owner", owner);
+      localStorage.setItem("hub_owner", owner);
       localStorage.setItem("gh_repo", repo);
       
       // Se houver um modal com as configs do Github, tentar fechar
@@ -5976,7 +5981,7 @@
     }
 
     function commitChangesToGitHub(commitMessage, updatedDatabaseCallback, onSuccessCallback, fileCategory = 'all') {
-      const pat = localStorage.getItem("gh_pat");
+      const pat = localStorage.getItem("gh_pat") || localStorage.getItem("hub_token") || "";
       const owner = localStorage.getItem("gh_owner") || "TOTVSGustavoFerreira";
       const repo = localStorage.getItem("gh_repo") || "portal-depara-navarro";
       
