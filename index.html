@@ -5914,13 +5914,25 @@
       activeFieldTypeForNewEvent = fieldType;
       
       const item = database.find(i => i.rowNum === rowNum);
-      document.getElementById("modalDesc").value = item ? item.nomeDe : "";
       
-      if (item && item.tipoEvento === "D-DESCONTO") {
-        document.getElementById("modalTipo").value = "DESCONTO";
+      // 1. Extrair nome/descrição do evento de origem (legado)
+      const nomeLegado = item ? (item.nomeDe || item.NOME_DE || item.NOME || item.descricao || item.DESCRICAO || '') : '';
+      document.getElementById("modalDesc").value = nomeLegado.trim();
+      
+      // 2. Extrair e normalizar o tipo de evento (Provento, Desconto, Base)
+      const rawTipo = item ? (item.tipoEvento || item.TIPO_EVENTO || item.TIPO || item.proventoDesconto || item.PROVENTO_DESCONTO || '') : '';
+      const tipoUpper = String(rawTipo).trim().toUpperCase();
+      
+      let tipoFinal = "PROVENTO";
+      if (tipoUpper.includes("DESC") || tipoUpper === "D" || tipoUpper.startsWith("D-") || tipoUpper.startsWith("D -")) {
+        tipoFinal = "DESCONTO";
+      } else if (tipoUpper.includes("BASE") || tipoUpper === "B" || tipoUpper.startsWith("B-") || tipoUpper.startsWith("B -")) {
+        tipoFinal = "BASE DE CALCULO";
       } else {
-        document.getElementById("modalTipo").value = "PROVENTO";
+        tipoFinal = "PROVENTO";
       }
+      
+      document.getElementById("modalTipo").value = tipoFinal;
       
       closeAllAutocompletes();
       document.getElementById("newRMEventModal").style.display = "flex";
