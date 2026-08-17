@@ -1,0 +1,7 @@
+# Arquivos temporários de verificação
+temp*.js
+*.tmp
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
