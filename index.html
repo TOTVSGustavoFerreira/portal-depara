@@ -1987,7 +1987,8 @@
       
       // 1. Normalizar ZDEPARA_EVENTOS de forma robusta e agressiva
       if (db.ZDEPARA_EVENTOS && Array.isArray(db.ZDEPARA_EVENTOS)) {
-        db.ZDEPARA_EVENTOS.forEach(item => {
+        db.ZDEPARA_EVENTOS.forEach((item, idx) => {
+          item.rowNum = idx + 1;
           const getVal = (v1, v2) => {
             const s1 = String(v1 !== undefined && v1 !== null ? v1 : "").trim();
             const s2 = String(v2 !== undefined && v2 !== null ? v2 : "").trim();
@@ -2042,7 +2043,7 @@
         });
       }
 
-      // 2. Normalizar outras abas de de-para para garantir chaves limpas
+      // 2. Normalizar outras abas de de-para para garantir chaves limpas e rowNum único
       const genericTabs = [
         'ZDEPARA_COLIGADAS', 'ZDEPARA_FUNCOES', 'ZDEPARA_SINDICATOS', 
         'ZDEPARA_SECOES', 'ZDEPARA_BANCOS', 'ZDEPARA_SITUACAO', 
@@ -2053,7 +2054,8 @@
       genericTabs.forEach(key => {
         const arr = db[key];
         if (arr && Array.isArray(arr)) {
-          arr.forEach(item => {
+          arr.forEach((item, idx) => {
+            item.rowNum = idx + 1;
             // Converter todas as chaves existentes do item para string e limpar espaços
             for (let prop in item) {
               if (prop !== 'rowNum' && item[prop] !== undefined && item[prop] !== null) {
@@ -2453,6 +2455,16 @@
       mainTableHead.innerHTML = headerHtml;
       filterTypeDropdown.innerHTML = filterOptionsHtml;
       
+      // Garante que cada item do módulo ativo tenha seu rowNum único (1, 2, 3, ...)
+      if (Array.isArray(database)) {
+        database.forEach((item, idx) => {
+          item.rowNum = idx + 1;
+        });
+      }
+      
+      editingRowNumber = null;
+      expandedRowNumbers.clear();
+
       calculateLocalDiagnosticsAndStats();
       renderWarnings();
       updateDashboard();
