@@ -1737,11 +1737,7 @@
 
     function submitPasskey() {
       const inputVal = document.getElementById("passkeyInput").value.trim();
-      let clientKey = SPREADSHEET_ID.toLowerCase();
-      if (SPREADSHEET_ID.includes("docs.google.com")) {
-        const matches = SPREADSHEET_ID.match(/\/d\/([a-zA-Z0-9-_]+)/);
-        if (matches) clientKey = matches[1].toLowerCase();
-      }
+      let clientKey = getClientKey();
       
       showLoading("Validando chave...");
       
