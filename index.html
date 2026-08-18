@@ -1877,8 +1877,10 @@
 
       const getFilePromise = (fileName, usePat) => {
         const timestamp = new Date().getTime();
-        const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${fileName}?t=${timestamp}`;
-        if (usePat) {
+        const branch = localStorage.getItem("gh_branch") || "main";
+        
+        if (usePat && pat) {
+          const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${fileName}?t=${timestamp}`;
           return fetch(apiUrl, { headers: { "Authorization": `token ${pat}`, "Accept": "application/vnd.github.v3+json" } })
             .then(res => {
               if (res.status === 401) throw new Error("Token do GitHub inválido ou expirado.");
@@ -1888,8 +1890,6 @@
             }).then(info => {
               if (!info) return { sha: null, content: null };
               if (!info.content) {
-                // Se o fallback do monolito for disparado e ele for >1MB, o content vem vazio.
-                // Nesse caso (que só acontece se a pessoa não tiver migrado), jogamos um erro claro.
                 if (fileName.includes('_base')) {
                    throw new Error("Arquivo no GitHub corrompido ou acima do limite. Por favor, reimporte a planilha.");
                 }
@@ -1899,11 +1899,32 @@
               return { sha: info.sha, content: JSON.parse(jsonText) };
             });
         } else {
-          return fetch(`${fileName}?t=${timestamp}`).then(res => {
-            if (res.status === 404) return { sha: null, content: null };
-            if (!res.ok) throw new Error("Erro ao carregar " + fileName);
-            return res.text();
-          }).then(text => ({ sha: null, content: text ? JSON.parse(text) : null }));
+          // Acesso para usuários / visualizadores públicos sem Token:
+          // 1. Tenta carregar do raw.githubusercontent.com do repositório específico do cliente
+          const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${fileName}?t=${timestamp}`;
+          
+          return fetch(rawUrl)
+            .then(res => {
+              if (res.ok) return res.text();
+              // 2. Fallback: tentar carregar do GitHub Pages do repositório
+              const pagesUrl = `https://${owner.toLowerCase()}.github.io/${repo}/${fileName}?t=${timestamp}`;
+              return fetch(pagesUrl).then(r2 => {
+                if (r2.ok) return r2.text();
+                // 3. Fallback: relativo local
+                return fetch(`${fileName}?t=${timestamp}`).then(r3 => r3.ok ? r3.text() : "");
+              });
+            })
+            .then(text => {
+              if (!text || text.trim() === "" || text.trim().startsWith("404")) {
+                return { sha: null, content: null };
+              }
+              try {
+                return { sha: null, content: JSON.parse(text) };
+              } catch (e) {
+                return { sha: null, content: null };
+              }
+            })
+            .catch(() => ({ sha: null, content: null }));
         }
       };
 
