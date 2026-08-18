@@ -5064,6 +5064,47 @@
       return base64Result;
     }
 
+    function formatCpfCnpj(val) {
+      if (val === null || val === undefined) return "-";
+      const clean = String(val).trim();
+      if (!clean) return "-";
+      
+      const digits = clean.replace(/\D/g, "");
+      if (!digits) return clean;
+
+      // CPF: até 11 dígitos
+      if (digits.length <= 11) {
+        const padded = digits.padStart(11, "0");
+        return padded.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, "$1.$2.$3-$4");
+      }
+      
+      // CNPJ: de 12 até 14 dígitos
+      if (digits.length <= 14) {
+        const padded = digits.padStart(14, "0");
+        return padded.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/, "$1.$2.$3/$4-$5");
+      }
+
+      return clean;
+    }
+
+    function maskCpfCnpj(val) {
+      if (!val) return "";
+      let v = String(val).replace(/\D/g, "");
+      if (v.length > 14) v = v.slice(0, 14);
+      
+      if (v.length <= 11) {
+        v = v.replace(/(\d{3})(\d)/, "$1.$2");
+        v = v.replace(/(\d{3})(\d)/, "$1.$2");
+        v = v.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+      } else {
+        v = v.replace(/^(\d{2})(\d)/, "$1.$2");
+        v = v.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3");
+        v = v.replace(/\.(\d{3})(\d)/, ".$1/$2");
+        v = v.replace(/(\d{4})(\d)/, "$1-$2");
+      }
+      return v;
+    }
+
     // Dado um código de evento RM, retorna a descrição/nome buscando na lista rmEvents
     function getRmName(cod) {
       if (!cod || isCodeIgnored(cod) || isCodeToCreate(cod)) return '';
@@ -5579,7 +5620,7 @@
               <td>${item.ID || ''}</td>
               <td>${item.NOME_DE || ''}</td>
               <td>
-                <input type="text" id="edit-CNPJ-${item.rowNum}" class="input-field" style="padding: 6px; font-size: 0.8rem;" value="${item.CNPJ || ''}" placeholder="CNPJ / CPF">
+                <input type="text" id="edit-CNPJ-${item.rowNum}" class="input-field" style="padding: 6px; font-size: 0.8rem;" value="${formatCpfCnpj(item.CNPJ)}" placeholder="CNPJ / CPF" oninput="this.value = maskCpfCnpj(this.value)">
               </td>
               <td style="overflow: visible;">
                 <input type="text" id="edit-CODCOLIGADA-${item.rowNum}" class="input-field" style="padding: 6px; font-size: 0.8rem;" value="${item.CODCOLIGADA || ''}" autocomplete="off">
@@ -5645,7 +5686,9 @@
               <td><code>${item.EMPRESA_DE || item['EMPRESA _DE'] || ''}</code></td>
               <td><code>${item.CODIGO_DE || ''}</code></td>
               <td>${item.NOME_DE || ''}</td>
-              <td>${item.CNPJ || ''}</td>
+              <td>
+                <input type="text" id="edit-CNPJ-${item.rowNum}" class="input-field" style="padding: 6px; font-size: 0.8rem;" value="${formatCpfCnpj(item.CNPJ)}" placeholder="CNPJ" oninput="this.value = maskCpfCnpj(this.value)">
+              </td>
               <td>
                 <input type="text" id="edit-COLIGADA_PARA-${item.rowNum}" class="input-field" style="padding: 6px; font-size: 0.8rem;" value="${item.COLIGADA_PARA || '1'}">
               </td>
@@ -5732,7 +5775,7 @@
               <td onclick="toggleRowExpansion(${item.rowNum})"><code>${item.EMPRESA_DE || ''}</code></td>
               <td onclick="toggleRowExpansion(${item.rowNum})">${item.ID || ''}</td>
               <td onclick="toggleRowExpansion(${item.rowNum})">${item.NOME_DE || ''}</td>
-              <td onclick="toggleRowExpansion(${item.rowNum})">${item.CNPJ || ''}</td>
+              <td onclick="toggleRowExpansion(${item.rowNum})"><code>${formatCpfCnpj(item.CNPJ)}</code></td>
               <td onclick="toggleRowExpansion(${item.rowNum})">${badgeDest}</td>
               <td onclick="toggleRowExpansion(${item.rowNum})"><code>${item.CODFILIAL_PARA || ''}</code></td>
               <td>${actionButtons}</td>
@@ -5754,7 +5797,7 @@
               <td onclick="toggleRowExpansion(${item.rowNum})"><code>${item.EMPRESA_DE || item['EMPRESA _DE'] || ''}</code></td>
               <td onclick="toggleRowExpansion(${item.rowNum})"><code>${item.CODIGO_DE || ''}</code></td>
               <td onclick="toggleRowExpansion(${item.rowNum})">${item.NOME_DE || ''}</td>
-              <td onclick="toggleRowExpansion(${item.rowNum})">${item.CNPJ || ''}</td>
+              <td onclick="toggleRowExpansion(${item.rowNum})"><code>${formatCpfCnpj(item.CNPJ)}</code></td>
               <td onclick="toggleRowExpansion(${item.rowNum})">${item.COLIGADA_PARA || ''}</td>
               <td onclick="toggleRowExpansion(${item.rowNum})">${badgeDest}</td>
               <td>${actionButtons}</td>
