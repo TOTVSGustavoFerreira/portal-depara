@@ -2035,6 +2035,46 @@
           const valFerias = getVal(item.CODIGO_PARA_VERBAS_FERIAS, item.codigoParaVerbasFerias);
           item.CODIGO_PARA_VERBAS_FERIAS = valFerias;
           item.codigoParaVerbasFerias = valFerias;
+
+          // Autoderivação inteligente e reforçada para eventos de férias
+          const cod = String(item.codigoPara || item.CODIGO_PARA || "").padStart(4, '0');
+          const nomeUpper = String(item.nomeDe || item.NOME_DE || item.NOME || "").toUpperCase();
+
+          if (cod === "0076" || cod === "0040" || (nomeUpper.includes("1/3") && nomeUpper.includes("FERIAS") && !nomeUpper.includes("ABONO") && !nomeUpper.includes("DIF"))) {
+            if (!item.codigoPara) { item.codigoPara = "0076"; item.CODIGO_PARA = "0076"; }
+            if (!item.codigoParaFichaMes1 || item.codigoParaFichaMes1 === "-") item.codigoParaFichaMes1 = "0076";
+            if (!item.codigoParaFichaMes2 || item.codigoParaFichaMes2 === "-") item.codigoParaFichaMes2 = "0077";
+            if (!item.codigoParaVerbasFerias || item.codigoParaVerbasFerias === "-") item.codigoParaVerbasFerias = "0040";
+          } else if (cod === "0041" || cod === "0038" || ((nomeUpper.includes("REMUNERACAO") || nomeUpper.includes("REM.")) && nomeUpper.includes("FERIAS") && !nomeUpper.includes("1/3") && !nomeUpper.includes("ABONO")) || (nomeUpper === "FERIAS" || nomeUpper === "FERIAS NO MES")) {
+            if (!item.codigoPara) { item.codigoPara = "0041"; item.CODIGO_PARA = "0041"; }
+            if (!item.codigoParaFichaMes1 || item.codigoParaFichaMes1 === "-") item.codigoParaFichaMes1 = "0041";
+            if (!item.codigoParaFichaMes2 || item.codigoParaFichaMes2 === "-") item.codigoParaFichaMes2 = "0042";
+            if (!item.codigoParaVerbasFerias || item.codigoParaVerbasFerias === "-") item.codigoParaVerbasFerias = "0038";
+          } else if (cod === "0039" || (nomeUpper.includes("ABONO") && nomeUpper.includes("FERIAS") && !nomeUpper.includes("1/3"))) {
+            if (!item.codigoPara) { item.codigoPara = "0039"; item.CODIGO_PARA = "0039"; }
+            if (!item.codigoParaFichaMes1 || item.codigoParaFichaMes1 === "-") item.codigoParaFichaMes1 = "0039";
+            if (!item.codigoParaFichaMes2 || item.codigoParaFichaMes2 === "-") item.codigoParaFichaMes2 = "0039";
+            if (!item.codigoParaVerbasFerias || item.codigoParaVerbasFerias === "-") item.codigoParaVerbasFerias = "0039";
+          } else if (cod === "0056" || (nomeUpper.includes("1/3") && nomeUpper.includes("ABONO"))) {
+            if (!item.codigoPara) { item.codigoPara = "0056"; item.CODIGO_PARA = "0056"; }
+            if (!item.codigoParaFichaMes1 || item.codigoParaFichaMes1 === "-") item.codigoParaFichaMes1 = "0056";
+            if (!item.codigoParaFichaMes2 || item.codigoParaFichaMes2 === "-") item.codigoParaFichaMes2 = "0056";
+            if (!item.codigoParaVerbasFerias || item.codigoParaVerbasFerias === "-") item.codigoParaVerbasFerias = "0056";
+          } else if (cod === "0043" || (nomeUpper.includes("DIF") && nomeUpper.includes("FERIAS") && !nomeUpper.includes("1/3"))) {
+            if (!item.codigoPara) { item.codigoPara = "0043"; item.CODIGO_PARA = "0043"; }
+            if (!item.codigoParaFichaMes1 || item.codigoParaFichaMes1 === "-") item.codigoParaFichaMes1 = "0043";
+            if (!item.codigoParaFichaMes2 || item.codigoParaFichaMes2 === "-") item.codigoParaFichaMes2 = "0043";
+            if (!item.codigoParaVerbasFerias || item.codigoParaVerbasFerias === "-") item.codigoParaVerbasFerias = "0043";
+          } else if (cod === "0078" || (nomeUpper.includes("1/3") && nomeUpper.includes("DIF") && nomeUpper.includes("FERIAS"))) {
+            if (!item.codigoPara) { item.codigoPara = "0078"; item.CODIGO_PARA = "0078"; }
+            if (!item.codigoParaFichaMes1 || item.codigoParaFichaMes1 === "-") item.codigoParaFichaMes1 = "0078";
+            if (!item.codigoParaFichaMes2 || item.codigoParaFichaMes2 === "-") item.codigoParaFichaMes2 = "0078";
+            if (!item.codigoParaVerbasFerias || item.codigoParaVerbasFerias === "-") item.codigoParaVerbasFerias = "0078";
+          }
+
+          item.CODIGO_PARA_FICHA_MES1 = item.codigoParaFichaMes1 || "";
+          item.CODIGO_PARA_FICHA_MES2 = item.codigoParaFichaMes2 || "";
+          item.CODIGO_PARA_VERBAS_FERIAS = item.codigoParaVerbasFerias || "";
           
           const valObs = getVal(item.OBSERVACAO, item.observacao);
           item.OBSERVACAO = valObs;
@@ -5994,42 +6034,53 @@
       
       if (!f1 || !f2 || !fer) return;
 
-      if (val === "0076") {
-        f1.disabled = true;
-        f2.disabled = true;
-        fer.disabled = true;
-        
-        f1.value = "0076";
-        f2.value = "0077";
-        fer.value = "0040";
-        
+      const cod = String(val || "").padStart(4, '0');
+
+      if (cod === "0076" || cod === "0040") {
+        f1.disabled = true; f2.disabled = true; fer.disabled = true;
+        f1.value = "0076"; f2.value = "0077"; fer.value = "0040";
         updateFichaDescription(rowNum, "ficha1", "0076");
         updateFichaDescription(rowNum, "ficha2", "0077");
         updateFichaDescription(rowNum, "ferias", "0040");
-      } else if (val === "0041") {
-        f1.disabled = true;
-        f2.disabled = true;
-        fer.disabled = true;
-        
-        f1.value = "0041";
-        f2.value = "0042";
-        fer.value = "0038";
-        
+      } else if (cod === "0041" || cod === "0038") {
+        f1.disabled = true; f2.disabled = true; fer.disabled = true;
+        f1.value = "0041"; f2.value = "0042"; fer.value = "0038";
         updateFichaDescription(rowNum, "ficha1", "0041");
         updateFichaDescription(rowNum, "ficha2", "0042");
         updateFichaDescription(rowNum, "ferias", "0038");
+      } else if (cod === "0039") {
+        f1.disabled = true; f2.disabled = true; fer.disabled = true;
+        f1.value = "0039"; f2.value = "0039"; fer.value = "0039";
+        updateFichaDescription(rowNum, "ficha1", "0039");
+        updateFichaDescription(rowNum, "ficha2", "0039");
+        updateFichaDescription(rowNum, "ferias", "0039");
+      } else if (cod === "0056") {
+        f1.disabled = true; f2.disabled = true; fer.disabled = true;
+        f1.value = "0056"; f2.value = "0056"; fer.value = "0056";
+        updateFichaDescription(rowNum, "ficha1", "0056");
+        updateFichaDescription(rowNum, "ficha2", "0056");
+        updateFichaDescription(rowNum, "ferias", "0056");
+      } else if (cod === "0043") {
+        f1.disabled = true; f2.disabled = true; fer.disabled = true;
+        f1.value = "0043"; f2.value = "0043"; fer.value = "0043";
+        updateFichaDescription(rowNum, "ficha1", "0043");
+        updateFichaDescription(rowNum, "ficha2", "0043");
+        updateFichaDescription(rowNum, "ferias", "0043");
+      } else if (cod === "0078") {
+        f1.disabled = true; f2.disabled = true; fer.disabled = true;
+        f1.value = "0078"; f2.value = "0078"; fer.value = "0078";
+        updateFichaDescription(rowNum, "ficha1", "0078");
+        updateFichaDescription(rowNum, "ficha2", "0078");
+        updateFichaDescription(rowNum, "ferias", "0078");
       } else {
-        f1.disabled = true;
-        f2.disabled = true;
-        fer.disabled = true;
-        
-        f1.value = "";
-        f2.value = "";
-        fer.value = "";
-        
-        document.getElementById(`edit-nomeFicha1-${rowNum}`).value = "";
-        document.getElementById(`edit-nomeFicha2-${rowNum}`).value = "";
-        document.getElementById(`edit-nomeFerias-${rowNum}`).value = "";
+        f1.disabled = true; f2.disabled = true; fer.disabled = true;
+        f1.value = ""; f2.value = ""; fer.value = "";
+        const nf1 = document.getElementById(`edit-nomeFicha1-${rowNum}`);
+        const nf2 = document.getElementById(`edit-nomeFicha2-${rowNum}`);
+        const nfer = document.getElementById(`edit-nomeFerias-${rowNum}`);
+        if (nf1) nf1.value = "";
+        if (nf2) nf2.value = "";
+        if (nfer) nfer.value = "";
       }
     }
 
