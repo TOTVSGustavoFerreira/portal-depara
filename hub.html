@@ -1174,7 +1174,9 @@
           rawDatabase = {};
           workbook.SheetNames.forEach(sheetName => {
             const sheet = workbook.Sheets[sheetName];
-            const json = XLSX.utils.sheet_to_json(sheet, { defval: '' });
+            let json = XLSX.utils.sheet_to_json(sheet, { defval: '' });
+            // Filtra linhas 100% vazias / em branco no Excel
+            json = json.filter(row => row && Object.values(row).some(c => c !== undefined && c !== null && String(c).trim() !== ""));
             rawDatabase[sheetName] = json;
           });
 

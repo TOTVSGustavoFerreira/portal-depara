@@ -3432,9 +3432,13 @@
           abasToImport.forEach(aba => {
             const ws = workbook.Sheets[aba.name];
             if (ws) {
-              const json = XLSX.utils.sheet_to_json(ws, { header: 1 });
-              const records = json.length > 1 ? json.length - 1 : 0;
-              abasValidas.push({ ...aba, records });
+              const rows = XLSX.utils.sheet_to_json(ws, { header: 1 });
+              // Despreza cabeçalho e filtra linhas 100% vazias
+              const dataRows = rows.slice(1).filter(r => r && Array.isArray(r) && r.some(c => c !== undefined && c !== null && String(c).trim() !== ""));
+              const records = dataRows.length;
+              if (records > 0 || aba.name.startsWith("DADOS_RM") || aba.isExtra) {
+                abasValidas.push({ ...aba, records });
+              }
             }
           });
 
@@ -4175,6 +4179,9 @@
           if (ws) {
             let json = XLSX.utils.sheet_to_json(ws, { raw: false, defval: "" });
             
+            // Filtra linhas 100% vazias / em branco no Excel
+            json = json.filter(row => row && Object.values(row).some(c => c !== undefined && c !== null && String(c).trim() !== ""));
+
             // Rodar Fuzzy Header Match se houver cabeçalhos oficiais cadastrados para essa aba
             const official = OFFICIAL_HEADERS[key];
             if (official) {
