@@ -2162,6 +2162,9 @@
       if (typeof GLOBAL_RM_MOTIVOS_SEED !== 'undefined' && (!db.DADOS_RM_MOTIVOS || !Array.isArray(db.DADOS_RM_MOTIVOS) || db.DADOS_RM_MOTIVOS.length === 0)) {
          db.DADOS_RM_MOTIVOS = JSON.parse(JSON.stringify(GLOBAL_RM_MOTIVOS_SEED));
       }
+
+      // 6. Atualizar índices em memória para buscas O(1) ultra-rápidas
+      rebuildLookupMaps();
     }
 
     function switchModule(moduleName) {
@@ -4519,7 +4522,7 @@
 
         filtersHtml = `
           <div style="flex: 2; min-width: 200px;">
-            <input type="text" id="f_search" class="input-field" placeholder="🔍 Busca Geral (Código, Nome, RM...)" oninput="applyFilters()">
+            <input type="text" id="f_search" class="input-field" placeholder="🔍 Busca Geral (Código, Nome, RM...)" oninput="debounceApplyFilters()">
           </div>
           <div style="flex: 1; min-width: 140px;">
             <select id="f_empresa" class="filter-select" style="width:100%;" onchange="applyFilters()">
@@ -4555,10 +4558,10 @@
       else if (moduleName === 'coligadas') {
         filtersHtml = `
           <div style="flex: 2; min-width: 220px;">
-            <input type="text" id="f_search" class="input-field" placeholder="🔍 Busca Empresa, ID ou Razão Social..." oninput="applyFilters()">
+            <input type="text" id="f_search" class="input-field" placeholder="🔍 Busca Empresa, ID ou Razão Social..." oninput="debounceApplyFilters()">
           </div>
           <div style="flex: 1; min-width: 160px;">
-            <input type="text" id="f_cnpj" class="input-field" placeholder="📄 Filtrar CNPJ..." oninput="applyFilters()">
+            <input type="text" id="f_cnpj" class="input-field" placeholder="📄 Filtrar CNPJ..." oninput="debounceApplyFilters()">
           </div>
           <div style="flex: 1; min-width: 140px;">
             <select id="f_lote" class="filter-select" style="width:100%;" onchange="applyFilters()">
@@ -4573,10 +4576,10 @@
       else if (moduleName === 'funcoes') {
         filtersHtml = `
           <div style="flex: 2; min-width: 220px;">
-            <input type="text" id="f_search" class="input-field" placeholder="🔍 Busca Função ou Código..." oninput="applyFilters()">
+            <input type="text" id="f_search" class="input-field" placeholder="🔍 Busca Função ou Código..." oninput="debounceApplyFilters()">
           </div>
           <div style="flex: 1; min-width: 140px;">
-            <input type="text" id="f_cbo" class="input-field" placeholder="💼 Filtrar CBO..." oninput="applyFilters()">
+            <input type="text" id="f_cbo" class="input-field" placeholder="💼 Filtrar CBO..." oninput="debounceApplyFilters()">
           </div>
           <div style="flex: 1; min-width: 140px;">
             <select id="f_status" class="filter-select" style="width:100%;" onchange="applyFilters()">
@@ -4599,10 +4602,10 @@
       else if (moduleName === 'sindicatos') {
         filtersHtml = `
           <div style="flex: 2; min-width: 220px;">
-            <input type="text" id="f_search" class="input-field" placeholder="🔍 Busca Sindicato ou Código..." oninput="applyFilters()">
+            <input type="text" id="f_search" class="input-field" placeholder="🔍 Busca Sindicato ou Código..." oninput="debounceApplyFilters()">
           </div>
           <div style="flex: 1; min-width: 160px;">
-            <input type="text" id="f_cnpj" class="input-field" placeholder="📄 Filtrar CNPJ..." oninput="applyFilters()">
+            <input type="text" id="f_cnpj" class="input-field" placeholder="📄 Filtrar CNPJ..." oninput="debounceApplyFilters()">
           </div>
           <div style="flex: 1; min-width: 140px;">
             <select id="f_status" class="filter-select" style="width:100%;" onchange="applyFilters()">
@@ -4624,10 +4627,10 @@
       else if (moduleName === 'secoes') {
         filtersHtml = `
           <div style="flex: 2; min-width: 200px;">
-            <input type="text" id="f_search" class="input-field" placeholder="🔍 Seção Origem (Legado)..." oninput="applyFilters()">
+            <input type="text" id="f_search" class="input-field" placeholder="🔍 Seção Origem (Legado)..." oninput="debounceApplyFilters()">
           </div>
           <div style="flex: 1.5; min-width: 180px;">
-            <input type="text" id="f_secao_rm" class="input-field" placeholder="🏢 Seção Destino (RM)..." oninput="applyFilters()">
+            <input type="text" id="f_secao_rm" class="input-field" placeholder="🏢 Seção Destino (RM)..." oninput="debounceApplyFilters()">
           </div>
           <div style="flex: 1; min-width: 140px;">
             <select id="f_status" class="filter-select" style="width:100%;" onchange="applyFilters()">
@@ -4649,10 +4652,10 @@
       else if (moduleName === 'situacao') {
         filtersHtml = `
           <div style="flex: 2; min-width: 200px;">
-            <input type="text" id="f_search" class="input-field" placeholder="🔍 Situação Origem..." oninput="applyFilters()">
+            <input type="text" id="f_search" class="input-field" placeholder="🔍 Situação Origem..." oninput="debounceApplyFilters()">
           </div>
           <div style="flex: 1.5; min-width: 180px;">
-            <input type="text" id="f_situacao_rm" class="input-field" placeholder="🏷️ Situação / Motivo RM..." oninput="applyFilters()">
+            <input type="text" id="f_situacao_rm" class="input-field" placeholder="🏷️ Situação / Motivo RM..." oninput="debounceApplyFilters()">
           </div>
           <div style="flex: 1; min-width: 140px;">
             <select id="f_status" class="filter-select" style="width:100%;" onchange="applyFilters()">
@@ -4674,7 +4677,7 @@
       else {
         filtersHtml = `
           <div style="flex: 2; min-width: 220px;">
-            <input type="text" id="f_search" class="input-field" placeholder="🔍 Busca Geral..." oninput="applyFilters()">
+            <input type="text" id="f_search" class="input-field" placeholder="🔍 Busca Geral..." oninput="debounceApplyFilters()">
           </div>
           <div style="flex: 1; min-width: 140px;">
             <select id="f_lote" class="filter-select" style="width:100%;" onchange="applyFilters()">
@@ -5049,32 +5052,83 @@
       return v;
     }
 
-    // Dado um código de evento RM, retorna a descrição/nome buscando na lista rmEvents
+    // --- ÍNDICES E CACHES EM MEMÓRIA PARA BUSCAS O(1) ULTRA-RÁPIDAS ---
+    let rmEventsMap = new Map();
+    let rmSecoesMap = new Map();
+    let rmSituacaoMap = new Map();
+    let rmMotivosMap = new Map();
+
+    function rebuildLookupMaps() {
+      rmEventsMap.clear();
+      if (Array.isArray(rmEvents)) {
+        rmEvents.forEach(e => {
+          if (e && e.codigo) {
+            const raw = String(e.codigo).trim();
+            const padded = raw.padStart(4, '0');
+            rmEventsMap.set(raw, e);
+            rmEventsMap.set(padded, e);
+          }
+        });
+      }
+
+      rmSecoesMap.clear();
+      if (rawJsonDatabase && Array.isArray(rawJsonDatabase.DADOS_RM_SECOES)) {
+        rawJsonDatabase.DADOS_RM_SECOES.forEach(s => {
+          if (s && s.CODIGO) {
+            const col = String(s.COLIGADA || "1").trim();
+            const fil = String(s.FILIAL || "1").trim();
+            const cod = String(s.CODIGO).trim();
+            rmSecoesMap.set(`${col}|${fil}|${cod}`, s.DESCRICAO || "");
+            rmSecoesMap.set(cod, s.DESCRICAO || "");
+          }
+        });
+      }
+
+      rmSituacaoMap.clear();
+      if (rawJsonDatabase && Array.isArray(rawJsonDatabase.DADOS_RM_SITUACAO)) {
+        rawJsonDatabase.DADOS_RM_SITUACAO.forEach(s => {
+          if (s && s.CODCLIENTE !== undefined) {
+            const cod = String(s.CODCLIENTE).trim();
+            rmSituacaoMap.set(cod, s.DESCRICAO || "");
+          }
+        });
+      }
+
+      rmMotivosMap.clear();
+      if (rawJsonDatabase && Array.isArray(rawJsonDatabase.DADOS_RM_MOTIVOS)) {
+        rawJsonDatabase.DADOS_RM_MOTIVOS.forEach(s => {
+          if (s && s.CODCLIENTE !== undefined) {
+            const raw = String(s.CODCLIENTE).trim();
+            const padded = raw.padStart(2, '0');
+            rmMotivosMap.set(raw, s.DESCRICAO || "");
+            rmMotivosMap.set(padded, s.DESCRICAO || "");
+          }
+        });
+      }
+    }
+
+    // Dado um código de evento RM, retorna a descrição/nome buscando em O(1)
     function getRmName(cod) {
       if (!cod || isCodeIgnored(cod) || isCodeToCreate(cod)) return '';
-      const ev = rmEvents.find(e => e.codigo === cod || e.codigo === String(cod).padStart(4, '0'));
-      return ev ? ev.descricao : '';
+      const codStr = String(cod).trim();
+      const ev = rmEventsMap.get(codStr) || rmEventsMap.get(codStr.padStart(4, '0'));
+      if (ev) return ev.descricao || '';
+      const fallback = (rmEvents || []).find(e => e.codigo === cod || e.codigo === codStr.padStart(4, '0'));
+      return fallback ? fallback.descricao : '';
     }
 
     function getSituacaoName(cod) {
       if (!cod) return '';
-      if (!rawJsonDatabase || !rawJsonDatabase.DADOS_RM_SITUACAO) return '';
       const codStr = String(cod).trim();
-      const item = rawJsonDatabase.DADOS_RM_SITUACAO.find(s => String(s.CODCLIENTE).trim() === codStr);
-      return item ? item.DESCRICAO : '';
+      return rmSituacaoMap.get(codStr) || '';
     }
 
     function getSecaoName(coligada, filial, cod) {
-      if (!cod || !rawJsonDatabase || !rawJsonDatabase.DADOS_RM_SECOES) return '';
+      if (!cod) return '';
       const codStr = String(cod).trim();
       const colStr = String(coligada || "1").trim();
       const filStr = String(filial || "1").trim();
-      const item = rawJsonDatabase.DADOS_RM_SECOES.find(s => 
-        String(s.COLIGADA).trim() === colStr && 
-        String(s.FILIAL).trim() === filStr && 
-        String(s.CODIGO).trim() === codStr
-      );
-      return item ? item.DESCRICAO : '';
+      return rmSecoesMap.get(`${colStr}|${filStr}|${codStr}`) || rmSecoesMap.get(codStr) || '';
     }
 
     function setSecaoRowAsPendingAnalysis(rowNum) {
@@ -5169,10 +5223,8 @@
 
     function getMotivoName(cod) {
       if (!cod) return '';
-      if (!rawJsonDatabase || !rawJsonDatabase.DADOS_RM_MOTIVOS) return '';
-      const codStr = String(cod).padStart(2, '0');
-      const item = rawJsonDatabase.DADOS_RM_MOTIVOS.find(s => String(s.CODCLIENTE).padStart(2, '0') === codStr);
-      return item ? item.DESCRICAO : '';
+      const codStr = String(cod).trim();
+      return rmMotivosMap.get(codStr) || rmMotivosMap.get(codStr.padStart(2, '0')) || '';
     }
 
     function getSituacaoOptionsHtml(selectedVal) {
@@ -5214,7 +5266,8 @@
         return { isMatch: true, rmType: "" };
       }
       
-      const rmEvent = rmEvents.find(e => e.codigo === rmCode);
+      const codStr = String(rmCode).trim();
+      const rmEvent = rmEventsMap.get(codStr) || rmEventsMap.get(codStr.padStart(4, '0')) || (rmEvents || []).find(e => e.codigo === rmCode);
       if (!rmEvent) {
         return { isMatch: true, rmType: "" };
       }

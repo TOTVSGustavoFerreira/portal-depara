@@ -857,7 +857,7 @@
         console.warn("Auto-descoberta de repositórios via GitHub API falhou:", err);
       }
 
-      for (let client of clientList) {
+      await Promise.allSettled(clientList.map(async (client) => {
         try {
           const clientSlug = client.repo.replace(/^portal-depara-/, '').toLowerCase().trim();
           const candidatePaths = [
@@ -943,7 +943,7 @@
         } catch (e) {
           console.warn(`Erro ao carregar dados em tempo real do repositório '${client.repo}':`, e);
         }
-      }
+      }));
 
       renderClients();
     }
@@ -986,6 +986,8 @@
         grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--color-text-muted);">Nenhum cliente encontrado com os filtros atuais.</div>`;
         return;
       }
+
+      const fragment = document.createDocumentFragment();
 
       filtered.forEach(c => {
         const card = document.createElement('div');
@@ -1044,8 +1046,10 @@
             </button>
           </div>
         `;
-        grid.appendChild(card);
+        fragment.appendChild(card);
       });
+
+      grid.appendChild(fragment);
     }
 
     function setFilter(filter, el) {
