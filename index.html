@@ -1329,17 +1329,6 @@
 
   <!-- MAIN CONTAINER -->
   <div class="main-container">
-    <!-- WIZARD SETUP -->
-    <div id="wizardSetup" class="wizard-container" style="display: none;">
-      <svg class="wizard-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3"/></svg>
-      <h2 style="font-weight: 700; color: var(--bg-primary); margin-bottom: 12px;">Assistente de Configuração do Portal</h2>
-      <p style="color: var(--color-text-muted); font-size: 0.92rem; margin-bottom: 24px;">
-        Esta planilha não possui as abas necessárias para o portal funcionar. <br>
-        Clique no botão abaixo para gerar automaticamente toda a estrutura de tabelas e configurações.
-      </p>
-      <button class="row-btn row-btn-primary" style="padding: 12px 24px; font-size: 0.9rem;" onclick="runAutoInstall()">Instalar Estrutura</button>
-    </div>
-
     <!-- MAIN INTERFACE -->
     <div id="mainInterface" style="display: flex; flex-direction: column; flex-grow: 1; overflow: hidden;">
       <header>
@@ -1616,18 +1605,12 @@
   </div>
 
   <script>
-    // Recuperar ID da Planilha da URL (?id=...) ou usar valor vazio padrão
-    const urlParams = new URLSearchParams(window.location.search);
-    const SPREADSHEET_ID = urlParams.get('id') || "";
-    
     // Captura o repositório do cliente vindo da URL (?repo=... ou ?cliente=...)
+    const urlParams = new URLSearchParams(window.location.search);
     const urlRepoParam = urlParams.get('repo') || urlParams.get('cliente');
     if (urlRepoParam) {
       localStorage.setItem("gh_repo", urlRepoParam.trim());
     }
-    
-    // ATENÇÃO: COLOQUE AQUI A URL DO WEB APP PUBLICADO NA CONTA PESSOAL DO GOOGLE
-    const API_URL = "https://script.google.com/macros/s/AKfycbyb2-OlbTZRuiDyQ9ZQ5jQkAwHO0JcwzOIWh3OAn_kdEKKQy-BL9An3SD5l3c9hPWTh/exec";
 
     let database = [];
     let rmEvents = [];
@@ -1637,6 +1620,9 @@
     let stats = {};
     let filteredData = [];
     let connectionInfo = {};
+    
+    let currentModule = 'home';
+    let clientPasskey = '';
     
     let renderedCount = 40;
     const renderChunkSize = 25;
@@ -1650,17 +1636,7 @@
 
     function getClientKey() {
       const urlParams = new URLSearchParams(window.location.search);
-      const rawId = urlParams.get('id') || SPREADSHEET_ID || "";
-      if (rawId) {
-        let key = rawId.toLowerCase();
-        if (rawId.includes("docs.google.com")) {
-          const matches = rawId.match(/\/d\/([a-zA-Z0-9-_]+)/);
-          if (matches) key = matches[1].toLowerCase();
-        }
-        return key;
-      }
-      
-      const repoParam = urlParams.get('repo') || urlParams.get('cliente') || localStorage.getItem("gh_repo") || "portal-depara-navarro";
+      const repoParam = urlParams.get('repo') || urlParams.get('cliente') || urlParams.get('id') || localStorage.getItem("gh_repo") || "portal-depara-navarro";
       return repoParam.replace(/^portal-depara-/, '').toLowerCase().trim() || "database";
     }
 
@@ -1820,31 +1796,6 @@
       showToast(`Módulo de mapeamento de ${moduleName} estará disponível nas próximas etapas do projeto!`, 'warning');
     }
 
-    // Método para fazer chamadas HTTP GET à API do Apps Script
-    function apiGet(action, extraParams = {}) {
-      let url = `${API_URL}?action=${action}&id=${SPREADSHEET_ID}`;
-      for (let key in extraParams) {
-        url += `&${key}=${encodeURIComponent(extraParams[key])}`;
-      }
-      return fetch(url).then(res => {
-        if (!res.ok) throw new Error("Erro de rede CORS");
-        return res.json();
-      });
-    }
-
-    // Método para fazer chamadas HTTP POST à API do Apps Script
-    function apiPost(action, body = {}) {
-      body.id = SPREADSHEET_ID;
-      body.action = action;
-      return fetch(API_URL, {
-        method: "POST",
-        body: JSON.stringify(body)
-      }).then(res => {
-        if (!res.ok) throw new Error("Erro de rede CORS");
-        return res.json();
-      });
-    }
-
     // Variáveis de controle para a importação temporária
     let tempImportWorkbook = null;
     let tempImportFileName = "";
@@ -1983,7 +1934,6 @@
           };
 
           document.getElementById("mainInterface").style.display = "flex";
-          document.getElementById("wizardSetup").style.display = "none";
           
           // rmEvents e dados de apoio globais
           rmEvents = response.DADOS_RM_EVENTOS || [];
@@ -2752,24 +2702,6 @@
       document.getElementById("loadingOverlay").style.display = "none";
     }
 
-    function runAutoInstall() {
-      showLoading("Instalando tabelas e colunas...");
-      apiGet("autoInstallStructure")
-        .then(function(response) {
-          hideLoading();
-          if (response.success) {
-            showToast(response.message, 'success');
-            loadPortalData();
-          } else {
-            showToast(response.error, 'error');
-          }
-        })
-        .catch(function(err) {
-          hideLoading();
-          showToast("Erro na instalação: " + err.message, 'error');
-        });
-    }
-
     function updateFooter() {
       // O rodapé agora exibe um resumo dinâmico dos dados em vez das informações da planilha.
       // Os campos são preenchidos pelo updateDashboard após calcular os stats.
@@ -3400,11 +3332,7 @@
             }
             
             // Salvar arquivo XLSX com padrão de nome
-            let clientKey = SPREADSHEET_ID.toLowerCase();
-            if (SPREADSHEET_ID.includes("docs.google.com")) {
-              const matches = SPREADSHEET_ID.match(/\/d\/([a-zA-Z0-9-_]+)/);
-              if (matches) clientKey = matches[1].toLowerCase();
-            }
+            const clientKey = getClientKey();
             
             const d = new Date();
             const dia = String(d.getDate()).padStart(2, '0');
@@ -4886,7 +4814,6 @@
                           matchesSearch(item.CBO || item.CBO_2002, searchVal) ||
                           matchesSearch(item.COLIGADA_PARA || item.coligadaPara, searchVal) ||
                           matchesSearch(item.CODIGO_PARA || item.codigoPara, searchVal) ||
-                          matchesSearch(getFuncaoName(item.COLIGADA_PARA, item.CODIGO_PARA), searchVal) ||
                           matchesSearch(item.OBSERVACAO || item.observacao, searchVal);
             if (!match) return false;
           } else if (currentModule === 'sindicatos') {
@@ -7590,7 +7517,7 @@ let pendingImportContext = [];
               clearInterval(intv);
               closeModal("progressModal");
               showToast("Sincronização concluída com sucesso!", "success");
-              switchMenu('eventos');
+              switchModule('eventos');
             }
           }, 1000);
         }, 'all');
@@ -7598,7 +7525,7 @@ let pendingImportContext = [];
         setTimeout(() => {
           closeModal("progressModal");
           showToast("Base carregada apenas localmente. Configure o GitHub para persistir os dados.", "warning");
-          switchMenu('eventos');
+          switchModule('eventos');
         }, 2000);
       }
     }

@@ -738,7 +738,6 @@
     </div>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <script>
     // --- ESTADO GLOBAL DO HUB ---
     let hubConfig = {
@@ -1140,7 +1139,7 @@
           body: JSON.stringify({
             name: repo,
             description: `Base de dados De-Para TOTVS RM - ${name}`,
-            private: false,
+            private: true,
             auto_init: true
           })
         });
