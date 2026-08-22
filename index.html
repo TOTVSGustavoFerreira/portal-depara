@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Portal De-Para - TOTVS RM v1.7.1</title>
+  <title>Portal De-Para - TOTVS RM v2.6.0</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -368,84 +368,237 @@
       overflow: hidden;
     }
 
-    /* KPI Mini Dashboard */
-    .kpi-container {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 16px;
-      flex-shrink: 0;
-    }
-
-    .kpi-card {
-      background-color: var(--bg-card);
+    /* Identificação do Cliente Ativo */
+    .sidebar-client-box {
+      margin: 12px 14px 16px 14px;
+      padding: 10px 14px;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: var(--border-radius-md);
-      padding: 16px 20px;
-      border: 1px solid var(--border-color);
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03);
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: var(--transition);
-      position: relative;
-    }
-
-    .kpi-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
-    }
-
-    .kpi-card.active-filter {
-      box-shadow: 0 0 0 2px var(--color-primary), 0 10px 15px -3px rgba(0, 0, 0, 0.08);
-    }
-
-    .kpi-text-area {
       display: flex;
       flex-direction: column;
+      gap: 3px;
     }
-
-    .kpi-label {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--color-text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .kpi-value {
-      font-size: 1.8rem;
+    .sidebar-client-label {
+      font-size: 0.65rem;
       font-weight: 700;
-      margin-top: 4px;
+      letter-spacing: 0.8px;
+      color: rgba(255, 255, 255, 0.5);
+      text-transform: uppercase;
+    }
+    .sidebar-client-name {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #38bdf8;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .header-client-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      background: #eff6ff;
+      color: #1d4ed8;
+      border: 1px solid #bfdbfe;
+      border-radius: 9999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      vertical-align: middle;
+      margin-left: 10px;
     }
 
-    .kpi-icon-container {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
+    /* KPI Pills / Abas Superiores Compactas */
+    .kpi-tabs-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #ffffff;
+      padding: 6px 10px;
+      border-radius: var(--border-radius-md);
+      border: 1px solid var(--border-color);
+      overflow-x: auto;
+      flex-shrink: 0;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+    .kpi-tab-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: var(--border-radius-sm);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: var(--transition);
+      user-select: none;
+      white-space: nowrap;
+    }
+    .kpi-tab-pill:hover {
+      background: #f8fafc;
+      color: var(--bg-primary);
+    }
+    .kpi-tab-pill.active-tab {
+      color: #0284c7;
+      border-bottom: 2.5px solid #0284c7;
+      background: #f0f9ff;
+    }
+    .kpi-tab-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      line-height: 1.2;
+    }
+    .badge-blue { background: #e0f2fe; color: #0284c7; }
+    .badge-green { background: #d1fae5; color: #059669; }
+    .badge-orange { background: #ffedd5; color: #ea580c; }
+    .badge-yellow { background: #fef3c7; color: #d97706; }
+    .badge-gray { background: #f1f5f9; color: #64748b; }
+    .badge-red { background: #ffe4e6; color: #e11d48; }
+
+    /* Barra de Busca Ampla e Retrátil */
+    .search-bar-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #ffffff;
+      padding: 8px 14px;
+      border-radius: var(--border-radius-md);
+      border: 1px solid var(--border-color);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+      flex-shrink: 0;
+      transition: var(--transition);
+    }
+    .search-input-box {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--border-radius-sm);
+      padding: 8px 14px;
+      transition: var(--transition);
+    }
+    .search-input-box:focus-within {
+      background: #fff;
+      border-color: #0284c7;
+      box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.15);
+    }
+    .search-input-box input {
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 0.88rem;
+      color: var(--color-text-main);
+      width: 100%;
+    }
+    .search-input-box.collapsed {
+      max-width: 44px;
+      overflow: hidden;
+      cursor: pointer;
+      background: #f1f5f9;
+    }
+    .search-input-box.collapsed input {
+      display: none;
+    }
+    .search-toggle-btn {
+      background: transparent;
+      border: none;
+      color: var(--color-text-muted);
+      cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: #f8fafc;
+      padding: 4px;
+      border-radius: 4px;
+      transition: var(--transition);
+    }
+    .search-toggle-btn:hover {
+      color: var(--bg-primary);
+      background: #e2e8f0;
     }
 
-    /* KPI Colors */
-    .kpi-total .kpi-value { color: var(--bg-primary); }
-    .kpi-total .kpi-icon-container { background-color: #e0f2fe; color: #0284c7; }
-    
-    .kpi-mapped .kpi-value { color: #0284c7; }
-    .kpi-mapped .kpi-icon-container { background-color: #e0f2fe; color: #0284c7; }
-    
-    .kpi-unmapped .kpi-value { color: var(--orange); }
-    .kpi-unmapped .kpi-icon-container { background-color: #ffedd5; color: #ea580c; }
-    
-    .kpi-pending .kpi-value { color: var(--warning); }
-    .kpi-pending .kpi-icon-container { background-color: #fef3c7; color: #d97706; }
-
-    .kpi-divergence .kpi-value { color: var(--magenta); }
-    .kpi-divergence .kpi-icon-container { background-color: #fce7f3; color: var(--magenta); }
-
-    .kpi-ignored .kpi-value { color: #64748b; }
-    .kpi-ignored .kpi-icon-container { background-color: #f1f5f9; color: #64748b; }
+    /* Cabeçalho Agrupador da Tabela e Filtros de Coluna */
+    .group-header-row th {
+      padding: 7px 12px !important;
+      font-size: 0.74rem !important;
+      font-weight: 800 !important;
+      letter-spacing: 0.6px !important;
+      text-transform: uppercase !important;
+      border-bottom: 2px solid var(--border-color) !important;
+    }
+    .group-th-legado {
+      background: #eff6ff !important;
+      color: #1d4ed8 !important;
+      text-align: left;
+    }
+    .group-th-arrow {
+      background: #f8fafc !important;
+      color: #94a3b8 !important;
+      text-align: center;
+      width: 32px;
+    }
+    .group-th-rm {
+      background: #f0fdf4 !important;
+      color: #15803d !important;
+      text-align: left;
+    }
+    .group-th-empty {
+      background: #f8fafc !important;
+    }
+    .table-toolbar-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .btn-toggle-filters {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: var(--border-radius-sm);
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #475569;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .btn-toggle-filters:hover {
+      background: #f8fafc;
+      border-color: #94a3b8;
+      color: #0f172a;
+    }
+    .column-filters-row th {
+      padding: 5px 8px !important;
+      background: #f8fafc !important;
+      border-bottom: 1px solid #e2e8f0 !important;
+    }
+    .col-filter-input {
+      width: 100%;
+      padding: 4px 8px;
+      font-size: 0.75rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      background: #ffffff;
+      color: #334155;
+      outline: none;
+      transition: var(--transition);
+      font-family: inherit;
+    }
+    .col-filter-input:focus {
+      border-color: #0284c7;
+      background: #fff;
+      box-shadow: 0 0 0 1px #0284c7;
+    }
 
     /* Beautiful Premium Alert / Warning Banners */
     .warning-banner {
@@ -1254,6 +1407,12 @@
         <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
       </button>
     </div>
+
+    <!-- IDENTIFICAÇÃO DO PROJETO ATIVO / CLIENTE -->
+    <div id="sidebarClientContainer" class="sidebar-client-box">
+      <div class="sidebar-client-label">PROJETO ATIVO</div>
+      <div class="sidebar-client-name" id="sidebarClientName">🏢 CARREGANDO...</div>
+    </div>
     
     <div class="sidebar-menu-wrapper">
       <div class="menu-category">Menu Principal</div>
@@ -1326,7 +1485,7 @@
     </div>
     
     <div class="sidebar-footer">
-      <span style="font-size: 0.72rem; opacity: 0.5;">Versão 1.7.1</span>
+      <span style="font-size: 0.72rem; opacity: 0.5;">Versão 2.6.0</span>
     </div>
   </aside>
 
@@ -1336,7 +1495,10 @@
     <div id="mainInterface" style="display: flex; flex-direction: column; flex-grow: 1; overflow: hidden;">
       <header>
         <div class="header-title-container">
-          <h1 id="titleHeader">Painel de Controle</h1>
+          <h1 id="titleHeader" style="display: flex; align-items: center; flex-wrap: wrap; gap: 8px;">
+            Painel de Controle 
+            <span id="headerClientBadge" class="header-client-badge" style="display: none;">🏢 CARREGANDO...</span>
+          </h1>
           <p id="subtitleHeader">Mapeamento de eventos legados com validação sequencial e relatórios de auditoria</p>
         </div>
       </header>
@@ -1426,87 +1588,63 @@
         </div>
 
         <!-- 2. DE-PARA VIEW (TELA PRINCIPAL RENDERIZADA DINAMICAMENTE) -->
-        <div id="deparaView" style="display: none; flex-direction: column; gap: 20px; width: 100%; flex-grow: 1; overflow: hidden;">
-          <!-- KPI MINI DASHBOARD -->
-          <section class="kpi-container" id="kpiContainer">
-            <div class="kpi-card kpi-total" id="kpiCardTotal" onclick="toggleKpiFilter('all')">
-              <div class="kpi-text-area">
-                <div class="kpi-label" id="kpiLabelTotal">Total Itens</div>
-                <div class="kpi-value" id="valTotal">0</div>
-              </div>
-              <div class="kpi-icon-container">
-                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
-              </div>
+        <div id="deparaView" style="display: none; flex-direction: column; gap: 14px; width: 100%; flex-grow: 1; overflow: hidden;">
+          
+          <!-- KPI TABS BAR (PILLS HORIZONTAIS) -->
+          <section class="kpi-tabs-bar" id="kpiContainer">
+            <div class="kpi-tab-pill active-tab" id="kpiTabAll" onclick="toggleKpiFilter('all')">
+              <span>TODOS</span>
+              <span class="kpi-tab-badge badge-blue" id="valTotal">0</span>
             </div>
-            <div class="kpi-card kpi-mapped" id="kpiCardMapped" onclick="toggleKpiFilter('mapped')">
-              <div class="kpi-text-area">
-                <div class="kpi-label">Mapeados</div>
-                <div class="kpi-value" id="valMapped">0</div>
-              </div>
-              <div class="kpi-icon-container">
-                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-              </div>
+            <div class="kpi-tab-pill" id="kpiTabMapped" onclick="toggleKpiFilter('mapped')">
+              <span>MAPEADOS</span>
+              <span class="kpi-tab-badge badge-green" id="valMapped">0</span>
             </div>
-            <div class="kpi-card kpi-unmapped" id="kpiCardUnmapped" onclick="toggleKpiFilter('unmapped')">
-              <div class="kpi-text-area">
-                <div class="kpi-label">Não Mapeados</div>
-                <div class="kpi-value" id="valUnmapped">0</div>
-              </div>
-              <div class="kpi-icon-container">
-                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-              </div>
+            <div class="kpi-tab-pill" id="kpiTabUnmapped" onclick="toggleKpiFilter('unmapped')">
+              <span>NÃO MAPEADOS</span>
+              <span class="kpi-tab-badge badge-orange" id="valUnmapped">0</span>
             </div>
-            <div class="kpi-card kpi-pending" id="kpiCardPending" onclick="toggleKpiFilter('pending')">
-              <div class="kpi-text-area">
-                <div class="kpi-label">P/ Análise</div>
-                <div class="kpi-value" id="valPending">0</div>
-              </div>
-              <div class="kpi-icon-container">
-                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"/></svg>
-              </div>
+            <div class="kpi-tab-pill" id="kpiTabPending" onclick="toggleKpiFilter('pending')">
+              <span>P/ ANÁLISE</span>
+              <span class="kpi-tab-badge badge-yellow" id="valPending">0</span>
             </div>
-            <div class="kpi-card kpi-ignored" id="kpiCardIgnored" onclick="toggleKpiFilter('ignored')">
-              <div class="kpi-text-area">
-                <div class="kpi-label">Não Importar</div>
-                <div class="kpi-value" id="valIgnored">0</div>
-              </div>
-              <div class="kpi-icon-container">
-                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4 12c0-4.42 3.58-8 8-8 1.85 0 3.55.63 4.9 1.69L5.69 16.9C4.63 15.55 4 13.85 4 12zm8 8c-1.85 0-3.55-.63-4.9-1.69L18.31 7.1C19.37 8.45 20 10.15 20 12c0 4.42-3.58 8-8 8z"/></svg>
-              </div>
+            <div class="kpi-tab-pill" id="kpiTabIgnored" onclick="toggleKpiFilter('ignored')">
+              <span>NÃO IMPORTAR</span>
+              <span class="kpi-tab-badge badge-gray" id="valIgnored">0</span>
             </div>
-            <div class="kpi-card kpi-manual" id="kpiCardManual" style="display: none; cursor: pointer;" onclick="toggleKpiFilter('manual_motives')">
-              <div class="kpi-text-area">
-                <div class="kpi-label" style="font-size: 0.75rem;">Motivos Manuais Criados</div>
-                <div class="kpi-value" id="valManual">0</div>
-              </div>
-              <div class="kpi-icon-container" style="background-color: #e0e7ff; color: #4338ca;">
-                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 14h-3v3h-2v-3H8v-2h3v-3h2v3h3v2z"/></svg>
-              </div>
+            <div class="kpi-tab-pill" id="kpiTabDivergent" onclick="toggleKpiFilter('divergent')">
+              <span>DIVERGÊNCIAS</span>
+              <span class="kpi-tab-badge badge-red" id="valDivergent">0</span>
             </div>
-            <div class="kpi-card kpi-divergence" id="kpiCardDivergent" onclick="toggleKpiFilter('divergent')">
-              <div class="kpi-text-area">
-                <div class="kpi-label">Divergências</div>
-                <div class="kpi-value" id="valDivergent" style="color: var(--magenta);">0</div>
-              </div>
-              <div class="kpi-icon-container" style="background-color: #fce7f3; color: var(--magenta);">
-                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
-              </div>
+            <div class="kpi-tab-pill" id="kpiTabManual" style="display: none;" onclick="toggleKpiFilter('manual_motives')">
+              <span id="kpiLabelManual">MOTIVOS MANUAIS</span>
+              <span class="kpi-tab-badge badge-blue" id="valManual">0</span>
             </div>
           </section>
 
-          <!-- FILTERS PANEL DEDICADO POR ABA -->
-          <section class="filter-panel" id="filterPanelContainer" style="display: flex; flex-wrap: wrap; gap: 10px; align-items: center; padding: 12px 16px; background: #ffffff; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-            <!-- Injetado dinamicamente via renderModuleFilters(currentModule) -->
+          <!-- BARRA DE BUSCA AMPLA E RETRÁTIL -->
+          <section class="search-bar-wrapper">
+            <div class="search-input-box" id="searchBoxContainer">
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="color: var(--color-text-muted); flex-shrink: 0;"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+              <input type="text" id="f_search" placeholder="Buscar por código, nome ou descrição do evento..." oninput="debounceApplyFilters()">
+              <button class="search-toggle-btn" id="searchToggleBtn" onclick="toggleSearchBar()" title="Recolher / Expandir busca">
+                <span id="searchToggleIcon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg></span>
+              </button>
+            </div>
+            <button class="row-btn" style="padding: 9px 18px; font-size: 0.85rem; background: #f8fafc; color: #475569; border-color: #cbd5e1; display: inline-flex; align-items: center; gap: 6px;" onclick="clearAllFilters()">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+              Limpar
+            </button>
           </section>
 
           <!-- MASTER TABLE CARD -->
           <section class="table-card">
-            <div class="table-header-bar">
-              <div class="table-title" id="tableTitleText">
-                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
-                Tabela De-Para Mapeamentos
-              </div>
-              <div style="font-size: 0.82rem; color: var(--color-text-muted);" id="tableCount">0 registros</div>
+            <div class="table-toolbar-bar" style="padding: 12px 16px 6px 16px;">
+              <button id="btnToggleColumnFilters" class="btn-toggle-filters" onclick="toggleColumnFilters()">
+                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+                Exibir filtros
+              </button>
+              <div style="font-size: 0.82rem; font-weight: 600; color: var(--color-text-muted);" id="tableCount">0 registros</div>
             </div>
 
             <div class="scrollable-table-wrapper" id="scrollableTableWrapper" onscroll="handleTableScroll()">
@@ -1602,16 +1740,11 @@
       
       <!-- FOOTER -->
       <footer>
-        <span id="footerConnectionInfo" style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
-          <span style="display:flex; align-items:center; gap:6px; color:#64748b;">🚫 <strong id="footerIgnored">-</strong> não importar</span>
-          <span style="color:#94a3b8;">|</span>
-          <span style="display:flex; align-items:center; gap:6px; color:#10b981;">✔ <strong id="footerMapped">-</strong> mapeados</span>
-          <span style="color:#94a3b8;">|</span>
-          <span style="display:flex; align-items:center; gap:6px; color:#f59e0b;">⏳ <strong id="footerPending">-</strong> em análise</span>
-          <span style="color:#94a3b8;">|</span>
-          <span style="display:flex; align-items:center; gap:6px; color:#ea580c;">⚠ <strong id="footerUnmapped">-</strong> não mapeados</span>
+        <span id="footerConnectionInfo" style="display:flex; align-items:center; gap:8px; color: #10b981; font-weight: 500;">
+          <span style="width: 8px; height: 8px; border-radius: 50%; background: #10b981; display: inline-block;"></span>
+          <span>Sincronizado com o repositório</span>
         </span>
-        <span style="color:#94a3b8;">Portal De-Para TOTVS RM v1.7.1 — Última sincronização: <strong id="footerLastSync">-</strong></span>
+        <span style="color:#94a3b8;">Portal De-Para TOTVS RM v2.6.0 — Última sincronização: <strong id="footerLastSync">-</strong></span>
       </footer>
     </div>
   </div>
@@ -1652,11 +1785,37 @@
       return repoParam.replace(/^portal-depara-/, '').toLowerCase().trim() || "database";
     }
 
+    function getClientDisplayName() {
+      const key = getClientKey();
+      if (!key || key === 'database') return 'CLIENTE PADRÃO';
+      
+      const customNames = {
+        'boalocacao': 'BOA LOCAÇÃO',
+        'boalocacao2': 'BOA LOCAÇÃO 2',
+        'bari-automoveis': 'BARI AUTOMÓVEIS',
+        'calendula': 'CALÊNDULA',
+        'spotecnologia': 'SPO TECNOLOGIA',
+        'luzbela': 'LUZBELA',
+        'navarro': 'NAVARRO'
+      };
+      
+      if (customNames[key]) return customNames[key];
+      
+      return key.split('-').map(w => w.toUpperCase()).join(' ');
+    }
+
     window.onload = function() {
       const clientKey = getClientKey();
       if (!clientKey) {
         showToast("ATENÇÃO: Repositório do cliente não informado na URL (?repo=REPOSITORIO)", "error");
         return;
+      }
+
+      // Atualiza o nome do projeto ativo na barra lateral
+      const clientDisplayName = getClientDisplayName();
+      const sidebarClientNameEl = document.getElementById("sidebarClientName");
+      if (sidebarClientNameEl) {
+        sidebarClientNameEl.innerText = `🏢 ${clientDisplayName}`;
       }
       
       // Validação da Chave de Acesso (Passkey) para Multi-Tenant
@@ -2184,6 +2343,11 @@
       editingRowNumber = null;
       expandedRowNumbers.clear();
       activeKpiFilter = 'all';
+
+      // Atualizar classe ativa nas abas de KPI
+      document.querySelectorAll('.kpi-tab-pill').forEach(pill => pill.classList.remove('active-tab'));
+      const allTab = document.getElementById('kpiTabAll');
+      if (allTab) allTab.classList.add('active-tab');
       
       // Atualizar classe ativa na barra lateral
       document.querySelectorAll('.sidebar .menu-item').forEach(el => el.classList.remove('active'));
@@ -2193,29 +2357,50 @@
       if (activeMenuItem) {
         activeMenuItem.classList.add('active');
       }
+
+      // Identificação do Cliente
+      const clientName = getClientDisplayName();
+      const headerBadge = document.getElementById('headerClientBadge');
+      if (headerBadge) {
+        headerBadge.innerText = `🏢 ${clientName}`;
+        headerBadge.style.display = 'inline-flex';
+      }
+      
+      // Reset da barra de busca e placeholders contextuais
+      const searchInput = document.getElementById('f_search');
+      if (searchInput) {
+        searchInput.value = '';
+        if (moduleName === 'eventos') searchInput.placeholder = "Buscar por código, nome ou descrição do evento...";
+        else if (moduleName === 'coligadas') searchInput.placeholder = "Buscar por código, empresa, CNPJ ou filial...";
+        else if (moduleName === 'funcoes') searchInput.placeholder = "Buscar por código, nome da função ou CBO...";
+        else if (moduleName === 'sindicatos') searchInput.placeholder = "Buscar por código, sindicato ou CNPJ...";
+        else if (moduleName === 'secoes') searchInput.placeholder = "Buscar por seção de origem ou destino...";
+        else if (moduleName === 'situacao') searchInput.placeholder = "Buscar por situação de origem ou destino...";
+        else searchInput.placeholder = "Buscar por código, descrição ou mapeamento...";
+      }
       
       // Controlar exibição das views
       if (moduleName === 'home') {
-        document.getElementById('titleHeader').innerText = "ZDEPARA - PAINEL GERAL";
+        document.getElementById('titleHeader').childNodes[0].nodeValue = "Painel Geral ";
         document.getElementById('subtitleHeader').innerText = "Visão geral e progresso de preenchimento dos de-para de migração";
+        document.title = `Painel Geral | ${clientName} — TOTVS RM v2.6.0`;
         document.getElementById('homeView').style.display = 'flex';
         document.getElementById('deparaView').style.display = 'none';
         document.getElementById('configView').style.display = 'none';
         
-        // Esconde os banners globais na tela inicial
         const banner = document.getElementById("inconsistencyWarningBanner");
         if (banner) banner.style.display = "none";
         
         updateHomeProgress();
       } 
       else if (moduleName === 'config') {
-        document.getElementById('titleHeader').innerText = "ZDEPARA - CONFIGURAÇÕES";
+        document.getElementById('titleHeader').childNodes[0].nodeValue = "Configuração & Excel ";
         document.getElementById('subtitleHeader').innerText = "Configuração do repositório GitHub e importação/exportação local de planilhas";
+        document.title = `Configurações | ${clientName} — TOTVS RM v2.6.0`;
         document.getElementById('homeView').style.display = 'none';
         document.getElementById('deparaView').style.display = 'none';
         document.getElementById('configView').style.display = 'flex';
         
-        // Esconde os banners globais na tela de configuração
         const banner = document.getElementById("inconsistencyWarningBanner");
         if (banner) banner.style.display = "none";
         
@@ -2255,7 +2440,6 @@
         let mapped = 0;
         
         arr.forEach(item => {
-          // Diferentes formas de identificar mapeamento para cada aba
           if (m.key === 'ZDEPARA_EVENTOS') {
             if (item.codigoPara && !isCodeIgnored(item.codigoPara) && !isCodeToCreate(item.codigoPara)) mapped++;
           } else if (m.key === 'ZDEPARA_COLIGADAS') {
@@ -2276,26 +2460,27 @@
     function setupModuleDatabase(moduleName) {
       if (!rawJsonDatabase) return;
       
-      // Títulos e cabeçalhos dinâmicos
       const titleHeader = document.getElementById("titleHeader");
       const subtitleHeader = document.getElementById("subtitleHeader");
-      const tableTitleText = document.getElementById("tableTitleText");
       const mainTableHead = document.getElementById("mainTableHead");
-      const filterTypeDropdown = document.getElementById("filterTypeDropdown");
-      const kpiLabelTotal = document.getElementById("kpiLabelTotal");
+      const clientName = getClientDisplayName();
       
       let headerHtml = "";
-      let filterOptionsHtml = "";
       
       if (moduleName === 'eventos') {
-        titleHeader.innerText = "ZDEPARA_EVENTOS";
-        subtitleHeader.innerText = "Mapeamento de eventos legados com validação sequencial e relatórios de auditoria";
-        tableTitleText.innerHTML = `<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg> Tabela De-Para Eventos`;
-        kpiLabelTotal.innerText = "Total Eventos";
+        if (titleHeader && titleHeader.childNodes[0]) titleHeader.childNodes[0].nodeValue = "De-Para de Eventos ";
+        if (subtitleHeader) subtitleHeader.innerText = "Mapeamento de eventos legados com validação sequencial e relatórios de auditoria";
+        document.title = `De-Para Eventos | ${clientName} — TOTVS RM v2.6.0`;
         
         database = rawJsonDatabase.ZDEPARA_EVENTOS || [];
         
         headerHtml = `
+          <tr class="group-header-row">
+            <th colspan="4" class="group-th-legado">SISTEMA LEGADO</th>
+            <th class="group-th-arrow">→</th>
+            <th colspan="2" class="group-th-rm">TOTVS RM</th>
+            <th class="group-th-empty"></th>
+          </tr>
           <tr>
             <th class="sortable col-empresa-orig" onclick="toggleSort('empresaDe')">Emp. Origem<span class="sort-indicator" id="sort-empresaDe"></span></th>
             <th class="sortable col-codigo-orig" onclick="toggleSort('codigoDe')">Cód. Origem<span class="sort-indicator" id="sort-codigoDe"></span></th>
@@ -2306,29 +2491,32 @@
             <th class="sortable col-nome-rm" onclick="toggleSort('nomeRm')">Nome RM / Tipo<span class="sort-indicator" id="sort-nomeRm"></span></th>
             <th class="col-acoes">Ações</th>
           </tr>
-        `;
-        
-        filterOptionsHtml = `
-          <option value="global">Busca Geral</option>
-          <option value="empresaDe">Empresa Origem</option>
-          <option value="tipoEvento">Tipo Evento</option>
-          <option value="status">Status Mapeamento</option>
-          <option value="coligadaPara">Coligada RM</option>
-          <option value="codigoPara">Código RM</option>
-          <option value="nomeRm">Nome RM</option>
-          <option value="temObservacao">Com Observação?</option>
-          <option value="loteCarga">📦 Lote / Carga Complementar</option>
+          <tr class="column-filters-row" id="columnFiltersRow" style="${columnFiltersVisible ? '' : 'display: none;'}">
+            <th><input type="text" class="col-filter-input" id="cf_empresaDe" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
+            <th><input type="text" class="col-filter-input" id="cf_codigoDe" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
+            <th><input type="text" class="col-filter-input" id="cf_nomeDe" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
+            <th><input type="text" class="col-filter-input" id="cf_tipoEvento" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
+            <th><input type="text" class="col-filter-input" id="cf_coligadaPara" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
+            <th><input type="text" class="col-filter-input" id="cf_codigoPara" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
+            <th><input type="text" class="col-filter-input" id="cf_nomeRm" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
+            <th></th>
+          </tr>
         `;
       } 
       else if (moduleName === 'coligadas') {
-        titleHeader.innerText = "ZDEPARA_COLIGADAS";
-        subtitleHeader.innerText = "Mapeamento das Coligadas / Empresas do cliente para o RM";
-        tableTitleText.innerHTML = `<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg> Tabela De-Para Coligadas`;
-        kpiLabelTotal.innerText = "Total Coligadas";
+        if (titleHeader && titleHeader.childNodes[0]) titleHeader.childNodes[0].nodeValue = "De-Para de Coligadas ";
+        if (subtitleHeader) subtitleHeader.innerText = "Mapeamento das Coligadas / Empresas do cliente para o RM";
+        document.title = `De-Para Coligadas | ${clientName} — TOTVS RM v2.6.0`;
         
         database = rawJsonDatabase.ZDEPARA_COLIGADAS || [];
         
         headerHtml = `
+          <tr class="group-header-row">
+            <th colspan="4" class="group-th-legado">SISTEMA LEGADO</th>
+            <th class="group-th-arrow">→</th>
+            <th colspan="2" class="group-th-rm">TOTVS RM</th>
+            <th class="group-th-empty"></th>
+          </tr>
           <tr>
             <th class="sortable" onclick="toggleSort('EMPRESA_DE')">Empresa Origem<span class="sort-indicator" id="sort-EMPRESA_DE"></span></th>
             <th class="sortable" onclick="toggleSort('ID')">ID<span class="sort-indicator" id="sort-ID"></span></th>
@@ -2338,25 +2526,31 @@
             <th class="sortable" onclick="toggleSort('CODFILIAL_PARA')">Filial RM<span class="sort-indicator" id="sort-CODFILIAL_PARA"></span></th>
             <th class="col-acoes">Ações</th>
           </tr>
-        `;
-        
-        filterOptionsHtml = `
-          <option value="global">Busca Geral</option>
-          <option value="nome">Nome Origem</option>
-          <option value="cnpj">CNPJ</option>
-          <option value="codColigada">Código RM</option>
-          <option value="loteCarga">📦 Lote / Carga Complementar</option>
+          <tr class="column-filters-row" id="columnFiltersRow" style="${columnFiltersVisible ? '' : 'display: none;'}">
+            <th><input type="text" class="col-filter-input" id="cf_empresaDe" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
+            <th><input type="text" class="col-filter-input" id="cf_id" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
+            <th><input type="text" class="col-filter-input" id="cf_nomeDe" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
+            <th><input type="text" class="col-filter-input" id="cf_cnpj" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
+            <th><input type="text" class="col-filter-input" id="cf_coligadaPara" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
+            <th><input type="text" class="col-filter-input" id="cf_codFilial" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
+            <th></th>
+          </tr>
         `;
       } 
       else if (moduleName === 'funcoes') {
-        titleHeader.innerText = "ZDEPARA_FUNCOES";
-        subtitleHeader.innerText = "Mapeamento das Funções / Cargos legados para o RM";
-        tableTitleText.innerHTML = `<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg> Tabela De-Para Funções`;
-        kpiLabelTotal.innerText = "Total Funções";
+        if (titleHeader && titleHeader.childNodes[0]) titleHeader.childNodes[0].nodeValue = "De-Para de Funções ";
+        if (subtitleHeader) subtitleHeader.innerText = "Mapeamento das Funções / Cargos legados para o RM";
+        document.title = `De-Para Funções | ${clientName} — TOTVS RM v2.6.0`;
         
         database = rawJsonDatabase.ZDEPARA_FUNCOES || [];
         
         headerHtml = `
+          <tr class="group-header-row">
+            <th colspan="4" class="group-th-legado">SISTEMA LEGADO</th>
+            <th class="group-th-arrow">→</th>
+            <th colspan="2" class="group-th-rm">TOTVS RM</th>
+            <th class="group-th-empty"></th>
+          </tr>
           <tr>
             <th class="sortable col-funcao-emp" onclick="toggleSort('EMPRESA_DE')">Empresa Origem<span class="sort-indicator" id="sort-EMPRESA_DE"></span></th>
             <th class="sortable col-funcao-cod" onclick="toggleSort('CODIGO_DE')">Cód. Origem<span class="sort-indicator" id="sort-CODIGO_DE"></span></th>
@@ -2366,26 +2560,31 @@
             <th class="sortable col-funcao-codpara" onclick="toggleSort('CODIGO_PARA')">CÓDIGO PARA<span class="sort-indicator" id="sort-CODIGO_PARA"></span></th>
             <th class="col-funcao-acoes">Ações</th>
           </tr>
-        `;
-        
-        filterOptionsHtml = `
-          <option value="global">Busca Geral</option>
-          <option value="nomeDe">Nome Função</option>
-          <option value="cbo">CBO</option>
-          <option value="codigoPara">Código Para</option>
-          <option value="observacao">Observação</option>
-          <option value="loteCarga">📦 Lote / Carga Complementar</option>
+          <tr class="column-filters-row" id="columnFiltersRow" style="${columnFiltersVisible ? '' : 'display: none;'}">
+            <th><input type="text" class="col-filter-input" id="cf_empresaDe" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
+            <th><input type="text" class="col-filter-input" id="cf_codigoDe" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
+            <th><input type="text" class="col-filter-input" id="cf_nomeDe" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
+            <th><input type="text" class="col-filter-input" id="cf_cbo" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
+            <th><input type="text" class="col-filter-input" id="cf_coligadaPara" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
+            <th><input type="text" class="col-filter-input" id="cf_codigoPara" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
+            <th></th>
+          </tr>
         `;
       } 
       else if (moduleName === 'sindicatos') {
-        titleHeader.innerText = "ZDEPARA_SINDICATOS";
-        subtitleHeader.innerText = "Mapeamento dos Sindicatos legados para o RM";
-        tableTitleText.innerHTML = `<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg> Tabela De-Para Sindicatos`;
-        kpiLabelTotal.innerText = "Total Sindicatos";
+        if (titleHeader && titleHeader.childNodes[0]) titleHeader.childNodes[0].nodeValue = "De-Para de Sindicatos ";
+        if (subtitleHeader) subtitleHeader.innerText = "Mapeamento dos Sindicatos legados para o RM";
+        document.title = `De-Para Sindicatos | ${clientName} — TOTVS RM v2.6.0`;
         
         database = rawJsonDatabase.ZDEPARA_SINDICATOS || [];
         
         headerHtml = `
+          <tr class="group-header-row">
+            <th colspan="4" class="group-th-legado">SISTEMA LEGADO</th>
+            <th class="group-th-arrow">→</th>
+            <th colspan="2" class="group-th-rm">TOTVS RM</th>
+            <th class="group-th-empty"></th>
+          </tr>
           <tr>
             <th class="sortable" onclick="toggleSort('EMPRESA_DE')">Empresa Origem<span class="sort-indicator" id="sort-EMPRESA_DE"></span></th>
             <th class="sortable" onclick="toggleSort('CODIGO_DE')">Cód. Origem<span class="sort-indicator" id="sort-CODIGO_DE"></span></th>
@@ -2395,63 +2594,79 @@
             <th class="sortable" onclick="toggleSort('CODIGO_PARA')">Sindicato RM<span class="sort-indicator" id="sort-CODIGO_PARA"></span></th>
             <th class="col-acoes">Ações</th>
           </tr>
-        `;
-        
-        filterOptionsHtml = `
-          <option value="global">Busca Geral</option>
-          <option value="nomeDe">Nome Sindicato</option>
-          <option value="cnpj">CNPJ</option>
-          <option value="codigoPara">Código RM</option>
-          <option value="loteCarga">📦 Lote / Carga Complementar</option>
+          <tr class="column-filters-row" id="columnFiltersRow" style="${columnFiltersVisible ? '' : 'display: none;'}">
+            <th><input type="text" class="col-filter-input" id="cf_empresaDe" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
+            <th><input type="text" class="col-filter-input" id="cf_codigoDe" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
+            <th><input type="text" class="col-filter-input" id="cf_nomeDe" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
+            <th><input type="text" class="col-filter-input" id="cf_cnpj" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
+            <th><input type="text" class="col-filter-input" id="cf_coligadaPara" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
+            <th><input type="text" class="col-filter-input" id="cf_codigoPara" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
+            <th></th>
+          </tr>
         `;
       } 
       else if (moduleName === 'secoes') {
-        titleHeader.innerText = "ZDEPARA_SECOES";
-        subtitleHeader.innerText = "Mapeamento da estrutura de Seções e Departamentos legados para o RM";
-        tableTitleText.innerHTML = `<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg> Tabela De-Para Seções`;
-        kpiLabelTotal.innerText = "Total Seções";
+        if (titleHeader && titleHeader.childNodes[0]) titleHeader.childNodes[0].nodeValue = "De-Para de Seções ";
+        if (subtitleHeader) subtitleHeader.innerText = "Mapeamento da estrutura de Seções e Departamentos legados para o RM";
+        document.title = `De-Para Seções | ${clientName} — TOTVS RM v2.6.0`;
         
         database = rawJsonDatabase.ZDEPARA_SECOES || [];
         
         headerHtml = `
+          <tr class="group-header-row">
+            <th class="group-th-legado">SISTEMA LEGADO</th>
+            <th class="group-th-arrow">→</th>
+            <th class="group-th-rm">TOTVS RM</th>
+            <th class="group-th-empty"></th>
+          </tr>
           <tr>
             <th class="sortable" onclick="toggleSort('CODIGO_DE')">Seção Origem (Legado)<span class="sort-indicator" id="sort-CODIGO_DE"></span></th>
+            <th class="sortable" style="width: 32px;"></th>
             <th class="sortable" onclick="toggleSort('CODIGO_PARA')">Seção Destino (RM)<span class="sort-indicator" id="sort-CODIGO_PARA"></span></th>
             <th class="col-acoes">Ações</th>
           </tr>
-        `;
-        
-        filterOptionsHtml = `
-          <option value="global">Busca Geral</option>
-          <option value="nomeDe">Nome Seção</option>
-          <option value="codigoPara">Código RM</option>
-          <option value="loteCarga">📦 Lote / Carga Complementar</option>
+          <tr class="column-filters-row" id="columnFiltersRow" style="${columnFiltersVisible ? '' : 'display: none;'}">
+            <th><input type="text" class="col-filter-input" id="cf_codigoDe" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
+            <th></th>
+            <th><input type="text" class="col-filter-input" id="cf_codigoPara" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
+            <th></th>
+          </tr>
         `;
       } 
       else if (moduleName === 'situacao') {
-        titleHeader.innerText = "ZDEPARA_SITUACAO";
-        subtitleHeader.innerText = "Mapeamento das Situações Cadastrais legadas para o RM";
-        tableTitleText.innerHTML = `<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg> Tabela De-Para Situação`;
-        kpiLabelTotal.innerText = "Total Situações";
+        if (titleHeader && titleHeader.childNodes[0]) titleHeader.childNodes[0].nodeValue = "De-Para de Situação ";
+        if (subtitleHeader) subtitleHeader.innerText = "Mapeamento das Situações Cadastrais legadas para o RM";
+        document.title = `De-Para Situação | ${clientName} — TOTVS RM v2.6.0`;
         
         database = rawJsonDatabase.ZDEPARA_SITUACAO || [];
         
         headerHtml = `
+          <tr class="group-header-row">
+            <th colspan="2" class="group-th-legado">SISTEMA LEGADO</th>
+            <th class="group-th-arrow">→</th>
+            <th colspan="4" class="group-th-rm">TOTVS RM</th>
+            <th class="group-th-empty"></th>
+          </tr>
           <tr>
             <th class="sortable" style="width: 10%;" onclick="toggleSort('CODIGO_DE')">Código Origem<span class="sort-indicator" id="sort-CODIGO_DE"></span></th>
             <th class="sortable" style="width: 25%;" onclick="toggleSort('NOME_DE')">Situação Origem<span class="sort-indicator" id="sort-NOME_DE"></span></th>
+            <th class="sortable" style="width: 32px;"></th>
             <th class="sortable" onclick="toggleSort('CODSITUACAO_PARA')">Situação RM<span class="sort-indicator" id="sort-CODSITUACAO_PARA"></span></th>
             <th class="sortable" onclick="toggleSort('CODMOTIVO_PARA')">Motivo RM<span class="sort-indicator" id="sort-CODMOTIVO_PARA"></span></th>
             <th class="sortable" onclick="toggleSort('CODSITUACAO_RETORNO_PARA')">Sit. Retorno RM<span class="sort-indicator" id="sort-CODSITUACAO_RETORNO_PARA"></span></th>
             <th class="sortable" onclick="toggleSort('CODMOTIVO_RETORNO_PARA')">Motivo Retorno RM<span class="sort-indicator" id="sort-CODMOTIVO_RETORNO_PARA"></span></th>
             <th class="col-acoes">Ações</th>
           </tr>
-        `;
-        
-        filterOptionsHtml = `
-          <option value="global">Busca Geral</option>
-          <option value="nomeDe">Situação Origem</option>
-          <option value="loteCarga">📦 Lote / Carga Complementar</option>
+          <tr class="column-filters-row" id="columnFiltersRow" style="${columnFiltersVisible ? '' : 'display: none;'}">
+            <th><input type="text" class="col-filter-input" id="cf_codigoDe" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
+            <th><input type="text" class="col-filter-input" id="cf_nomeDe" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
+            <th></th>
+            <th><input type="text" class="col-filter-input" id="cf_codSituacao" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
+            <th><input type="text" class="col-filter-input" id="cf_codMotivo" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
+            <th><input type="text" class="col-filter-input" id="cf_codSitRetorno" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
+            <th><input type="text" class="col-filter-input" id="cf_codMotRetorno" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
+            <th></th>
+          </tr>
         `;
       }
       
@@ -2466,9 +2681,6 @@
       
       editingRowNumber = null;
       expandedRowNumbers.clear();
-
-      // Renderiza barra de filtros dedicada e individual para a aba ativa
-      renderModuleFilters(moduleName);
 
       calculateLocalDiagnosticsAndStats();
       renderWarnings();
@@ -4442,92 +4654,83 @@
       let ignoredCount = 0;
       database.forEach(item => {
         const cod = ((currentModule === 'eventos' ? item.codigoPara : item.CODIGO_PARA) || "").trim();
-        if (cod === "NAO IMPORTAR") ignoredCount++;
+        if (isCodeIgnored(cod)) ignoredCount++;
       });
 
-      document.getElementById("valTotal").innerText = stats.total;
-      document.getElementById("valMapped").innerText = stats.preenchidos;
-      document.getElementById("valUnmapped").innerText = stats.naoPreenchidos;
-      document.getElementById("valPending").innerText = stats.pAnalise;
-      const ignoredCountDisplay = stats.naoImportar !== undefined ? stats.naoImportar : ignoredCount;
-      const valIgnoredEl = document.getElementById("valIgnored");
-      if (valIgnoredEl) valIgnoredEl.innerText = ignoredCountDisplay;
-      document.getElementById("valDivergent").innerText = stats.divergencias;
-      
-      // Controlar visibilidade de cards baseados no módulo ativo
-      const pendingCard = document.getElementById("kpiCardPending");
-      const ignoredCard = document.getElementById("kpiCardIgnored");
-      const divergentCard = document.getElementById("kpiCardDivergent");
-      const manualCard = document.getElementById("kpiCardManual");
-      
-      if (ignoredCard) {
-        if (currentModule === 'eventos' || currentModule === 'funcoes' || currentModule === 'sindicatos' || currentModule === 'secoes') {
-          ignoredCard.style.display = 'flex';
-        } else {
-          ignoredCard.style.display = 'none';
-        }
+      const valTotal = document.getElementById("valTotal");
+      const valMapped = document.getElementById("valMapped");
+      const valUnmapped = document.getElementById("valUnmapped");
+      const valPending = document.getElementById("valPending");
+      const valIgnored = document.getElementById("valIgnored");
+      const valDivergent = document.getElementById("valDivergent");
+      const valManual = document.getElementById("valManual");
+
+      if (valTotal) valTotal.innerText = stats.total || 0;
+      if (valMapped) valMapped.innerText = stats.preenchidos || 0;
+      if (valUnmapped) valUnmapped.innerText = stats.naoPreenchidos || 0;
+      if (valPending) valPending.innerText = stats.pAnalise || 0;
+      if (valIgnored) valIgnored.innerText = stats.naoImportar !== undefined ? stats.naoImportar : ignoredCount;
+      if (valDivergent) valDivergent.innerText = stats.divergencias || 0;
+
+      // Abas de controle por módulo
+      const tabIgnored = document.getElementById('kpiTabIgnored');
+      const tabDivergent = document.getElementById('kpiTabDivergent');
+      const tabPending = document.getElementById('kpiTabPending');
+      const tabManual = document.getElementById('kpiTabManual');
+
+      if (tabIgnored) {
+        tabIgnored.style.display = (currentModule === 'coligadas' || currentModule === 'situacao') ? 'none' : 'inline-flex';
+      }
+      if (tabDivergent) {
+        tabDivergent.style.display = (currentModule === 'secoes' || currentModule === 'situacao') ? 'none' : 'inline-flex';
+      }
+      if (tabPending) {
+        tabPending.style.display = (currentModule === 'coligadas' || currentModule === 'situacao') ? 'none' : 'inline-flex';
       }
 
-      // Seções e Situação não possuem divergências
-      if (currentModule === 'secoes' || currentModule === 'situacao') {
-        divergentCard.style.display = 'none';
-      } else {
-        divergentCard.style.display = 'flex';
-      }
-
-      // Coligadas e Situação não possuem "P/ Análise"
-      if (currentModule === 'coligadas' || currentModule === 'situacao') {
-        pendingCard.style.display = 'none';
-      } else {
-        pendingCard.style.display = 'flex';
-      }
-
-      // Situação exibe o card de Motivos Manuais
       if (currentModule === 'situacao') {
-        manualCard.style.display = 'flex';
-        manualCard.querySelector('.kpi-label').innerText = 'Motivos Manuais Criados';
-        let manualCount = 0;
-        if (database) {
-           manualCount = database.filter(i => {
-             const m1 = getMotivoName(i.CODMOTIVO_PARA) || "";
-             const m2 = getMotivoName(i.CODMOTIVO_RETORNO_PARA) || "";
-             return m1.includes('[INCLUSAO MANUAL]') || m2.includes('[INCLUSAO MANUAL]') || parseInt(i.CODMOTIVO_PARA) > 90 || parseInt(i.CODMOTIVO_RETORNO_PARA) > 90;
-           }).length;
+        if (tabManual) {
+          tabManual.style.display = 'inline-flex';
+          const lbl = document.getElementById('kpiLabelManual');
+          if (lbl) lbl.innerText = 'MOTIVOS MANUAIS';
+          let manualCount = 0;
+          if (database) {
+             manualCount = database.filter(i => {
+               const m1 = getMotivoName(i.CODMOTIVO_PARA) || "";
+               const m2 = getMotivoName(i.CODMOTIVO_RETORNO_PARA) || "";
+               return m1.includes('[INCLUSAO MANUAL]') || m2.includes('[INCLUSAO MANUAL]') || parseInt(i.CODMOTIVO_PARA) > 90 || parseInt(i.CODMOTIVO_RETORNO_PARA) > 90;
+             }).length;
+          }
+          if (valManual) valManual.innerText = manualCount;
         }
-        document.getElementById("valManual").innerText = manualCount;
       } else if (currentModule === 'secoes') {
-        manualCard.style.display = 'flex';
-        manualCard.querySelector('.kpi-label').innerText = 'Seções Manuais Criadas';
-        let manualCount = 0;
-        if (rawJsonDatabase && rawJsonDatabase.DADOS_RM_SECOES) {
-          manualCount = rawJsonDatabase.DADOS_RM_SECOES.filter(s => 
-            String(s.DESCRICAO || "").includes("[INCLUSAO MANUAL]")
-          ).length;
+        if (tabManual) {
+          tabManual.style.display = 'inline-flex';
+          const lbl = document.getElementById('kpiLabelManual');
+          if (lbl) lbl.innerText = 'SEÇÕES MANUAIS';
+          let manualCount = 0;
+          if (rawJsonDatabase && rawJsonDatabase.DADOS_RM_SECOES) {
+            manualCount = rawJsonDatabase.DADOS_RM_SECOES.filter(s => 
+              String(s.DESCRICAO || "").includes("[INCLUSAO MANUAL]")
+            ).length;
+          }
+          if (valManual) valManual.innerText = manualCount;
         }
-        document.getElementById("valManual").innerText = manualCount;
       } else {
-        manualCard.style.display = 'none';
+        if (tabManual) tabManual.style.display = 'none';
       }
-      
-      // Atualiza o rodapé com o resumo dinâmico
-      const ftIgnored = document.getElementById('footerIgnored');
-      const ftMapped = document.getElementById('footerMapped');
-      const ftPending = document.getElementById('footerPending');
-      const ftUnmapped = document.getElementById('footerUnmapped');
-      
-      if (ftIgnored) ftIgnored.innerText = ignoredCount;
-      if (ftMapped) ftMapped.innerText = stats.preenchidos;
-      if (ftPending) ftPending.innerText = stats.pAnalise;
-      if (ftUnmapped) ftUnmapped.innerText = stats.naoPreenchidos;
       
       updateFooter();
     }
 
     function clearAllFilters() {
-      document.querySelectorAll('#filterPanelContainer input').forEach(inp => inp.value = '');
-      document.querySelectorAll('#filterPanelContainer select').forEach(sel => sel.value = '');
+      const searchInput = document.getElementById("f_search");
+      if (searchInput) searchInput.value = '';
+      document.querySelectorAll('.col-filter-input').forEach(inp => inp.value = '');
       activeKpiFilter = 'all';
-      document.querySelectorAll('.kpi-card').forEach(card => card.classList.remove('active-filter'));
+      document.querySelectorAll('.kpi-tab-pill').forEach(pill => pill.classList.remove('active-tab'));
+      const allTab = document.getElementById('kpiTabAll');
+      if (allTab) allTab.classList.add('active-tab');
       applyFilters();
     }
 
@@ -4539,218 +4742,67 @@
       }, 150);
     }
 
-    function renderModuleFilters(moduleName) {
-      const container = document.getElementById("filterPanelContainer");
-      if (!container) return;
+    let columnFiltersVisible = false;
+    function toggleColumnFilters() {
+      columnFiltersVisible = !columnFiltersVisible;
+      const row = document.getElementById("columnFiltersRow");
+      const btn = document.getElementById("btnToggleColumnFilters");
+      if (row) {
+        row.style.display = columnFiltersVisible ? "" : "none";
+        if (columnFiltersVisible) {
+          const firstInp = row.querySelector('.col-filter-input');
+          if (firstInp) firstInp.focus();
+        }
+      }
+      if (btn) {
+        btn.innerHTML = columnFiltersVisible 
+          ? `<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg> Ocultar filtros`
+          : `<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg> Exibir filtros`;
+      }
+    }
 
-      const lotes = [...new Set((database || []).map(i => i.LOTE_IMPORTACAO || i.loteCarga || 'Lote 1'))].filter(Boolean);
-      let loteOptions = `<option value="">Todos os Lotes</option>`;
-      if (lotes.length > 1) {
-        loteOptions += `<option value="__recent__">✨ Carga Mais Recente (${lotes[lotes.length - 1].split(' ')[0]} ${lotes[lotes.length - 1].split(' ')[1] || ''})</option>`;
+    let searchBarCollapsed = false;
+    function toggleSearchBar() {
+      searchBarCollapsed = !searchBarCollapsed;
+      const box = document.getElementById("searchBoxContainer");
+      const icon = document.getElementById("searchToggleIcon");
+      if (box) {
+        if (searchBarCollapsed) {
+          box.classList.add("collapsed");
+        } else {
+          box.classList.remove("collapsed");
+          const searchInp = document.getElementById("f_search");
+          if (searchInp) searchInp.focus();
+        }
       }
-      lotes.forEach(l => {
-        loteOptions += `<option value="${l}">${l}</option>`;
-      });
-
-      let filtersHtml = "";
-
-      if (moduleName === 'eventos') {
-        const uniqueEmpresas = [...new Set((database || []).map(i => i.empresaDe || i.EMPRESA_DE).filter(Boolean))].sort();
-        let empOptions = `<option value="">Todas as Empresas</option>` + uniqueEmpresas.map(e => `<option value="${e}">${e}</option>`).join('');
-
-        filtersHtml = `
-          <div style="flex: 2; min-width: 200px;">
-            <input type="text" id="f_search" class="input-field" placeholder="🔍 Busca Geral (Código, Nome, RM...)" oninput="debounceApplyFilters()">
-          </div>
-          <div style="flex: 1; min-width: 140px;">
-            <select id="f_empresa" class="filter-select" style="width:100%;" onchange="applyFilters()">
-              ${empOptions}
-            </select>
-          </div>
-          <div style="flex: 1; min-width: 130px;">
-            <select id="f_tipo" class="filter-select" style="width:100%;" onchange="applyFilters()">
-              <option value="">Todos os Tipos</option>
-              <option value="PROVENTO">PROVENTO</option>
-              <option value="DESCONTO">DESCONTO</option>
-              <option value="BASE">BASE DE CÁLCULO</option>
-            </select>
-          </div>
-          <div style="flex: 1; min-width: 140px;">
-            <select id="f_status" class="filter-select" style="width:100%;" onchange="applyFilters()">
-              <option value="">Todos os Status</option>
-              <option value="mapeado">🟢 Mapeados</option>
-              <option value="nao_mapeado">🟡 Pendentes</option>
-              <option value="p_analise">🟠 P/ Análise</option>
-              <option value="nao_importar">⚪ Não Importar</option>
-            </select>
-          </div>
-          <div style="flex: 1; min-width: 140px;">
-            <select id="f_lote" class="filter-select" style="width:100%;" onchange="applyFilters()">
-              ${loteOptions}
-            </select>
-          </div>
-          <div>
-            <button class="row-btn" style="padding: 6px 12px; font-size: 0.8rem; background: #f1f5f9; color: #475569;" onclick="clearAllFilters()">Limpar</button>
-          </div>
-        `;
+      if (icon) {
+        icon.innerHTML = searchBarCollapsed 
+          ? `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>`
+          : `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>`;
       }
-      else if (moduleName === 'coligadas') {
-        filtersHtml = `
-          <div style="flex: 2; min-width: 220px;">
-            <input type="text" id="f_search" class="input-field" placeholder="🔍 Busca Empresa, ID ou Razão Social..." oninput="debounceApplyFilters()">
-          </div>
-          <div style="flex: 1; min-width: 160px;">
-            <input type="text" id="f_cnpj" class="input-field" placeholder="📄 Filtrar CNPJ..." oninput="debounceApplyFilters()">
-          </div>
-          <div style="flex: 1; min-width: 140px;">
-            <select id="f_lote" class="filter-select" style="width:100%;" onchange="applyFilters()">
-              ${loteOptions}
-            </select>
-          </div>
-          <div>
-            <button class="row-btn" style="padding: 6px 12px; font-size: 0.8rem; background: #f1f5f9; color: #475569;" onclick="clearAllFilters()">Limpar</button>
-          </div>
-        `;
-      }
-      else if (moduleName === 'funcoes') {
-        filtersHtml = `
-          <div style="flex: 2; min-width: 220px;">
-            <input type="text" id="f_search" class="input-field" placeholder="🔍 Busca Função ou Código..." oninput="debounceApplyFilters()">
-          </div>
-          <div style="flex: 1; min-width: 140px;">
-            <input type="text" id="f_cbo" class="input-field" placeholder="💼 Filtrar CBO..." oninput="debounceApplyFilters()">
-          </div>
-          <div style="flex: 1; min-width: 140px;">
-            <select id="f_status" class="filter-select" style="width:100%;" onchange="applyFilters()">
-              <option value="">Todos os Status</option>
-              <option value="mapeado">🟢 Mapeados</option>
-              <option value="nao_mapeado">🟡 Pendentes</option>
-              <option value="p_analise">🟠 P/ Análise</option>
-              <option value="nao_importar">⚪ Não Importar</option>
-            </select>
-          </div>
-          <div style="flex: 1; min-width: 140px;">
-            <select id="f_lote" class="filter-select" style="width:100%;" onchange="applyFilters()">
-              ${loteOptions}
-            </select>
-          </div>
-          <div>
-            <button class="row-btn" style="padding: 6px 12px; font-size: 0.8rem; background: #f1f5f9; color: #475569;" onclick="clearAllFilters()">Limpar</button>
-          </div>
-        `;
-      }
-      else if (moduleName === 'sindicatos') {
-        filtersHtml = `
-          <div style="flex: 2; min-width: 220px;">
-            <input type="text" id="f_search" class="input-field" placeholder="🔍 Busca Sindicato ou Código..." oninput="debounceApplyFilters()">
-          </div>
-          <div style="flex: 1; min-width: 160px;">
-            <input type="text" id="f_cnpj" class="input-field" placeholder="📄 Filtrar CNPJ..." oninput="debounceApplyFilters()">
-          </div>
-          <div style="flex: 1; min-width: 140px;">
-            <select id="f_status" class="filter-select" style="width:100%;" onchange="applyFilters()">
-              <option value="">Todos os Status</option>
-              <option value="mapeado">🟢 Mapeados</option>
-              <option value="nao_mapeado">🟡 Pendentes</option>
-              <option value="nao_importar">⚪ Não Importar</option>
-            </select>
-          </div>
-          <div style="flex: 1; min-width: 140px;">
-            <select id="f_lote" class="filter-select" style="width:100%;" onchange="applyFilters()">
-              ${loteOptions}
-            </select>
-          </div>
-          <div>
-            <button class="row-btn" style="padding: 6px 12px; font-size: 0.8rem; background: #f1f5f9; color: #475569;" onclick="clearAllFilters()">Limpar</button>
-          </div>
-        `;
-      }
-      else if (moduleName === 'secoes') {
-        filtersHtml = `
-          <div style="flex: 2; min-width: 200px;">
-            <input type="text" id="f_search" class="input-field" placeholder="🔍 Seção Origem (Legado)..." oninput="debounceApplyFilters()">
-          </div>
-          <div style="flex: 1.5; min-width: 180px;">
-            <input type="text" id="f_secao_rm" class="input-field" placeholder="🏢 Seção Destino (RM)..." oninput="debounceApplyFilters()">
-          </div>
-          <div style="flex: 1; min-width: 140px;">
-            <select id="f_status" class="filter-select" style="width:100%;" onchange="applyFilters()">
-              <option value="">Todos os Status</option>
-              <option value="mapeado">🟢 Mapeados</option>
-              <option value="nao_mapeado">🟡 Pendentes</option>
-              <option value="nao_importar">⚪ Não Importar</option>
-            </select>
-          </div>
-          <div style="flex: 1; min-width: 140px;">
-            <select id="f_lote" class="filter-select" style="width:100%;" onchange="applyFilters()">
-              ${loteOptions}
-            </select>
-          </div>
-          <div>
-            <button class="row-btn" style="padding: 6px 12px; font-size: 0.8rem; background: #f1f5f9; color: #475569;" onclick="clearAllFilters()">Limpar</button>
-          </div>
-        `;
-      }
-      else if (moduleName === 'situacao') {
-        filtersHtml = `
-          <div style="flex: 2; min-width: 200px;">
-            <input type="text" id="f_search" class="input-field" placeholder="🔍 Situação Origem..." oninput="debounceApplyFilters()">
-          </div>
-          <div style="flex: 1.5; min-width: 180px;">
-            <input type="text" id="f_situacao_rm" class="input-field" placeholder="🏷️ Situação / Motivo RM..." oninput="debounceApplyFilters()">
-          </div>
-          <div style="flex: 1; min-width: 140px;">
-            <select id="f_status" class="filter-select" style="width:100%;" onchange="applyFilters()">
-              <option value="">Todos os Status</option>
-              <option value="mapeado">🟢 Mapeados</option>
-              <option value="nao_mapeado">🟡 Pendentes</option>
-            </select>
-          </div>
-          <div style="flex: 1; min-width: 140px;">
-            <select id="f_lote" class="filter-select" style="width:100%;" onchange="applyFilters()">
-              ${loteOptions}
-            </select>
-          </div>
-          <div>
-            <button class="row-btn" style="padding: 6px 12px; font-size: 0.8rem; background: #f1f5f9; color: #475569;" onclick="clearAllFilters()">Limpar</button>
-          </div>
-        `;
-      }
-      else {
-        filtersHtml = `
-          <div style="flex: 2; min-width: 220px;">
-            <input type="text" id="f_search" class="input-field" placeholder="🔍 Busca Geral..." oninput="debounceApplyFilters()">
-          </div>
-          <div style="flex: 1; min-width: 140px;">
-            <select id="f_lote" class="filter-select" style="width:100%;" onchange="applyFilters()">
-              ${loteOptions}
-            </select>
-          </div>
-          <div>
-            <button class="row-btn" style="padding: 6px 12px; font-size: 0.8rem; background: #f1f5f9; color: #475569;" onclick="clearAllFilters()">Limpar</button>
-          </div>
-        `;
-      }
-
-      container.innerHTML = filtersHtml;
     }
 
     function toggleKpiFilter(filterType) {
-      document.querySelectorAll('.kpi-card').forEach(card => card.classList.remove('active-filter'));
+      document.querySelectorAll('.kpi-tab-pill').forEach(pill => pill.classList.remove('active-tab'));
       
       if (activeKpiFilter === filterType) {
         activeKpiFilter = 'all';
+        const allTab = document.getElementById('kpiTabAll');
+        if (allTab) allTab.classList.add('active-tab');
       } else {
         activeKpiFilter = filterType;
-        let cardId = '';
-        if (filterType === 'mapped') cardId = 'kpiCardMapped';
-        else if (filterType === 'unmapped') cardId = 'kpiCardUnmapped';
-        else if (filterType === 'pending') cardId = 'kpiCardPending';
-        else if (filterType === 'ignored') cardId = 'kpiCardIgnored';
-        else if (filterType === 'divergent') cardId = 'kpiCardDivergent';
-        else if (filterType === 'manual_motives') cardId = 'kpiCardManual';
+        let tabId = '';
+        if (filterType === 'all') tabId = 'kpiTabAll';
+        else if (filterType === 'mapped') tabId = 'kpiTabMapped';
+        else if (filterType === 'unmapped') tabId = 'kpiTabUnmapped';
+        else if (filterType === 'pending') tabId = 'kpiTabPending';
+        else if (filterType === 'ignored') tabId = 'kpiTabIgnored';
+        else if (filterType === 'divergent') tabId = 'kpiTabDivergent';
+        else if (filterType === 'manual_motives') tabId = 'kpiTabManual';
         
-        if (cardId) document.getElementById(cardId).classList.add('active-filter');
+        if (tabId && document.getElementById(tabId)) {
+          document.getElementById(tabId).classList.add('active-tab');
+        }
       }
       
       applyFilters();
@@ -4762,26 +4814,29 @@
       const search = String(searchTerm).toLowerCase().trim();
       if (!search || !str) return false;
 
+      // 1. Verificação direta de substring exata (funciona perfeitamente para 1/3, IRRF, SALÁRIO, etc.)
       if (str.includes(search)) return true;
-      if (str.padStart(4, '0').includes(search)) return true;
 
-      const numSearch = parseInt(search, 10);
-      const numStr = parseInt(str, 10);
-      if (!isNaN(numSearch) && !isNaN(numStr) && numSearch === numStr) return true;
+      // 2. Se o termo de busca for puramente numérico, compara com zeros à esquerda
+      if (/^\d+$/.test(search)) {
+        if (str.padStart(4, '0').includes(search.padStart(4, '0'))) return true;
+        if (str.padStart(4, '0') === search.padStart(4, '0')) return true;
+      }
 
       return false;
     }
 
     function applyFilters() {
       const searchVal = document.getElementById("f_search") ? document.getElementById("f_search").value.toLowerCase().trim() : "";
-      const empresaVal = document.getElementById("f_empresa") ? document.getElementById("f_empresa").value.toLowerCase().trim() : "";
-      const tipoVal = document.getElementById("f_tipo") ? document.getElementById("f_tipo").value.toUpperCase().trim() : "";
-      const statusVal = document.getElementById("f_status") ? document.getElementById("f_status").value.toLowerCase().trim() : "";
-      const cnpjVal = document.getElementById("f_cnpj") ? document.getElementById("f_cnpj").value.toLowerCase().trim() : "";
-      const cboVal = document.getElementById("f_cbo") ? document.getElementById("f_cbo").value.toLowerCase().trim() : "";
-      const secaoRmVal = document.getElementById("f_secao_rm") ? document.getElementById("f_secao_rm").value.toLowerCase().trim() : "";
-      const situacaoRmVal = document.getElementById("f_situacao_rm") ? document.getElementById("f_situacao_rm").value.toLowerCase().trim() : "";
-      const loteVal = document.getElementById("f_lote") ? document.getElementById("f_lote").value.trim() : "";
+      
+      // Captura filtros individuais de coluna ativos
+      const colFilters = {};
+      document.querySelectorAll('.col-filter-input').forEach(inp => {
+        const val = inp.value.toLowerCase().trim();
+        if (val) {
+          colFilters[inp.id.replace(/^cf_/, '')] = val;
+        }
+      });
 
       filteredData = database.filter(item => {
         // 1. Filtro dos KPIs baseado no módulo ativo
@@ -4836,14 +4891,14 @@
           }
         }
 
-        // 2. Filtros Específicos por Campo da Aba
-
-        // Filtro: Busca Geral
+        // 2. Filtro: Busca Geral Ampla (f_search)
         if (searchVal) {
           if (currentModule === 'eventos') {
             const match = matchesSearch(item.empresaDe || item.EMPRESA_DE, searchVal) ||
                           matchesSearch(item.codigoDe || item.CODIGO_DE, searchVal) ||
                           matchesSearch(item.nomeDe || item.NOME_DE, searchVal) ||
+                          matchesSearch(item.tipoEvento || item.TIPO_EVENTO, searchVal) ||
+                          matchesSearch(item.coligadaPara || item.COLIGADA_PARA, searchVal) ||
                           matchesSearch(item.codigoPara || item.CODIGO_PARA, searchVal) ||
                           matchesSearch(item.nomeRm || item.NOME_RM, searchVal) ||
                           matchesSearch(item.codigoParaFichaMes1 || item.CODIGO_PARA_FICHA_MES1, searchVal) ||
@@ -4909,61 +4964,64 @@
           }
         }
 
-        // Filtro: Empresa
-        if (empresaVal) {
-          const emp = String(item.empresaDe || item.EMPRESA_DE || item['EMPRESA _DE'] || item.EMP_CODIGO || "").toLowerCase().trim();
-          if (emp !== empresaVal) return false;
+        // 3. Filtros Individuais de Coluna (colFilters)
+        if (colFilters.empresaDe) {
+          const emp = String(item.empresaDe || item.EMPRESA_DE || item['EMPRESA _DE'] || item.EMP_CODIGO || "");
+          if (!matchesSearch(emp, colFilters.empresaDe)) return false;
         }
-
-        // Filtro: Tipo Evento
-        if (tipoVal) {
-          const t = String(item.tipoEvento || item.TIPO_EVENTO || "").toUpperCase().trim();
-          if (!t.includes(tipoVal)) return false;
+        if (colFilters.codigoDe) {
+          const cod = String(item.codigoDe || item.CODIGO_DE || "");
+          if (!matchesSearch(cod, colFilters.codigoDe)) return false;
         }
-
-        // Filtro: Status
-        if (statusVal) {
-          if (statusVal === 'mapeado' && !isMapped) return false;
-          if (statusVal === 'nao_mapeado' && (isMapped || isPending || isIgnored)) return false;
-          if (statusVal === 'p_analise' && !isPending) return false;
-          if (statusVal === 'nao_importar' && !isIgnored) return false;
+        if (colFilters.nomeDe) {
+          const nom = String(item.nomeDe || item.NOME_DE || item.NOME || item['RAZAO SOCIAL'] || "");
+          if (!matchesSearch(nom, colFilters.nomeDe)) return false;
         }
-
-        // Filtro: CNPJ
-        if (cnpjVal) {
-          if (!matchesSearch(item.CNPJ, cnpjVal)) return false;
+        if (colFilters.id) {
+          const idVal = String(item.ID || item.FILIAL_DE || item.filialDe || "");
+          if (!matchesSearch(idVal, colFilters.id)) return false;
         }
-
-        // Filtro: CBO
-        if (cboVal) {
-          if (!matchesSearch(item.CBO || item.CBO_2002, cboVal)) return false;
+        if (colFilters.tipoEvento) {
+          const t = String(item.tipoEvento || item.TIPO_EVENTO || "");
+          if (!matchesSearch(t, colFilters.tipoEvento)) return false;
         }
-
-        // Filtro: Seção RM
-        if (secaoRmVal) {
-          const match = matchesSearch(item.CODIGO_PARA || item.codigoPara, secaoRmVal) ||
-                        matchesSearch(getSecaoName(item.COLIGADA_PARA, item.FILIAL_PARA, item.CODIGO_PARA), secaoRmVal);
-          if (!match) return false;
+        if (colFilters.coligadaPara) {
+          const colPara = String(item.coligadaPara || item.COLIGADA_PARA || item.CODCOLIGADA || "");
+          if (!matchesSearch(colPara, colFilters.coligadaPara)) return false;
         }
-
-        // Filtro: Situação RM
-        if (situacaoRmVal) {
-          const match = matchesSearch(item.CODSITUACAO_PARA || item.codSituacaoPara, situacaoRmVal) ||
-                        matchesSearch(item.CODMOTIVO_PARA || item.codMotivoPara, situacaoRmVal) ||
-                        matchesSearch(getMotivoName(item.CODMOTIVO_PARA), situacaoRmVal);
-          if (!match) return false;
+        if (colFilters.codigoPara) {
+          const codPara = String(item.codigoPara || item.CODIGO_PARA || "");
+          if (!matchesSearch(codPara, colFilters.codigoPara)) return false;
         }
-
-        // Filtro: Lote de Importação
-        if (loteVal) {
-          const itemLote = String(item.LOTE_IMPORTACAO || item.loteCarga || 'Lote 1 (Carga Inicial)').trim();
-          if (loteVal === '__recent__') {
-            const uniqueLotes = [...new Set(database.map(i => i.LOTE_IMPORTACAO || i.loteCarga || 'Lote 1 (Carga Inicial)'))].filter(Boolean);
-            const lastLote = uniqueLotes[uniqueLotes.length - 1];
-            if (itemLote !== lastLote) return false;
-          } else {
-            if (!matchesSearch(itemLote, loteVal)) return false;
-          }
+        if (colFilters.nomeRm) {
+          const nomRm = String(item.nomeRm || item.NOME_RM || "");
+          if (!matchesSearch(nomRm, colFilters.nomeRm)) return false;
+        }
+        if (colFilters.cnpj) {
+          if (!matchesSearch(item.CNPJ, colFilters.cnpj)) return false;
+        }
+        if (colFilters.codFilial) {
+          const fil = String(item.CODFILIAL_PARA || item.filialPara || "");
+          if (!matchesSearch(fil, colFilters.codFilial)) return false;
+        }
+        if (colFilters.cbo) {
+          if (!matchesSearch(item.CBO || item.CBO_2002, colFilters.cbo)) return false;
+        }
+        if (colFilters.codSituacao) {
+          const sit = String(item.CODSITUACAO_PARA || item.codSituacaoPara || "");
+          if (!matchesSearch(sit, colFilters.codSituacao)) return false;
+        }
+        if (colFilters.codMotivo) {
+          const mot = String(item.CODMOTIVO_PARA || item.codMotivoPara || "") + " " + (getMotivoName(item.CODMOTIVO_PARA) || "");
+          if (!matchesSearch(mot, colFilters.codMotivo)) return false;
+        }
+        if (colFilters.codSitRetorno) {
+          const sitRet = String(item.CODSITUACAO_RETORNO_PARA || "");
+          if (!matchesSearch(sitRet, colFilters.codSitRetorno)) return false;
+        }
+        if (colFilters.codMotRetorno) {
+          const motRet = String(item.CODMOTIVO_RETORNO_PARA || "") + " " + (getMotivoName(item.CODMOTIVO_RETORNO_PARA) || "");
+          if (!matchesSearch(motRet, colFilters.codMotRetorno)) return false;
         }
 
         return true;
