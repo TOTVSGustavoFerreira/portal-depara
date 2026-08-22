@@ -73,7 +73,36 @@
     }
 
     .sidebar.collapsed {
-      width: 70px;
+      width: 78px;
+    }
+    .sidebar.collapsed .sidebar-client-box {
+      margin: 8px auto;
+      padding: 6px;
+      width: 44px;
+      height: 44px;
+      justify-content: center;
+      align-items: center;
+      border-radius: var(--border-radius-sm);
+    }
+    .sidebar.collapsed .sidebar-client-box .sidebar-client-label {
+      display: none;
+    }
+    .sidebar.collapsed .sidebar-client-box .sidebar-client-name {
+      font-size: 1.25rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-align: center;
+    }
+    .sidebar.collapsed .menu-item {
+      padding: 12px 0;
+      justify-content: center;
+    }
+    .sidebar.collapsed .menu-item-link-content {
+      gap: 0;
+      justify-content: center;
+    }
+    .sidebar.collapsed .submenu-list {
+      padding-left: 0;
     }
 
     .sidebar-header {
@@ -459,14 +488,15 @@
     .badge-type-subtle {
       display: inline-flex;
       align-items: center;
-      gap: 4px;
-      font-size: 0.72rem;
-      font-weight: 600;
-      padding: 2px 7px;
-      border-radius: 4px;
-      margin-top: 2px;
+      gap: 3px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 3px;
+      margin-top: 1px;
       width: fit-content;
-      letter-spacing: 0.3px;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
     }
     .badge-prov-subtle {
       background-color: #ecfdf5;
@@ -572,15 +602,6 @@
       color: var(--color-text-main);
       width: 100%;
     }
-    .search-input-box.collapsed {
-      max-width: 44px;
-      overflow: hidden;
-      cursor: pointer;
-      background: #f1f5f9;
-    }
-    .search-input-box.collapsed input {
-      display: none;
-    }
     .search-toggle-btn {
       background: transparent;
       border: none;
@@ -597,15 +618,39 @@
       color: var(--bg-primary);
       background: #e2e8f0;
     }
+    .search-collapsed-trigger {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius-sm);
+      color: var(--color-text-muted);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+      width: fit-content;
+    }
+    .search-collapsed-trigger:hover {
+      background: #f8fafc;
+      border-color: #0284c7;
+      color: #0284c7;
+    }
 
     /* Cabeçalho Agrupador da Tabela e Filtros de Coluna */
     .group-header-row th {
-      padding: 7px 12px !important;
-      font-size: 0.74rem !important;
+      padding: 6px 12px !important;
+      font-size: 0.72rem !important;
       font-weight: 800 !important;
       letter-spacing: 0.6px !important;
       text-transform: uppercase !important;
-      border-bottom: 2px solid var(--border-color) !important;
+      border-bottom: 1px solid #cbd5e1 !important;
+      position: sticky !important;
+      top: 0 !important;
+      z-index: 30 !important;
     }
     .group-th-legado {
       background: #eff6ff !important;
@@ -630,31 +675,50 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
-    .btn-toggle-filters {
+    .btn-toggle-filters-subtle {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      padding: 5px 12px;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
       background: #ffffff;
       border: 1px solid #cbd5e1;
-      border-radius: var(--border-radius-sm);
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: #475569;
+      color: #64748b;
       cursor: pointer;
       transition: var(--transition);
     }
-    .btn-toggle-filters:hover {
-      background: #f8fafc;
-      border-color: #94a3b8;
+    .btn-toggle-filters-subtle:hover {
+      background: #f1f5f9;
       color: #0f172a;
+      border-color: #94a3b8;
     }
+    .btn-toggle-filters-subtle.active {
+      background: #eff6ff;
+      color: #0284c7;
+      border-color: #0284c7;
+    }
+
+    /* Linha 2 de Cabeçalho de Colunas Fixa */
+    thead tr:not(.group-header-row):not(.column-filters-row) th {
+      position: sticky !important;
+      top: 27px !important;
+      z-index: 25 !important;
+      background-color: #f8fafc !important;
+      padding: 8px 12px !important;
+      border-bottom: 1px solid var(--border-color) !important;
+    }
+
+    /* Linha 3 de Filtros por Coluna Fixa */
     .column-filters-row th {
-      padding: 5px 8px !important;
-      background: #f8fafc !important;
-      border-bottom: 1px solid #e2e8f0 !important;
+      padding: 4px 6px !important;
+      background: #f1f5f9 !important;
+      border-bottom: 2px solid #cbd5e1 !important;
+      position: sticky !important;
+      top: 61px !important;
+      z-index: 20 !important;
     }
     .col-filter-input {
       width: 100%;
@@ -825,14 +889,15 @@
     }
 
     /* Fixed Column Widths & Wrap Rules */
-    .col-empresa-orig { width: 90px; }
-    .col-codigo-orig  { width: 85px; }
-    .col-nome-orig    { width: 38%; }
+    .col-empresa-orig { width: 85px; }
+    .col-codigo-orig  { width: 80px; }
+    .col-nome-orig    { width: 40%; }
     
-    .col-coligada-rm  { width: 85px; }
-    .col-codigo-rm    { width: 100px; }
-    .col-nome-rm      { width: 42%; }
-    .col-acoes        { width: 85px; }
+    .col-coligada-rm  { width: 80px; }
+    .col-codigo-rm    { width: 95px; }
+    .col-nome-rm      { width: 44%; }
+    .col-acoes        { width: 70px; text-align: right; }
+    .action-icons     { display: flex; justify-content: flex-end; gap: 4px; }
     
     /* Configurações específicas de colunas para ZDEPARA_FUNCOES */
     .col-funcao-emp   { width: 75px; }
@@ -841,7 +906,7 @@
     .col-funcao-cbo   { width: 105px; }
     .col-funcao-coligada { width: 85px; }
     .col-funcao-codpara { width: 140px; }
-    .col-funcao-acoes { width: 80px; }
+    .col-funcao-acoes { width: 70px; text-align: right; }
 
     /* Quebra de linha suave para que descrições nunca fiquem truncadas com ... */
     td {
@@ -1707,26 +1772,30 @@
           </section>
 
           <!-- BARRA DE BUSCA AMPLA E RETRÁTIL -->
-          <section class="search-bar-wrapper">
+          <section class="search-bar-wrapper" id="searchBarWrapper">
             <div class="search-input-box" id="searchBoxContainer">
               <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="color: var(--color-text-muted); flex-shrink: 0;"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
               <input type="text" id="f_search" placeholder="Buscar por código, nome ou descrição do evento..." oninput="debounceApplyFilters()">
-              <button class="search-toggle-btn" id="searchToggleBtn" onclick="toggleSearchBar()" title="Recolher / Expandir busca">
-                <span id="searchToggleIcon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg></span>
+              <button class="search-toggle-btn" id="searchToggleBtn" onclick="toggleSearchBar()" title="Ocultar barra de busca">
+                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>
               </button>
             </div>
-            <button class="row-btn" style="padding: 9px 18px; font-size: 0.85rem; background: #f8fafc; color: #475569; border-color: #cbd5e1; display: inline-flex; align-items: center; gap: 6px;" onclick="clearAllFilters()">
+            <button class="row-btn" style="padding: 8px 16px; font-size: 0.82rem; background: #f8fafc; color: #475569; border-color: #cbd5e1; display: inline-flex; align-items: center; gap: 6px;" onclick="clearAllFilters()">
               <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
               Limpar
             </button>
           </section>
+          
+          <button id="searchCollapsedBtn" class="search-collapsed-trigger" style="display: none;" onclick="toggleSearchBar()" title="Expandir barra de busca">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            <span>Buscar...</span>
+          </button>
 
           <!-- MASTER TABLE CARD -->
           <section class="table-card">
-            <div class="table-toolbar-bar" style="padding: 12px 16px 6px 16px;">
-              <button id="btnToggleColumnFilters" class="btn-toggle-filters" onclick="toggleColumnFilters()">
-                <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
-                Exibir filtros
+            <div class="table-toolbar-bar" style="padding: 10px 16px 4px 16px;">
+              <button id="btnToggleColumnFilters" class="btn-toggle-filters-subtle" onclick="toggleColumnFilters()" title="Exibir / Ocultar filtros por coluna">
+                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
               </button>
               <div style="font-size: 0.82rem; font-weight: 600; color: var(--color-text-muted);" id="tableCount">0 registros</div>
             </div>
@@ -4827,30 +4896,28 @@
         }
       }
       if (btn) {
+        btn.classList.toggle('active', columnFiltersVisible);
         btn.innerHTML = columnFiltersVisible 
-          ? `<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg> Ocultar filtros`
-          : `<svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg> Exibir filtros`;
+          ? `<svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>`
+          : `<svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>`;
       }
     }
 
     let searchBarCollapsed = false;
     function toggleSearchBar() {
       searchBarCollapsed = !searchBarCollapsed;
-      const box = document.getElementById("searchBoxContainer");
-      const icon = document.getElementById("searchToggleIcon");
-      if (box) {
+      const wrapper = document.getElementById("searchBarWrapper");
+      const trigger = document.getElementById("searchCollapsedBtn");
+      if (wrapper && trigger) {
         if (searchBarCollapsed) {
-          box.classList.add("collapsed");
+          wrapper.style.display = "none";
+          trigger.style.display = "inline-flex";
         } else {
-          box.classList.remove("collapsed");
-          const searchInp = document.getElementById("f_search");
-          if (searchInp) searchInp.focus();
+          wrapper.style.display = "flex";
+          trigger.style.display = "none";
+          const inp = document.getElementById("f_search");
+          if (inp) inp.focus();
         }
-      }
-      if (icon) {
-        icon.innerHTML = searchBarCollapsed 
-          ? `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>`
-          : `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"/></svg>`;
       }
     }
 
