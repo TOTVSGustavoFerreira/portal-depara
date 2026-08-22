@@ -444,6 +444,9 @@
     .kpi-divergence .kpi-value { color: var(--magenta); }
     .kpi-divergence .kpi-icon-container { background-color: #fce7f3; color: var(--magenta); }
 
+    .kpi-ignored .kpi-value { color: #64748b; }
+    .kpi-ignored .kpi-icon-container { background-color: #f1f5f9; color: #64748b; }
+
     /* Beautiful Premium Alert / Warning Banners */
     .warning-banner {
       background: rgba(255, 251, 235, 0.9);
@@ -1460,6 +1463,15 @@
               </div>
               <div class="kpi-icon-container">
                 <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z"/></svg>
+              </div>
+            </div>
+            <div class="kpi-card kpi-ignored" id="kpiCardIgnored" onclick="toggleKpiFilter('ignored')">
+              <div class="kpi-text-area">
+                <div class="kpi-label">Não Importar</div>
+                <div class="kpi-value" id="valIgnored">0</div>
+              </div>
+              <div class="kpi-icon-container">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4 12c0-4.42 3.58-8 8-8 1.85 0 3.55.63 4.9 1.69L5.69 16.9C4.63 15.55 4 13.85 4 12zm8 8c-1.85 0-3.55-.63-4.9-1.69L18.31 7.1C19.37 8.45 20 10.15 20 12c0 4.42-3.58 8-8 8z"/></svg>
               </div>
             </div>
             <div class="kpi-card kpi-manual" id="kpiCardManual" style="display: none; cursor: pointer;" onclick="toggleKpiFilter('manual_motives')">
@@ -2584,6 +2596,7 @@
       let preenchidos = 0;
       let naoPreenchidos = 0;
       let pAnalise = 0;
+      let naoImportar = 0;
       let divergencias = 0;
 
       // Mapas de divergência
@@ -2643,7 +2656,9 @@
           const codSecao = String(item.CODIGO_PARA || "").trim();
           if (isCodePending(codSecao)) {
             pAnalise++;
-          } else if (codSecao) {
+          } else if (isCodeIgnored(codSecao)) {
+            naoImportar++;
+          } else if (codSecao && !isCodeToCreate(codSecao)) {
             preenchidos++;
           } else {
             naoPreenchidos++;
@@ -2652,11 +2667,13 @@
         } 
         else {
           // Eventos, Funções, Sindicatos
-          const codPara = String((currentModule === 'eventos' ? item.codigoPara : item.CODIGO_PARA) || "").trim();
+          const codPara = String((currentModule === 'eventos' ? (item.codigoPara || item.CODIGO_PARA) : item.CODIGO_PARA) || "").trim();
           
           if (isCodePending(codPara)) {
             pAnalise++;
-          } else if (codPara && !isCodeIgnored(codPara) && !isCodeToCreate(codPara)) {
+          } else if (isCodeIgnored(codPara)) {
+            naoImportar++;
+          } else if (codPara && !isCodeToCreate(codPara)) {
             preenchidos++;
           } else {
             if (!codPara || isCodeToCreate(codPara)) naoPreenchidos++;
@@ -2692,6 +2709,7 @@
         preenchidos: preenchidos,
         naoPreenchidos: naoPreenchidos,
         pAnalise: pAnalise,
+        naoImportar: naoImportar,
         divergencias: divergencias
       };
     }
@@ -4431,13 +4449,25 @@
       document.getElementById("valMapped").innerText = stats.preenchidos;
       document.getElementById("valUnmapped").innerText = stats.naoPreenchidos;
       document.getElementById("valPending").innerText = stats.pAnalise;
+      const ignoredCountDisplay = stats.naoImportar !== undefined ? stats.naoImportar : ignoredCount;
+      const valIgnoredEl = document.getElementById("valIgnored");
+      if (valIgnoredEl) valIgnoredEl.innerText = ignoredCountDisplay;
       document.getElementById("valDivergent").innerText = stats.divergencias;
       
       // Controlar visibilidade de cards baseados no módulo ativo
       const pendingCard = document.getElementById("kpiCardPending");
+      const ignoredCard = document.getElementById("kpiCardIgnored");
       const divergentCard = document.getElementById("kpiCardDivergent");
       const manualCard = document.getElementById("kpiCardManual");
       
+      if (ignoredCard) {
+        if (currentModule === 'eventos' || currentModule === 'funcoes' || currentModule === 'sindicatos' || currentModule === 'secoes') {
+          ignoredCard.style.display = 'flex';
+        } else {
+          ignoredCard.style.display = 'none';
+        }
+      }
+
       // Seções e Situação não possuem divergências
       if (currentModule === 'secoes' || currentModule === 'situacao') {
         divergentCard.style.display = 'none';
@@ -4501,6 +4531,14 @@
       applyFilters();
     }
 
+    let debounceFilterTimer = null;
+    function debounceApplyFilters() {
+      clearTimeout(debounceFilterTimer);
+      debounceFilterTimer = setTimeout(() => {
+        applyFilters();
+      }, 150);
+    }
+
     function renderModuleFilters(moduleName) {
       const container = document.getElementById("filterPanelContainer");
       if (!container) return;
@@ -4543,6 +4581,7 @@
               <option value="mapeado">🟢 Mapeados</option>
               <option value="nao_mapeado">🟡 Pendentes</option>
               <option value="p_analise">🟠 P/ Análise</option>
+              <option value="nao_importar">⚪ Não Importar</option>
             </select>
           </div>
           <div style="flex: 1; min-width: 140px;">
@@ -4587,6 +4626,7 @@
               <option value="mapeado">🟢 Mapeados</option>
               <option value="nao_mapeado">🟡 Pendentes</option>
               <option value="p_analise">🟠 P/ Análise</option>
+              <option value="nao_importar">⚪ Não Importar</option>
             </select>
           </div>
           <div style="flex: 1; min-width: 140px;">
@@ -4612,6 +4652,7 @@
               <option value="">Todos os Status</option>
               <option value="mapeado">🟢 Mapeados</option>
               <option value="nao_mapeado">🟡 Pendentes</option>
+              <option value="nao_importar">⚪ Não Importar</option>
             </select>
           </div>
           <div style="flex: 1; min-width: 140px;">
@@ -4637,6 +4678,7 @@
               <option value="">Todos os Status</option>
               <option value="mapeado">🟢 Mapeados</option>
               <option value="nao_mapeado">🟡 Pendentes</option>
+              <option value="nao_importar">⚪ Não Importar</option>
             </select>
           </div>
           <div style="flex: 1; min-width: 140px;">
@@ -4704,6 +4746,7 @@
         if (filterType === 'mapped') cardId = 'kpiCardMapped';
         else if (filterType === 'unmapped') cardId = 'kpiCardUnmapped';
         else if (filterType === 'pending') cardId = 'kpiCardPending';
+        else if (filterType === 'ignored') cardId = 'kpiCardIgnored';
         else if (filterType === 'divergent') cardId = 'kpiCardDivergent';
         else if (filterType === 'manual_motives') cardId = 'kpiCardManual';
         
@@ -4745,23 +4788,28 @@
         let isMapped = false;
         let destCode = "";
         let isPending = false;
+        let isIgnored = false;
         
         if (currentModule === 'eventos') {
-          destCode = (item.codigoPara || "").trim();
-          isMapped = destCode && !isCodeIgnored(destCode) && !isCodeToCreate(destCode);
+          destCode = (item.codigoPara || item.CODIGO_PARA || "").trim();
           isPending = isCodePending(destCode);
+          isIgnored = isCodeIgnored(destCode);
+          isMapped = destCode && !isIgnored && !isPending && !isCodeToCreate(destCode);
         } else if (currentModule === 'coligadas') {
           destCode = (item.CODCOLIGADA || "").trim();
           isMapped = !!destCode;
           isPending = false;
+          isIgnored = false;
         } else if (currentModule === 'situacao') {
           destCode = (item.CODSITUACAO_PARA || "").trim();
           isMapped = !!destCode;
           isPending = false;
+          isIgnored = false;
         } else {
-          destCode = (item.CODIGO_PARA || "").trim();
-          isMapped = destCode && !isCodeIgnored(destCode) && !isCodeToCreate(destCode);
+          destCode = (item.CODIGO_PARA || item.codigoPara || "").trim();
           isPending = isCodePending(destCode);
+          isIgnored = isCodeIgnored(destCode);
+          isMapped = destCode && !isIgnored && !isPending && !isCodeToCreate(destCode);
         }
         
         if (activeKpiFilter === 'mapped' && !isMapped) return false;
@@ -4769,10 +4817,11 @@
           if (currentModule === 'coligadas' || currentModule === 'situacao') {
             if (isMapped) return false;
           } else {
-            if (isMapped || (destCode && destCode !== "CRIAR" && destCode !== "A CRIAR" && destCode !== "CRIAR EVENTO")) return false;
+            if (isMapped || isPending || isIgnored || (destCode && !isCodeToCreate(destCode))) return false;
           }
         }
         if (activeKpiFilter === 'pending' && !isPending) return false;
+        if (activeKpiFilter === 'ignored' && !isIgnored) return false;
         if (activeKpiFilter === 'divergent' && !item.hasDivergencia) return false;
         if (activeKpiFilter === 'manual_motives') {
           if (currentModule === 'situacao') {
@@ -4875,8 +4924,9 @@
         // Filtro: Status
         if (statusVal) {
           if (statusVal === 'mapeado' && !isMapped) return false;
-          if (statusVal === 'nao_mapeado' && isMapped) return false;
+          if (statusVal === 'nao_mapeado' && (isMapped || isPending || isIgnored)) return false;
           if (statusVal === 'p_analise' && !isPending) return false;
+          if (statusVal === 'nao_importar' && !isIgnored) return false;
         }
 
         // Filtro: CNPJ
@@ -4972,7 +5022,7 @@
         .replace(/[\u0300-\u036f]/g, "") // Remove accents
         .trim()
         .toUpperCase();
-      return normalized === "NAO IMPORTAR" || normalized === "P/ ANALISE";
+      return normalized === "NAO IMPORTAR" || normalized === "IGNORAR" || normalized === "NAO IMPORTADO";
     }
 
     // Retorna true se o código indica que o evento ainda precisa ser criado (não mapeado)

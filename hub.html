@@ -899,19 +899,46 @@
             const sec = content.ZDEPARA_SECOES || [];
             const sit = content.ZDEPARA_SITUACAO || [];
             
-            const isMapped = (item) => {
-              if (item.codigoPara && item.codigoPara.trim() !== "" && item.codigoPara !== "CRIAR") return true;
-              if (item.CODIGO_PARA && String(item.CODIGO_PARA).trim() !== "" && String(item.CODIGO_PARA) !== "CRIAR") return true;
-              if (item.CODCOLIGADA && String(item.CODCOLIGADA).trim() !== "") return true;
-              return false;
+            const isCodeIgnored = (cod) => {
+              if (!cod) return false;
+              const norm = String(cod).normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim().toUpperCase();
+              return norm === "NAO IMPORTAR" || norm === "IGNORAR" || norm === "NAO IMPORTADO";
+            };
+            const isCodeToCreate = (cod) => {
+              if (!cod) return false;
+              const norm = String(cod).trim().toUpperCase();
+              return norm === "CRIAR" || norm === "A CRIAR" || norm === "CRIAR EVENTO";
+            };
+            const isCodePending = (cod) => {
+              if (!cod) return false;
+              const norm = String(cod).normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim().toUpperCase();
+              return norm === "P/ ANALISE" || norm === "ANALISE" || norm === "EM ANALISE";
             };
 
-            const evMapped = ev.filter(isMapped).length;
-            const colMapped = col.filter(isMapped).length;
-            const funcMapped = func.filter(isMapped).length;
-            const sindMapped = sind.filter(isMapped).length;
-            const secMapped = sec.filter(isMapped).length;
-            const sitMapped = sit.filter(isMapped).length;
+            const isMappedItem = (item, moduleType) => {
+              let cod = "";
+              if (moduleType === 'coligadas') {
+                cod = String(item.CODCOLIGADA || "").trim();
+                return !!cod;
+              } else if (moduleType === 'situacao') {
+                cod = String(item.CODSITUACAO_PARA || "").trim();
+                return !!cod;
+              } else if (moduleType === 'eventos') {
+                cod = String(item.codigoPara || item.CODIGO_PARA || "").trim();
+              } else {
+                cod = String(item.CODIGO_PARA || item.codigoPara || "").trim();
+              }
+              if (!cod) return false;
+              if (isCodeToCreate(cod) || isCodePending(cod) || isCodeIgnored(cod)) return false;
+              return true;
+            };
+
+            const evMapped = ev.filter(i => isMappedItem(i, 'eventos')).length;
+            const colMapped = col.filter(i => isMappedItem(i, 'coligadas')).length;
+            const funcMapped = func.filter(i => isMappedItem(i, 'funcoes')).length;
+            const sindMapped = sind.filter(i => isMappedItem(i, 'sindicatos')).length;
+            const secMapped = sec.filter(i => isMappedItem(i, 'secoes')).length;
+            const sitMapped = sit.filter(i => isMappedItem(i, 'situacao')).length;
 
             const totalCount = ev.length + col.length + func.length + sind.length + sec.length + sit.length;
             const totalMappedCount = evMapped + colMapped + funcMapped + sindMapped + secMapped + sitMapped;
