@@ -651,6 +651,7 @@
       color: #ffffff !important;
       text-align: center !important;
       border-right: 2px solid #ffffff !important;
+      width: calc(50% - 22px) !important;
     }
     .group-th-arrow {
       background: #f8fafc !important;
@@ -662,9 +663,14 @@
       background: #ffc000 !important;
       color: #3b2000 !important;
       text-align: center !important;
+      width: calc(50% - 22px) !important;
     }
     .group-th-empty {
       background: #f8fafc !important;
+      width: 44px !important;
+      min-width: 44px !important;
+      max-width: 44px !important;
+      padding: 0 !important;
     }
     
     /* Cabeçalhos de Colunas com Destaque de Cores por Sistema */
@@ -1134,59 +1140,67 @@
     .badge-panalise { background-color: #fef3c7; color: #b45309; }
     .badge-divergent { background-color: #fee2e2; color: #b91c1c; animation: pulse 2s infinite; }
 
-    /* Expanded Sub-row details */
-    .detail-subrow-content {
-      padding: 20px 24px;
-      background-color: #fafbfc;
-      border-bottom: 2px solid var(--border-color);
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      position: relative;
-      z-index: 1;
+    /* Compact Expanded Sub-row details */
+    .detail-subrow-compact {
+      padding: 6px 14px 8px 14px;
+      background-color: #f8fafc;
+      border-top: 1px solid #e2e8f0;
+      border-bottom: 1px solid #cbd5e1;
+      font-size: 0.76rem;
     }
-
-    .detail-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 16px;
-      width: 100%;
-    }
-
-    .detail-field-group {
+    .detail-row-line {
       display: flex;
-      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .detail-inline-item {
+      display: inline-flex;
+      align-items: center;
       gap: 6px;
+    }
+    .detail-compact-label {
+      font-weight: 700;
+      font-size: 0.70rem;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+    .detail-compact-val {
+      font-weight: 500;
+      color: #1e293b;
+      font-size: 0.75rem;
+    }
+    .detail-edit-grid-line1 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .detail-field-group-compact {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
       position: relative;
     }
-
-    .detail-label {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: var(--color-text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
+    .input-field-compact {
+      height: 24px;
+      padding: 2px 6px;
+      font-size: 0.74rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      background: #ffffff;
+      color: #334155;
+      outline: none;
+      box-sizing: border-box;
+      font-family: inherit;
     }
-
-    .detail-value {
-      font-size: 0.85rem;
-      color: var(--color-text-dark);
-      background-color: white;
-      padding: 10px 14px;
-      border-radius: var(--border-radius-sm);
-      border: 1px solid var(--border-color);
-      min-height: 38px;
-      display: flex;
-      align-items: center;
+    .input-field-compact:focus {
+      border-color: #0284c7;
+      box-shadow: 0 0 0 1px #0284c7;
     }
-
-    .detail-actions {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: 14px;
-      border-top: 1px dashed var(--border-color);
-      width: 100%;
+    .input-field-compact:disabled {
+      background: #f1f5f9;
+      color: #64748b;
     }
 
     /* Buttons inside rows */
@@ -1919,11 +1933,11 @@
                 <button id="btnToggleFullscreen" class="btn-toggle-filters-subtle" onclick="toggleFullscreenTable()" title="Modo Tela Cheia (Expandir visualização da tabela)">
                   <svg id="fullscreenIcon" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg>
                 </button>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px;">
                 <button class="btn-toggle-filters-subtle" onclick="clearAllFilters()" title="Limpar todos os filtros e buscas">
                   <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
                 </button>
-              </div>
-              <div style="display: flex; align-items: center; gap: 10px;">
                 <!-- Barra de Busca Expansível com Lupa -->
                 <div class="toolbar-search-wrapper" id="toolbarSearchWrapper">
                   <button type="button" class="btn-search-trigger" onclick="toggleExpandSearch()" title="Buscar na tabela">
@@ -6012,83 +6026,83 @@
             
             contentHtml = `
               <td colspan="7">
-                <div class="detail-subrow-content">
-                  <div class="detail-grid">
-                    <div class="detail-field-group autocomplete-wrapper">
-                      <span class="detail-label">Ficha Mês 1 - Código</span>
-                      <input type="text" id="edit-ficha1-${item.rowNum}" class="input-field" value="${item.codigoParaFichaMes1}" ${isFichaEnabled} autocomplete="off" oninput="triggerTableAutocomplete(this.value, ${item.rowNum}, 'ficha1')">
+                <div class="detail-subrow-compact">
+                  <!-- Linha 1: Fichas Mês 1, Mês 2 e Verba Férias em 1 linha compacta -->
+                  <div class="detail-edit-grid-line1">
+                    <div class="detail-field-group-compact autocomplete-wrapper">
+                      <span class="detail-compact-label">Ficha Mês 1</span>
+                      <div style="display:flex; gap:4px;">
+                        <input type="text" id="edit-ficha1-${item.rowNum}" class="input-field-compact" style="width:65px; text-align:center;" value="${item.codigoParaFichaMes1 || ''}" ${isFichaEnabled} autocomplete="off" oninput="triggerTableAutocomplete(this.value, ${item.rowNum}, 'ficha1')" placeholder="Cód">
+                        <input type="text" id="edit-nomeFicha1-${item.rowNum}" class="input-field-compact" style="flex:1;" value="${getRmName(item.codigoParaFichaMes1) || ''}" disabled placeholder="Nome RM Ficha 1">
+                      </div>
                       <ul id="table-autocomplete-ficha1-${item.rowNum}" class="table-autocomplete-list" style="display: none;"></ul>
                     </div>
-                    <div class="detail-field-group">
-                      <span class="detail-label">Ficha Mês 1 - Nome RM</span>
-                      <input type="text" id="edit-nomeFicha1-${item.rowNum}" class="input-field" value="${getRmName(item.codigoParaFichaMes1) || ''}" disabled>
-                    </div>
                     
-                    <div class="detail-field-group autocomplete-wrapper">
-                      <span class="detail-label">Ficha Mês 2 - Código</span>
-                      <input type="text" id="edit-ficha2-${item.rowNum}" class="input-field" value="${item.codigoParaFichaMes2}" ${isFichaEnabled} autocomplete="off" oninput="triggerTableAutocomplete(this.value, ${item.rowNum}, 'ficha2')">
+                    <div class="detail-field-group-compact autocomplete-wrapper">
+                      <span class="detail-compact-label">Ficha Mês 2</span>
+                      <div style="display:flex; gap:4px;">
+                        <input type="text" id="edit-ficha2-${item.rowNum}" class="input-field-compact" style="width:65px; text-align:center;" value="${item.codigoParaFichaMes2 || ''}" ${isFichaEnabled} autocomplete="off" oninput="triggerTableAutocomplete(this.value, ${item.rowNum}, 'ficha2')" placeholder="Cód">
+                        <input type="text" id="edit-nomeFicha2-${item.rowNum}" class="input-field-compact" style="flex:1;" value="${getRmName(item.codigoParaFichaMes2) || ''}" disabled placeholder="Nome RM Ficha 2">
+                      </div>
                       <ul id="table-autocomplete-ficha2-${item.rowNum}" class="table-autocomplete-list" style="display: none;"></ul>
                     </div>
-                    <div class="detail-field-group">
-                      <span class="detail-label">Ficha Mês 2 - Nome RM</span>
-                      <input type="text" id="edit-nomeFicha2-${item.rowNum}" class="input-field" value="${getRmName(item.codigoParaFichaMes2) || ''}" disabled>
-                    </div>
 
-                    <div class="detail-field-group autocomplete-wrapper">
-                      <span class="detail-label">Verba Férias - Código</span>
-                      <input type="text" id="edit-ferias-${item.rowNum}" class="input-field" value="${item.codigoParaVerbasFerias}" ${isFichaEnabled} autocomplete="off" oninput="triggerTableAutocomplete(this.value, ${item.rowNum}, 'ferias')">
+                    <div class="detail-field-group-compact autocomplete-wrapper">
+                      <span class="detail-compact-label">Verba Férias</span>
+                      <div style="display:flex; gap:4px;">
+                        <input type="text" id="edit-ferias-${item.rowNum}" class="input-field-compact" style="width:65px; text-align:center;" value="${item.codigoParaVerbasFerias || ''}" ${isFichaEnabled} autocomplete="off" oninput="triggerTableAutocomplete(this.value, ${item.rowNum}, 'ferias')" placeholder="Cód">
+                        <input type="text" id="edit-nomeFerias-${item.rowNum}" class="input-field-compact" style="flex:1;" value="${getRmName(item.codigoParaVerbasFerias) || ''}" disabled placeholder="Nome RM Férias">
+                      </div>
                       <ul id="table-autocomplete-ferias-${item.rowNum}" class="table-autocomplete-list" style="display: none;"></ul>
                     </div>
-                    <div class="detail-field-group">
-                      <span class="detail-label">Verba Férias - Nome RM</span>
-                      <input type="text" id="edit-nomeFerias-${item.rowNum}" class="input-field" value="${getRmName(item.codigoParaVerbasFerias) || ''}" disabled>
+                  </div>
+
+                  <!-- Linha 2: Observações + Ações de Linha -->
+                  <div style="margin-top:6px; display:flex; align-items:center; gap:8px;">
+                    <div style="flex:1; display:flex; align-items:center; gap:6px;">
+                      <span class="detail-compact-label" style="white-space:nowrap;">Observações:</span>
+                      <input type="text" id="edit-obs-${item.rowNum}" class="input-field-compact" style="flex:1;" value="${item.observacao || ''}" placeholder="Observações de controle manual...">
+                    </div>
+                    <div style="display:flex; align-items:center; gap:5px;">
+                      <button type="button" class="row-btn row-btn-warning" style="padding:2px 8px; font-size:0.72rem; height:24px;" onclick="setRowAsPendingAnalysis(${item.rowNum})">P/ Análise</button>
+                      <button type="button" class="row-btn row-btn-secondary" style="padding:2px 8px; font-size:0.72rem; height:24px;" onclick="setRowAsBaseCalculo(${item.rowNum})">Base Cálculo</button>
+                      <button type="button" class="row-btn row-btn-secondary" style="padding:2px 10px; font-size:0.72rem; height:24px;" onclick="cancelRowEdition()">Cancelar</button>
+                      <button type="button" class="row-btn row-btn-primary" style="padding:2px 12px; font-size:0.72rem; height:24px;" onclick="saveRowEdition(${item.rowNum})">Salvar</button>
                     </div>
                   </div>
                   
-                  <div class="detail-grid" style="grid-template-columns: 2fr 1fr;">
-                    <div class="detail-field-group">
-                      <span class="detail-label">Observações</span>
-                      <input type="text" id="edit-obs-${item.rowNum}" class="input-field" value="${item.observacao}">
-                    </div>
-                    <div style="display:flex; align-items:center; gap: 8px; justify-content: flex-end; padding-top: 14px;">
-                      <button class="row-btn row-btn-warning" onclick="setRowAsPendingAnalysis(${item.rowNum})">P/ Análise</button>
-                      <button class="row-btn row-btn-secondary" onclick="setRowAsBaseCalculo(${item.rowNum})">Base Cálculo</button>
-                    </div>
-                  </div>
-                  
-                  <div class="detail-actions">
-                    <div style="display: ${hasDuplicates ? 'flex' : 'none'}; align-items: center; gap: 8px;">
-                      <input type="checkbox" id="edit-chkBulk-${item.rowNum}" style="width: 16px; height: 16px; cursor: pointer;">
-                      <label for="edit-chkBulk-${item.rowNum}" style="font-size: 0.8rem; color: #6d28d9; font-weight: 600;">${bulkFillText}</label>
-                    </div>
-                    <div style="display: flex; gap: 8px; margin-left: auto;">
-                      <button class="row-btn row-btn-secondary" onclick="cancelRowEdition()">Cancelar</button>
-                      <button class="row-btn row-btn-primary" onclick="saveRowEdition(${item.rowNum})">Salvar Linha</button>
-                    </div>
-                  </div>
+                  ${hasDuplicates ? `
+                  <div style="margin-top:4px; display:flex; align-items:center; gap:6px; font-size:0.73rem; color:#6d28d9; font-weight:600;">
+                    <input type="checkbox" id="edit-chkBulk-${item.rowNum}" style="width:14px; height:14px; cursor:pointer;">
+                    <label for="edit-chkBulk-${item.rowNum}" style="cursor:pointer;">${bulkFillText}</label>
+                  </div>` : ''}
                 </div>
               </td>
             `;
           } else {
             contentHtml = `
               <td colspan="7">
-                <div class="detail-subrow-content">
-                  <div class="detail-grid">
-                    <div class="detail-field-group">
-                      <span class="detail-label">Ficha Mês 1</span>
-                      <div class="detail-value">${item.codigoParaFichaMes1 ? `${item.codigoParaFichaMes1}${getRmName(item.codigoParaFichaMes1) ? ' - ' + getRmName(item.codigoParaFichaMes1) : ''}` : '-'}</div>
+                <div class="detail-subrow-compact">
+                  <!-- Linha 1: Fichas e Férias lado a lado -->
+                  <div class="detail-row-line">
+                    <div class="detail-inline-item">
+                      <span class="detail-compact-label">Ficha Mês 1:</span>
+                      <span class="detail-compact-val">${item.codigoParaFichaMes1 ? `${item.codigoParaFichaMes1}${getRmName(item.codigoParaFichaMes1) ? ' - ' + getRmName(item.codigoParaFichaMes1) : ''}` : '-'}</span>
                     </div>
-                    <div class="detail-field-group">
-                      <span class="detail-label">Ficha Mês 2</span>
-                      <div class="detail-value">${item.codigoParaFichaMes2 ? `${item.codigoParaFichaMes2}${getRmName(item.codigoParaFichaMes2) ? ' - ' + getRmName(item.codigoParaFichaMes2) : ''}` : '-'}</div>
+                    <div class="detail-inline-item">
+                      <span class="detail-compact-label">Ficha Mês 2:</span>
+                      <span class="detail-compact-val">${item.codigoParaFichaMes2 ? `${item.codigoParaFichaMes2}${getRmName(item.codigoParaFichaMes2) ? ' - ' + getRmName(item.codigoParaFichaMes2) : ''}` : '-'}</span>
                     </div>
-                    <div class="detail-field-group">
-                      <span class="detail-label">Verbas Férias</span>
-                      <div class="detail-value">${item.codigoParaVerbasFerias ? `${item.codigoParaVerbasFerias}${getRmName(item.codigoParaVerbasFerias) ? ' - ' + getRmName(item.codigoParaVerbasFerias) : ''}` : '-'}</div>
+                    <div class="detail-inline-item">
+                      <span class="detail-compact-label">Verbas Férias:</span>
+                      <span class="detail-compact-val">${item.codigoParaVerbasFerias ? `${item.codigoParaVerbasFerias}${getRmName(item.codigoParaVerbasFerias) ? ' - ' + getRmName(item.codigoParaVerbasFerias) : ''}` : '-'}</span>
                     </div>
-                    <div class="detail-field-group">
-                      <span class="detail-label">Observações</span>
-                      <div class="detail-value" style="white-space: normal;">${item.observacao || '-'}</div>
+                  </div>
+                  <!-- Linha 2: Observações -->
+                  <div class="detail-row-line" style="margin-top:4px;">
+                    <div class="detail-inline-item" style="width:100%;">
+                      <span class="detail-compact-label">Observações:</span>
+                      <span class="detail-compact-val" style="color:#475569; font-style:${item.observacao ? 'normal' : 'italic'};">${item.observacao || 'Nenhuma observação'}</span>
                     </div>
                   </div>
                 </div>
