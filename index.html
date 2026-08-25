@@ -632,12 +632,14 @@
 
     /* Cabeçalho Agrupador da Tabela e Filtros de Coluna Fixos e Opacos */
     thead {
-      position: sticky !important;
-      top: 0 !important;
-      z-index: 40 !important;
-      background-color: #f8fafc !important;
+      position: sticky;
+      top: 0;
+      z-index: 40;
     }
     .group-header-row th {
+      position: sticky;
+      top: 0;
+      z-index: 40;
       padding: 5px 8px !important;
       font-size: 0.72rem !important;
       font-weight: 800 !important;
@@ -651,7 +653,6 @@
       color: #ffffff !important;
       text-align: center !important;
       border-right: 2px solid #ffffff !important;
-      width: calc(50% - 22px) !important;
     }
     .group-th-arrow {
       background: #f8fafc !important;
@@ -663,13 +664,9 @@
       background: #ffc000 !important;
       color: #3b2000 !important;
       text-align: center !important;
-      width: calc(50% - 22px) !important;
     }
     .group-th-empty {
       background: #f8fafc !important;
-      width: 44px !important;
-      min-width: 44px !important;
-      max-width: 44px !important;
       padding: 0 !important;
     }
     
@@ -794,7 +791,11 @@
     }
 
     /* Linha 2 de Cabeçalho de Colunas Fixa */
+    thead tr:nth-child(2) th,
     thead tr:not(.group-header-row):not(.column-filters-row) th {
+      position: sticky;
+      top: 25px;
+      z-index: 35;
       background-color: #f8fafc !important;
       padding: 6px 8px !important;
       border-bottom: 1px solid var(--border-color) !important;
@@ -802,9 +803,12 @@
 
     /* Linha 3 de Filtros por Coluna Fixa */
     .column-filters-row th {
+      position: sticky;
+      top: 57px;
+      z-index: 30;
       padding: 3px 4px !important;
       background: #f1f5f9 !important;
-      border-bottom: 2px solid #cbd5e1 !important;
+      border-bottom: 2px solid #94a3b8 !important;
     }
     .col-filter-input {
       width: 100%;
@@ -981,7 +985,8 @@
 
     table {
       width: 100%;
-      border-collapse: collapse;
+      border-collapse: separate;
+      border-spacing: 0;
       text-align: left;
       table-layout: fixed;
     }
@@ -995,9 +1000,6 @@
       letter-spacing: 0.5px;
       color: var(--color-text-muted);
       border-bottom: 2px solid var(--border-color);
-      position: sticky;
-      top: 0;
-      z-index: 5;
       user-select: none;
     }
 
@@ -1025,24 +1027,24 @@
     }
 
     /* Fixed Column Widths & Wrap Rules */
-    .col-empresa-orig { width: 50px; min-width: 50px; max-width: 50px; text-align: center; }
-    .col-codigo-orig  { width: 52px; min-width: 52px; max-width: 52px; text-align: center; }
-    .col-nome-orig    { width: 50%; }
+    .col-empresa-orig { width: 48px; min-width: 48px; max-width: 48px; text-align: center; }
+    .col-codigo-orig  { width: 50px; min-width: 50px; max-width: 50px; text-align: center; }
+    .col-nome-orig    { width: auto; }
     
-    .col-coligada-rm  { width: 50px; min-width: 50px; max-width: 50px; text-align: center; }
-    .col-codigo-rm    { width: 58px; min-width: 58px; max-width: 58px; text-align: center; }
-    .col-nome-rm      { width: 50%; }
-    .col-acoes        { width: 44px; min-width: 44px; max-width: 44px; text-align: right; }
-    .action-icons     { display: flex; justify-content: flex-end; gap: 2px; }
+    .col-coligada-rm  { width: 48px; min-width: 48px; max-width: 48px; text-align: center; }
+    .col-codigo-rm    { width: 54px; min-width: 54px; max-width: 54px; text-align: center; }
+    .col-nome-rm      { width: auto; }
+    .col-acoes        { width: 60px; min-width: 60px; max-width: 60px; text-align: right; }
+    .action-icons     { display: flex; justify-content: flex-end; gap: 3px; }
     
     /* Configurações específicas de colunas para ZDEPARA_FUNCOES */
-    .col-funcao-emp   { width: 50px; min-width: 50px; max-width: 50px; text-align: center; }
-    .col-funcao-cod   { width: 52px; min-width: 52px; max-width: 52px; text-align: center; }
-    .col-funcao-nome  { width: 50%; }
-    .col-funcao-cbo   { width: 68px; min-width: 68px; max-width: 68px; text-align: center; }
-    .col-funcao-coligada { width: 50px; min-width: 50px; max-width: 50px; text-align: center; }
-    .col-funcao-codpara { width: 90px; }
-    .col-funcao-acoes { width: 44px; min-width: 44px; max-width: 44px; text-align: right; }
+    .col-funcao-emp   { width: 48px; min-width: 48px; max-width: 48px; text-align: center; }
+    .col-funcao-cod   { width: 50px; min-width: 50px; max-width: 50px; text-align: center; }
+    .col-funcao-nome  { width: auto; }
+    .col-funcao-cbo   { width: 65px; min-width: 65px; max-width: 65px; text-align: center; }
+    .col-funcao-coligada { width: 48px; min-width: 48px; max-width: 48px; text-align: center; }
+    .col-funcao-codpara { width: 85px; min-width: 85px; max-width: 85px; }
+    .col-funcao-acoes { width: 60px; min-width: 60px; max-width: 60px; text-align: right; }
 
     /* Quebra de linha suave para que descrições nunca fiquem truncadas com ... */
     td {
@@ -2780,6 +2782,15 @@
         database = rawJsonDatabase.ZDEPARA_EVENTOS || [];
         
         headerHtml = `
+          <colgroup>
+            <col style="width: 48px;">
+            <col style="width: 50px;">
+            <col style="width: calc(50% - 128px);">
+            <col style="width: 48px;">
+            <col style="width: 54px;">
+            <col style="width: calc(50% - 128px);">
+            <col style="width: 60px;">
+          </colgroup>
           <tr class="group-header-row">
             <th colspan="3" class="group-th-legado">SISTEMA LEGADO</th>
             <th colspan="3" class="group-th-rm">TOTVS RM</th>
@@ -2799,9 +2810,9 @@
             <th><input type="text" class="col-filter-input" id="cf_codigoDe" placeholder="..." oninput="debounceApplyFilters()"></th>
             <th class="col-divider-right">
               <div style="display:flex; align-items:center; gap:4px; width:100%;">
-                <input type="text" class="col-filter-input" id="cf_nomeDe" placeholder="Filtrar descrição legado..." oninput="debounceApplyFilters()" style="flex:1; min-width:0;">
+                <input type="text" class="col-filter-input" id="cf_nomeDe" placeholder="Filtrar descrição..." oninput="debounceApplyFilters()" style="flex:1; min-width:0;">
                 <select class="col-filter-select" id="sel_legacyType" onchange="onColumnTypeSelectChange('legacy', this.value)" title="Filtrar por Tipo no Legado">
-                  <option value="ALL" ${filterLegacyType === 'ALL' ? 'selected' : ''}>Tipo: Todos</option>
+                  <option value="ALL" ${filterLegacyType === 'ALL' ? 'selected' : ''}>Todos</option>
                   <option value="P" ${filterLegacyType === 'P' ? 'selected' : ''}>Provento</option>
                   <option value="D" ${filterLegacyType === 'D' ? 'selected' : ''}>Desconto</option>
                   <option value="B" ${filterLegacyType === 'B' ? 'selected' : ''}>Base</option>
@@ -2814,7 +2825,7 @@
               <div style="display:flex; align-items:center; gap:4px; width:100%;">
                 <input type="text" class="col-filter-input" id="cf_nomeRm" placeholder="Filtrar descrição RM..." oninput="debounceApplyFilters()" style="flex:1; min-width:0;">
                 <select class="col-filter-select" id="sel_rmType" onchange="onColumnTypeSelectChange('rm', this.value)" title="Filtrar por Tipo no RM">
-                  <option value="ALL" ${filterRmType === 'ALL' ? 'selected' : ''}>Tipo: Todos</option>
+                  <option value="ALL" ${filterRmType === 'ALL' ? 'selected' : ''}>Todos</option>
                   <option value="P" ${filterRmType === 'P' ? 'selected' : ''}>Provento</option>
                   <option value="D" ${filterRmType === 'D' ? 'selected' : ''}>Desconto</option>
                   <option value="B" ${filterRmType === 'B' ? 'selected' : ''}>Base</option>
@@ -2833,19 +2844,28 @@
         database = rawJsonDatabase.ZDEPARA_COLIGADAS || [];
         
         headerHtml = `
+          <colgroup>
+            <col style="width: 48px;">
+            <col style="width: 48px;">
+            <col style="width: auto;">
+            <col style="width: 130px;">
+            <col style="width: 55px;">
+            <col style="width: 55px;">
+            <col style="width: 60px;">
+          </colgroup>
           <tr class="group-header-row">
             <th colspan="4" class="group-th-legado">SISTEMA LEGADO</th>
             <th colspan="2" class="group-th-rm">TOTVS RM</th>
             <th class="group-th-empty"></th>
           </tr>
           <tr>
-            <th class="sortable th-legado" style="width: 50px;" onclick="toggleSort('EMPRESA_DE')">Empresa<span class="sort-indicator" id="sort-EMPRESA_DE"></span></th>
-            <th class="sortable th-legado" style="width: 50px;" onclick="toggleSort('ID')">ID<span class="sort-indicator" id="sort-ID"></span></th>
-            <th class="sortable th-legado" style="width: 40%;" onclick="toggleSort('NOME_DE')">Nome Origem<span class="sort-indicator" id="sort-NOME_DE"></span></th>
+            <th class="sortable th-legado" style="width: 48px;" onclick="toggleSort('EMPRESA_DE')">Empresa<span class="sort-indicator" id="sort-EMPRESA_DE"></span></th>
+            <th class="sortable th-legado" style="width: 48px;" onclick="toggleSort('ID')">ID<span class="sort-indicator" id="sort-ID"></span></th>
+            <th class="sortable th-legado" onclick="toggleSort('NOME_DE')">Nome Origem<span class="sort-indicator" id="sort-NOME_DE"></span></th>
             <th class="sortable th-legado col-divider-right" style="width: 130px;" onclick="toggleSort('CNPJ')">CNPJ / CPF<span class="sort-indicator" id="sort-CNPJ"></span></th>
-            <th class="sortable th-rm" style="width: 60px;" onclick="toggleSort('CODCOLIGADA')">Colig. RM<span class="sort-indicator" id="sort-CODCOLIGADA"></span></th>
-            <th class="sortable th-rm" style="width: 60px;" onclick="toggleSort('CODFILIAL_PARA')">Filial RM<span class="sort-indicator" id="sort-CODFILIAL_PARA"></span></th>
-            <th class="col-acoes" style="width: 44px;">Ações</th>
+            <th class="sortable th-rm" style="width: 55px;" onclick="toggleSort('CODCOLIGADA')">Colig. RM<span class="sort-indicator" id="sort-CODCOLIGADA"></span></th>
+            <th class="sortable th-rm" style="width: 55px;" onclick="toggleSort('CODFILIAL_PARA')">Filial RM<span class="sort-indicator" id="sort-CODFILIAL_PARA"></span></th>
+            <th class="col-acoes" style="width: 60px;">Ações</th>
           </tr>
           <tr class="column-filters-row" id="columnFiltersRow" style="${columnFiltersVisible ? '' : 'display: none;'}">
             <th><input type="text" class="col-filter-input" id="cf_empresaDe" placeholder="..." oninput="debounceApplyFilters()"></th>
@@ -2866,6 +2886,15 @@
         database = rawJsonDatabase.ZDEPARA_FUNCOES || [];
         
         headerHtml = `
+          <colgroup>
+            <col style="width: 48px;">
+            <col style="width: 50px;">
+            <col style="width: auto;">
+            <col style="width: 65px;">
+            <col style="width: 48px;">
+            <col style="width: 85px;">
+            <col style="width: 60px;">
+          </colgroup>
           <tr class="group-header-row">
             <th colspan="4" class="group-th-legado">SISTEMA LEGADO</th>
             <th colspan="2" class="group-th-rm">TOTVS RM</th>
@@ -2899,19 +2928,28 @@
         database = rawJsonDatabase.ZDEPARA_SINDICATOS || [];
         
         headerHtml = `
+          <colgroup>
+            <col style="width: 48px;">
+            <col style="width: 50px;">
+            <col style="width: auto;">
+            <col style="width: 130px;">
+            <col style="width: 48px;">
+            <col style="width: 75px;">
+            <col style="width: 60px;">
+          </colgroup>
           <tr class="group-header-row">
             <th colspan="4" class="group-th-legado">SISTEMA LEGADO</th>
             <th colspan="2" class="group-th-rm">TOTVS RM</th>
             <th class="group-th-empty"></th>
           </tr>
           <tr>
-            <th class="sortable th-legado" style="width: 50px;" onclick="toggleSort('EMPRESA_DE')">Emp. Origem<span class="sort-indicator" id="sort-EMPRESA_DE"></span></th>
-            <th class="sortable th-legado" style="width: 55px;" onclick="toggleSort('CODIGO_DE')">Cód. Origem<span class="sort-indicator" id="sort-CODIGO_DE"></span></th>
-            <th class="sortable th-legado" style="width: 45%;" onclick="toggleSort('NOME_DE')">Nome Sindicato<span class="sort-indicator" id="sort-NOME_DE"></span></th>
+            <th class="sortable th-legado" style="width: 48px;" onclick="toggleSort('EMPRESA_DE')">Emp. Origem<span class="sort-indicator" id="sort-EMPRESA_DE"></span></th>
+            <th class="sortable th-legado" style="width: 50px;" onclick="toggleSort('CODIGO_DE')">Cód. Origem<span class="sort-indicator" id="sort-CODIGO_DE"></span></th>
+            <th class="sortable th-legado" onclick="toggleSort('NOME_DE')">Nome Sindicato<span class="sort-indicator" id="sort-NOME_DE"></span></th>
             <th class="sortable th-legado col-divider-right" style="width: 130px;" onclick="toggleSort('CNPJ')">CNPJ<span class="sort-indicator" id="sort-CNPJ"></span></th>
-            <th class="sortable th-rm" style="width: 55px;" onclick="toggleSort('COLIGADA_PARA')">Colig. RM<span class="sort-indicator" id="sort-COLIGADA_PARA"></span></th>
-            <th class="sortable th-rm" style="width: 80px;" onclick="toggleSort('CODIGO_PARA')">Sindicato RM<span class="sort-indicator" id="sort-CODIGO_PARA"></span></th>
-            <th class="col-acoes" style="width: 44px;">Ações</th>
+            <th class="sortable th-rm" style="width: 48px;" onclick="toggleSort('COLIGADA_PARA')">Colig. RM<span class="sort-indicator" id="sort-COLIGADA_PARA"></span></th>
+            <th class="sortable th-rm" style="width: 75px;" onclick="toggleSort('CODIGO_PARA')">Sindicato RM<span class="sort-indicator" id="sort-CODIGO_PARA"></span></th>
+            <th class="col-acoes" style="width: 60px;">Ações</th>
           </tr>
           <tr class="column-filters-row" id="columnFiltersRow" style="${columnFiltersVisible ? '' : 'display: none;'}">
             <th><input type="text" class="col-filter-input" id="cf_empresaDe" placeholder="..." oninput="debounceApplyFilters()"></th>
@@ -2932,15 +2970,20 @@
         database = rawJsonDatabase.ZDEPARA_SECOES || [];
         
         headerHtml = `
+          <colgroup>
+            <col style="width: 50%;">
+            <col style="width: calc(50% - 60px);">
+            <col style="width: 60px;">
+          </colgroup>
           <tr class="group-header-row">
-            <th class="group-th-legado" style="width: 48%;">SISTEMA LEGADO</th>
-            <th class="group-th-rm" style="width: 44%;">TOTVS RM</th>
-            <th class="group-th-empty" style="width: 8%;"></th>
+            <th class="group-th-legado" style="width: 50%;">SISTEMA LEGADO</th>
+            <th class="group-th-rm" style="width: calc(50% - 60px);">TOTVS RM</th>
+            <th class="group-th-empty" style="width: 60px;"></th>
           </tr>
           <tr>
             <th class="sortable th-legado col-divider-right" onclick="toggleSort('CODIGO_DE')">Seção Origem (Legado)<span class="sort-indicator" id="sort-CODIGO_DE"></span></th>
             <th class="sortable th-rm" onclick="toggleSort('CODIGO_PARA')">Seção Destino (RM)<span class="sort-indicator" id="sort-CODIGO_PARA"></span></th>
-            <th class="col-acoes" style="width: 44px;">Ações</th>
+            <th class="col-acoes" style="width: 60px;">Ações</th>
           </tr>
           <tr class="column-filters-row" id="columnFiltersRow" style="${columnFiltersVisible ? '' : 'display: none;'}">
             <th class="col-divider-right"><input type="text" class="col-filter-input" id="cf_codigoDe" placeholder="Filtrar seção legado..." oninput="debounceApplyFilters()"></th>
@@ -2957,19 +3000,28 @@
         database = rawJsonDatabase.ZDEPARA_SITUACAO || [];
         
         headerHtml = `
+          <colgroup>
+            <col style="width: 50px;">
+            <col style="width: auto;">
+            <col style="width: 16%;">
+            <col style="width: 20%;">
+            <col style="width: 14%;">
+            <col style="width: 14%;">
+            <col style="width: 60px;">
+          </colgroup>
           <tr class="group-header-row">
             <th colspan="2" class="group-th-legado">SISTEMA LEGADO</th>
             <th colspan="4" class="group-th-rm">TOTVS RM</th>
             <th class="group-th-empty"></th>
           </tr>
           <tr>
-            <th class="sortable th-legado" style="width: 55px;" onclick="toggleSort('CODIGO_DE')">Cód. Origem<span class="sort-indicator" id="sort-CODIGO_DE"></span></th>
-            <th class="sortable th-legado col-divider-right" style="width: 32%;" onclick="toggleSort('NOME_DE')">Situação Origem<span class="sort-indicator" id="sort-NOME_DE"></span></th>
+            <th class="sortable th-legado" style="width: 50px;" onclick="toggleSort('CODIGO_DE')">Cód. Origem<span class="sort-indicator" id="sort-CODIGO_DE"></span></th>
+            <th class="sortable th-legado col-divider-right" onclick="toggleSort('NOME_DE')">Situação Origem<span class="sort-indicator" id="sort-NOME_DE"></span></th>
             <th class="sortable th-rm" style="width: 16%;" onclick="toggleSort('CODSITUACAO_PARA')">Situação RM<span class="sort-indicator" id="sort-CODSITUACAO_PARA"></span></th>
             <th class="sortable th-rm" style="width: 20%;" onclick="toggleSort('CODMOTIVO_PARA')">Motivo RM<span class="sort-indicator" id="sort-CODMOTIVO_PARA"></span></th>
             <th class="sortable th-rm" style="width: 14%;" onclick="toggleSort('CODSITUACAO_RETORNO_PARA')">Sit. Retorno RM<span class="sort-indicator" id="sort-CODSITUACAO_RETORNO_PARA"></span></th>
             <th class="sortable th-rm" style="width: 14%;" onclick="toggleSort('CODMOTIVO_RETORNO_PARA')">Motivo Retorno RM<span class="sort-indicator" id="sort-CODMOTIVO_RETORNO_PARA"></span></th>
-            <th class="col-acoes" style="width: 44px;">Ações</th>
+            <th class="col-acoes" style="width: 60px;">Ações</th>
           </tr>
           <tr class="column-filters-row" id="columnFiltersRow" style="${columnFiltersVisible ? '' : 'display: none;'}">
             <th><input type="text" class="col-filter-input" id="cf_codigoDe" placeholder="..." oninput="debounceApplyFilters()"></th>
