@@ -857,9 +857,9 @@
 
     th {
       background-color: #f8fafc;
-      padding: 12px 16px;
+      padding: 8px 10px;
       font-weight: 600;
-      font-size: 0.78rem;
+      font-size: 0.72rem;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       color: var(--color-text-muted);
@@ -885,38 +885,39 @@
     }
 
     td {
-      padding: 10px 14px;
-      font-size: 0.84rem;
+      padding: 5px 10px;
+      font-size: 0.78rem;
+      font-weight: 400;
       border-bottom: 1px solid var(--border-color);
       color: var(--color-text-dark);
       background-color: transparent !important;
     }
 
     /* Fixed Column Widths & Wrap Rules */
-    .col-empresa-orig { width: 85px; }
-    .col-codigo-orig  { width: 80px; }
+    .col-empresa-orig { width: 80px; }
+    .col-codigo-orig  { width: 75px; }
     .col-nome-orig    { width: 40%; }
     
-    .col-coligada-rm  { width: 80px; }
-    .col-codigo-rm    { width: 95px; }
+    .col-coligada-rm  { width: 75px; }
+    .col-codigo-rm    { width: 90px; }
     .col-nome-rm      { width: 44%; }
-    .col-acoes        { width: 70px; text-align: right; }
+    .col-acoes        { width: 65px; text-align: right; }
     .action-icons     { display: flex; justify-content: flex-end; gap: 4px; }
     
     /* Configurações específicas de colunas para ZDEPARA_FUNCOES */
     .col-funcao-emp   { width: 75px; }
-    .col-funcao-cod   { width: 85px; }
+    .col-funcao-cod   { width: 80px; }
     .col-funcao-nome  { width: 45%; }
-    .col-funcao-cbo   { width: 105px; }
-    .col-funcao-coligada { width: 85px; }
-    .col-funcao-codpara { width: 140px; }
-    .col-funcao-acoes { width: 70px; text-align: right; }
+    .col-funcao-cbo   { width: 100px; }
+    .col-funcao-coligada { width: 80px; }
+    .col-funcao-codpara { width: 135px; }
+    .col-funcao-acoes { width: 65px; text-align: right; }
 
     /* Quebra de linha suave para que descrições nunca fiquem truncadas com ... */
     td {
       white-space: normal;
       word-break: normal;
-      line-height: 1.4;
+      line-height: 1.25;
     }
     td.col-nome-orig,
     td.col-nome-rm,
@@ -925,7 +926,7 @@
     .wrap-text {
       white-space: normal !important;
       word-break: normal !important;
-      line-height: 1.4 !important;
+      line-height: 1.25 !important;
     }
     .col-empresa-orig, .col-codigo-orig, .col-codigo-rm, .col-coligada-rm, .col-acoes, .col-funcao-emp, .col-funcao-cod, .col-funcao-coligada, code {
       white-space: nowrap !important;
@@ -5586,8 +5587,8 @@
         }
 
         const legacyCellContent = `
-          <div style="display:flex; flex-direction:column; gap:3px;">
-            <span style="font-weight:600; color:var(--color-text-main); line-height:1.35;">${item.nomeDe}</span>
+          <div style="display:flex; flex-direction:column; gap:2px;">
+            <span style="font-weight:400; color:var(--color-text-main); line-height:1.25;">${item.nomeDe}</span>
             <span class="badge-type-subtle ${legacyTypeClass}">${tipoLabelLegado}</span>
           </div>
         `;
@@ -5658,8 +5659,8 @@
           }
 
           rmCellContent = `
-            <div style="display:flex; flex-direction:column; gap:3px;">
-              <span style="font-weight:600; color:var(--color-text-main); line-height:1.35;">${getRmName(item.codigoPara) || item.nomeRm || ''}</span>
+            <div style="display:flex; flex-direction:column; gap:2px;">
+              <span style="font-weight:400; color:var(--color-text-main); line-height:1.25;">${getRmName(item.codigoPara) || item.nomeRm || ''}</span>
               <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
                 <span class="badge-type-subtle ${rmTypeClass}">${rmTypeFormatted}</span>
                 ${mismatchSpan}
@@ -6136,12 +6137,12 @@
             const obsText = item.OBSERVACAO || item.observacao || "";
             if (isEditing) {
               detailHtml = `
-                <div style="font-family: 'Outfit', sans-serif; font-size: 0.85rem; display: flex; flex-direction: column; gap: 8px; width: 100%; padding: 12px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px;">
+                <div style="font-size: 0.85rem; display: flex; flex-direction: column; gap: 8px; width: 100%; padding: 12px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px;">
                   <label style="font-weight: 600; color: var(--color-primary); display: flex; align-items: center; gap: 6px; margin: 0;">
                     <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
                     Anotar Observação sobre a Função:
                   </label>
-                  <textarea id="edit-OBSERVACAO-${item.rowNum}" class="input-field" style="padding: 10px; font-family: 'Outfit', sans-serif; font-size: 0.85rem; height: 75px; resize: vertical; border: 1px solid #e2e8f0; border-radius: 6px; outline: none; background: #fff;" placeholder="Insira anotações ou necessidades específicas do de-para desta função...">${obsText}</textarea>
+                  <textarea id="edit-OBSERVACAO-${item.rowNum}" class="input-field" style="padding: 10px; font-size: 0.85rem; height: 75px; resize: vertical; border: 1px solid #e2e8f0; border-radius: 6px; outline: none; background: #fff;" placeholder="Insira anotações ou necessidades específicas do de-para desta função...">${obsText}</textarea>
                   <div style="display:flex; align-items:center; gap: 8px; justify-content: flex-end; padding-top: 8px;">
                     <button class="row-btn row-btn-warning" onclick="setFuncaoRowAsPendingAnalysis(${item.rowNum})">P/ Análise</button>
                     <button class="row-btn row-btn-secondary" onclick="setFuncaoRowAsBaseCalculo(${item.rowNum})">Não Importar</button>
