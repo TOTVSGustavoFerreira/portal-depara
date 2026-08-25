@@ -639,17 +639,18 @@
     }
     .group-header-row th {
       padding: 5px 8px !important;
-      font-size: 0.70rem !important;
+      font-size: 0.72rem !important;
       font-weight: 800 !important;
       letter-spacing: 0.6px !important;
       text-transform: uppercase !important;
       border-bottom: 1px solid #cbd5e1 !important;
-      background-color: #f8fafc !important;
+      text-align: center !important;
     }
     .group-th-legado {
-      background: #eff6ff !important;
-      color: #1d4ed8 !important;
-      text-align: left;
+      background: #5b95f9 !important;
+      color: #ffffff !important;
+      text-align: center !important;
+      border-right: 2px solid #ffffff !important;
     }
     .group-th-arrow {
       background: #f8fafc !important;
@@ -658,13 +659,31 @@
       width: 28px;
     }
     .group-th-rm {
-      background: #f0fdf4 !important;
-      color: #15803d !important;
-      text-align: left;
+      background: #ffc000 !important;
+      color: #3b2000 !important;
+      text-align: center !important;
     }
     .group-th-empty {
       background: #f8fafc !important;
     }
+    
+    /* Cabeçalhos de Colunas com Destaque de Cores por Sistema */
+    .th-legado {
+      background: #edf4fe !important;
+      color: #1e3a8a !important;
+      font-weight: 700 !important;
+      border-bottom: 2px solid #5b95f9 !important;
+    }
+    .th-rm {
+      background: #fffdf0 !important;
+      color: #78350f !important;
+      font-weight: 700 !important;
+      border-bottom: 2px solid #ffc000 !important;
+    }
+    .col-divider-right {
+      border-right: 2px solid #cbd5e1 !important;
+    }
+
     .table-toolbar-bar {
       display: flex;
       align-items: center;
@@ -693,6 +712,79 @@
       background: #eff6ff;
       color: #0284c7;
       border-color: #0284c7;
+    }
+
+    /* Barra de Busca Expansível na Toolbar */
+    .toolbar-search-wrapper {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      height: 28px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      width: 28px;
+      overflow: hidden;
+    }
+    .toolbar-search-wrapper.expanded,
+    .toolbar-search-wrapper:focus-within {
+      width: 260px;
+      background: #ffffff;
+      border-color: #0284c7;
+      box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.15);
+    }
+    .btn-search-trigger {
+      width: 28px;
+      height: 28px;
+      min-width: 28px;
+      border: none;
+      background: transparent;
+      color: #64748b;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      transition: var(--transition);
+    }
+    .toolbar-search-wrapper:hover .btn-search-trigger {
+      color: #0f172a;
+    }
+    .toolbar-search-input {
+      flex: 1;
+      min-width: 0;
+      border: none;
+      background: transparent;
+      outline: none;
+      font-size: 0.76rem;
+      font-family: inherit;
+      color: #334155;
+      padding: 0 6px 0 2px;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .toolbar-search-wrapper.expanded .toolbar-search-input,
+    .toolbar-search-wrapper:focus-within .toolbar-search-input {
+      opacity: 1;
+    }
+    .btn-search-clear {
+      width: 20px;
+      height: 20px;
+      border: none;
+      background: transparent;
+      color: #94a3b8;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      margin-right: 4px;
+      border-radius: 50%;
+    }
+    .btn-search-clear:hover {
+      color: #ef4444;
+      background: #fef2f2;
     }
 
     /* Linha 2 de Cabeçalho de Colunas Fixa */
@@ -1817,29 +1909,9 @@
             </div>
           </section>
 
-          <!-- BARRA DE BUSCA AMPLA E RETRÁTIL -->
-          <section class="search-bar-wrapper" id="searchBarWrapper">
-            <div class="search-input-box" id="searchBoxContainer">
-              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="color: var(--color-text-muted); flex-shrink: 0;"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-              <input type="text" id="f_search" placeholder="Buscar por código, nome ou descrição do evento..." oninput="debounceApplyFilters()">
-              <button class="search-toggle-btn" id="searchToggleBtn" onclick="toggleSearchBar()" title="Ocultar barra de busca">
-                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>
-              </button>
-            </div>
-            <button class="row-btn" style="padding: 8px 16px; font-size: 0.82rem; background: #f8fafc; color: #475569; border-color: #cbd5e1; display: inline-flex; align-items: center; gap: 6px;" onclick="clearAllFilters()">
-              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
-              Limpar
-            </button>
-          </section>
-          
-          <button id="searchCollapsedBtn" class="search-collapsed-trigger" style="display: none;" onclick="toggleSearchBar()" title="Expandir barra de busca">
-            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-            <span>Buscar...</span>
-          </button>
-
           <!-- MASTER TABLE CARD -->
           <section class="table-card" id="masterTableCard">
-            <div class="table-toolbar-bar" style="padding: 10px 16px 4px 16px;">
+            <div class="table-toolbar-bar" style="padding: 8px 14px 4px 14px;">
               <div style="display: flex; align-items: center; gap: 8px;">
                 <button id="btnToggleColumnFilters" class="btn-toggle-filters-subtle" onclick="toggleColumnFilters()" title="Exibir / Ocultar filtros por coluna">
                   <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
@@ -1847,8 +1919,23 @@
                 <button id="btnToggleFullscreen" class="btn-toggle-filters-subtle" onclick="toggleFullscreenTable()" title="Modo Tela Cheia (Expandir visualização da tabela)">
                   <svg id="fullscreenIcon" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg>
                 </button>
+                <button class="btn-toggle-filters-subtle" onclick="clearAllFilters()" title="Limpar todos os filtros e buscas">
+                  <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+                </button>
               </div>
-              <div style="font-size: 0.82rem; font-weight: 600; color: var(--color-text-muted);" id="tableCount">0 registros</div>
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <!-- Barra de Busca Expansível com Lupa -->
+                <div class="toolbar-search-wrapper" id="toolbarSearchWrapper">
+                  <button type="button" class="btn-search-trigger" onclick="toggleExpandSearch()" title="Buscar na tabela">
+                    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                  </button>
+                  <input type="text" id="f_search" class="toolbar-search-input" placeholder="Buscar qualquer informação..." oninput="debounceApplyFilters()" onblur="handleSearchBlur()">
+                  <button type="button" class="btn-search-clear" id="btnSearchClear" onclick="clearSearchInput()" title="Limpar busca" style="display: none;">
+                    <svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                  </button>
+                </div>
+                <div style="font-size: 0.82rem; font-weight: 600; color: var(--color-text-muted); white-space: nowrap;" id="tableCount">0 registros</div>
+              </div>
             </div>
 
             <div class="scrollable-table-wrapper" id="scrollableTableWrapper" onscroll="handleTableScroll()">
@@ -2685,18 +2772,18 @@
             <th class="group-th-empty"></th>
           </tr>
           <tr>
-            <th class="sortable col-empresa-orig" onclick="toggleSort('empresaDe')">Emp. Origem<span class="sort-indicator" id="sort-empresaDe"></span></th>
-            <th class="sortable col-codigo-orig" onclick="toggleSort('codigoDe')">Cód. Origem<span class="sort-indicator" id="sort-codigoDe"></span></th>
-            <th class="sortable col-nome-orig" onclick="toggleSort('nomeDe')">Nome & Tipo Origem<span class="sort-indicator" id="sort-nomeDe"></span></th>
-            <th class="sortable col-coligada-rm" onclick="toggleSort('coligadaPara')">Colig. RM<span class="sort-indicator" id="sort-coligadaPara"></span></th>
-            <th class="sortable col-codigo-rm" onclick="toggleSort('codigoPara')">Cód. RM<span class="sort-indicator" id="sort-codigoPara"></span></th>
-            <th class="sortable col-nome-rm" onclick="toggleSort('nomeRm')">Nome & Tipo RM<span class="sort-indicator" id="sort-nomeRm"></span></th>
+            <th class="sortable th-legado col-empresa-orig" onclick="toggleSort('empresaDe')">Emp. Origem<span class="sort-indicator" id="sort-empresaDe"></span></th>
+            <th class="sortable th-legado col-codigo-orig" onclick="toggleSort('codigoDe')">Cód. Origem<span class="sort-indicator" id="sort-codigoDe"></span></th>
+            <th class="sortable th-legado col-nome-orig col-divider-right" onclick="toggleSort('nomeDe')">Nome & Tipo Origem<span class="sort-indicator" id="sort-nomeDe"></span></th>
+            <th class="sortable th-rm col-coligada-rm" onclick="toggleSort('coligadaPara')">Colig. RM<span class="sort-indicator" id="sort-coligadaPara"></span></th>
+            <th class="sortable th-rm col-codigo-rm" onclick="toggleSort('codigoPara')">Cód. RM<span class="sort-indicator" id="sort-codigoPara"></span></th>
+            <th class="sortable th-rm col-nome-rm" onclick="toggleSort('nomeRm')">Nome & Tipo RM<span class="sort-indicator" id="sort-nomeRm"></span></th>
             <th class="col-acoes">Ações</th>
           </tr>
           <tr class="column-filters-row" id="columnFiltersRow" style="${columnFiltersVisible ? '' : 'display: none;'}">
             <th><input type="text" class="col-filter-input" id="cf_empresaDe" placeholder="..." oninput="debounceApplyFilters()"></th>
             <th><input type="text" class="col-filter-input" id="cf_codigoDe" placeholder="..." oninput="debounceApplyFilters()"></th>
-            <th>
+            <th class="col-divider-right">
               <div style="display:flex; align-items:center; gap:4px; width:100%;">
                 <input type="text" class="col-filter-input" id="cf_nomeDe" placeholder="Filtrar descrição legado..." oninput="debounceApplyFilters()" style="flex:1; min-width:0;">
                 <select class="col-filter-select" id="sel_legacyType" onchange="onColumnTypeSelectChange('legacy', this.value)" title="Filtrar por Tipo no Legado">
@@ -2738,19 +2825,19 @@
             <th class="group-th-empty"></th>
           </tr>
           <tr>
-            <th class="sortable" style="width: 50px;" onclick="toggleSort('EMPRESA_DE')">Empresa<span class="sort-indicator" id="sort-EMPRESA_DE"></span></th>
-            <th class="sortable" style="width: 50px;" onclick="toggleSort('ID')">ID<span class="sort-indicator" id="sort-ID"></span></th>
-            <th class="sortable" style="width: 40%;" onclick="toggleSort('NOME_DE')">Nome Origem<span class="sort-indicator" id="sort-NOME_DE"></span></th>
-            <th class="sortable" style="width: 130px;" onclick="toggleSort('CNPJ')">CNPJ / CPF<span class="sort-indicator" id="sort-CNPJ"></span></th>
-            <th class="sortable" style="width: 60px;" onclick="toggleSort('CODCOLIGADA')">Colig. RM<span class="sort-indicator" id="sort-CODCOLIGADA"></span></th>
-            <th class="sortable" style="width: 60px;" onclick="toggleSort('CODFILIAL_PARA')">Filial RM<span class="sort-indicator" id="sort-CODFILIAL_PARA"></span></th>
-            <th class="col-acoes" style="width: 48px;">Ações</th>
+            <th class="sortable th-legado" style="width: 50px;" onclick="toggleSort('EMPRESA_DE')">Empresa<span class="sort-indicator" id="sort-EMPRESA_DE"></span></th>
+            <th class="sortable th-legado" style="width: 50px;" onclick="toggleSort('ID')">ID<span class="sort-indicator" id="sort-ID"></span></th>
+            <th class="sortable th-legado" style="width: 40%;" onclick="toggleSort('NOME_DE')">Nome Origem<span class="sort-indicator" id="sort-NOME_DE"></span></th>
+            <th class="sortable th-legado col-divider-right" style="width: 130px;" onclick="toggleSort('CNPJ')">CNPJ / CPF<span class="sort-indicator" id="sort-CNPJ"></span></th>
+            <th class="sortable th-rm" style="width: 60px;" onclick="toggleSort('CODCOLIGADA')">Colig. RM<span class="sort-indicator" id="sort-CODCOLIGADA"></span></th>
+            <th class="sortable th-rm" style="width: 60px;" onclick="toggleSort('CODFILIAL_PARA')">Filial RM<span class="sort-indicator" id="sort-CODFILIAL_PARA"></span></th>
+            <th class="col-acoes" style="width: 44px;">Ações</th>
           </tr>
           <tr class="column-filters-row" id="columnFiltersRow" style="${columnFiltersVisible ? '' : 'display: none;'}">
             <th><input type="text" class="col-filter-input" id="cf_empresaDe" placeholder="..." oninput="debounceApplyFilters()"></th>
             <th><input type="text" class="col-filter-input" id="cf_id" placeholder="..." oninput="debounceApplyFilters()"></th>
             <th><input type="text" class="col-filter-input" id="cf_nomeDe" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
-            <th><input type="text" class="col-filter-input" id="cf_cnpj" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
+            <th class="col-divider-right"><input type="text" class="col-filter-input" id="cf_cnpj" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
             <th><input type="text" class="col-filter-input" id="cf_coligadaPara" placeholder="..." oninput="debounceApplyFilters()"></th>
             <th><input type="text" class="col-filter-input" id="cf_codFilial" placeholder="..." oninput="debounceApplyFilters()"></th>
             <th></th>
@@ -2771,19 +2858,19 @@
             <th class="group-th-empty"></th>
           </tr>
           <tr>
-            <th class="sortable col-funcao-emp" onclick="toggleSort('EMPRESA_DE')">Emp. Origem<span class="sort-indicator" id="sort-EMPRESA_DE"></span></th>
-            <th class="sortable col-funcao-cod" onclick="toggleSort('CODIGO_DE')">Cód. Origem<span class="sort-indicator" id="sort-CODIGO_DE"></span></th>
-            <th class="sortable col-funcao-nome" onclick="toggleSort('NOME_DE')">Nome Função Origem<span class="sort-indicator" id="sort-NOME_DE"></span></th>
-            <th class="sortable col-funcao-cbo" onclick="toggleSort('CBO')">CBO<span class="sort-indicator" id="sort-CBO"></span></th>
-            <th class="sortable col-funcao-coligada" onclick="toggleSort('COLIGADA_PARA')">Colig. RM<span class="sort-indicator" id="sort-COLIGADA_PARA"></span></th>
-            <th class="sortable col-funcao-codpara" onclick="toggleSort('CODIGO_PARA')">Função RM<span class="sort-indicator" id="sort-CODIGO_PARA"></span></th>
+            <th class="sortable th-legado col-funcao-emp" onclick="toggleSort('EMPRESA_DE')">Emp. Origem<span class="sort-indicator" id="sort-EMPRESA_DE"></span></th>
+            <th class="sortable th-legado col-funcao-cod" onclick="toggleSort('CODIGO_DE')">Cód. Origem<span class="sort-indicator" id="sort-CODIGO_DE"></span></th>
+            <th class="sortable th-legado col-funcao-nome" onclick="toggleSort('NOME_DE')">Nome Função Origem<span class="sort-indicator" id="sort-NOME_DE"></span></th>
+            <th class="sortable th-legado col-funcao-cbo col-divider-right" onclick="toggleSort('CBO')">CBO<span class="sort-indicator" id="sort-CBO"></span></th>
+            <th class="sortable th-rm col-funcao-coligada" onclick="toggleSort('COLIGADA_PARA')">Colig. RM<span class="sort-indicator" id="sort-COLIGADA_PARA"></span></th>
+            <th class="sortable th-rm col-funcao-codpara" onclick="toggleSort('CODIGO_PARA')">Função RM<span class="sort-indicator" id="sort-CODIGO_PARA"></span></th>
             <th class="col-funcao-acoes">Ações</th>
           </tr>
           <tr class="column-filters-row" id="columnFiltersRow" style="${columnFiltersVisible ? '' : 'display: none;'}">
             <th><input type="text" class="col-filter-input" id="cf_empresaDe" placeholder="..." oninput="debounceApplyFilters()"></th>
             <th><input type="text" class="col-filter-input" id="cf_codigoDe" placeholder="..." oninput="debounceApplyFilters()"></th>
             <th><input type="text" class="col-filter-input" id="cf_nomeDe" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
-            <th><input type="text" class="col-filter-input" id="cf_cbo" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
+            <th class="col-divider-right"><input type="text" class="col-filter-input" id="cf_cbo" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
             <th><input type="text" class="col-filter-input" id="cf_coligadaPara" placeholder="..." oninput="debounceApplyFilters()"></th>
             <th><input type="text" class="col-filter-input" id="cf_codigoPara" placeholder="..." oninput="debounceApplyFilters()"></th>
             <th></th>
@@ -2804,19 +2891,19 @@
             <th class="group-th-empty"></th>
           </tr>
           <tr>
-            <th class="sortable" style="width: 50px;" onclick="toggleSort('EMPRESA_DE')">Emp. Origem<span class="sort-indicator" id="sort-EMPRESA_DE"></span></th>
-            <th class="sortable" style="width: 55px;" onclick="toggleSort('CODIGO_DE')">Cód. Origem<span class="sort-indicator" id="sort-CODIGO_DE"></span></th>
-            <th class="sortable" style="width: 45%;" onclick="toggleSort('NOME_DE')">Nome Sindicato<span class="sort-indicator" id="sort-NOME_DE"></span></th>
-            <th class="sortable" style="width: 130px;" onclick="toggleSort('CNPJ')">CNPJ<span class="sort-indicator" id="sort-CNPJ"></span></th>
-            <th class="sortable" style="width: 55px;" onclick="toggleSort('COLIGADA_PARA')">Colig. RM<span class="sort-indicator" id="sort-COLIGADA_PARA"></span></th>
-            <th class="sortable" style="width: 80px;" onclick="toggleSort('CODIGO_PARA')">Sindicato RM<span class="sort-indicator" id="sort-CODIGO_PARA"></span></th>
-            <th class="col-acoes" style="width: 48px;">Ações</th>
+            <th class="sortable th-legado" style="width: 50px;" onclick="toggleSort('EMPRESA_DE')">Emp. Origem<span class="sort-indicator" id="sort-EMPRESA_DE"></span></th>
+            <th class="sortable th-legado" style="width: 55px;" onclick="toggleSort('CODIGO_DE')">Cód. Origem<span class="sort-indicator" id="sort-CODIGO_DE"></span></th>
+            <th class="sortable th-legado" style="width: 45%;" onclick="toggleSort('NOME_DE')">Nome Sindicato<span class="sort-indicator" id="sort-NOME_DE"></span></th>
+            <th class="sortable th-legado col-divider-right" style="width: 130px;" onclick="toggleSort('CNPJ')">CNPJ<span class="sort-indicator" id="sort-CNPJ"></span></th>
+            <th class="sortable th-rm" style="width: 55px;" onclick="toggleSort('COLIGADA_PARA')">Colig. RM<span class="sort-indicator" id="sort-COLIGADA_PARA"></span></th>
+            <th class="sortable th-rm" style="width: 80px;" onclick="toggleSort('CODIGO_PARA')">Sindicato RM<span class="sort-indicator" id="sort-CODIGO_PARA"></span></th>
+            <th class="col-acoes" style="width: 44px;">Ações</th>
           </tr>
           <tr class="column-filters-row" id="columnFiltersRow" style="${columnFiltersVisible ? '' : 'display: none;'}">
             <th><input type="text" class="col-filter-input" id="cf_empresaDe" placeholder="..." oninput="debounceApplyFilters()"></th>
             <th><input type="text" class="col-filter-input" id="cf_codigoDe" placeholder="..." oninput="debounceApplyFilters()"></th>
             <th><input type="text" class="col-filter-input" id="cf_nomeDe" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
-            <th><input type="text" class="col-filter-input" id="cf_cnpj" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
+            <th class="col-divider-right"><input type="text" class="col-filter-input" id="cf_cnpj" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
             <th><input type="text" class="col-filter-input" id="cf_coligadaPara" placeholder="..." oninput="debounceApplyFilters()"></th>
             <th><input type="text" class="col-filter-input" id="cf_codigoPara" placeholder="..." oninput="debounceApplyFilters()"></th>
             <th></th>
@@ -2837,12 +2924,12 @@
             <th class="group-th-empty" style="width: 8%;"></th>
           </tr>
           <tr>
-            <th class="sortable" onclick="toggleSort('CODIGO_DE')">Seção Origem (Legado)<span class="sort-indicator" id="sort-CODIGO_DE"></span></th>
-            <th class="sortable" onclick="toggleSort('CODIGO_PARA')">Seção Destino (RM)<span class="sort-indicator" id="sort-CODIGO_PARA"></span></th>
-            <th class="col-acoes" style="width: 48px;">Ações</th>
+            <th class="sortable th-legado col-divider-right" onclick="toggleSort('CODIGO_DE')">Seção Origem (Legado)<span class="sort-indicator" id="sort-CODIGO_DE"></span></th>
+            <th class="sortable th-rm" onclick="toggleSort('CODIGO_PARA')">Seção Destino (RM)<span class="sort-indicator" id="sort-CODIGO_PARA"></span></th>
+            <th class="col-acoes" style="width: 44px;">Ações</th>
           </tr>
           <tr class="column-filters-row" id="columnFiltersRow" style="${columnFiltersVisible ? '' : 'display: none;'}">
-            <th><input type="text" class="col-filter-input" id="cf_codigoDe" placeholder="Filtrar seção legado..." oninput="debounceApplyFilters()"></th>
+            <th class="col-divider-right"><input type="text" class="col-filter-input" id="cf_codigoDe" placeholder="Filtrar seção legado..." oninput="debounceApplyFilters()"></th>
             <th><input type="text" class="col-filter-input" id="cf_codigoPara" placeholder="Filtrar seção RM..." oninput="debounceApplyFilters()"></th>
             <th></th>
           </tr>
@@ -2862,17 +2949,17 @@
             <th class="group-th-empty"></th>
           </tr>
           <tr>
-            <th class="sortable" style="width: 55px;" onclick="toggleSort('CODIGO_DE')">Cód. Origem<span class="sort-indicator" id="sort-CODIGO_DE"></span></th>
-            <th class="sortable" style="width: 32%;" onclick="toggleSort('NOME_DE')">Situação Origem<span class="sort-indicator" id="sort-NOME_DE"></span></th>
-            <th class="sortable" style="width: 16%;" onclick="toggleSort('CODSITUACAO_PARA')">Situação RM<span class="sort-indicator" id="sort-CODSITUACAO_PARA"></span></th>
-            <th class="sortable" style="width: 20%;" onclick="toggleSort('CODMOTIVO_PARA')">Motivo RM<span class="sort-indicator" id="sort-CODMOTIVO_PARA"></span></th>
-            <th class="sortable" style="width: 14%;" onclick="toggleSort('CODSITUACAO_RETORNO_PARA')">Sit. Retorno RM<span class="sort-indicator" id="sort-CODSITUACAO_RETORNO_PARA"></span></th>
-            <th class="sortable" style="width: 14%;" onclick="toggleSort('CODMOTIVO_RETORNO_PARA')">Motivo Retorno RM<span class="sort-indicator" id="sort-CODMOTIVO_RETORNO_PARA"></span></th>
-            <th class="col-acoes" style="width: 48px;">Ações</th>
+            <th class="sortable th-legado" style="width: 55px;" onclick="toggleSort('CODIGO_DE')">Cód. Origem<span class="sort-indicator" id="sort-CODIGO_DE"></span></th>
+            <th class="sortable th-legado col-divider-right" style="width: 32%;" onclick="toggleSort('NOME_DE')">Situação Origem<span class="sort-indicator" id="sort-NOME_DE"></span></th>
+            <th class="sortable th-rm" style="width: 16%;" onclick="toggleSort('CODSITUACAO_PARA')">Situação RM<span class="sort-indicator" id="sort-CODSITUACAO_PARA"></span></th>
+            <th class="sortable th-rm" style="width: 20%;" onclick="toggleSort('CODMOTIVO_PARA')">Motivo RM<span class="sort-indicator" id="sort-CODMOTIVO_PARA"></span></th>
+            <th class="sortable th-rm" style="width: 14%;" onclick="toggleSort('CODSITUACAO_RETORNO_PARA')">Sit. Retorno RM<span class="sort-indicator" id="sort-CODSITUACAO_RETORNO_PARA"></span></th>
+            <th class="sortable th-rm" style="width: 14%;" onclick="toggleSort('CODMOTIVO_RETORNO_PARA')">Motivo Retorno RM<span class="sort-indicator" id="sort-CODMOTIVO_RETORNO_PARA"></span></th>
+            <th class="col-acoes" style="width: 44px;">Ações</th>
           </tr>
           <tr class="column-filters-row" id="columnFiltersRow" style="${columnFiltersVisible ? '' : 'display: none;'}">
             <th><input type="text" class="col-filter-input" id="cf_codigoDe" placeholder="..." oninput="debounceApplyFilters()"></th>
-            <th><input type="text" class="col-filter-input" id="cf_nomeDe" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
+            <th class="col-divider-right"><input type="text" class="col-filter-input" id="cf_nomeDe" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
             <th><input type="text" class="col-filter-input" id="cf_codSituacao" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
             <th><input type="text" class="col-filter-input" id="cf_codMotivo" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
             <th><input type="text" class="col-filter-input" id="cf_codSitRetorno" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
@@ -4948,9 +5035,53 @@
       applyFilters();
     }
 
+    function toggleExpandSearch() {
+      const wrapper = document.getElementById("toolbarSearchWrapper");
+      const input = document.getElementById("f_search");
+      if (!wrapper || !input) return;
+      
+      const isExpanded = wrapper.classList.toggle("expanded");
+      if (isExpanded) {
+        input.focus();
+      } else {
+        if (input.value) {
+          wrapper.classList.add("expanded");
+        }
+      }
+    }
+
+    function handleSearchBlur() {
+      const wrapper = document.getElementById("toolbarSearchWrapper");
+      const input = document.getElementById("f_search");
+      const clearBtn = document.getElementById("btnSearchClear");
+      if (input && clearBtn) {
+        clearBtn.style.display = input.value ? "inline-flex" : "none";
+      }
+      if (wrapper && input && !input.value) {
+        wrapper.classList.remove("expanded");
+      }
+    }
+
+    function clearSearchInput() {
+      const input = document.getElementById("f_search");
+      const clearBtn = document.getElementById("btnSearchClear");
+      const wrapper = document.getElementById("toolbarSearchWrapper");
+      if (input) {
+        input.value = "";
+        input.focus();
+      }
+      if (clearBtn) clearBtn.style.display = "none";
+      applyFilters();
+    }
+
     function clearAllFilters() {
       const searchInput = document.getElementById("f_search");
       if (searchInput) searchInput.value = '';
+      const searchWrapper = document.getElementById("toolbarSearchWrapper");
+      if (searchWrapper) searchWrapper.classList.remove("expanded");
+      const searchClearBtn = document.getElementById("btnSearchClear");
+      if (searchClearBtn) searchClearBtn.style.display = "none";
+
       document.querySelectorAll('.col-filter-input').forEach(inp => inp.value = '');
       
       filterLegacyType = 'ALL';
@@ -4969,6 +5100,16 @@
 
     let debounceFilterTimer = null;
     function debounceApplyFilters() {
+      const input = document.getElementById("f_search");
+      const clearBtn = document.getElementById("btnSearchClear");
+      const wrapper = document.getElementById("toolbarSearchWrapper");
+      if (input && input.value) {
+        if (wrapper) wrapper.classList.add("expanded");
+        if (clearBtn) clearBtn.style.display = "inline-flex";
+      } else {
+        if (clearBtn) clearBtn.style.display = "none";
+      }
+
       clearTimeout(debounceFilterTimer);
       debounceFilterTimer = setTimeout(() => {
         applyFilters();
@@ -5803,7 +5944,7 @@
           tr.innerHTML = `
             <td class="col-empresa-orig">${item.empresaDe}</td>
             <td class="col-codigo-orig"><code>${item.codigoDe}</code></td>
-            <td class="col-nome-orig">${legacyCellContent}</td>
+            <td class="col-nome-orig col-divider-right">${legacyCellContent}</td>
             <td class="col-coligada-rm">${item.coligadaPara || "1"}</td>
             
             <td class="col-codigo-rm" style="overflow: visible;">
@@ -5833,7 +5974,7 @@
           tr.innerHTML = `
             <td class="col-empresa-orig" onclick="toggleRowExpansion(${item.rowNum})">${item.empresaDe}</td>
             <td class="col-codigo-orig" onclick="toggleRowExpansion(${item.rowNum})"><code>${item.codigoDe}</code></td>
-            <td class="col-nome-orig" onclick="toggleRowExpansion(${item.rowNum})">${legacyCellContent}</td>
+            <td class="col-nome-orig col-divider-right" onclick="toggleRowExpansion(${item.rowNum})">${legacyCellContent}</td>
             <td class="col-coligada-rm" onclick="toggleRowExpansion(${item.rowNum})">${item.coligadaPara || "-"}</td>
             <td class="col-codigo-rm" onclick="toggleRowExpansion(${item.rowNum})"><code>${item.codigoPara || "-"}</code></td>
             <td class="col-nome-rm" onclick="toggleRowExpansion(${item.rowNum})">${rmCellContent}</td>
@@ -6024,7 +6165,7 @@
               <td><code>${item.EMPRESA_DE || ''}</code></td>
               <td>${item.ID || ''}</td>
               <td>${item.NOME_DE || ''}</td>
-              <td>
+              <td class="col-divider-right">
                 <input type="text" id="edit-CNPJ-${item.rowNum}" class="input-field" style="padding: 6px; font-size: 0.8rem;" value="${formatCpfCnpj(item.CNPJ)}" placeholder="CNPJ / CPF" oninput="this.value = maskCpfCnpj(this.value)">
               </td>
               <td style="overflow: visible;">
@@ -6058,7 +6199,7 @@
               <td class="col-funcao-emp"><code>${item.EMPRESA_DE || ''}</code></td>
               <td class="col-funcao-cod"><code>${item.CODIGO_DE || ''}</code></td>
               <td class="col-funcao-nome" title="${item.NOME_DE || ''}">${item.NOME_DE || ''}</td>
-              <td class="col-funcao-cbo"><code>${item.CBO || ''}</code></td>
+              <td class="col-funcao-cbo col-divider-right"><code>${item.CBO || ''}</code></td>
               <td class="col-funcao-coligada">
                 <input type="text" id="edit-COLIGADA_PARA-${item.rowNum}" class="input-field" style="padding: 6px; font-size: 0.8rem;" value="${item.COLIGADA_PARA || '1'}">
               </td>
@@ -6091,7 +6232,7 @@
               <td><code>${item.EMPRESA_DE || item['EMPRESA _DE'] || ''}</code></td>
               <td><code>${item.CODIGO_DE || ''}</code></td>
               <td>${item.NOME_DE || ''}</td>
-              <td>
+              <td class="col-divider-right">
                 <input type="text" id="edit-CNPJ-${item.rowNum}" class="input-field" style="padding: 6px; font-size: 0.8rem;" value="${formatCpfCnpj(item.CNPJ)}" placeholder="CNPJ" oninput="this.value = maskCpfCnpj(this.value)">
               </td>
               <td>
@@ -6112,7 +6253,7 @@
           else if (currentModule === 'secoes') {
             const currentVal = `${item.COLIGADA_PARA || '1'}|${item.FILIAL_PARA || '1'}|${item.CODIGO_PARA || ''}`;
             trHtml = `
-              <td><code>[EMP: ${item.EMPRESA_DE || ''} | FILIAL: ${item.FILIAL_DE || ''}] COD_DE: ${item.CODIGO_DE || ''} | ${item.NOME_DE || ''}</code></td>
+              <td class="col-divider-right"><code>[EMP: ${item.EMPRESA_DE || ''} | FILIAL: ${item.FILIAL_DE || ''}] COD_DE: ${item.CODIGO_DE || ''} | ${item.NOME_DE || ''}</code></td>
               <td style="overflow: visible;">
                 <select id="edit-CODIGO_PARA-${item.rowNum}" class="input-field" style="padding: 6px; font-size: 0.8rem; width: 100%;" onchange="if(this.value==='NEW_MANUAL') createManualSecao(this, '${item.EMPRESA_DE}', '${item.FILIAL_DE}')">
                    ${getSecoesOptionsHtml(currentVal, item.EMPRESA_DE, item.FILIAL_DE)}
@@ -6129,7 +6270,7 @@
           else if (currentModule === 'situacao') {
             trHtml = `
               <td><code>${item.CODIGO_DE || ''}</code></td>
-              <td>${item.NOME_DE || ''}</td>
+              <td class="col-divider-right">${item.NOME_DE || ''}</td>
               <td>
                 <select id="edit-CODSITUACAO_PARA-${item.rowNum}" class="input-field" style="padding: 6px; font-size: 0.8rem;">
                   ${getSituacaoOptionsHtml(item.CODSITUACAO_PARA)}
@@ -6180,7 +6321,7 @@
               <td onclick="toggleRowExpansion(${item.rowNum})"><code>${item.EMPRESA_DE || ''}</code></td>
               <td onclick="toggleRowExpansion(${item.rowNum})">${item.ID || ''}</td>
               <td onclick="toggleRowExpansion(${item.rowNum})">${item.NOME_DE || ''}</td>
-              <td onclick="toggleRowExpansion(${item.rowNum})"><code>${formatCpfCnpj(item.CNPJ)}</code></td>
+              <td class="col-divider-right" onclick="toggleRowExpansion(${item.rowNum})"><code>${formatCpfCnpj(item.CNPJ)}</code></td>
               <td onclick="toggleRowExpansion(${item.rowNum})">${badgeDest}</td>
               <td onclick="toggleRowExpansion(${item.rowNum})"><code>${item.CODFILIAL_PARA || ''}</code></td>
               <td>${actionButtons}</td>
@@ -6191,7 +6332,7 @@
               <td class="col-funcao-emp" onclick="toggleRowExpansion(${item.rowNum})"><code>${item.EMPRESA_DE || ''}</code></td>
               <td class="col-funcao-cod" onclick="toggleRowExpansion(${item.rowNum})"><code>${item.CODIGO_DE || ''}</code></td>
               <td class="col-funcao-nome" onclick="toggleRowExpansion(${item.rowNum})" title="${item.NOME_DE || ''}">${item.NOME_DE || ''}</td>
-              <td class="col-funcao-cbo" onclick="toggleRowExpansion(${item.rowNum})"><code>${item.CBO || ''}</code></td>
+              <td class="col-funcao-cbo col-divider-right" onclick="toggleRowExpansion(${item.rowNum})"><code>${item.CBO || ''}</code></td>
               <td class="col-funcao-coligada" onclick="toggleRowExpansion(${item.rowNum})">${item.COLIGADA_PARA || item.coligadaPara || '1'}</td>
               <td class="col-funcao-codpara" onclick="toggleRowExpansion(${item.rowNum})">${badgeDest}</td>
               <td class="col-funcao-acoes">${actionButtons}</td>
@@ -6202,7 +6343,7 @@
               <td onclick="toggleRowExpansion(${item.rowNum})"><code>${item.EMPRESA_DE || item['EMPRESA _DE'] || ''}</code></td>
               <td onclick="toggleRowExpansion(${item.rowNum})"><code>${item.CODIGO_DE || ''}</code></td>
               <td onclick="toggleRowExpansion(${item.rowNum})">${item.NOME_DE || ''}</td>
-              <td onclick="toggleRowExpansion(${item.rowNum})"><code>${formatCpfCnpj(item.CNPJ)}</code></td>
+              <td class="col-divider-right" onclick="toggleRowExpansion(${item.rowNum})"><code>${formatCpfCnpj(item.CNPJ)}</code></td>
               <td onclick="toggleRowExpansion(${item.rowNum})">${item.COLIGADA_PARA || ''}</td>
               <td onclick="toggleRowExpansion(${item.rowNum})">${badgeDest}</td>
               <td>${actionButtons}</td>
@@ -6212,7 +6353,7 @@
             const hasObs = !!(item.OBSERVACAO || item.observacao);
             const obsIcon = hasObs ? `<span title="Possui observação" style="margin-left: 6px; cursor: pointer; font-size: 1.1em;">💬</span>` : '';
             trHtml = `
-              <td onclick="toggleRowExpansion(${item.rowNum})"><code>[EMP: ${item.EMPRESA_DE || ''} | FILIAL: ${item.FILIAL_DE || ''}] COD_DE: ${item.CODIGO_DE || ''} | ${item.NOME_DE || ''}</code></td>
+              <td class="col-divider-right" onclick="toggleRowExpansion(${item.rowNum})"><code>[EMP: ${item.EMPRESA_DE || ''} | FILIAL: ${item.FILIAL_DE || ''}] COD_DE: ${item.CODIGO_DE || ''} | ${item.NOME_DE || ''}</code></td>
               <td onclick="toggleRowExpansion(${item.rowNum})">${badgeDest}${obsIcon}</td>
               <td>${actionButtons}</td>
             `;
@@ -6225,7 +6366,7 @@
             
             trHtml = `
               <td onclick="toggleRowExpansion(${item.rowNum})"><code>${item.CODIGO_DE || ''}</code></td>
-              <td onclick="toggleRowExpansion(${item.rowNum})">${item.NOME_DE || ''}</td>
+              <td class="col-divider-right" onclick="toggleRowExpansion(${item.rowNum})">${item.NOME_DE || ''}</td>
               <td onclick="toggleRowExpansion(${item.rowNum})">
                 ${item.CODSITUACAO_PARA ? `<code>${item.CODSITUACAO_PARA}</code> <span style="font-size:0.75rem; color:#64748b;">${sitParaName}</span>` : ''}
               </td>
