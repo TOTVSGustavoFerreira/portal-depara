@@ -80,22 +80,7 @@
       width: 78px;
     }
     .sidebar.collapsed .sidebar-client-box {
-      margin: 8px auto;
-      padding: 6px;
-      width: 44px;
-      height: 44px;
-      justify-content: center;
-      align-items: center;
-      border-radius: var(--border-radius-sm);
-    }
-    .sidebar.collapsed .sidebar-client-box .sidebar-client-label {
-      display: none;
-    }
-    .sidebar.collapsed .sidebar-client-box .sidebar-client-name {
-      font-size: 1.25rem;
-      white-space: nowrap;
-      overflow: hidden;
-      text-align: center;
+      display: none !important;
     }
     .sidebar.collapsed .menu-item {
       padding: 12px 0;
@@ -645,17 +630,21 @@
       color: #0284c7;
     }
 
-    /* Cabeçalho Agrupador da Tabela e Filtros de Coluna */
+    /* Cabeçalho Agrupador da Tabela e Filtros de Coluna Fixos e Opacos */
+    thead {
+      position: sticky !important;
+      top: 0 !important;
+      z-index: 40 !important;
+      background-color: #f8fafc !important;
+    }
     .group-header-row th {
-      padding: 6px 12px !important;
-      font-size: 0.72rem !important;
+      padding: 5px 8px !important;
+      font-size: 0.70rem !important;
       font-weight: 800 !important;
       letter-spacing: 0.6px !important;
       text-transform: uppercase !important;
       border-bottom: 1px solid #cbd5e1 !important;
-      position: sticky !important;
-      top: 0 !important;
-      z-index: 30 !important;
+      background-color: #f8fafc !important;
     }
     .group-th-legado {
       background: #eff6ff !important;
@@ -666,7 +655,7 @@
       background: #f8fafc !important;
       color: #94a3b8 !important;
       text-align: center;
-      width: 32px;
+      width: 28px;
     }
     .group-th-rm {
       background: #f0fdf4 !important;
@@ -686,8 +675,8 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 28px;
-      height: 28px;
+      width: 26px;
+      height: 26px;
       border-radius: 6px;
       background: #ffffff;
       border: 1px solid #cbd5e1;
@@ -708,11 +697,8 @@
 
     /* Linha 2 de Cabeçalho de Colunas Fixa */
     thead tr:not(.group-header-row):not(.column-filters-row) th {
-      position: sticky !important;
-      top: 27px !important;
-      z-index: 25 !important;
       background-color: #f8fafc !important;
-      padding: 8px 12px !important;
+      padding: 6px 8px !important;
       border-bottom: 1px solid var(--border-color) !important;
     }
 
@@ -721,9 +707,6 @@
       padding: 4px 6px !important;
       background: #f1f5f9 !important;
       border-bottom: 2px solid #cbd5e1 !important;
-      position: sticky !important;
-      top: 61px !important;
-      z-index: 20 !important;
     }
     .col-filter-input {
       width: 100%;
@@ -741,6 +724,23 @@
       border-color: #0284c7;
       background: #fff;
       box-shadow: 0 0 0 1px #0284c7;
+    }
+
+    /* Fullscreen Mode para Tabela De-Para */
+    .table-card.table-fullscreen {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      z-index: 99999 !important;
+      border-radius: 0 !important;
+      margin: 0 !important;
+      box-shadow: none !important;
+      border: none !important;
+      background: #fff !important;
     }
 
     /* Beautiful Premium Alert / Warning Banners */
@@ -895,24 +895,24 @@
     }
 
     /* Fixed Column Widths & Wrap Rules */
-    .col-empresa-orig { width: 80px; }
-    .col-codigo-orig  { width: 75px; }
-    .col-nome-orig    { width: 40%; }
+    .col-empresa-orig { width: 68px; }
+    .col-codigo-orig  { width: 62px; }
+    .col-nome-orig    { width: 44%; }
     
-    .col-coligada-rm  { width: 75px; }
-    .col-codigo-rm    { width: 90px; }
-    .col-nome-rm      { width: 44%; }
-    .col-acoes        { width: 65px; text-align: right; }
-    .action-icons     { display: flex; justify-content: flex-end; gap: 4px; }
+    .col-coligada-rm  { width: 62px; }
+    .col-codigo-rm    { width: 75px; }
+    .col-nome-rm      { width: 46%; }
+    .col-acoes        { width: 55px; text-align: right; }
+    .action-icons     { display: flex; justify-content: flex-end; gap: 3px; }
     
     /* Configurações específicas de colunas para ZDEPARA_FUNCOES */
-    .col-funcao-emp   { width: 75px; }
-    .col-funcao-cod   { width: 80px; }
-    .col-funcao-nome  { width: 45%; }
-    .col-funcao-cbo   { width: 100px; }
-    .col-funcao-coligada { width: 80px; }
-    .col-funcao-codpara { width: 135px; }
-    .col-funcao-acoes { width: 65px; text-align: right; }
+    .col-funcao-emp   { width: 65px; }
+    .col-funcao-cod   { width: 68px; }
+    .col-funcao-nome  { width: 48%; }
+    .col-funcao-cbo   { width: 85px; }
+    .col-funcao-coligada { width: 65px; }
+    .col-funcao-codpara { width: 115px; }
+    .col-funcao-acoes { width: 55px; text-align: right; }
 
     /* Quebra de linha suave para que descrições nunca fiquem truncadas com ... */
     td {
@@ -1126,10 +1126,11 @@
     /* Form Fields styling */
     .input-field {
       width: 100%;
-      padding: 10px 14px;
+      padding: 7px 10px;
       border-radius: var(--border-radius-sm);
       border: 1px solid var(--border-color);
-      font-size: 0.88rem;
+      font-size: 0.80rem;
+      font-family: inherit;
       outline: none;
       background-color: white;
     }
@@ -1142,12 +1143,12 @@
     /* Footer styling */
     footer {
       background-color: var(--bg-card);
-      padding: 14px 32px;
+      padding: 10px 24px;
       border-top: 1px solid var(--border-color);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       color: var(--color-text-muted);
       flex-shrink: 0;
     }
@@ -1171,8 +1172,8 @@
     }
 
     .table-autocomplete-item {
-      padding: 8px 12px;
-      font-size: 0.8rem;
+      padding: 6px 10px;
+      font-size: 0.78rem;
       cursor: pointer;
       transition: var(--transition);
     }
@@ -1247,6 +1248,7 @@
       width: 100%;
       max-width: 500px;
       overflow: hidden;
+      font-family: inherit;
       animation: modalSlide 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
@@ -1256,28 +1258,34 @@
     }
 
     .modal-header {
-      padding: 20px 24px;
+      padding: 14px 20px;
       background-color: var(--bg-primary);
       color: white;
       font-weight: 600;
-      font-size: 1.1rem;
+      font-size: 0.95rem;
     }
 
     .modal-body {
-      padding: 24px;
+      padding: 18px 20px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
-      max-height: 60vh;
+      gap: 12px;
+      font-size: 0.80rem;
+      max-height: 65vh;
       overflow-y: auto;
     }
 
+    .modal-body label {
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
     .modal-footer {
-      padding: 16px 24px;
+      padding: 12px 20px;
       border-top: 1px solid var(--border-color);
       display: flex;
       justify-content: flex-end;
-      gap: 12px;
+      gap: 10px;
       background-color: #fafbfc;
     }
 
@@ -1771,6 +1779,22 @@
               <span>DIVERGÊNCIAS</span>
               <span class="kpi-tab-badge badge-red" id="valDivergent">0</span>
             </div>
+            <!-- Filtros Específicos por Tipo de Evento (P / D / B) -->
+            <div class="kpi-tab-pill" id="kpiTabProvento" style="display: none;" onclick="toggleKpiFilter('provento')" title="Filtrar apenas Proventos">
+              <span class="badge-type-subtle badge-prov-subtle" style="width:15px; height:15px; min-width:15px; font-size:0.58rem;">P</span>
+              <span>PROVENTOS</span>
+              <span class="kpi-tab-badge badge-green" id="valProvento">0</span>
+            </div>
+            <div class="kpi-tab-pill" id="kpiTabDesconto" style="display: none;" onclick="toggleKpiFilter('desconto')" title="Filtrar apenas Descontos">
+              <span class="badge-type-subtle badge-desc-subtle" style="width:15px; height:15px; min-width:15px; font-size:0.58rem;">D</span>
+              <span>DESCONTOS</span>
+              <span class="kpi-tab-badge badge-red" id="valDesconto">0</span>
+            </div>
+            <div class="kpi-tab-pill" id="kpiTabBase" style="display: none;" onclick="toggleKpiFilter('base')" title="Filtrar apenas Bases de Cálculo">
+              <span class="badge-type-subtle badge-base-subtle" style="width:15px; height:15px; min-width:15px; font-size:0.58rem;">B</span>
+              <span>BASES</span>
+              <span class="kpi-tab-badge badge-gray" id="valBase">0</span>
+            </div>
             <div class="kpi-tab-pill" id="kpiTabManual" style="display: none;" onclick="toggleKpiFilter('manual_motives')">
               <span id="kpiLabelManual">MOTIVOS MANUAIS</span>
               <span class="kpi-tab-badge badge-blue" id="valManual">0</span>
@@ -1798,11 +1822,16 @@
           </button>
 
           <!-- MASTER TABLE CARD -->
-          <section class="table-card">
+          <section class="table-card" id="masterTableCard">
             <div class="table-toolbar-bar" style="padding: 10px 16px 4px 16px;">
-              <button id="btnToggleColumnFilters" class="btn-toggle-filters-subtle" onclick="toggleColumnFilters()" title="Exibir / Ocultar filtros por coluna">
-                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
-              </button>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <button id="btnToggleColumnFilters" class="btn-toggle-filters-subtle" onclick="toggleColumnFilters()" title="Exibir / Ocultar filtros por coluna">
+                  <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+                </button>
+                <button id="btnToggleFullscreen" class="btn-toggle-filters-subtle" onclick="toggleFullscreenTable()" title="Modo Tela Cheia (Expandir visualização da tabela)">
+                  <svg id="fullscreenIcon" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg>
+                </button>
+              </div>
               <div style="font-size: 0.82rem; font-weight: 600; color: var(--color-text-muted);" id="tableCount">0 registros</div>
             </div>
 
@@ -2673,13 +2702,13 @@
             <th class="group-th-empty"></th>
           </tr>
           <tr>
-            <th class="sortable" style="width: 10%;" onclick="toggleSort('EMPRESA_DE')">Empresa Origem<span class="sort-indicator" id="sort-EMPRESA_DE"></span></th>
-            <th class="sortable" style="width: 8%;" onclick="toggleSort('ID')">ID<span class="sort-indicator" id="sort-ID"></span></th>
-            <th class="sortable" style="width: 32%;" onclick="toggleSort('NOME_DE')">Nome Origem<span class="sort-indicator" id="sort-NOME_DE"></span></th>
-            <th class="sortable" style="width: 18%;" onclick="toggleSort('CNPJ')">CNPJ / CPF<span class="sort-indicator" id="sort-CNPJ"></span></th>
-            <th class="sortable" style="width: 14%;" onclick="toggleSort('CODCOLIGADA')">Coligada RM<span class="sort-indicator" id="sort-CODCOLIGADA"></span></th>
-            <th class="sortable" style="width: 10%;" onclick="toggleSort('CODFILIAL_PARA')">Filial RM<span class="sort-indicator" id="sort-CODFILIAL_PARA"></span></th>
-            <th class="col-acoes" style="width: 8%;">Ações</th>
+            <th class="sortable" style="width: 70px;" onclick="toggleSort('EMPRESA_DE')">Empresa<span class="sort-indicator" id="sort-EMPRESA_DE"></span></th>
+            <th class="sortable" style="width: 50px;" onclick="toggleSort('ID')">ID<span class="sort-indicator" id="sort-ID"></span></th>
+            <th class="sortable" style="width: 40%;" onclick="toggleSort('NOME_DE')">Nome Origem<span class="sort-indicator" id="sort-NOME_DE"></span></th>
+            <th class="sortable" style="width: 140px;" onclick="toggleSort('CNPJ')">CNPJ / CPF<span class="sort-indicator" id="sort-CNPJ"></span></th>
+            <th class="sortable" style="width: 90px;" onclick="toggleSort('CODCOLIGADA')">Colig. RM<span class="sort-indicator" id="sort-CODCOLIGADA"></span></th>
+            <th class="sortable" style="width: 70px;" onclick="toggleSort('CODFILIAL_PARA')">Filial RM<span class="sort-indicator" id="sort-CODFILIAL_PARA"></span></th>
+            <th class="col-acoes" style="width: 55px;">Ações</th>
           </tr>
           <tr class="column-filters-row" id="columnFiltersRow" style="${columnFiltersVisible ? '' : 'display: none;'}">
             <th><input type="text" class="col-filter-input" id="cf_empresaDe" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
@@ -2739,13 +2768,13 @@
             <th class="group-th-empty"></th>
           </tr>
           <tr>
-            <th class="sortable" style="width: 10%;" onclick="toggleSort('EMPRESA_DE')">Emp. Origem<span class="sort-indicator" id="sort-EMPRESA_DE"></span></th>
-            <th class="sortable" style="width: 10%;" onclick="toggleSort('CODIGO_DE')">Cód. Origem<span class="sort-indicator" id="sort-CODIGO_DE"></span></th>
-            <th class="sortable" style="width: 32%;" onclick="toggleSort('NOME_DE')">Nome Sindicato<span class="sort-indicator" id="sort-NOME_DE"></span></th>
-            <th class="sortable" style="width: 18%;" onclick="toggleSort('CNPJ')">CNPJ<span class="sort-indicator" id="sort-CNPJ"></span></th>
-            <th class="sortable" style="width: 10%;" onclick="toggleSort('COLIGADA_PARA')">Colig. RM<span class="sort-indicator" id="sort-COLIGADA_PARA"></span></th>
-            <th class="sortable" style="width: 12%;" onclick="toggleSort('CODIGO_PARA')">Sindicato RM<span class="sort-indicator" id="sort-CODIGO_PARA"></span></th>
-            <th class="col-acoes" style="width: 8%;">Ações</th>
+            <th class="sortable" style="width: 70px;" onclick="toggleSort('EMPRESA_DE')">Emp. Origem<span class="sort-indicator" id="sort-EMPRESA_DE"></span></th>
+            <th class="sortable" style="width: 70px;" onclick="toggleSort('CODIGO_DE')">Cód. Origem<span class="sort-indicator" id="sort-CODIGO_DE"></span></th>
+            <th class="sortable" style="width: 45%;" onclick="toggleSort('NOME_DE')">Nome Sindicato<span class="sort-indicator" id="sort-NOME_DE"></span></th>
+            <th class="sortable" style="width: 140px;" onclick="toggleSort('CNPJ')">CNPJ<span class="sort-indicator" id="sort-CNPJ"></span></th>
+            <th class="sortable" style="width: 70px;" onclick="toggleSort('COLIGADA_PARA')">Colig. RM<span class="sort-indicator" id="sort-COLIGADA_PARA"></span></th>
+            <th class="sortable" style="width: 100px;" onclick="toggleSort('CODIGO_PARA')">Sindicato RM<span class="sort-indicator" id="sort-CODIGO_PARA"></span></th>
+            <th class="col-acoes" style="width: 55px;">Ações</th>
           </tr>
           <tr class="column-filters-row" id="columnFiltersRow" style="${columnFiltersVisible ? '' : 'display: none;'}">
             <th><input type="text" class="col-filter-input" id="cf_empresaDe" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
@@ -2774,7 +2803,7 @@
           <tr>
             <th class="sortable" onclick="toggleSort('CODIGO_DE')">Seção Origem (Legado)<span class="sort-indicator" id="sort-CODIGO_DE"></span></th>
             <th class="sortable" onclick="toggleSort('CODIGO_PARA')">Seção Destino (RM)<span class="sort-indicator" id="sort-CODIGO_PARA"></span></th>
-            <th class="col-acoes">Ações</th>
+            <th class="col-acoes" style="width: 55px;">Ações</th>
           </tr>
           <tr class="column-filters-row" id="columnFiltersRow" style="${columnFiltersVisible ? '' : 'display: none;'}">
             <th><input type="text" class="col-filter-input" id="cf_codigoDe" placeholder="Filtrar seção legado..." oninput="debounceApplyFilters()"></th>
@@ -2797,13 +2826,13 @@
             <th class="group-th-empty"></th>
           </tr>
           <tr>
-            <th class="sortable" style="width: 10%;" onclick="toggleSort('CODIGO_DE')">Cód. Origem<span class="sort-indicator" id="sort-CODIGO_DE"></span></th>
-            <th class="sortable" style="width: 25%;" onclick="toggleSort('NOME_DE')">Situação Origem<span class="sort-indicator" id="sort-NOME_DE"></span></th>
+            <th class="sortable" style="width: 65px;" onclick="toggleSort('CODIGO_DE')">Cód. Origem<span class="sort-indicator" id="sort-CODIGO_DE"></span></th>
+            <th class="sortable" style="width: 32%;" onclick="toggleSort('NOME_DE')">Situação Origem<span class="sort-indicator" id="sort-NOME_DE"></span></th>
             <th class="sortable" style="width: 16%;" onclick="toggleSort('CODSITUACAO_PARA')">Situação RM<span class="sort-indicator" id="sort-CODSITUACAO_PARA"></span></th>
-            <th class="sortable" style="width: 16%;" onclick="toggleSort('CODMOTIVO_PARA')">Motivo RM<span class="sort-indicator" id="sort-CODMOTIVO_PARA"></span></th>
-            <th class="sortable" style="width: 13%;" onclick="toggleSort('CODSITUACAO_RETORNO_PARA')">Sit. Retorno RM<span class="sort-indicator" id="sort-CODSITUACAO_RETORNO_PARA"></span></th>
-            <th class="sortable" style="width: 12%;" onclick="toggleSort('CODMOTIVO_RETORNO_PARA')">Motivo Retorno RM<span class="sort-indicator" id="sort-CODMOTIVO_RETORNO_PARA"></span></th>
-            <th class="col-acoes" style="width: 8%;">Ações</th>
+            <th class="sortable" style="width: 20%;" onclick="toggleSort('CODMOTIVO_PARA')">Motivo RM<span class="sort-indicator" id="sort-CODMOTIVO_PARA"></span></th>
+            <th class="sortable" style="width: 14%;" onclick="toggleSort('CODSITUACAO_RETORNO_PARA')">Sit. Retorno RM<span class="sort-indicator" id="sort-CODSITUACAO_RETORNO_PARA"></span></th>
+            <th class="sortable" style="width: 14%;" onclick="toggleSort('CODMOTIVO_RETORNO_PARA')">Motivo Retorno RM<span class="sort-indicator" id="sort-CODMOTIVO_RETORNO_PARA"></span></th>
+            <th class="col-acoes" style="width: 55px;">Ações</th>
           </tr>
           <tr class="column-filters-row" id="columnFiltersRow" style="${columnFiltersVisible ? '' : 'display: none;'}">
             <th><input type="text" class="col-filter-input" id="cf_codigoDe" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
@@ -4824,6 +4853,9 @@
       const tabDivergent = document.getElementById('kpiTabDivergent');
       const tabPending = document.getElementById('kpiTabPending');
       const tabManual = document.getElementById('kpiTabManual');
+      const tabProvento = document.getElementById('kpiTabProvento');
+      const tabDesconto = document.getElementById('kpiTabDesconto');
+      const tabBase = document.getElementById('kpiTabBase');
 
       if (tabIgnored) {
         tabIgnored.style.display = (currentModule === 'coligadas' || currentModule === 'situacao') ? 'none' : 'inline-flex';
@@ -4833,6 +4865,28 @@
       }
       if (tabPending) {
         tabPending.style.display = (currentModule === 'coligadas' || currentModule === 'situacao') ? 'none' : 'inline-flex';
+      }
+
+      // Filtros de tipo de evento específicos para ZDEPARA_EVENTOS
+      if (currentModule === 'eventos') {
+        let countProv = 0;
+        let countDesc = 0;
+        let countBase = 0;
+        if (database) {
+          database.forEach(item => {
+            const t = (item.tipoEvento || item.TIPO_EVENTO || "").toUpperCase();
+            if (t.includes("PROVENTO")) countProv++;
+            else if (t.includes("DESCONTO")) countDesc++;
+            else if (t.includes("BASE")) countBase++;
+          });
+        }
+        if (tabProvento) { tabProvento.style.display = 'inline-flex'; document.getElementById('valProvento').innerText = countProv; }
+        if (tabDesconto) { tabDesconto.style.display = 'inline-flex'; document.getElementById('valDesconto').innerText = countDesc; }
+        if (tabBase) { tabBase.style.display = 'inline-flex'; document.getElementById('valBase').innerText = countBase; }
+      } else {
+        if (tabProvento) tabProvento.style.display = 'none';
+        if (tabDesconto) tabDesconto.style.display = 'none';
+        if (tabBase) tabBase.style.display = 'none';
       }
 
       if (currentModule === 'situacao') {
@@ -4909,6 +4963,39 @@
       }
     }
 
+    function toggleFullscreenTable() {
+      const card = document.getElementById("masterTableCard");
+      if (!card) return;
+      
+      const isFullscreen = card.classList.toggle("table-fullscreen");
+      const btn = document.getElementById("btnToggleFullscreen");
+      
+      if (isFullscreen) {
+        if (btn) {
+          btn.innerHTML = `<svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 14h6m0 0v6m0-6L3 21m17-7h-6m0 0v6m0-6l7 7M4 10h6m0 0V4m0 6L3 3m17 7h-6m0 0V4m0 6l7-7"/></svg>`;
+          btn.title = "Sair da Tela Cheia (ESC)";
+          btn.classList.add("active");
+        }
+        showToast("Modo Tela Cheia ativado. Pressione ESC para sair.", "info");
+      } else {
+        if (btn) {
+          btn.innerHTML = `<svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 3H5a2 2 0 00-2 2v3m18 0V5a2 2 0 00-2-2h-3m0 18h3a2 2 0 002-2v-3M3 16v3a2 2 0 002 2h3"/></svg>`;
+          btn.title = "Modo Tela Cheia (Expandir visualização da tabela)";
+          btn.classList.remove("active");
+        }
+      }
+    }
+
+    // Tecla ESC para sair do modo tela cheia
+    document.addEventListener("keydown", function(e) {
+      if (e.key === "Escape") {
+        const card = document.getElementById("masterTableCard");
+        if (card && card.classList.contains("table-fullscreen")) {
+          toggleFullscreenTable();
+        }
+      }
+    });
+
     let searchBarCollapsed = false;
     function toggleSearchBar() {
       searchBarCollapsed = !searchBarCollapsed;
@@ -4943,6 +5030,9 @@
         else if (filterType === 'pending') tabId = 'kpiTabPending';
         else if (filterType === 'ignored') tabId = 'kpiTabIgnored';
         else if (filterType === 'divergent') tabId = 'kpiTabDivergent';
+        else if (filterType === 'provento') tabId = 'kpiTabProvento';
+        else if (filterType === 'desconto') tabId = 'kpiTabDesconto';
+        else if (filterType === 'base') tabId = 'kpiTabBase';
         else if (filterType === 'manual_motives') tabId = 'kpiTabManual';
         
         if (tabId && document.getElementById(tabId)) {
@@ -5023,6 +5113,18 @@
         if (activeKpiFilter === 'pending' && !isPending) return false;
         if (activeKpiFilter === 'ignored' && !isIgnored) return false;
         if (activeKpiFilter === 'divergent' && !item.hasDivergencia) return false;
+        if (activeKpiFilter === 'provento') {
+          const t = (item.tipoEvento || item.TIPO_EVENTO || "").toUpperCase();
+          if (!t.includes("PROVENTO")) return false;
+        }
+        if (activeKpiFilter === 'desconto') {
+          const t = (item.tipoEvento || item.TIPO_EVENTO || "").toUpperCase();
+          if (!t.includes("DESCONTO")) return false;
+        }
+        if (activeKpiFilter === 'base') {
+          const t = (item.tipoEvento || item.TIPO_EVENTO || "").toUpperCase();
+          if (!t.includes("BASE")) return false;
+        }
         if (activeKpiFilter === 'manual_motives') {
           if (currentModule === 'situacao') {
             const m1 = getMotivoName(item.CODMOTIVO_PARA) || "";
@@ -5242,7 +5344,7 @@
         .replace(/[\u0300-\u036f]/g, "")
         .trim()
         .toUpperCase();
-      return normalized === "P/ ANALISE";
+      return normalized.includes("ANALISE") || normalized === "P/ ANALISE" || normalized === "P/ANALISE" || normalized === "PARA ANALISE";
     }
 
     function safeBtoa(str) {
@@ -5594,14 +5696,12 @@
           </div>
         `;
         
-        if (isCodeToCreate(item.codigoPara)) {
+        if (isCodePending(item.codigoPara)) {
+          rowColorClass = "row-panalise"; // P/ ANALISE sempre fica amarelo!
+        } else if (isCodeToCreate(item.codigoPara)) {
           rowColorClass = "row-unmapped"; // CRIAR = não mapeado → laranja
         } else if (isCodeIgnored(item.codigoPara)) {
-          if (String(item.codigoPara).toUpperCase().includes("ANALISE")) {
-            rowColorClass = "row-panalise";
-          } else {
-            rowColorClass = "row-neutral row-nao-importar";
-          }
+          rowColorClass = "row-neutral row-nao-importar";
         } else if (!item.codigoPara) {
           rowColorClass = "row-unmapped"; 
         } else if (!compatibility.isMatch) {
@@ -5614,17 +5714,15 @@
         let mapBadge = "badge-mapped";
         let statusLabel = item.nomeRm || "MAPEADO";
         
-        if (isCodeToCreate(item.codigoPara)) {
+        if (isCodePending(item.codigoPara)) {
+          mapBadge = "badge-panalise";
+          statusLabel = "P/ ANÁLISE";
+        } else if (isCodeToCreate(item.codigoPara)) {
           mapBadge = "badge-unmapped";
           statusLabel = "CRIAR";
         } else if (isCodeIgnored(item.codigoPara)) {
-          if (String(item.codigoPara).toUpperCase().includes("ANALISE")) {
-            mapBadge = "badge-panalise";
-            statusLabel = "P/ ANÁLISE";
-          } else {
-            mapBadge = "badge-nao-importar";
-            statusLabel = "NÃO IMPORTAR";
-          }
+          mapBadge = "badge-nao-importar";
+          statusLabel = "NÃO IMPORTAR";
         } else if (!item.codigoPara) {
           mapBadge = "badge-unmapped";
           statusLabel = "PENDENTE";
@@ -5850,20 +5948,18 @@
         let mapBadge = "badge-mapped";
         let statusLabel = destCode || "MAPEADO";
         
-        if (isCodeToCreate(destCode)) {
+        if (isCodePending(destCode)) {
+          rowColorClass = "row-panalise";
+          mapBadge = "badge-panalise";
+          statusLabel = "P/ ANÁLISE";
+        } else if (isCodeToCreate(destCode)) {
           rowColorClass = "row-unmapped";
           mapBadge = "badge-unmapped";
           statusLabel = "CRIAR";
         } else if (isCodeIgnored(destCode)) {
-          if (String(destCode).toUpperCase().includes("ANALISE")) {
-            rowColorClass = "row-panalise";
-            mapBadge = "badge-panalise";
-            statusLabel = "P/ ANÁLISE";
-          } else {
-            rowColorClass = "row-neutral row-nao-importar";
-            mapBadge = "badge-nao-importar";
-            statusLabel = "NÃO IMPORTAR";
-          }
+          rowColorClass = "row-neutral row-nao-importar";
+          mapBadge = "badge-nao-importar";
+          statusLabel = "NÃO IMPORTAR";
         } else if (!destCode) {
           rowColorClass = "row-unmapped";
           mapBadge = "badge-unmapped";
