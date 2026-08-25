@@ -488,19 +488,20 @@
       flex-shrink: 0;
     }
 
-    /* Badges Sutis para Tipo de Evento (Legado & RM) */
+    /* Badges Sutis e Discretos para Tipo de Evento (P, D, B) */
     .badge-type-subtle {
       display: inline-flex;
       align-items: center;
-      gap: 3px;
-      font-size: 0.65rem;
+      justify-content: center;
+      width: 17px;
+      height: 17px;
+      min-width: 17px;
+      font-size: 0.63rem;
       font-weight: 700;
-      padding: 1px 6px;
       border-radius: 3px;
-      margin-top: 1px;
-      width: fit-content;
-      letter-spacing: 0.2px;
-      white-space: nowrap;
+      line-height: 1;
+      flex-shrink: 0;
+      user-select: none;
     }
     .badge-prov-subtle {
       background-color: #ecfdf5;
@@ -5573,23 +5574,23 @@
         
         // Tolerância de singular/plural nos tipos de evento de origem
         const tipoNorm = (item.tipoEvento || "").toUpperCase();
-        let tipoLabelLegado = item.tipoEvento || "PROVENTO";
-        let legacyTypeClass = "badge-base-subtle";
-        if (tipoNorm.includes("PROVENTO")) {
-          legacyTypeClass = "badge-prov-subtle";
-          tipoLabelLegado = "P • PROVENTO";
-        } else if (tipoNorm.includes("DESCONTO")) {
+        let tipoLetter = "P";
+        let tipoTooltip = "Provento";
+        let legacyTypeClass = "badge-prov-subtle";
+        if (tipoNorm.includes("DESCONTO")) {
           legacyTypeClass = "badge-desc-subtle";
-          tipoLabelLegado = "D • DESCONTO";
+          tipoLetter = "D";
+          tipoTooltip = "Desconto";
         } else if (tipoNorm.includes("BASE")) {
           legacyTypeClass = "badge-base-subtle";
-          tipoLabelLegado = "B • BASE DE CÁLCULO";
+          tipoLetter = "B";
+          tipoTooltip = "Base de Cálculo";
         }
 
         const legacyCellContent = `
-          <div style="display:flex; flex-direction:column; gap:2px;">
+          <div style="display:flex; align-items:flex-start; gap:6px;">
+            <span class="badge-type-subtle ${legacyTypeClass}" title="Tipo Legado: ${tipoTooltip}">${tipoLetter}</span>
             <span style="font-weight:400; color:var(--color-text-main); line-height:1.25;">${item.nomeDe}</span>
-            <span class="badge-type-subtle ${legacyTypeClass}">${tipoLabelLegado}</span>
           </div>
         `;
         
@@ -5637,34 +5638,31 @@
         
         let rmCellContent = `<span class="badge ${mapBadge}">${statusLabel}</span>`;
         if (item.codigoPara && !isCodeIgnored(item.codigoPara)) {
-          let rmTypeClass = "badge-base-subtle";
-          let rmTypeFormatted = compatibility.rmType || "Provento";
-          const rmNorm = String(rmTypeFormatted).toUpperCase();
-          if (rmNorm.includes("PROVENTO")) {
-            rmTypeClass = "badge-prov-subtle";
-            rmTypeFormatted = "P • Provento";
-          } else if (rmNorm.includes("DESCONTO")) {
+          let rmTypeClass = "badge-prov-subtle";
+          let rmLetter = "P";
+          let rmTooltip = "Provento";
+          const rmNorm = String(compatibility.rmType || "Provento").toUpperCase();
+          if (rmNorm.includes("DESCONTO")) {
             rmTypeClass = "badge-desc-subtle";
-            rmTypeFormatted = "D • Desconto";
+            rmLetter = "D";
+            rmTooltip = "Desconto";
           } else if (rmNorm.includes("BASE")) {
             rmTypeClass = "badge-base-subtle";
-            rmTypeFormatted = "B • Base de Cálculo";
+            rmLetter = "B";
+            rmTooltip = "Base de Cálculo";
           }
           
           let mismatchSpan = '';
           if (item.hasDivergenciaDuplicidade) {
-            mismatchSpan = ` <span style="color:var(--magenta); font-weight:700;" title="Este nome de evento legado está mapeado para mais de um código RM diferente!">(DIVERGÊNCIA DUPLICIDADE)</span>`;
+            mismatchSpan = ` <span style="color:var(--magenta); font-weight:700; font-size:0.75rem;" title="Este nome de evento legado está mapeado para mais de um código RM diferente!">(DIVERGÊNCIA DUPLICIDADE)</span>`;
           } else if (item.hasDivergenciaTipo || !compatibility.isMatch) {
-            mismatchSpan = ` <span style="color:var(--magenta); font-weight:700;" title="O tipo de evento RM não condiz com o tipo legado!">(DIVERGÊNCIA TIPO: RM ${compatibility.rmNorm} vs Legado ${compatibility.legacyNorm})</span>`;
+            mismatchSpan = ` <span style="color:var(--magenta); font-weight:700; font-size:0.75rem;" title="O tipo de evento RM não condiz com o tipo legado!">(DIVERGÊNCIA TIPO: RM ${compatibility.rmNorm} vs Legado ${compatibility.legacyNorm})</span>`;
           }
 
           rmCellContent = `
-            <div style="display:flex; flex-direction:column; gap:2px;">
-              <span style="font-weight:400; color:var(--color-text-main); line-height:1.25;">${getRmName(item.codigoPara) || item.nomeRm || ''}</span>
-              <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
-                <span class="badge-type-subtle ${rmTypeClass}">${rmTypeFormatted}</span>
-                ${mismatchSpan}
-              </div>
+            <div style="display:flex; align-items:flex-start; gap:6px;">
+              <span class="badge-type-subtle ${rmTypeClass}" title="Tipo RM: ${rmTooltip}">${rmLetter}</span>
+              <span style="font-weight:400; color:var(--color-text-main); line-height:1.25;">${getRmName(item.codigoPara) || item.nomeRm || ''}${mismatchSpan}</span>
             </div>
           `;
         }
