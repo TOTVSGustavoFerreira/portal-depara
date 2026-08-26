@@ -3214,9 +3214,14 @@
         database.forEach(item => {
           const destCode = String((currentModule === 'situacao' ? item.CODSITUACAO_PARA : item.CODIGO_PARA) || "").trim();
           const origName = String(item.NOME_DE || item.NOME || item.nomeDe || "").toLowerCase().trim();
-          if (destCode && !isCodeIgnored(destCode) && !isCodeToCreate(destCode) && origName) {
-            if (!nameToDestCodes[origName]) nameToDestCodes[origName] = new Set();
-            nameToDestCodes[origName].add(destCode);
+          let key = origName;
+          if (currentModule === 'eventos') {
+            const tipoNorm = normalizeEventType(item.tipoEvento || item.TIPO_EVENTO || "");
+            key = `${origName}|${tipoNorm}`;
+          }
+          if (destCode && !isCodeIgnored(destCode) && !isCodeToCreate(destCode) && key) {
+            if (!nameToDestCodes[key]) nameToDestCodes[key] = new Set();
+            nameToDestCodes[key].add(destCode);
           }
         });
       }
@@ -3288,9 +3293,14 @@
               }
             }
 
-            // Divergência de Mapeamentos Duplos por Nome
+            // Divergência de Mapeamentos Duplos por Nome (e Tipo em Eventos)
             const origName = String(item.NOME_DE || item.NOME || item.nomeDe || "").toLowerCase().trim();
-            if (origName && nameToDestCodes[origName] && nameToDestCodes[origName].size > 1) {
+            let key = origName;
+            if (currentModule === 'eventos') {
+              const tipoNorm = normalizeEventType(item.tipoEvento || item.TIPO_EVENTO || "");
+              key = `${origName}|${tipoNorm}`;
+            }
+            if (key && nameToDestCodes[key] && nameToDestCodes[key].size > 1) {
               item.hasDivergenciaDuplicidade = true;
               item.hasDivergencia = true;
             }
