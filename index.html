@@ -2115,6 +2115,7 @@
     let rmEvents = [];
     let unusedCreatedEvents = [];
     let unusedCreatedSecoes = [];
+    let unusedCreatedMotivos = [];
     let diagnostics = { gaps: [], duplicates: [] };
     let stats = {};
     let filteredData = [];
@@ -3223,6 +3224,24 @@
         unusedCreatedSecoes = [];
       }
 
+      if (currentModule === 'situacao') {
+        const usedMotivosCodes = new Set();
+        (rawJsonDatabase.ZDEPARA_SITUACAO || []).forEach(item => {
+          if (item.CODMOTIVO_PARA) usedMotivosCodes.add(String(item.CODMOTIVO_PARA).trim());
+          if (item.CODMOTIVO_RETORNO_PARA) usedMotivosCodes.add(String(item.CODMOTIVO_RETORNO_PARA).trim());
+        });
+
+        const allMotivos = rawJsonDatabase.DADOS_RM_MOTIVOS || [];
+        unusedCreatedMotivos = allMotivos.filter(m => {
+          const desc = m.DESCRICAO || m.descricao || "";
+          const isManual = desc.includes("[INCLUSAO MANUAL]") || desc.includes("INCLUSAO MANUAL");
+          const code = String(m.CODCLIENTE !== undefined ? m.CODCLIENTE : (m.codcliente !== undefined ? m.codcliente : "")).trim();
+          return isManual && !usedMotivosCodes.has(code);
+        });
+      } else {
+        unusedCreatedMotivos = [];
+      }
+
       // 2. Estatísticas do Módulo Corrente
       const total = database.length;
       let preenchidos = 0;
@@ -3382,7 +3401,9 @@
       
       const hasDuplicates = (diagnostics.duplicates && diagnostics.duplicates.length > 0);
       const hasOrphans = (currentModule === 'eventos' && diagnostics.orphans && diagnostics.orphans.length > 0);
-      const hasUnused = (currentModule === 'eventos' && unusedCreatedEvents && unusedCreatedEvents.length > 0) || (currentModule === 'secoes' && unusedCreatedSecoes && unusedCreatedSecoes.length > 0);
+      const hasUnused = (currentModule === 'eventos' && unusedCreatedEvents && unusedCreatedEvents.length > 0) || 
+                        (currentModule === 'secoes' && unusedCreatedSecoes && unusedCreatedSecoes.length > 0) ||
+                        (currentModule === 'situacao' && unusedCreatedMotivos && unusedCreatedMotivos.length > 0);
       const hasGaps = (currentModule === 'eventos' && diagnostics.gaps && diagnostics.gaps.length > 0);
       
       if (hasDuplicates || hasOrphans || hasUnused || hasGaps) {
@@ -3501,6 +3522,27 @@
                 <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 10px; background:#fff; border:1px solid #fbcfe8; border-radius:6px; font-size:0.78rem;">
                   <span>[Col: <strong>${sec.COLIGADA}</strong> | Fil: <strong>${sec.FILIAL}</strong>] Código <strong>${sec.CODIGO}</strong> - ${sec.DESCRICAO}</span>
                   <button class="row-btn" style="padding:2px 8px; font-size:0.7rem; background:#fee2e2; border-color:#fca5a5; color:#b91c1c; border-radius:4px;" onclick="deleteManualSecao('${sec.COLIGADA}', '${sec.FILIAL}', '${sec.CODIGO}')">Excluir</button>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }
+
+      // 3.2 MOTIVOS MANUAIS NÃO UTILIZADOS
+      if (unusedCreatedMotivos && unusedCreatedMotivos.length > 0) {
+        html += `
+          <div style="border: 1px solid #fce7f3; background: #fdf2f8; padding: 12px; border-radius: 8px; margin-bottom: 12px;">
+            <h4 style="color:#c026d3; margin:0 0 6px 0; font-size:0.9rem; display:flex; align-items:center; gap:6px;">
+              <span style="background:#d946ef; color:#fff; width:18px; height:18px; display:inline-flex; align-items:center; justify-content:center; border-radius:50%; font-size:0.75rem; font-weight:700;">*</span>
+              Motivos Manuais Criados Não Utilizados (${unusedCreatedMotivos.length})
+            </h4>
+            <p style="font-size:0.8rem; margin:0 0 8px 0; color:#701a75;">Novos motivos de afastamento criados manualmente no RM que ainda não possuem nenhum vínculo em Situação. Se desistiu deles, você pode excluí-los:</p>
+            <div style="display:flex; flex-direction:column; gap:6px; max-height: 180px; overflow-y: auto; padding-right: 4px;">
+              ${unusedCreatedMotivos.map(mot => `
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:6px 10px; background:#fff; border:1px solid #fbcfe8; border-radius:6px; font-size:0.78rem;">
+                  <span>Código <strong>${mot.CODCLIENTE || mot.codcliente}</strong> - ${mot.DESCRICAO || mot.descricao}</span>
+                  <button class="row-btn" style="padding:2px 8px; font-size:0.7rem; background:#fee2e2; border-color:#fca5a5; color:#b91c1c; border-radius:4px;" onclick="deleteManualMotivo('${mot.CODCLIENTE || mot.codcliente}')">Excluir</button>
                 </div>
               `).join('')}
             </div>
@@ -7385,6 +7427,34 @@
       );
     }
 
+    function deleteManualMotivo(codCliente) {
+      const codStr = String(codCliente).trim();
+      showCustomConfirm(
+        "Excluir Motivo Manual",
+        `Tem certeza que deseja excluir o motivo manual código ${codStr}?`,
+        function() {
+          closeModal('diagnosticsModal');
+          showLoading("Removendo motivo manual...");
+          
+          if (rawJsonDatabase && rawJsonDatabase.DADOS_RM_MOTIVOS) {
+            rawJsonDatabase.DADOS_RM_MOTIVOS = rawJsonDatabase.DADOS_RM_MOTIVOS.filter(m => 
+              String(m.CODCLIENTE !== undefined ? m.CODCLIENTE : (m.codcliente !== undefined ? m.codcliente : "")).trim() !== codStr
+            );
+          }
+          
+          rebuildLookupMaps();
+          
+          commitChangesToGitHub(`Exclui motivo manual ${codStr}`, () => {
+            showToast(`Motivo manual ${codStr} excluído com sucesso!`, "success");
+            calculateLocalDiagnosticsAndStats();
+            renderWarnings();
+            updateDashboard();
+            applyFilters();
+          }, null, 'base');
+        }
+      );
+    }
+
     function submitNewRMEvent() {
       const desc = document.getElementById("modalDesc").value.trim();
       const tipo = document.getElementById("modalTipo").value;
@@ -7675,16 +7745,25 @@
         motivos.push({ CODCLIENTE: nextCod, DESCRICAO: finalName });
         rebuildLookupMaps();
 
-        // Atualiza todos os selects de motivo em tela para incluir a nova opção
-        document.querySelectorAll('select[id^="edit-CODMOTIVO_"]').forEach(sel => {
-          const opt = document.createElement('option');
-          opt.value = nextCod;
-          opt.text = `${nextCod} - ${finalName}`;
-          const newOptIndex = sel.options.length > 0 ? sel.options.length - 1 : 0;
-          sel.add(opt, sel.options[newOptIndex]);
-        });
-        
-        selectElement.value = nextCod;
+        // Atualiza a linha atual na memória e captura os outros campos editados na linha
+        const idx = (rawJsonDatabase.ZDEPARA_SITUACAO || []).findIndex(i => i.rowNum === rowNum);
+        if (idx !== -1) {
+          const selSitPara = document.getElementById(`edit-CODSITUACAO_PARA-${rowNum}`);
+          const selSitRet = document.getElementById(`edit-CODSITUACAO_RETORNO_PARA-${rowNum}`);
+          const selMotPara = document.getElementById(`edit-CODMOTIVO_PARA-${rowNum}`);
+          const selMotRet = document.getElementById(`edit-CODMOTIVO_RETORNO_PARA-${rowNum}`);
+
+          if (selSitPara) rawJsonDatabase.ZDEPARA_SITUACAO[idx].CODSITUACAO_PARA = selSitPara.value;
+          if (selSitRet) rawJsonDatabase.ZDEPARA_SITUACAO[idx].CODSITUACAO_RETORNO_PARA = selSitRet.value;
+          
+          if (isRetorno) {
+            rawJsonDatabase.ZDEPARA_SITUACAO[idx].CODMOTIVO_RETORNO_PARA = nextCod;
+            if (selMotPara) rawJsonDatabase.ZDEPARA_SITUACAO[idx].CODMOTIVO_PARA = selMotPara.value;
+          } else {
+            rawJsonDatabase.ZDEPARA_SITUACAO[idx].CODMOTIVO_PARA = nextCod;
+            if (selMotRet) rawJsonDatabase.ZDEPARA_SITUACAO[idx].CODMOTIVO_RETORNO_PARA = selMotRet.value;
+          }
+        }
         
         // Replicação em lote se selecionado
         let totalUpdated = 1;
@@ -7703,16 +7782,21 @@
           });
         }
 
+        database = rawJsonDatabase.ZDEPARA_SITUACAO;
+        editingRowNumber = null;
+        expandedRowNumbers.delete(rowNum);
+
         closeModal();
+        showLoading("Salvando novo motivo e atualizando situação...");
         
-        showToast(`Motivo manual ${nextCod} ('${finalName}') criado com sucesso e aplicado em ${totalUpdated} registro(s)!`, "success");
-        
-        // Primeiro salva a base de motivos na nuvem (categoria 'base')
-        commitChangesToGitHub(`Criação de Motivo Manual: ${nextCod}`, () => {}, () => {
-           if (!isNaN(rowNum)) {
-              saveRowEdition(rowNum);
-           }
-        }, 'base');
+        // Salva com commit atômico salvando 'all' (tanto a base DADOS_RM_MOTIVOS quanto ZDEPARA_SITUACAO)
+        commitChangesToGitHub(`Cria motivo RM manual ${nextCod} e mapeia linha ${rowNum}`, () => {
+          showToast(`Motivo manual ${nextCod} ('${finalName}') criado com sucesso e aplicado em ${totalUpdated} registro(s)!`, "success");
+          calculateLocalDiagnosticsAndStats();
+          renderWarnings();
+          updateDashboard();
+          applyFilters();
+        }, null, 'all');
       };
     }
 
