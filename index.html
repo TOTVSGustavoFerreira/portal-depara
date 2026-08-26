@@ -2739,6 +2739,8 @@
         
         const banner = document.getElementById("inconsistencyWarningBanner");
         if (banner) banner.style.display = "none";
+        const optBanner = document.getElementById("sequenceOptimizationBanner");
+        if (optBanner) optBanner.style.display = "none";
         
         updateHomeProgress();
       } 
@@ -2752,6 +2754,8 @@
         
         const banner = document.getElementById("inconsistencyWarningBanner");
         if (banner) banner.style.display = "none";
+        const optBanner = document.getElementById("sequenceOptimizationBanner");
+        if (optBanner) optBanner.style.display = "none";
         
         loadConfigInputs();
       } 
@@ -7496,6 +7500,33 @@
     }
 
     function createManualMotivo(selectElement) {
+      const parts = selectElement.id.split('-');
+      const rowNum = parseInt(parts[parts.length - 1], 10);
+      const isRetorno = selectElement.id.includes("RETORNO");
+      
+      const item = (rawJsonDatabase && rawJsonDatabase.ZDEPARA_SITUACAO) 
+        ? rawJsonDatabase.ZDEPARA_SITUACAO.find(i => i.rowNum === rowNum) 
+        : null;
+      const nomeLegado = item ? String(item.NOME_DE || item.nomeDe || '').trim() : '';
+
+      if (!rawJsonDatabase.DADOS_RM_MOTIVOS) rawJsonDatabase.DADOS_RM_MOTIVOS = [];
+      const motivos = rawJsonDatabase.DADOS_RM_MOTIVOS;
+
+      let maxCod = 0;
+      motivos.forEach(m => {
+        const cod = parseInt(m.CODCLIENTE, 10);
+        if (!isNaN(cod) && cod <= 90 && cod > maxCod) { maxCod = cod; }
+      });
+
+      const nextCod = String(maxCod + 1).padStart(2, '0');
+
+      // Buscar duplicidades de nome legado na base de situação
+      const duplicates = (rawJsonDatabase.ZDEPARA_SITUACAO || []).filter(i => 
+        i.rowNum !== rowNum &&
+        nomeLegado &&
+        String(i.NOME_DE || i.nomeDe || '').trim().toLowerCase() === nomeLegado.toLowerCase()
+      );
+
       const overlay = document.createElement('div');
       overlay.style.position = 'fixed';
       overlay.style.top = '0'; overlay.style.left = '0';
@@ -7510,39 +7541,116 @@
       modal.style.backgroundColor = 'var(--bg-secondary)';
       modal.style.padding = '24px';
       modal.style.borderRadius = 'var(--border-radius-md)';
-      modal.style.width = '420px';
+      modal.style.width = '460px';
       modal.style.boxShadow = '0 10px 30px rgba(0,0,0,0.5)';
       modal.style.color = 'var(--color-text-light)';
+      modal.style.display = 'flex';
+      modal.style.flexDirection = 'column';
+      modal.style.gap = '14px';
       
       const title = document.createElement('h3');
-      title.innerText = "Criar Novo Motivo Manual";
-      title.style.marginBottom = '12px';
+      title.innerText = "Criar Novo Motivo de Afastamento RM";
+      title.style.margin = '0';
+      title.style.fontSize = '1.1rem';
+      title.style.color = 'var(--color-text-light)';
       
-      const p = document.createElement('p');
-      p.innerText = "Digite o nome da restrição (ex: AFASTAMENTO TEMPORARIO):";
-      p.style.marginBottom = '16px'; 
-      p.style.fontSize = '0.9rem';
-      p.style.color = 'var(--color-text-muted)';
+      const codeBox = document.createElement('div');
+      codeBox.style.background = '#f0fdf4';
+      codeBox.style.border = '1px solid #bbf7d0';
+      codeBox.style.padding = '8px 12px';
+      codeBox.style.borderRadius = '6px';
+      codeBox.style.display = 'flex';
+      codeBox.style.alignItems = 'center';
+      codeBox.style.justifyContent = 'space-between';
+      codeBox.innerHTML = `
+        <span style="font-size: 0.82rem; color: #166534; font-weight: 600;">Código RM a ser gerado:</span>
+        <span style="font-family: monospace; font-size: 1.05rem; font-weight: 700; color: #15803d; background: #fff; padding: 2px 8px; border-radius: 4px; border: 1px solid #86efac;">${nextCod}</span>
+      `;
+
+      const inputGroup = document.createElement('div');
+      inputGroup.style.display = 'flex';
+      inputGroup.style.flexDirection = 'column';
+      inputGroup.style.gap = '4px';
+      
+      const label = document.createElement('label');
+      label.innerText = "Descrição do Novo Motivo RM";
+      label.style.fontSize = '0.82rem';
+      label.style.fontWeight = '600';
       
       const input = document.createElement('input');
       input.type = 'text';
       input.className = 'input-field';
-      input.style.width = '100%'; input.style.marginBottom = '24px';
-      
+      input.style.width = '100%';
+      input.value = nomeLegado;
+      input.placeholder = "Ex: LICENCA MATERNIDADE";
+      inputGroup.appendChild(label);
+      inputGroup.appendChild(input);
+
+      let bulkContainer = null;
+      let bulkCheckbox = null;
+      if (duplicates.length > 0) {
+        bulkContainer = document.createElement('div');
+        bulkContainer.style.background = '#eef2ff';
+        bulkContainer.style.border = '1px solid #c7d2fe';
+        bulkContainer.style.padding = '10px 12px';
+        bulkContainer.style.borderRadius = '6px';
+
+        const bulkLabel = document.createElement('label');
+        bulkLabel.style.display = 'flex';
+        bulkLabel.style.alignItems = 'flex-start';
+        bulkLabel.style.gap = '8px';
+        bulkLabel.style.fontSize = '0.8rem';
+        bulkLabel.style.color = '#3730a3';
+        bulkLabel.style.fontWeight = '600';
+        bulkLabel.style.cursor = 'pointer';
+        bulkLabel.style.margin = '0';
+
+        bulkCheckbox = document.createElement('input');
+        bulkCheckbox.type = 'checkbox';
+        bulkCheckbox.checked = true;
+        bulkCheckbox.style.marginTop = '2px';
+        bulkCheckbox.style.accentColor = 'var(--color-primary)';
+
+        const spanText = document.createElement('span');
+        spanText.innerText = `Replicar este novo motivo para outros ${duplicates.length} registros com mesmo nome legado ("${nomeLegado}")?`;
+
+        bulkLabel.appendChild(bulkCheckbox);
+        bulkLabel.appendChild(spanText);
+        bulkContainer.appendChild(bulkLabel);
+      }
+
+      const pInfo = document.createElement('p');
+      pInfo.innerText = "* O motivo receberá o prefixo [INCLUSAO MANUAL] na tabela DADOS_RM_MOTIVOS.";
+      pInfo.style.margin = '0';
+      pInfo.style.fontSize = '0.78rem';
+      pInfo.style.color = 'var(--orange)';
+      pInfo.style.fontWeight = '600';
+
       const btnContainer = document.createElement('div');
-      btnContainer.style.display = 'flex'; btnContainer.style.justifyContent = 'flex-end'; btnContainer.style.gap = '12px';
+      btnContainer.style.display = 'flex';
+      btnContainer.style.justifyContent = 'flex-end';
+      btnContainer.style.gap = '10px';
+      btnContainer.style.marginTop = '6px';
       
       const btnCancel = document.createElement('button');
       btnCancel.innerText = "Cancelar";
       btnCancel.className = 'btn';
-      btnCancel.style.backgroundColor = 'transparent'; btnCancel.style.border = '1px solid rgba(255,255,255,0.2)';
+      btnCancel.style.backgroundColor = 'transparent';
+      btnCancel.style.border = '1px solid rgba(255,255,255,0.2)';
       
       const btnSave = document.createElement('button');
       btnSave.innerText = "Criar e Aplicar";
       btnSave.className = 'btn btn-primary';
       
-      btnContainer.appendChild(btnCancel); btnContainer.appendChild(btnSave);
-      modal.appendChild(title); modal.appendChild(p); modal.appendChild(input); modal.appendChild(btnContainer);
+      btnContainer.appendChild(btnCancel);
+      btnContainer.appendChild(btnSave);
+      
+      modal.appendChild(title);
+      modal.appendChild(codeBox);
+      modal.appendChild(inputGroup);
+      if (bulkContainer) modal.appendChild(bulkContainer);
+      modal.appendChild(pInfo);
+      modal.appendChild(btnContainer);
       overlay.appendChild(modal);
       document.body.appendChild(overlay);
       
@@ -7563,43 +7671,44 @@
           return;
         }
         
-        if (!rawJsonDatabase.DADOS_RM_MOTIVOS) rawJsonDatabase.DADOS_RM_MOTIVOS = [];
-        const motivos = rawJsonDatabase.DADOS_RM_MOTIVOS;
-
-        let maxCod = 0;
-        motivos.forEach(m => {
-          const cod = parseInt(m.CODCLIENTE, 10);
-          if (!isNaN(cod) && cod <= 90 && cod > maxCod) { maxCod = cod; }
-        });
-
-        const nextCod = String(maxCod + 1).padStart(2, '0');
         const finalName = `[INCLUSAO MANUAL] ${motivoName.trim().toUpperCase()}`;
-
         motivos.push({ CODCLIENTE: nextCod, DESCRICAO: finalName });
+        rebuildLookupMaps();
 
         // Atualiza todos os selects de motivo em tela para incluir a nova opção
         document.querySelectorAll('select[id^="edit-CODMOTIVO_"]').forEach(sel => {
           const opt = document.createElement('option');
           opt.value = nextCod;
           opt.text = `${nextCod} - ${finalName}`;
-          // Inserir logo antes da última opção (que é "+ Criar Novo Motivo Manual")
           const newOptIndex = sel.options.length > 0 ? sel.options.length - 1 : 0;
           sel.add(opt, sel.options[newOptIndex]);
         });
         
         selectElement.value = nextCod;
+        
+        // Replicação em lote se selecionado
+        let totalUpdated = 1;
+        const applyBulk = bulkCheckbox ? bulkCheckbox.checked : false;
+        if (applyBulk && rawJsonDatabase.ZDEPARA_SITUACAO) {
+          rawJsonDatabase.ZDEPARA_SITUACAO.forEach(otherItem => {
+            if (otherItem.rowNum !== rowNum && 
+                String(otherItem.NOME_DE || otherItem.nomeDe || '').trim().toLowerCase() === nomeLegado.toLowerCase()) {
+              if (isRetorno) {
+                otherItem.CODMOTIVO_RETORNO_PARA = nextCod;
+              } else {
+                otherItem.CODMOTIVO_PARA = nextCod;
+              }
+              totalUpdated++;
+            }
+          });
+        }
+
         closeModal();
         
-        showToast(`Motivo '${finalName}' criado com código ${nextCod}! Salvando na nuvem...`, "success");
+        showToast(`Motivo manual ${nextCod} ('${finalName}') criado com sucesso e aplicado em ${totalUpdated} registro(s)!`, "success");
         
-        // Extrai a linha que deve ser salva
-        const parts = selectElement.id.split('-');
-        const rowNum = parseInt(parts[parts.length - 1], 10);
-        
-        // Primeiro salva a nova base de motivos na nuvem (categoria 'base')
+        // Primeiro salva a base de motivos na nuvem (categoria 'base')
         commitChangesToGitHub(`Criação de Motivo Manual: ${nextCod}`, () => {}, () => {
-           // Só depois de salvar a base com sucesso (onSuccessCallback), dispara o salvamento da linha,
-           // que chamará internamente outro commit para 'cadastros', evitando conflito de concorrência (409)
            if (!isNaN(rowNum)) {
               saveRowEdition(rowNum);
            }
