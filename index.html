@@ -1081,8 +1081,10 @@
     tr.row-panalise  { background-color: var(--row-panalise) !important; }
     tr.row-neutral   { background-color: #e8edf3 !important; } /* Darker neutral gray for NAO IMPORTAR */
 
-    /* Left highlight borders */
+    /* Left highlight borders & Hover/Active Row (Options A + C) */
     tr.row-item {
+      cursor: pointer;
+      transition: border-left-width 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
       border-left: 4px solid transparent;
     }
     tr.row-provento { border-left-color: var(--success); }
@@ -1093,8 +1095,21 @@
     tr.row-panalise { border-left-color: var(--warning); }
     tr.row-neutral  { border-left-color: #94a3b8; }
 
+    /* Hover guia instantâneo (Opção C) */
     tr.row-item:hover {
-      filter: brightness(0.97);
+      border-left-width: 7px !important;
+      border-left-color: var(--color-primary) !important;
+      filter: brightness(0.96);
+      background-color: rgba(2, 132, 199, 0.04) !important;
+    }
+
+    /* Linha de trabalho ativa fixada por clique (Opção A) */
+    tr.row-item.active-working-row {
+      border-left-width: 8px !important;
+      border-left-color: #0284c7 !important; /* Azul TOTVS marcante */
+      box-shadow: inset 0 0 0 1px rgba(2, 132, 199, 0.3), 0 2px 8px rgba(2, 132, 199, 0.15) !important;
+      background-color: #f0f9ff !important; /* Realce suave de foco azul fixo */
+      position: relative;
     }
 
     tr.row-editing {
@@ -1521,29 +1536,44 @@
   <div id="newRMEventModal" class="modal-overlay">
     <div class="modal-card">
       <div class="modal-header">Criar Novo Evento RM</div>
-      <div class="modal-body">
-        <p style="font-size: 0.9rem; color: var(--color-text-muted);">
-          Este evento não existe nos dados do RM. Ele será adicionado à tabela <strong>DADOS_RM_EVENTOS</strong> com o prefixo de identificação correspondente.
+      <div class="modal-body" style="display: flex; flex-direction: column; gap: 12px;">
+        <p style="font-size: 0.85rem; color: var(--color-text-muted); margin: 0;">
+          Este evento não existe nos dados do RM. Ele será cadastrado automaticamente na tabela <strong>DADOS_RM_EVENTOS</strong>.
         </p>
-        <div style="display: flex; flex-direction: column; gap: 6px;">
-          <label style="font-size: 0.85rem; font-weight: 600;">Descrição do Novo Evento RM</label>
+        
+        <div style="background: #f0fdf4; border: 1px solid #bbf7d0; padding: 8px 12px; border-radius: 6px; display: flex; align-items: center; justify-content: space-between;">
+          <span style="font-size: 0.82rem; color: #166534; font-weight: 600;">Código RM a ser gerado:</span>
+          <span id="modalSuggestedCode" style="font-family: monospace; font-size: 1.05rem; font-weight: 700; color: #15803d; background: #fff; padding: 2px 8px; border-radius: 4px; border: 1px solid #86efac;">0000</span>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 4px;">
+          <label style="font-size: 0.82rem; font-weight: 600;">Descrição do Novo Evento RM</label>
           <input type="text" id="modalDesc" class="input-field" placeholder="Ex: Adicional de Férias">
         </div>
-        <div style="display: flex; flex-direction: column; gap: 6px;">
-          <label style="font-size: 0.85rem; font-weight: 600;">Tipo de Evento</label>
+
+        <div style="display: flex; flex-direction: column; gap: 4px;">
+          <label style="font-size: 0.82rem; font-weight: 600;">Tipo de Evento</label>
           <select id="modalTipo" class="input-field">
             <option value="PROVENTO">PROVENTO</option>
             <option value="DESCONTO">DESCONTO</option>
             <option value="BASE DE CALCULO">BASE DE CALCULO</option>
           </select>
         </div>
-        <p style="font-size: 0.8rem; color: var(--orange); font-weight: 600;">
-          * O código será sequencial automático e o evento receberá o prefixo [INCLUSAO MANUAL] na descrição.
+
+        <div id="modalBulkContainer" style="background: #eef2ff; border: 1px solid #c7d2fe; padding: 10px 12px; border-radius: 6px; display: none;">
+          <label style="display: flex; align-items: flex-start; gap: 8px; font-size: 0.8rem; color: #3730a3; font-weight: 600; cursor: pointer; margin: 0;">
+            <input type="checkbox" id="modalBulkCheckbox" checked style="margin-top: 2px; accent-color: var(--color-primary);">
+            <span id="modalBulkLabel">Replicar este novo evento para outros registros semelhantes?</span>
+          </label>
+        </div>
+
+        <p style="font-size: 0.78rem; color: var(--orange); font-weight: 600; margin: 0;">
+          * O evento receberá o prefixo [INCLUSAO MANUAL] na descrição oficial do RM.
         </p>
       </div>
       <div class="modal-footer">
         <button class="row-btn" style="background-color: #f1f5f9;" onclick="closeModal('newRMEventModal')">Cancelar</button>
-        <button class="row-btn row-btn-primary" onclick="submitNewRMEvent()">Salvar e Selecionar</button>
+        <button class="row-btn row-btn-primary" onclick="submitNewRMEvent()">Criar e Mapear</button>
       </div>
     </div>
   </div>
@@ -5939,6 +5969,28 @@
       };
     }
 
+    let activeWorkingRowNum = null;
+
+    function setActiveWorkingRow(rowNum) {
+      if (activeWorkingRowNum === rowNum) {
+        // Segundo clique na mesma linha desmarca se desejar, ou mantém
+        // Mantemos ativa para garantir o foco fixo
+        return;
+      }
+      activeWorkingRowNum = rowNum;
+      document.querySelectorAll('tr.row-item').forEach(tr => {
+        tr.classList.remove('active-working-row');
+      });
+      const currentTr = document.getElementById(`row-${rowNum}`);
+      if (currentTr) {
+        currentTr.classList.add('active-working-row');
+      }
+    }
+
+    function handleRowClick(e, rowNum) {
+      setActiveWorkingRow(rowNum);
+    }
+
     function renderTableContent() {
       const tbody = document.getElementById("tableBody");
       tbody.innerHTML = "";
@@ -6024,8 +6076,11 @@
           statusLabel = "DIVERGÊNCIA";
         }
         
+        const isActive = activeWorkingRowNum === item.rowNum;
         const tr = document.createElement("tr");
-        tr.className = `row-item ${rowColorClass} ${isEditing ? 'row-editing' : ''} ${isExpanded ? 'row-expanded' : ''}`;
+        tr.id = `row-${item.rowNum}`;
+        tr.className = `row-item ${rowColorClass} ${isEditing ? 'row-editing' : ''} ${isExpanded ? 'row-expanded' : ''} ${isActive ? 'active-working-row' : ''}`;
+        tr.onclick = (e) => handleRowClick(e, item.rowNum);
         
         let rmCellContent = `<span class="badge ${mapBadge}">${statusLabel}</span>`;
         if (item.codigoPara && !isCodeIgnored(item.codigoPara)) {
@@ -6273,8 +6328,11 @@
           }
         }
 
+        const isActive = activeWorkingRowNum === item.rowNum;
         const tr = document.createElement("tr");
-        tr.className = `row-item ${rowColorClass} ${isEditing ? 'row-editing' : ''} ${isExpanded ? 'row-expanded' : ''}`;
+        tr.id = `row-${item.rowNum}`;
+        tr.className = `row-item ${rowColorClass} ${isEditing ? 'row-editing' : ''} ${isExpanded ? 'row-expanded' : ''} ${isActive ? 'active-working-row' : ''}`;
+        tr.onclick = (e) => handleRowClick(e, item.rowNum);
         
         // 2. Montar Colunas baseadas no módulo ativo
         if (isEditing) {
@@ -6828,11 +6886,25 @@
       
       const item = database.find(i => i.rowNum === rowNum);
       
-      // 1. Extrair nome/descrição do evento de origem (legado)
+      // 1. Calcular o próximo código RM sequencial disponível
+      const numericCodes = (rmEvents || [])
+        .map(e => parseInt(e.codigo !== undefined ? e.codigo : (e.CODIGO !== undefined ? e.CODIGO : ""), 10))
+        .filter(n => !isNaN(n))
+        .sort((a, b) => a - b);
+      
+      let nextCode = 1;
+      if (numericCodes.length > 0) {
+        nextCode = numericCodes[numericCodes.length - 1] + 1;
+      }
+      const nextCodeStr = String(nextCode).padStart(4, '0');
+      const suggestedEl = document.getElementById("modalSuggestedCode");
+      if (suggestedEl) suggestedEl.innerText = nextCodeStr;
+
+      // 2. Extrair nome/descrição do evento de origem (legado)
       const nomeLegado = item ? (item.nomeDe || item.NOME_DE || item.NOME || item.descricao || item.DESCRICAO || '') : '';
       document.getElementById("modalDesc").value = nomeLegado.trim();
       
-      // 2. Extrair e normalizar o tipo de evento (Provento, Desconto, Base)
+      // 3. Extrair e normalizar o tipo de evento (Provento, Desconto, Base)
       const rawTipo = item ? (item.tipoEvento || item.TIPO_EVENTO || item.TIPO || item.proventoDesconto || item.PROVENTO_DESCONTO || '') : '';
       const tipoUpper = String(rawTipo).trim().toUpperCase();
       
@@ -6846,6 +6918,32 @@
       }
       
       document.getElementById("modalTipo").value = tipoFinal;
+
+      // 4. Identificar eventos semelhantes na base para replicação em lote
+      const bulkContainer = document.getElementById("modalBulkContainer");
+      const bulkCheckbox = document.getElementById("modalBulkCheckbox");
+      const bulkLabel = document.getElementById("modalBulkLabel");
+      
+      if (item && currentModule === 'eventos') {
+        const itemNome = String(item.nomeDe || item.NOME_DE || '').trim().toLowerCase();
+        const itemTipo = String(item.tipoEvento || item.TIPO_EVENTO || '').trim();
+        const duplicates = database.filter(i => 
+          i.rowNum !== rowNum &&
+          String(i.nomeDe || i.NOME_DE || '').trim().toLowerCase() === itemNome &&
+          String(i.tipoEvento || i.TIPO_EVENTO || '').trim() === itemTipo
+        );
+        
+        if (duplicates.length > 0) {
+          if (bulkContainer) bulkContainer.style.display = "block";
+          if (bulkCheckbox) bulkCheckbox.checked = true;
+          if (bulkLabel) bulkLabel.innerText = `Replicar este novo evento para outros ${duplicates.length} registros com mesmo Nome e Tipo ("${nomeLegado}" — ${tipoFinal})?`;
+        } else {
+          if (bulkContainer) bulkContainer.style.display = "none";
+          if (bulkCheckbox) bulkCheckbox.checked = false;
+        }
+      } else {
+        if (bulkContainer) bulkContainer.style.display = "none";
+      }
       
       closeAllAutocompletes();
       document.getElementById("newRMEventModal").style.display = "flex";
@@ -7233,6 +7331,7 @@
     function submitNewRMEvent() {
       const desc = document.getElementById("modalDesc").value.trim();
       const tipo = document.getElementById("modalTipo").value;
+      const applyBulk = document.getElementById("modalBulkCheckbox")?.checked || false;
       
       if (!desc) return;
       
@@ -7240,10 +7339,10 @@
       showLoading("Criando novo evento e atualizando mapeamento...");
       
       // Encontrar o maior código numérico absoluto (desprezando códigos não numéricos)
-      const numericCodes = rmEvents
-        .map(e => parseInt(e.codigo, 10))
+      const numericCodes = (rmEvents || [])
+        .map(e => parseInt(e.codigo !== undefined ? e.codigo : (e.CODIGO !== undefined ? e.CODIGO : ""), 10))
         .filter(n => !isNaN(n))
-        .sort((a,b) => a - b);
+        .sort((a, b) => a - b);
       
       let nextCode = 1;
       if (numericCodes.length > 0) {
@@ -7263,31 +7362,62 @@
         // 1. Adicionar o novo evento à base de apoio RM
         const newEv = {
           codigo: newCodeStr,
+          CODIGO: newCodeStr,
           descricao: finalDesc,
-          tipo: tipo
+          DESCRICAO: finalDesc,
+          tipo: tipo,
+          TIPOEVENTO: tipo,
+          valhordiaref: "VALOR",
+          VALHORDIAREF: "VALOR",
+          nat_esocial: "-",
+          NAT_ESOCIAL: "-"
         };
         rmEvents.push(newEv);
         rawJsonDatabase.DADOS_RM_EVENTOS = rmEvents;
+        rebuildLookupMaps();
         
         // 2. Atualizar a linha De-Para na base de dados local (rawJsonDatabase)
+        let totalUpdated = 1;
         if (item) {
           const idx = database.findIndex(i => i.rowNum === rowNum);
           if (idx !== -1) {
             if (fieldType === "codigoPara") {
               database[idx].codigoPara = newCodeStr;
+              database[idx].CODIGO_PARA = newCodeStr;
               database[idx].nomeRm = finalDesc;
+              database[idx].NOME_RM = finalDesc;
             } else if (fieldType === "ficha1") {
               database[idx].codigoParaFichaMes1 = newCodeStr;
+              database[idx].CODIGO_PARA_FICHA_MES1 = newCodeStr;
             } else if (fieldType === "ficha2") {
               database[idx].codigoParaFichaMes2 = newCodeStr;
+              database[idx].CODIGO_PARA_FICHA_MES2 = newCodeStr;
             } else if (fieldType === "ferias") {
               database[idx].codigoParaVerbasFerias = newCodeStr;
+              database[idx].CODIGO_PARA_VERBAS_FERIAS = newCodeStr;
             }
+          }
+          
+          // 3. Replicação em lote se selecionado (mesmo Nome e mesmo Tipo)
+          if (applyBulk && currentModule === 'eventos' && fieldType === "codigoPara") {
+            const itemNome = String(item.nomeDe || item.NOME_DE || '').trim().toLowerCase();
+            const itemTipo = String(item.tipoEvento || item.TIPO_EVENTO || '').trim();
+            database.forEach(otherItem => {
+              if (otherItem.rowNum !== rowNum &&
+                  String(otherItem.nomeDe || otherItem.NOME_DE || '').trim().toLowerCase() === itemNome &&
+                  String(otherItem.tipoEvento || otherItem.TIPO_EVENTO || '').trim() === itemTipo) {
+                otherItem.codigoPara = newCodeStr;
+                otherItem.CODIGO_PARA = newCodeStr;
+                otherItem.nomeRm = finalDesc;
+                otherItem.NOME_RM = finalDesc;
+                totalUpdated++;
+              }
+            });
           }
         }
         rawJsonDatabase.ZDEPARA_EVENTOS = database;
         
-        // 3. Atualizar os campos visuais na tela para refletir o mapeamento feito
+        // 4. Atualizar os campos visuais na tela para refletir o mapeamento feito
         const fieldId = `edit-${fieldType}-${rowNum}`;
         const labelId = `edit-nomeRm-${rowNum}`;
         const inputEl = document.getElementById(fieldId);
@@ -7299,9 +7429,16 @@
           toggleFichaInputs(rowNum, newCodeStr);
         }
         
-        // 4. Fechar a linha de edição (não precisa de segundo salvamento)
+        // 5. Fechar a linha de edição e atualizar
         editingRowNumber = null;
         expandedRowNumbers.delete(rowNum);
+        
+        hideLoading();
+        showToast(`Evento manual ${newCodeStr} criado com sucesso e aplicado em ${totalUpdated} registro(s)!`, "success");
+        calculateLocalDiagnosticsAndStats();
+        renderWarnings();
+        updateDashboard();
+        applyFilters();
       });
     }
 
