@@ -5286,12 +5286,65 @@
       }
     }
 
-    // Tecla ESC para sair do modo tela cheia
+    // Navegação por teclado (Setas Cima/Baixo e ESC)
     document.addEventListener("keydown", function(e) {
       if (e.key === "Escape") {
         const card = document.getElementById("masterTableCard");
         if (card && card.classList.contains("table-fullscreen")) {
           toggleFullscreenTable();
+        }
+        return;
+      }
+
+      // Não interceptar setas se o usuário estiver digitando em campos de entrada ou se houver modal aberto
+      const tag = (document.activeElement && document.activeElement.tagName) ? document.activeElement.tagName.toUpperCase() : "";
+      if (tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || (document.activeElement && document.activeElement.isContentEditable)) {
+        return;
+      }
+      
+      const anyModalOpen = Array.from(document.querySelectorAll('.modal-overlay')).some(m => m.style.display === 'flex');
+      if (anyModalOpen) {
+        return;
+      }
+
+      if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+        if (!filteredData || filteredData.length === 0) return;
+        
+        e.preventDefault();
+        
+        let currentIndex = -1;
+        if (activeWorkingRowNum !== null) {
+          currentIndex = filteredData.findIndex(i => i.rowNum === activeWorkingRowNum);
+        }
+        
+        let targetIndex = 0;
+        if (e.key === "ArrowDown") {
+          if (currentIndex === -1) {
+            targetIndex = 0;
+          } else {
+            targetIndex = Math.min(currentIndex + 1, filteredData.length - 1);
+          }
+        } else if (e.key === "ArrowUp") {
+          if (currentIndex === -1) {
+            targetIndex = 0;
+          } else {
+            targetIndex = Math.max(currentIndex - 1, 0);
+          }
+        }
+        
+        // Expandir o chunk de renderização se o usuário navegar além do total renderizado
+        if (targetIndex >= renderedCount) {
+          renderedCount = Math.min(targetIndex + renderChunkSize + 10, filteredData.length);
+          renderTableContent();
+        }
+        
+        const targetItem = filteredData[targetIndex];
+        if (targetItem) {
+          setActiveWorkingRow(targetItem.rowNum);
+          const trEl = document.getElementById(`row-${targetItem.rowNum}`);
+          if (trEl) {
+            trEl.scrollIntoView({ block: "nearest", behavior: "smooth" });
+          }
         }
       }
     });
@@ -6145,12 +6198,12 @@
         } else {
           const arrowSymbol = isExpanded ? "▲" : "▼";
           tr.innerHTML = `
-            <td class="col-empresa-orig" onclick="toggleRowExpansion(${item.rowNum})">${item.empresaDe}</td>
-            <td class="col-codigo-orig" onclick="toggleRowExpansion(${item.rowNum})"><code>${item.codigoDe}</code></td>
-            <td class="col-nome-orig col-divider-right" onclick="toggleRowExpansion(${item.rowNum})">${legacyCellContent}</td>
-            <td class="col-coligada-rm" onclick="toggleRowExpansion(${item.rowNum})">${item.coligadaPara || "-"}</td>
-            <td class="col-codigo-rm" onclick="toggleRowExpansion(${item.rowNum})"><code>${item.codigoPara || "-"}</code></td>
-            <td class="col-nome-rm" onclick="toggleRowExpansion(${item.rowNum})">${rmCellContent}</td>
+            <td class="col-empresa-orig">${item.empresaDe}</td>
+            <td class="col-codigo-orig"><code>${item.codigoDe}</code></td>
+            <td class="col-nome-orig col-divider-right">${legacyCellContent}</td>
+            <td class="col-coligada-rm">${item.coligadaPara || "-"}</td>
+            <td class="col-codigo-rm"><code>${item.codigoPara || "-"}</code></td>
+            <td class="col-nome-rm">${rmCellContent}</td>
             <td class="col-acoes">
               <div class="action-icons">
                 <button class="action-icon-btn" onclick="toggleRowExpansion(${item.rowNum})" title="Ver Detalhes">
@@ -6494,34 +6547,34 @@
 
           if (currentModule === 'coligadas') {
             trHtml = `
-              <td onclick="toggleRowExpansion(${item.rowNum})"><code>${item.EMPRESA_DE || ''}</code></td>
-              <td onclick="toggleRowExpansion(${item.rowNum})">${item.ID || ''}</td>
-              <td onclick="toggleRowExpansion(${item.rowNum})">${item.NOME_DE || ''}</td>
-              <td class="col-divider-right" onclick="toggleRowExpansion(${item.rowNum})"><code>${formatCpfCnpj(item.CNPJ)}</code></td>
-              <td onclick="toggleRowExpansion(${item.rowNum})">${badgeDest}</td>
-              <td onclick="toggleRowExpansion(${item.rowNum})"><code>${item.CODFILIAL_PARA || ''}</code></td>
+              <td><code>${item.EMPRESA_DE || ''}</code></td>
+              <td>${item.ID || ''}</td>
+              <td>${item.NOME_DE || ''}</td>
+              <td class="col-divider-right"><code>${formatCpfCnpj(item.CNPJ)}</code></td>
+              <td>${badgeDest}</td>
+              <td><code>${item.CODFILIAL_PARA || ''}</code></td>
               <td>${actionButtons}</td>
             `;
           } 
           else if (currentModule === 'funcoes') {
             trHtml = `
-              <td class="col-funcao-emp" onclick="toggleRowExpansion(${item.rowNum})"><code>${item.EMPRESA_DE || ''}</code></td>
-              <td class="col-funcao-cod" onclick="toggleRowExpansion(${item.rowNum})"><code>${item.CODIGO_DE || ''}</code></td>
-              <td class="col-funcao-nome" onclick="toggleRowExpansion(${item.rowNum})" title="${item.NOME_DE || ''}">${item.NOME_DE || ''}</td>
-              <td class="col-funcao-cbo col-divider-right" onclick="toggleRowExpansion(${item.rowNum})"><code>${item.CBO || ''}</code></td>
-              <td class="col-funcao-coligada" onclick="toggleRowExpansion(${item.rowNum})">${item.COLIGADA_PARA || item.coligadaPara || '1'}</td>
-              <td class="col-funcao-codpara" onclick="toggleRowExpansion(${item.rowNum})">${badgeDest}</td>
+              <td class="col-funcao-emp"><code>${item.EMPRESA_DE || ''}</code></td>
+              <td class="col-funcao-cod"><code>${item.CODIGO_DE || ''}</code></td>
+              <td class="col-funcao-nome" title="${item.NOME_DE || ''}">${item.NOME_DE || ''}</td>
+              <td class="col-funcao-cbo col-divider-right"><code>${item.CBO || ''}</code></td>
+              <td class="col-funcao-coligada">${item.COLIGADA_PARA || item.coligadaPara || '1'}</td>
+              <td class="col-funcao-codpara">${badgeDest}</td>
               <td class="col-funcao-acoes">${actionButtons}</td>
             `;
           } 
           else if (currentModule === 'sindicatos') {
             trHtml = `
-              <td onclick="toggleRowExpansion(${item.rowNum})"><code>${item.EMPRESA_DE || item['EMPRESA _DE'] || ''}</code></td>
-              <td onclick="toggleRowExpansion(${item.rowNum})"><code>${item.CODIGO_DE || ''}</code></td>
-              <td onclick="toggleRowExpansion(${item.rowNum})">${item.NOME_DE || ''}</td>
-              <td class="col-divider-right" onclick="toggleRowExpansion(${item.rowNum})"><code>${formatCpfCnpj(item.CNPJ)}</code></td>
-              <td onclick="toggleRowExpansion(${item.rowNum})">${item.COLIGADA_PARA || ''}</td>
-              <td onclick="toggleRowExpansion(${item.rowNum})">${badgeDest}</td>
+              <td><code>${item.EMPRESA_DE || item['EMPRESA _DE'] || ''}</code></td>
+              <td><code>${item.CODIGO_DE || ''}</code></td>
+              <td>${item.NOME_DE || ''}</td>
+              <td class="col-divider-right"><code>${formatCpfCnpj(item.CNPJ)}</code></td>
+              <td>${item.COLIGADA_PARA || ''}</td>
+              <td>${badgeDest}</td>
               <td>${actionButtons}</td>
             `;
           } 
@@ -6529,8 +6582,8 @@
             const hasObs = !!(item.OBSERVACAO || item.observacao);
             const obsIcon = hasObs ? `<span title="Possui observação" style="margin-left: 6px; cursor: pointer; font-size: 1.1em;">💬</span>` : '';
             trHtml = `
-              <td class="col-divider-right" onclick="toggleRowExpansion(${item.rowNum})"><code>[EMP: ${item.EMPRESA_DE || ''} | FILIAL: ${item.FILIAL_DE || ''}] COD_DE: ${item.CODIGO_DE || ''} | ${item.NOME_DE || ''}</code></td>
-              <td onclick="toggleRowExpansion(${item.rowNum})">${badgeDest}${obsIcon}</td>
+              <td class="col-divider-right"><code>[EMP: ${item.EMPRESA_DE || ''} | FILIAL: ${item.FILIAL_DE || ''}] COD_DE: ${item.CODIGO_DE || ''} | ${item.NOME_DE || ''}</code></td>
+              <td>${badgeDest}${obsIcon}</td>
               <td>${actionButtons}</td>
             `;
           } 
@@ -6541,18 +6594,18 @@
             const motRetName = getMotivoName(item.CODMOTIVO_RETORNO_PARA);
             
             trHtml = `
-              <td onclick="toggleRowExpansion(${item.rowNum})"><code>${item.CODIGO_DE || ''}</code></td>
-              <td class="col-divider-right" onclick="toggleRowExpansion(${item.rowNum})">${item.NOME_DE || ''}</td>
-              <td onclick="toggleRowExpansion(${item.rowNum})">
+              <td><code>${item.CODIGO_DE || ''}</code></td>
+              <td class="col-divider-right">${item.NOME_DE || ''}</td>
+              <td>
                 ${item.CODSITUACAO_PARA ? `<code>${item.CODSITUACAO_PARA}</code> <span style="font-size:0.75rem; color:#64748b;">${sitParaName}</span>` : ''}
               </td>
-              <td onclick="toggleRowExpansion(${item.rowNum})">
+              <td>
                 ${item.CODMOTIVO_PARA ? `<code>${item.CODMOTIVO_PARA}</code> <span style="font-size:0.75rem; color:#64748b;">${motParaName}</span>` : ''}
               </td>
-              <td onclick="toggleRowExpansion(${item.rowNum})">
+              <td>
                 ${item.CODSITUACAO_RETORNO_PARA ? `<code>${item.CODSITUACAO_RETORNO_PARA}</code> <span style="font-size:0.75rem; color:#64748b;">${sitRetName}</span>` : ''}
               </td>
-              <td onclick="toggleRowExpansion(${item.rowNum})">
+              <td>
                 ${item.CODMOTIVO_RETORNO_PARA ? `<code>${item.CODMOTIVO_RETORNO_PARA}</code> <span style="font-size:0.75rem; color:#64748b;">${motRetName}</span>` : ''}
               </td>
               <td>${actionButtons}</td>
