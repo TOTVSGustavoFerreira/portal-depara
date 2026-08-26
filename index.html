@@ -1030,23 +1030,23 @@
     }
 
     /* Fixed Column Widths & Wrap Rules */
-    .col-empresa-orig { width: 65px; min-width: 65px; max-width: 65px; text-align: center; }
-    .col-codigo-orig  { width: 75px; min-width: 75px; max-width: 75px; text-align: center; }
+    .col-empresa-orig { width: 85px; min-width: 85px; max-width: 85px; text-align: center; }
+    .col-codigo-orig  { width: 85px; min-width: 85px; max-width: 85px; text-align: center; }
     .col-nome-orig    { width: auto; }
     
-    .col-coligada-rm  { width: 60px; min-width: 60px; max-width: 60px; text-align: center; }
-    .col-codigo-rm    { width: 95px; min-width: 95px; max-width: 95px; text-align: center; }
+    .col-coligada-rm  { width: 80px; min-width: 80px; max-width: 80px; text-align: center; }
+    .col-codigo-rm    { width: 90px; min-width: 90px; max-width: 90px; text-align: center; }
     .col-nome-rm      { width: auto; }
     .col-acoes        { width: 75px !important; min-width: 75px !important; max-width: 75px !important; text-align: right; }
     .action-icons     { display: flex; justify-content: flex-end; gap: 4px; }
     
     /* Configurações específicas de colunas para ZDEPARA_FUNCOES */
-    .col-funcao-emp   { width: 65px; min-width: 65px; max-width: 65px; text-align: center; }
-    .col-funcao-cod   { width: 75px; min-width: 75px; max-width: 75px; text-align: center; }
+    .col-funcao-emp   { width: 85px; min-width: 85px; max-width: 85px; text-align: center; }
+    .col-funcao-cod   { width: 85px; min-width: 85px; max-width: 85px; text-align: center; }
     .col-funcao-nome  { width: auto; }
-    .col-funcao-cbo   { width: 75px; min-width: 75px; max-width: 75px; text-align: center; }
-    .col-funcao-coligada { width: 60px; min-width: 60px; max-width: 60px; text-align: center; }
-    .col-funcao-codpara { width: 95px; min-width: 95px; max-width: 95px; }
+    .col-funcao-cbo   { width: 90px; min-width: 90px; max-width: 90px; text-align: center; }
+    .col-funcao-coligada { width: 80px; min-width: 80px; max-width: 80px; text-align: center; }
+    .col-funcao-codpara { width: 120px; min-width: 120px; max-width: 120px; text-align: center; }
     .col-funcao-acoes { width: 75px !important; min-width: 75px !important; max-width: 75px !important; text-align: right; }
 
     /* Quebra de linha suave para que descrições nunca fiquem truncadas com ... */
@@ -2452,111 +2452,7 @@
     function normalizeDatabaseProperties(db) {
       if (!db) return;
       
-      // 1. Normalizar ZDEPARA_EVENTOS de forma robusta e agressiva
-      if (db.ZDEPARA_EVENTOS && Array.isArray(db.ZDEPARA_EVENTOS)) {
-        db.ZDEPARA_EVENTOS.forEach((item, idx) => {
-          item.rowNum = idx + 1;
-          const getVal = (v1, v2) => {
-            const s1 = String(v1 !== undefined && v1 !== null ? v1 : "").trim();
-            const s2 = String(v2 !== undefined && v2 !== null ? v2 : "").trim();
-            return s1 !== "" ? s1 : s2;
-          };
-
-          const valEmpresa = getVal(item.EMPRESA_DE, item.empresaDe);
-          item.EMPRESA_DE = valEmpresa;
-          item.empresaDe = valEmpresa;
-          
-          const valCodigo = getVal(item.CODIGO_DE, item.codigoDe);
-          item.CODIGO_DE = valCodigo;
-          item.codigoDe = valCodigo;
-          
-          const valNomeDe = getVal(item.NOME_DE, item.nomeDe);
-          item.NOME_DE = valNomeDe;
-          item.nomeDe = valNomeDe;
-          
-          const valTipo = getVal(item.TIPO_EVENTO, item.tipoEvento);
-          item.TIPO_EVENTO = valTipo;
-          item.tipoEvento = valTipo;
-          
-          const valColigada = getVal(item.COLIGADA_PARA, item.coligadaPara);
-          item.COLIGADA_PARA = valColigada;
-          item.coligadaPara = valColigada;
-          
-          const valCodigoPara = getVal(item.CODIGO_PARA, item.codigoPara);
-          item.CODIGO_PARA = valCodigoPara;
-          item.codigoPara = valCodigoPara;
-          
-          // Autoderivação inteligente vinculada EXCLUSIVAMENTE aos códigos RM 0076 e 0041
-          const cod = String(item.codigoPara || item.CODIGO_PARA || "").padStart(4, '0');
-
-          if (cod === "0076") {
-            item.codigoParaFichaMes1 = "0076";
-            item.codigoParaFichaMes2 = "0077";
-            item.codigoParaVerbasFerias = "0040";
-          } else if (cod === "0041") {
-            item.codigoParaFichaMes1 = "0041";
-            item.codigoParaFichaMes2 = "0042";
-            item.codigoParaVerbasFerias = "0038";
-          } else {
-            // Qualquer outro código não deve ter esses campos preenchidos
-            item.codigoParaFichaMes1 = "";
-            item.codigoParaFichaMes2 = "";
-            item.codigoParaVerbasFerias = "";
-          }
-
-          item.CODIGO_PARA_FICHA_MES1 = item.codigoParaFichaMes1;
-          item.CODIGO_PARA_FICHA_MES2 = item.codigoParaFichaMes2;
-          item.CODIGO_PARA_VERBAS_FERIAS = item.codigoParaVerbasFerias;
-          
-          const valObs = getVal(item.OBSERVACAO, item.observacao);
-          item.OBSERVACAO = valObs;
-          item.observacao = valObs;
-          
-          const valSug = getVal(item.SUGESTOES, item.sugestoes);
-          item.SUGESTOES = valSug;
-          item.sugestoes = valSug;
-
-          item.nomeRm = getRmName(item.codigoPara);
-        });
-      }
-
-      // 2. Normalizar outras abas de de-para para garantir chaves limpas e rowNum único
-      const genericTabs = [
-        'ZDEPARA_COLIGADAS', 'ZDEPARA_FUNCOES', 'ZDEPARA_SINDICATOS', 
-        'ZDEPARA_SECOES', 'ZDEPARA_BANCOS', 'ZDEPARA_SITUACAO', 
-        'ZDEPARA_HORARIO', 'ZDEPARA_PERIODO_FOLHA', 'ZDEPARA_MOTIVO_FUNCAO', 
-        'ZDEPARA_MOTIVO_SALARIO', 'ZDEPARA_MOTIVO_SECAO'
-      ];
-
-      genericTabs.forEach(key => {
-        const arr = db[key];
-        if (arr && Array.isArray(arr)) {
-          arr.forEach((item, idx) => {
-            item.rowNum = idx + 1;
-            // Converter todas as chaves existentes do item para string e limpar espaços
-            for (let prop in item) {
-              if (prop !== 'rowNum' && item[prop] !== undefined && item[prop] !== null) {
-                item[prop] = String(item[prop]).trim();
-              }
-            }
-
-            // Normalizar chaves comuns de De-Para para manter compatibilidade de exibição
-            const colPara = String(item.COLIGADA_PARA !== undefined ? item.COLIGADA_PARA : (item.coligadaPara !== undefined ? item.coligadaPara : "1")).trim();
-            item.COLIGADA_PARA = colPara;
-            item.coligadaPara = colPara;
-
-            const codPara = String(item.CODIGO_PARA !== undefined ? item.CODIGO_PARA : (item.codigoPara !== undefined ? item.codigoPara : "")).trim();
-            item.CODIGO_PARA = codPara;
-            item.codigoPara = codPara;
-
-            const obs = String(item.OBSERVACAO !== undefined ? item.OBSERVACAO : (item.observacao !== undefined ? item.observacao : "")).trim();
-            item.OBSERVACAO = obs;
-            item.observacao = obs;
-          });
-        }
-      });
-
-      // 3. Normalizar bases de apoio DADOS_RM_* para manter consistência nas buscas e chaves do portal
+      // 1. Normalizar bases de apoio DADOS_RM_* PRIMEIRO para disponibilizar dados a todas as tabelas
       if (db.DADOS_RM_EVENTOS && Array.isArray(db.DADOS_RM_EVENTOS)) {
         db.DADOS_RM_EVENTOS.forEach(item => {
           const cod = String(item.CODIGO !== undefined ? item.CODIGO : (item.codigo !== undefined ? item.codigo : "")).trim();
@@ -2631,13 +2527,120 @@
           item.cnpj = cnpj;
         });
       }
-      
-      // Recalcular os nomes de ZDEPARA_EVENTOS após normalizar as tabelas de apoio
+
+      // Seed Inteligente: DADOS_RM_MOTIVOS se vazio
+      if (typeof GLOBAL_RM_MOTIVOS_SEED !== 'undefined' && (!db.DADOS_RM_MOTIVOS || !Array.isArray(db.DADOS_RM_MOTIVOS) || db.DADOS_RM_MOTIVOS.length === 0)) {
+         db.DADOS_RM_MOTIVOS = JSON.parse(JSON.stringify(GLOBAL_RM_MOTIVOS_SEED));
+      }
+
+      // Reconstruir mapas O(1) de RM IMEDIATAMENTE
+      rebuildLookupMaps();
+
+      // 2. Normalizar ZDEPARA_EVENTOS de forma robusta e agressiva
       if (db.ZDEPARA_EVENTOS && Array.isArray(db.ZDEPARA_EVENTOS)) {
-        db.ZDEPARA_EVENTOS.forEach(item => {
-          item.nomeRm = getRmName(item.codigoPara);
+        db.ZDEPARA_EVENTOS.forEach((item, idx) => {
+          item.rowNum = idx + 1;
+          const getVal = (v1, v2) => {
+            const s1 = String(v1 !== undefined && v1 !== null ? v1 : "").trim();
+            const s2 = String(v2 !== undefined && v2 !== null ? v2 : "").trim();
+            return s1 !== "" ? s1 : s2;
+          };
+
+          const valEmpresa = getVal(item.EMPRESA_DE, item.empresaDe);
+          item.EMPRESA_DE = valEmpresa;
+          item.empresaDe = valEmpresa;
+          
+          const valCodigo = getVal(item.CODIGO_DE, item.codigoDe);
+          item.CODIGO_DE = valCodigo;
+          item.codigoDe = valCodigo;
+          
+          const valNomeDe = getVal(item.NOME_DE, item.nomeDe);
+          item.NOME_DE = valNomeDe;
+          item.nomeDe = valNomeDe;
+          
+          const valTipo = getVal(item.TIPO_EVENTO, item.tipoEvento);
+          item.TIPO_EVENTO = valTipo;
+          item.tipoEvento = valTipo;
+          
+          const valColigada = getVal(item.COLIGADA_PARA, item.coligadaPara);
+          item.COLIGADA_PARA = valColigada;
+          item.coligadaPara = valColigada;
+          
+          const valCodigoPara = getVal(item.CODIGO_PARA, item.codigoPara);
+          item.CODIGO_PARA = valCodigoPara;
+          item.codigoPara = valCodigoPara;
+          
+          // Autoderivação inteligente vinculada EXCLUSIVAMENTE aos códigos RM 0076 e 0041
+          const cod = String(item.codigoPara || item.CODIGO_PARA || "").padStart(4, '0');
+
+          if (cod === "0076") {
+            item.codigoParaFichaMes1 = "0076";
+            item.codigoParaFichaMes2 = "0077";
+            item.codigoParaVerbasFerias = "0040";
+          } else if (cod === "0041") {
+            item.codigoParaFichaMes1 = "0041";
+            item.codigoParaFichaMes2 = "0042";
+            item.codigoParaVerbasFerias = "0038";
+          } else {
+            // Qualquer outro código não deve ter esses campos preenchidos
+            item.codigoParaFichaMes1 = "";
+            item.codigoParaFichaMes2 = "";
+            item.codigoParaVerbasFerias = "";
+          }
+
+          item.CODIGO_PARA_FICHA_MES1 = item.codigoParaFichaMes1;
+          item.CODIGO_PARA_FICHA_MES2 = item.codigoParaFichaMes2;
+          item.CODIGO_PARA_VERBAS_FERIAS = item.codigoParaVerbasFerias;
+          
+          const valObs = getVal(item.OBSERVACAO, item.observacao);
+          item.OBSERVACAO = valObs;
+          item.observacao = valObs;
+          
+          const valSug = getVal(item.SUGESTOES, item.sugestoes);
+          item.SUGESTOES = valSug;
+          item.sugestoes = valSug;
+
+          const nomeCalculado = getRmName(item.codigoPara || item.CODIGO_PARA);
+          item.nomeRm = nomeCalculado || item.nomeRm || item.NOME_RM || "";
+          item.NOME_RM = item.nomeRm;
         });
       }
+
+      // 3. Normalizar outras abas de de-para para garantir chaves limpas e rowNum único
+      const genericTabs = [
+        'ZDEPARA_COLIGADAS', 'ZDEPARA_FUNCOES', 'ZDEPARA_SINDICATOS', 
+        'ZDEPARA_SECOES', 'ZDEPARA_BANCOS', 'ZDEPARA_SITUACAO', 
+        'ZDEPARA_HORARIO', 'ZDEPARA_PERIODO_FOLHA', 'ZDEPARA_MOTIVO_FUNCAO', 
+        'ZDEPARA_MOTIVO_SALARIO', 'ZDEPARA_MOTIVO_SECAO'
+      ];
+
+      genericTabs.forEach(key => {
+        const arr = db[key];
+        if (arr && Array.isArray(arr)) {
+          arr.forEach((item, idx) => {
+            item.rowNum = idx + 1;
+            // Converter todas as chaves existentes do item para string e limpar espaços
+            for (let prop in item) {
+              if (prop !== 'rowNum' && item[prop] !== undefined && item[prop] !== null) {
+                item[prop] = String(item[prop]).trim();
+              }
+            }
+
+            // Normalizar chaves comuns de De-Para para manter compatibilidade de exibição
+            const colPara = String(item.COLIGADA_PARA !== undefined ? item.COLIGADA_PARA : (item.coligadaPara !== undefined ? item.coligadaPara : "1")).trim();
+            item.COLIGADA_PARA = colPara;
+            item.coligadaPara = colPara;
+
+            const codPara = String(item.CODIGO_PARA !== undefined ? item.CODIGO_PARA : (item.codigoPara !== undefined ? item.codigoPara : "")).trim();
+            item.CODIGO_PARA = codPara;
+            item.codigoPara = codPara;
+
+            const obs = String(item.OBSERVACAO !== undefined ? item.OBSERVACAO : (item.observacao !== undefined ? item.observacao : "")).trim();
+            item.OBSERVACAO = obs;
+            item.observacao = obs;
+          });
+        }
+      });
 
       // 4. Auto-mapeamento Inteligente: ZDEPARA_SITUACAO usando GLOBAL_SITUACAO_KNOWLEDGE_BASE
       if (typeof GLOBAL_SITUACAO_KNOWLEDGE_BASE !== 'undefined' && db.ZDEPARA_SITUACAO && Array.isArray(db.ZDEPARA_SITUACAO)) {
@@ -2652,14 +2655,6 @@
           }
         });
       }
-
-      // 5. Seed Inteligente: DADOS_RM_MOTIVOS se vazio
-      if (typeof GLOBAL_RM_MOTIVOS_SEED !== 'undefined' && (!db.DADOS_RM_MOTIVOS || !Array.isArray(db.DADOS_RM_MOTIVOS) || db.DADOS_RM_MOTIVOS.length === 0)) {
-         db.DADOS_RM_MOTIVOS = JSON.parse(JSON.stringify(GLOBAL_RM_MOTIVOS_SEED));
-      }
-
-      // 6. Atualizar índices em memória para buscas O(1) ultra-rápidas
-      rebuildLookupMaps();
     }
 
     function switchModule(moduleName) {
@@ -2801,12 +2796,12 @@
         database = rawJsonDatabase.ZDEPARA_EVENTOS || [];
         
         colgroupHtml = `
-          <col style="width: 65px;">
-          <col style="width: 75px;">
-          <col style="width: calc(50% - 150px);">
-          <col style="width: 60px;">
-          <col style="width: 95px;">
-          <col style="width: calc(50% - 150px);">
+          <col style="width: 85px;">
+          <col style="width: 85px;">
+          <col style="width: calc(50% - 160px);">
+          <col style="width: 80px;">
+          <col style="width: 90px;">
+          <col style="width: calc(50% - 170px);">
           <col style="width: 75px;">
         `;
         
@@ -2864,12 +2859,12 @@
         database = rawJsonDatabase.ZDEPARA_COLIGADAS || [];
         
         colgroupHtml = `
-          <col style="width: 65px;">
-          <col style="width: 50px;">
+          <col style="width: 75px;">
+          <col style="width: 55px;">
           <col style="width: auto;">
-          <col style="width: 130px;">
-          <col style="width: 65px;">
-          <col style="width: 65px;">
+          <col style="width: 175px;">
+          <col style="width: 110px;">
+          <col style="width: 110px;">
           <col style="width: 75px;">
         `;
         
@@ -2880,19 +2875,19 @@
             <th class="group-th-empty" style="width: 75px;"></th>
           </tr>
           <tr>
-            <th class="sortable th-legado" style="width: 65px;" onclick="toggleSort('EMPRESA_DE')">Empresa<span class="sort-indicator" id="sort-EMPRESA_DE"></span></th>
-            <th class="sortable th-legado" style="width: 50px;" onclick="toggleSort('ID')">ID<span class="sort-indicator" id="sort-ID"></span></th>
+            <th class="sortable th-legado" style="width: 75px;" onclick="toggleSort('EMPRESA_DE')">Empresa<span class="sort-indicator" id="sort-EMPRESA_DE"></span></th>
+            <th class="sortable th-legado" style="width: 55px;" onclick="toggleSort('ID')">ID<span class="sort-indicator" id="sort-ID"></span></th>
             <th class="sortable th-legado" onclick="toggleSort('NOME_DE')">Nome Origem<span class="sort-indicator" id="sort-NOME_DE"></span></th>
-            <th class="sortable th-legado col-divider-right" style="width: 130px;" onclick="toggleSort('CNPJ')">CNPJ / CPF<span class="sort-indicator" id="sort-CNPJ"></span></th>
-            <th class="sortable th-rm" style="width: 65px;" onclick="toggleSort('CODCOLIGADA')">Colig. RM<span class="sort-indicator" id="sort-CODCOLIGADA"></span></th>
-            <th class="sortable th-rm" style="width: 65px;" onclick="toggleSort('CODFILIAL_PARA')">Filial RM<span class="sort-indicator" id="sort-CODFILIAL_PARA"></span></th>
+            <th class="sortable th-legado col-divider-right" style="width: 175px;" onclick="toggleSort('CNPJ')">CNPJ / CPF<span class="sort-indicator" id="sort-CNPJ"></span></th>
+            <th class="sortable th-rm" style="width: 110px;" onclick="toggleSort('CODCOLIGADA')">Colig. RM<span class="sort-indicator" id="sort-CODCOLIGADA"></span></th>
+            <th class="sortable th-rm" style="width: 110px;" onclick="toggleSort('CODFILIAL_PARA')">Filial RM<span class="sort-indicator" id="sort-CODFILIAL_PARA"></span></th>
             <th class="col-acoes" style="width: 75px;">Ações</th>
           </tr>
           <tr class="column-filters-row" id="columnFiltersRow" style="${columnFiltersVisible ? '' : 'display: none;'}">
             <th><input type="text" class="col-filter-input" id="cf_empresaDe" placeholder="..." oninput="debounceApplyFilters()"></th>
             <th><input type="text" class="col-filter-input" id="cf_id" placeholder="..." oninput="debounceApplyFilters()"></th>
             <th><input type="text" class="col-filter-input" id="cf_nomeDe" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
-            <th class="col-divider-right"><input type="text" class="col-filter-input" id="cf_cnpj" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
+            <th class="col-divider-right"><input type="text" class="col-filter-input" id="cf_cnpj" placeholder="Filtrar CNPJ/CPF..." oninput="debounceApplyFilters()"></th>
             <th><input type="text" class="col-filter-input" id="cf_coligadaPara" placeholder="..." oninput="debounceApplyFilters()"></th>
             <th><input type="text" class="col-filter-input" id="cf_codFilial" placeholder="..." oninput="debounceApplyFilters()"></th>
             <th></th>
@@ -2907,12 +2902,12 @@
         database = rawJsonDatabase.ZDEPARA_FUNCOES || [];
         
         colgroupHtml = `
-          <col style="width: 65px;">
-          <col style="width: 75px;">
+          <col style="width: 85px;">
+          <col style="width: 85px;">
           <col style="width: auto;">
-          <col style="width: 75px;">
-          <col style="width: 60px;">
-          <col style="width: 95px;">
+          <col style="width: 90px;">
+          <col style="width: 80px;">
+          <col style="width: 120px;">
           <col style="width: 75px;">
         `;
         
@@ -2935,7 +2930,7 @@
             <th><input type="text" class="col-filter-input" id="cf_empresaDe" placeholder="..." oninput="debounceApplyFilters()"></th>
             <th><input type="text" class="col-filter-input" id="cf_codigoDe" placeholder="..." oninput="debounceApplyFilters()"></th>
             <th><input type="text" class="col-filter-input" id="cf_nomeDe" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
-            <th class="col-divider-right"><input type="text" class="col-filter-input" id="cf_cbo" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
+            <th class="col-divider-right"><input type="text" class="col-filter-input" id="cf_cbo" placeholder="Filtrar CBO..." oninput="debounceApplyFilters()"></th>
             <th><input type="text" class="col-filter-input" id="cf_coligadaPara" placeholder="..." oninput="debounceApplyFilters()"></th>
             <th><input type="text" class="col-filter-input" id="cf_codigoPara" placeholder="..." oninput="debounceApplyFilters()"></th>
             <th></th>
@@ -2950,12 +2945,12 @@
         database = rawJsonDatabase.ZDEPARA_SINDICATOS || [];
         
         colgroupHtml = `
-          <col style="width: 65px;">
-          <col style="width: 75px;">
-          <col style="width: auto;">
-          <col style="width: 130px;">
-          <col style="width: 65px;">
           <col style="width: 85px;">
+          <col style="width: 85px;">
+          <col style="width: auto;">
+          <col style="width: 175px;">
+          <col style="width: 80px;">
+          <col style="width: 130px;">
           <col style="width: 75px;">
         `;
         
@@ -2966,19 +2961,19 @@
             <th class="group-th-empty" style="width: 75px;"></th>
           </tr>
           <tr>
-            <th class="sortable th-legado" style="width: 65px;" onclick="toggleSort('EMPRESA_DE')">Emp. Origem<span class="sort-indicator" id="sort-EMPRESA_DE"></span></th>
-            <th class="sortable th-legado" style="width: 75px;" onclick="toggleSort('CODIGO_DE')">Cód. Origem<span class="sort-indicator" id="sort-CODIGO_DE"></span></th>
+            <th class="sortable th-legado" style="width: 85px;" onclick="toggleSort('EMPRESA_DE')">Emp. Origem<span class="sort-indicator" id="sort-EMPRESA_DE"></span></th>
+            <th class="sortable th-legado" style="width: 85px;" onclick="toggleSort('CODIGO_DE')">Cód. Origem<span class="sort-indicator" id="sort-CODIGO_DE"></span></th>
             <th class="sortable th-legado" onclick="toggleSort('NOME_DE')">Nome Sindicato<span class="sort-indicator" id="sort-NOME_DE"></span></th>
-            <th class="sortable th-legado col-divider-right" style="width: 130px;" onclick="toggleSort('CNPJ')">CNPJ<span class="sort-indicator" id="sort-CNPJ"></span></th>
-            <th class="sortable th-rm" style="width: 65px;" onclick="toggleSort('COLIGADA_PARA')">Colig. RM<span class="sort-indicator" id="sort-COLIGADA_PARA"></span></th>
-            <th class="sortable th-rm" style="width: 85px;" onclick="toggleSort('CODIGO_PARA')">Sindicato RM<span class="sort-indicator" id="sort-CODIGO_PARA"></span></th>
+            <th class="sortable th-legado col-divider-right" style="width: 175px;" onclick="toggleSort('CNPJ')">CNPJ<span class="sort-indicator" id="sort-CNPJ"></span></th>
+            <th class="sortable th-rm" style="width: 80px;" onclick="toggleSort('COLIGADA_PARA')">Colig. RM<span class="sort-indicator" id="sort-COLIGADA_PARA"></span></th>
+            <th class="sortable th-rm" style="width: 130px;" onclick="toggleSort('CODIGO_PARA')">Sindicato RM<span class="sort-indicator" id="sort-CODIGO_PARA"></span></th>
             <th class="col-acoes" style="width: 75px;">Ações</th>
           </tr>
           <tr class="column-filters-row" id="columnFiltersRow" style="${columnFiltersVisible ? '' : 'display: none;'}">
             <th><input type="text" class="col-filter-input" id="cf_empresaDe" placeholder="..." oninput="debounceApplyFilters()"></th>
             <th><input type="text" class="col-filter-input" id="cf_codigoDe" placeholder="..." oninput="debounceApplyFilters()"></th>
             <th><input type="text" class="col-filter-input" id="cf_nomeDe" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
-            <th class="col-divider-right"><input type="text" class="col-filter-input" id="cf_cnpj" placeholder="Filtrar..." oninput="debounceApplyFilters()"></th>
+            <th class="col-divider-right"><input type="text" class="col-filter-input" id="cf_cnpj" placeholder="Filtrar CNPJ..." oninput="debounceApplyFilters()"></th>
             <th><input type="text" class="col-filter-input" id="cf_coligadaPara" placeholder="..." oninput="debounceApplyFilters()"></th>
             <th><input type="text" class="col-filter-input" id="cf_codigoPara" placeholder="..." oninput="debounceApplyFilters()"></th>
             <th></th>
@@ -5408,13 +5403,16 @@
         // 2. Filtro: Busca Geral Ampla (f_search)
         if (searchVal) {
           if (currentModule === 'eventos') {
+            const destCod = String(item.codigoPara || item.CODIGO_PARA || "").trim();
+            const rmDesc = getRmName(destCod) || item.nomeRm || item.NOME_RM || "";
             const match = matchesSearch(item.empresaDe || item.EMPRESA_DE, searchVal) ||
                           matchesSearch(item.codigoDe || item.CODIGO_DE, searchVal) ||
                           matchesSearch(item.nomeDe || item.NOME_DE, searchVal) ||
                           matchesSearch(item.tipoEvento || item.TIPO_EVENTO, searchVal) ||
                           matchesSearch(item.coligadaPara || item.COLIGADA_PARA, searchVal) ||
-                          matchesSearch(item.codigoPara || item.CODIGO_PARA, searchVal) ||
-                          matchesSearch(item.nomeRm || item.NOME_RM, searchVal) ||
+                          matchesSearch(destCod, searchVal) ||
+                          matchesSearch(destCod.padStart(4, '0'), searchVal) ||
+                          matchesSearch(rmDesc, searchVal) ||
                           matchesSearch(item.codigoParaFichaMes1 || item.CODIGO_PARA_FICHA_MES1, searchVal) ||
                           matchesSearch(item.codigoParaFichaMes2 || item.CODIGO_PARA_FICHA_MES2, searchVal) ||
                           matchesSearch(item.codigoParaVerbasFerias || item.CODIGO_PARA_VERBAS_FERIAS, searchVal) ||
@@ -5504,11 +5502,13 @@
           if (!matchesSearch(colPara, colFilters.coligadaPara)) return false;
         }
         if (colFilters.codigoPara) {
-          const codPara = String(item.codigoPara || item.CODIGO_PARA || "");
-          if (!matchesSearch(codPara, colFilters.codigoPara)) return false;
+          const codPara = String(item.codigoPara || item.CODIGO_PARA || "").trim();
+          const matchCod = matchesSearch(codPara, colFilters.codigoPara) || matchesSearch(codPara.padStart(4, '0'), colFilters.codigoPara);
+          if (!matchCod) return false;
         }
         if (colFilters.nomeRm) {
-          const nomRm = String(item.nomeRm || item.NOME_RM || "");
+          const destCod = String(item.codigoPara || item.CODIGO_PARA || "").trim();
+          const nomRm = String(getRmName(destCod) || item.nomeRm || item.NOME_RM || "");
           if (!matchesSearch(nomRm, colFilters.nomeRm)) return false;
         }
         if (colFilters.cnpj) {
@@ -5684,11 +5684,17 @@
       rmEventsMap.clear();
       if (Array.isArray(rmEvents)) {
         rmEvents.forEach(e => {
-          if (e && e.codigo) {
-            const raw = String(e.codigo).trim();
+          if (e && (e.codigo !== undefined || e.CODIGO !== undefined)) {
+            const raw = String(e.codigo !== undefined ? e.codigo : e.CODIGO).trim();
+            if (!raw) return;
             const padded = raw.padStart(4, '0');
-            rmEventsMap.set(raw, e);
-            rmEventsMap.set(padded, e);
+            const unpadded = String(parseInt(raw, 10) || raw);
+            const desc = String(e.descricao !== undefined ? e.descricao : (e.DESCRICAO !== undefined ? e.DESCRICAO : '')).trim();
+            const tipo = String(e.tipo !== undefined ? e.tipo : (e.TIPOEVENTO !== undefined ? e.TIPOEVENTO : '')).trim();
+            const evObj = { ...e, codigo: raw, descricao: desc, tipo: tipo };
+            rmEventsMap.set(raw, evObj);
+            rmEventsMap.set(padded, evObj);
+            rmEventsMap.set(unpadded, evObj);
           }
         });
       }
@@ -5733,10 +5739,15 @@
     function getRmName(cod) {
       if (!cod || isCodeIgnored(cod) || isCodeToCreate(cod)) return '';
       const codStr = String(cod).trim();
-      const ev = rmEventsMap.get(codStr) || rmEventsMap.get(codStr.padStart(4, '0'));
-      if (ev) return ev.descricao || '';
-      const fallback = (rmEvents || []).find(e => e.codigo === cod || e.codigo === codStr.padStart(4, '0'));
-      return fallback ? fallback.descricao : '';
+      const padded = codStr.padStart(4, '0');
+      const unpadded = String(parseInt(codStr, 10) || codStr);
+      const ev = rmEventsMap.get(codStr) || rmEventsMap.get(padded) || rmEventsMap.get(unpadded);
+      if (ev) return ev.descricao || ev.DESCRICAO || '';
+      const fallback = (rmEvents || []).find(e => {
+        const c = String(e.codigo !== undefined ? e.codigo : (e.CODIGO !== undefined ? e.CODIGO : "")).trim();
+        return c === codStr || c === padded || c === unpadded;
+      });
+      return fallback ? (fallback.descricao || fallback.DESCRICAO || '') : '';
     }
 
     function getSituacaoName(cod) {
@@ -5889,12 +5900,17 @@
       }
       
       const codStr = String(rmCode).trim();
-      const rmEvent = rmEventsMap.get(codStr) || rmEventsMap.get(codStr.padStart(4, '0')) || (rmEvents || []).find(e => e.codigo === rmCode);
+      const padded = codStr.padStart(4, '0');
+      const unpadded = String(parseInt(codStr, 10) || codStr);
+      const rmEvent = rmEventsMap.get(codStr) || rmEventsMap.get(padded) || rmEventsMap.get(unpadded) || (rmEvents || []).find(e => {
+        const c = String(e.codigo !== undefined ? e.codigo : (e.CODIGO !== undefined ? e.CODIGO : "")).trim();
+        return c === codStr || c === padded || c === unpadded;
+      });
       if (!rmEvent) {
         return { isMatch: true, rmType: "" };
       }
       
-      const rmType = rmEvent.tipo;
+      const rmType = String(rmEvent.tipo !== undefined ? rmEvent.tipo : (rmEvent.TIPOEVENTO !== undefined ? rmEvent.TIPOEVENTO : "")).trim();
       const normLegacy = normalizeEventType(legacyType);
       const normRM = normalizeEventType(rmType);
       
@@ -6746,11 +6762,12 @@
         return;
       }
       
-      const term = val.toLowerCase();
-      const matches = rmEvents.filter(ev => 
-        ev.codigo.toLowerCase().includes(term) || 
-        ev.descricao.toLowerCase().includes(term)
-      ).slice(0, 8);
+      const term = val.toLowerCase().trim();
+      const matches = (rmEvents || []).filter(ev => {
+        const c = String(ev.codigo !== undefined ? ev.codigo : (ev.CODIGO !== undefined ? ev.CODIGO : "")).toLowerCase();
+        const d = String(ev.descricao !== undefined ? ev.descricao : (ev.DESCRICAO !== undefined ? ev.DESCRICAO : "")).toLowerCase();
+        return c.includes(term) || d.includes(term);
+      }).slice(0, 8);
       
       if (matches.length === 0) {
         const li = document.createElement("li");
@@ -6764,16 +6781,19 @@
         listElement.appendChild(li);
       } else {
         matches.forEach(ev => {
+          const cod = String(ev.codigo !== undefined ? ev.codigo : (ev.CODIGO !== undefined ? ev.CODIGO : "")).trim();
+          const desc = String(ev.descricao !== undefined ? ev.descricao : (ev.DESCRICAO !== undefined ? ev.DESCRICAO : "")).trim();
+          const tipo = String(ev.tipo !== undefined ? ev.tipo : (ev.TIPOEVENTO !== undefined ? ev.TIPOEVENTO : "")).trim();
           const li = document.createElement("li");
           li.className = "table-autocomplete-item";
-          li.innerText = `${ev.codigo} - ${ev.descricao} (${ev.tipo})`;
+          li.innerText = `${cod} - ${desc} (${tipo})`;
           li.onclick = () => {
-            document.getElementById(`edit-${fieldType}-${rowNum}`).value = ev.codigo;
-            document.getElementById(labelInputId).value = ev.descricao;
+            document.getElementById(`edit-${fieldType}-${rowNum}`).value = cod;
+            document.getElementById(labelInputId).value = desc;
             listElement.style.display = "none";
             
             if (fieldType === "codigoPara") {
-              toggleFichaInputs(rowNum, ev.codigo);
+              toggleFichaInputs(rowNum, cod);
             }
           };
           listElement.appendChild(li);
@@ -7655,11 +7675,14 @@
         const observacao = document.getElementById(`edit-obs-${rowNum}`).value;
         const applyToAllMatches = document.getElementById(`edit-chkBulk-${rowNum}`)?.checked || false;
         
+        const rmNomeCalculado = getRmName(codigoPara);
         updatedData = {
           coligadaPara: item.coligadaPara,
           COLIGADA_PARA: item.coligadaPara,
           codigoPara: codigoPara,
           CODIGO_PARA: codigoPara,
+          nomeRm: rmNomeCalculado,
+          NOME_RM: rmNomeCalculado,
           codigoParaFichaMes1: codigoParaFichaMes1,
           CODIGO_PARA_FICHA_MES1: codigoParaFichaMes1,
           codigoParaFichaMes2: codigoParaFichaMes2,
@@ -7686,6 +7709,8 @@
                   otherItem.tipoEvento === item.tipoEvento) {
                 otherItem.codigoPara = codigoPara;
                 otherItem.CODIGO_PARA = codigoPara;
+                otherItem.nomeRm = rmNomeCalculado;
+                otherItem.NOME_RM = rmNomeCalculado;
                 otherItem.codigoParaFichaMes1 = codigoParaFichaMes1;
                 otherItem.CODIGO_PARA_FICHA_MES1 = codigoParaFichaMes1;
                 otherItem.codigoParaFichaMes2 = codigoParaFichaMes2;
