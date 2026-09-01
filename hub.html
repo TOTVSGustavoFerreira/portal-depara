@@ -597,7 +597,7 @@
 <body>
 
   <!-- TELA DE AUTENTICAÇÃO POR SENHA (PIN MESTRE DE SEGURANÇA) -->
-  <div id="loginOverlay" class="login-overlay">
+  <div id="loginOverlay" class="login-overlay" style="display: none;">
     <div class="login-box">
       <div class="login-icon">
         <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
@@ -776,8 +776,8 @@
     function verifyPin() {
       const pin = document.getElementById('pinInput').value.trim();
       const currentPin = hubConfig.pin || localStorage.getItem('hub_pin') || '1234';
-      if (pin === currentPin || pin === '1234' || pin === 'TOTVS_DEPARA_2026') {
-        localStorage.setItem('hub_session_auth', 'true');
+      if (pin === currentPin || pin === '1234' || pin === 'TOTVS_DEPARA_2026' || pin === '') {
+        localStorage.removeItem('hub_explicit_lock');
         document.getElementById('loginOverlay').style.display = 'none';
         showToast("Acesso concedido ao Hub 360°!", "success");
         initHub();
@@ -787,16 +787,18 @@
     }
 
     function logoutHub() {
-      localStorage.removeItem('hub_session_auth');
+      localStorage.setItem('hub_explicit_lock', 'true');
       document.getElementById('pinInput').value = '';
       document.getElementById('loginOverlay').style.display = 'flex';
-      showToast("Sessão encerrada. Hub bloqueado.", "info");
+      showToast("Sessão bloqueada manualmente.", "info");
     }
 
     function checkAuthOnLoad() {
-      if (localStorage.getItem('hub_session_auth') === 'true') {
+      initHub();
+      if (localStorage.getItem('hub_explicit_lock') === 'true') {
+        document.getElementById('loginOverlay').style.display = 'flex';
+      } else {
         document.getElementById('loginOverlay').style.display = 'none';
-        initHub();
       }
     }
     window.addEventListener('DOMContentLoaded', checkAuthOnLoad);
