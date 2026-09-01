@@ -741,6 +741,12 @@
         <button class="btn btn-secondary" onclick="closeConfigModal()">Cancelar</button>
         <button class="btn btn-primary" onclick="saveConfig()">Salvar Configurações</button>
       </div>
+
+      <div style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 16px; margin-top: 16px;">
+        <button class="btn btn-secondary" style="width: 100%; color: #ef4444; border-color: rgba(239,68,68,0.3); font-size: 0.82rem; justify-content: center;" onclick="resetHubCache()">
+          🧹 Limpar Cache & Ocultar Todos os Clientes Atuais
+        </button>
+      </div>
     </div>
   </div>
 
@@ -763,6 +769,7 @@
     }
 
     let clientList = JSON.parse(localStorage.getItem('hub_client_list')) || [];
+    let hiddenRepos = JSON.parse(localStorage.getItem('hub_hidden_repos')) || [];
     let currentFilter = 'all';
 
     // --- AUTENTICAÇÃO POR SENHA (PIN MESTRE) ---
@@ -803,6 +810,7 @@
 
     // --- CARREGAR DADOS EM TEMPO REAL VIA GITHUB API ---
     async function loadClientDataFromGitHub() {
+      hiddenRepos = JSON.parse(localStorage.getItem('hub_hidden_repos')) || [];
       // 1. Auto-descoberta dinâmica de repositórios do GitHub (Públicos e Privados)
       try {
         const headers = hubConfig.token ? { 'Authorization': `token ${hubConfig.token}` } : {};
@@ -813,7 +821,7 @@
         const repoRes = await fetch(apiUrl, { headers });
         if (repoRes.ok) {
           const repos = await repoRes.json();
-          const clientRepos = Array.isArray(repos) ? repos.filter(r => r.name.startsWith('portal-depara-') && r.name !== 'portal-depara') : [];
+          const clientRepos = Array.isArray(repos) ? repos.filter(r => r.name.startsWith('portal-depara-') && r.name !== 'portal-depara' && !hiddenRepos.includes(r.name)) : [];
           
           clientRepos.forEach(r => {
             if (!clientList.some(c => c.repo === r.name)) {
@@ -1261,19 +1269,24 @@
           funcoes: 0,
           updated: 'Criado Agora'
         });
-      }
-
+      hiddenRepos = hiddenRepos.filter(r => r !== repo);
+      localStorage.setItem('hub_hidden_repos', JSON.stringify(hiddenRepos));
       localStorage.setItem('hub_client_list', JSON.stringify(clientList));
       closeNewClientModal();
       loadClientDataFromGitHub();
     }
 
     function deleteClient(repo) {
-      if (confirm(`Deseja remover o cliente '${repo}' da lista do Hub? (Os dados no GitHub permanecerão intocados).`)) {
+      if (confirm(`Deseja remover o cliente '${repo}' da lista do Hub?`)) {
         clientList = clientList.filter(c => c.repo !== repo);
+        hiddenRepos = JSON.parse(localStorage.getItem('hub_hidden_repos')) || [];
+        if (!hiddenRepos.includes(repo)) {
+          hiddenRepos.push(repo);
+          localStorage.setItem('hub_hidden_repos', JSON.stringify(hiddenRepos));
+        }
         localStorage.setItem('hub_client_list', JSON.stringify(clientList));
         renderClients();
-        showToast("Cliente removido do Hub.", "info");
+        showToast(`Cliente '${repo}' removido do Hub.`, "info");
       }
     }
 
@@ -1281,6 +1294,20 @@
     function closeNewClientModal() { document.getElementById('newClientModal').style.display = 'none'; }
     function openConfigModal() { document.getElementById('configModal').style.display = 'flex'; }
     function closeConfigModal() { document.getElementById('configModal').style.display = 'none'; }
+
+    function resetHubCache() {
+      if (confirm("Deseja limpar o cache do Hub e ocultar todos os projetos atuais da listagem?")) {
+        const allRepos = clientList.map(c => c.repo);
+        let hidden = JSON.parse(localStorage.getItem('hub_hidden_repos')) || [];
+        allRepos.forEach(r => { if (!hidden.includes(r)) hidden.push(r); });
+        localStorage.setItem('hub_hidden_repos', JSON.stringify(hidden));
+        localStorage.removeItem('hub_client_list');
+        clientList = [];
+        renderClients();
+        closeConfigModal();
+        showToast("Cache do Hub limpo! Lista de clientes zerada.", "success");
+      }
+    }
 
     function saveConfig() {
       hubConfig.owner = document.getElementById('configOwner').value.trim();
