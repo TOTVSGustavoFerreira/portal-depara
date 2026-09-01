@@ -1635,6 +1635,36 @@
     </div>
   </div>
 
+  <!-- TELA DE PROJETO NÃO ENCONTRADO / NÃO AUTORIZADO (GATEKEEPER) -->
+  <div id="projectBlockedScreen" class="modal-overlay" style="display: none; z-index: 35000; background-color: var(--bg-primary);">
+    <div class="modal-card" style="max-width: 460px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.6); border: 1px solid rgba(239, 68, 68, 0.2); background-color: var(--bg-secondary);">
+      <div style="padding: 36px 28px; text-align: center; display: flex; flex-direction: column; gap: 18px;">
+        <div style="width: 64px; height: 64px; border-radius: 50%; background: rgba(239, 68, 68, 0.15); color: #ef4444; display: inline-flex; align-items: center; justify-content: center; margin: 0 auto;">
+          <svg width="32" height="32" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+        </div>
+        <div>
+          <h2 style="color: white; font-weight: 700; font-size: 1.4rem;">Projeto Não Encontrado</h2>
+          <p style="color: var(--color-text-muted); font-size: 0.88rem; margin-top: 8px; line-height: 1.5;">
+            O projeto <code id="blockedProjectSlug" style="background: rgba(255,255,255,0.08); color: #f59e0b; padding: 2px 8px; border-radius: 4px; font-weight: 600;">-</code> não está cadastrado ou não foi autorizado no Hub De-Para.
+          </p>
+        </div>
+        
+        <p style="color: #94a3b8; font-size: 0.8rem; line-height: 1.4; margin: 0; background: rgba(15, 23, 42, 0.6); padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
+          ℹ️ Para acessar um projeto, ele deve ser previamente provisionado e configurado através do painel de controle do <strong>Hub De-Para 360°</strong>.
+        </p>
+
+        <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 8px;">
+          <a href="hub.html" class="row-btn row-btn-primary" style="padding: 12px; font-weight: 600; font-size: 0.95rem; justify-content: center; text-decoration: none; width: 100%;">
+            🏠 Acessar Hub De-Para 360°
+          </a>
+          <button class="row-btn row-btn-secondary" style="padding: 10px; font-size: 0.85rem; justify-content: center; width: 100%;" onclick="window.location.reload()">
+            🔄 Tentar Novamente
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- TELA DE BLOQUEIO POR CHAVE DE ACESSO (PASSKEY LOGIN) -->
   <div id="passkeyModal" class="modal-overlay" style="display: none; z-index: 30000; background-color: var(--bg-primary);">
     <div class="modal-card" style="max-width: 420px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); background-color: var(--bg-secondary);">
@@ -2161,8 +2191,12 @@
 
     window.onload = function() {
       const clientKey = getClientKey();
-      if (!clientKey) {
-        showToast("ATENÇÃO: Repositório do cliente não informado na URL (?repo=REPOSITORIO)", "error");
+      if (!clientKey || clientKey === 'database') {
+        document.getElementById("mainInterface").style.display = "none";
+        document.getElementById("sidebar").style.display = "none";
+        const blockedEl = document.getElementById("blockedProjectSlug");
+        if (blockedEl) blockedEl.innerText = "Parâmetro ?repo não informado";
+        document.getElementById("projectBlockedScreen").style.display = "flex";
         return;
       }
 
@@ -2173,11 +2207,8 @@
         sidebarClientNameEl.innerText = `🏢 ${clientDisplayName}`;
       }
       
-      // Validação da Chave de Acesso (Passkey) para Multi-Tenant
+      // Validação Estrita de Chave de Acesso (Gatekeeper Multi-Tenant)
       checkPasskeyAccess();
-      
-      // Forçar inicialização da aba correta
-      switchModule('home');
       
       document.addEventListener('click', function(e) {
         if (!e.target.closest('.autocomplete-wrapper') && !e.target.closest('.autocomplete-td-wrapper')) {
@@ -2188,14 +2219,15 @@
 
     function checkPasskeyAccess() {
       let clientKey = getClientKey();
-      
-      // 2. Verificar se já temos a chave salva localmente para esse cliente
       const savedKey = localStorage.getItem(`passkey_${clientKey}`);
       
-      // 3. Buscar o arquivo data/config_auth.json no repositório para validar
-      showLoading("Validando credenciais...");
+      // Oculta interface e menu lateral por padrão até validar
+      document.getElementById("mainInterface").style.display = "none";
+      document.getElementById("sidebar").style.display = "none";
       
-      fetch("data/config_auth.json")
+      showLoading("Validando autorização do projeto...");
+      
+      fetch("data/config_auth.json?t=" + new Date().getTime())
         .then(res => {
           if (!res.ok) throw new Error("Não foi possível carregar as credenciais de segurança.");
           return res.json();
@@ -2203,37 +2235,49 @@
         .then(authConfig => {
           hideLoading();
           
-          // Encontrar se existe chave cadastrada para esse ID/cliente
-          // Para ser tolerante, procuramos tanto pelo ID cru da URL quanto pelo ID reduzido
           let expectedKey = "";
+          let matchedKey = "";
+          const cleanClient = clientKey.replace(/^portal-depara-/, '').toLowerCase().trim();
+          
           for (let key in authConfig) {
-            if (clientKey.includes(key) || key.includes(clientKey)) {
-              expectedKey = authConfig[key];
-              document.getElementById("passkeyClientLabel").innerText = `Mapeamento De-Para | Projeto: ${key.toUpperCase()}`;
+            const cleanKey = key.replace(/^portal-depara-/, '').toLowerCase().trim();
+            if (cleanKey === cleanClient || key.toLowerCase() === clientKey.toLowerCase()) {
+              expectedKey = String(authConfig[key]).trim();
+              matchedKey = key;
               break;
             }
           }
           
-          // Se não houver chave definida para esse cliente, liberamos sem login (retrocompatibilidade)
+          // Se o projeto NÃO estiver cadastrado no registro de segurança, BLOQUEIA IMEDIATAMENTE
           if (!expectedKey) {
-            loadPortalData();
+            const blockedEl = document.getElementById("blockedProjectSlug");
+            if (blockedEl) blockedEl.innerText = clientKey;
+            document.getElementById("projectBlockedScreen").style.display = "flex";
             return;
           }
           
-          if (savedKey === expectedKey) {
+          document.getElementById("passkeyClientLabel").innerText = `Mapeamento De-Para | Projeto: ${matchedKey.toUpperCase()}`;
+          
+          if (savedKey && savedKey === expectedKey) {
             clientPasskey = savedKey;
+            document.getElementById("sidebar").style.display = "flex";
             loadPortalData();
           } else {
-            // Mostrar modal de login
+            // Exibir modal de senha
             document.getElementById("passkeyModal").style.display = "flex";
-            document.getElementById("passkeyInput").focus();
+            const passInput = document.getElementById("passkeyInput");
+            if (passInput) {
+              passInput.value = "";
+              passInput.focus();
+            }
           }
         })
         .catch(err => {
           hideLoading();
-          // Fallback caso config_auth.json não esteja na nuvem (primeira carga ou offline)
-          console.warn("Segurança offline/local:", err.message);
-          loadPortalData();
+          console.warn("Segurança offline:", err.message);
+          const blockedEl = document.getElementById("blockedProjectSlug");
+          if (blockedEl) blockedEl.innerText = `${clientKey} (Falha ao ler permissões)`;
+          document.getElementById("projectBlockedScreen").style.display = "flex";
         });
     }
 
@@ -2241,25 +2285,34 @@
       const inputVal = document.getElementById("passkeyInput").value.trim();
       let clientKey = getClientKey();
       
-      showLoading("Validando chave...");
+      if (!inputVal) {
+        document.getElementById("passkeyErrorMsg").style.display = "block";
+        return;
+      }
       
-      fetch("data/config_auth.json")
+      showLoading("Validando chave de acesso...");
+      
+      fetch("data/config_auth.json?t=" + new Date().getTime())
         .then(res => res.json())
         .then(authConfig => {
           hideLoading();
           let expectedKey = "";
+          const cleanClient = clientKey.replace(/^portal-depara-/, '').toLowerCase().trim();
+          
           for (let key in authConfig) {
-            if (clientKey.includes(key) || key.includes(clientKey)) {
-              expectedKey = authConfig[key];
+            const cleanKey = key.replace(/^portal-depara-/, '').toLowerCase().trim();
+            if (cleanKey === cleanClient || key.toLowerCase() === clientKey.toLowerCase()) {
+              expectedKey = String(authConfig[key]).trim();
               break;
             }
           }
           
-          if (inputVal === expectedKey) {
+          if (expectedKey && inputVal === expectedKey) {
             localStorage.setItem(`passkey_${clientKey}`, inputVal);
             clientPasskey = inputVal;
             document.getElementById("passkeyModal").style.display = "none";
             document.getElementById("passkeyErrorMsg").style.display = "none";
+            document.getElementById("sidebar").style.display = "flex";
             loadPortalData();
           } else {
             document.getElementById("passkeyErrorMsg").style.display = "block";
@@ -2267,7 +2320,7 @@
         })
         .catch(err => {
           hideLoading();
-          showToast("Erro ao validar: " + err.message, "error");
+          showToast("Erro ao validar credenciais: " + err.message, "error");
         });
     }
 
@@ -2476,6 +2529,11 @@
         })
         .catch(err => {
           hideLoading();
+          document.getElementById("mainInterface").style.display = "none";
+          document.getElementById("sidebar").style.display = "none";
+          const blockedEl = document.getElementById("blockedProjectSlug");
+          if (blockedEl) blockedEl.innerText = `${clientKey} (${err.message})`;
+          document.getElementById("projectBlockedScreen").style.display = "flex";
           showToast("Erro ao carregar dados: " + err.message, 'error');
         });
     }
