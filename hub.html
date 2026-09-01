@@ -596,19 +596,6 @@
 </head>
 <body>
 
-  <!-- TELA DE AUTENTICAÇÃO POR SENHA (PIN MESTRE DE SEGURANÇA) -->
-  <div id="loginOverlay" class="login-overlay" style="display: none;">
-    <div class="login-box">
-      <div class="login-icon">
-        <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-      </div>
-      <h2>Acesso Restrito ao Hub</h2>
-      <p>Digite a Senha Mestra de Administrador para gerenciar os portais de consultoria:</p>
-      <input type="password" id="pinInput" class="pin-input" placeholder="••••" maxlength="8" onkeypress="if(event.key==='Enter') verifyPin()">
-      <button class="btn-login" onclick="verifyPin()">Entrar no Hub 360°</button>
-    </div>
-  </div>
-
   <!-- CABEÇALHO DA CENTRAL -->
   <header>
     <div class="logo-container">
@@ -620,13 +607,9 @@
     </div>
     
     <div class="header-actions">
-      <button class="btn btn-secondary" onclick="logoutHub()" style="border-color: rgba(239,68,68,0.3); color: #fca5a5;">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-        Bloquear
-      </button>
       <button class="btn btn-secondary" onclick="openConfigModal()">
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-        Configurações GitHub / PIN
+        Configurações GitHub
       </button>
       <button class="btn btn-primary" onclick="openNewClientModal()">
         <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
@@ -732,11 +715,6 @@
         <input type="password" id="configToken" class="form-control" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
       </div>
 
-      <div class="form-group">
-        <label>Nova Senha Mestra de Acesso ao Hub (PIN):</label>
-        <input type="password" id="configPin" class="form-control" value="1234">
-      </div>
-
       <div class="modal-buttons">
         <button class="btn btn-secondary" onclick="closeConfigModal()">Cancelar</button>
         <button class="btn btn-primary" onclick="saveConfig()">Salvar Configurações</button>
@@ -754,8 +732,7 @@
     // --- ESTADO GLOBAL DO HUB ---
     let hubConfig = {
       owner: localStorage.getItem('hub_owner') || localStorage.getItem('gh_owner') || 'TOTVSGustavoFerreira',
-      token: localStorage.getItem('hub_token') || localStorage.getItem('gh_pat') || '',
-      pin: localStorage.getItem('hub_pin') || '1234'
+      token: localStorage.getItem('hub_token') || localStorage.getItem('gh_pat') || ''
     };
 
     // Sincroniza PAT do Hub com o Portal De-Para
@@ -772,44 +749,13 @@
     let hiddenRepos = JSON.parse(localStorage.getItem('hub_hidden_repos')) || [];
     let currentFilter = 'all';
 
-    // --- AUTENTICAÇÃO POR SENHA (PIN MESTRE) ---
-    function verifyPin() {
-      const pin = document.getElementById('pinInput').value.trim();
-      const currentPin = hubConfig.pin || localStorage.getItem('hub_pin') || '1234';
-      if (pin === currentPin || pin === '1234' || pin === 'TOTVS_DEPARA_2026' || pin === '') {
-        localStorage.removeItem('hub_explicit_lock');
-        document.getElementById('loginOverlay').style.display = 'none';
-        showToast("Acesso concedido ao Hub 360°!", "success");
-        initHub();
-      } else {
-        showToast("Senha Mestra incorreta! Tente novamente.", "error");
-      }
-    }
-
-    function logoutHub() {
-      localStorage.setItem('hub_explicit_lock', 'true');
-      document.getElementById('pinInput').value = '';
-      document.getElementById('loginOverlay').style.display = 'flex';
-      showToast("Sessão bloqueada manualmente.", "info");
-    }
-
-    function checkAuthOnLoad() {
-      initHub();
-      if (localStorage.getItem('hub_explicit_lock') === 'true') {
-        document.getElementById('loginOverlay').style.display = 'flex';
-      } else {
-        document.getElementById('loginOverlay').style.display = 'none';
-      }
-    }
-    window.addEventListener('DOMContentLoaded', checkAuthOnLoad);
-
     function initHub() {
       document.getElementById('configOwner').value = hubConfig.owner;
       document.getElementById('configToken').value = hubConfig.token;
-      document.getElementById('configPin').value = hubConfig.pin;
       loadClientDataFromGitHub();
       renderClients();
     }
+    window.addEventListener('DOMContentLoaded', initHub);
 
     // --- CARREGAR DADOS EM TEMPO REAL VIA GITHUB API ---
     async function loadClientDataFromGitHub() {
@@ -1272,6 +1218,8 @@
           funcoes: 0,
           updated: 'Criado Agora'
         });
+      }
+
       hiddenRepos = hiddenRepos.filter(r => r !== repo);
       localStorage.setItem('hub_hidden_repos', JSON.stringify(hiddenRepos));
       localStorage.setItem('hub_client_list', JSON.stringify(clientList));
@@ -1315,13 +1263,11 @@
     function saveConfig() {
       hubConfig.owner = document.getElementById('configOwner').value.trim();
       hubConfig.token = document.getElementById('configToken').value.trim();
-      hubConfig.pin = document.getElementById('configPin').value.trim();
 
       localStorage.setItem('hub_owner', hubConfig.owner);
       localStorage.setItem('gh_owner', hubConfig.owner);
       localStorage.setItem('hub_token', hubConfig.token);
       localStorage.setItem('gh_pat', hubConfig.token);
-      localStorage.setItem('hub_pin', hubConfig.pin);
 
       closeConfigModal();
       showToast("Configurações do Hub salvas com sucesso!", "success");
