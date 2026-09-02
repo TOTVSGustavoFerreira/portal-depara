@@ -809,14 +809,14 @@
     const SUPABASE_ANON_KEY = "sb_publishable_RANwyVD95xsqD0Xipi_uwQ_OaLZj0VM";
     const MASTER_PASSWORD = "TOTVS_DEPARA_2026";
 
-    const supabase = (typeof window !== "undefined" && window.supabase)
+    const sb = (typeof window !== "undefined" && window.supabase)
       ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
       : null;
 
     const ClientesService = {
       async listar() {
-        if (!supabase) throw new Error("Supabase SDK não inicializado.");
-        const { data, error } = await supabase
+        if (!sb) throw new Error("Supabase SDK não inicializado.");
+        const { data, error } = await sb
           .from("clientes_totvs")
           .select("*, projetos_depara(id, codigo_projeto, titulo, status, created_at)")
           .order("codigo_totvs", { ascending: true });
@@ -824,9 +824,9 @@
         return data || [];
       },
       async obterPorCodigo(codigoTotvs) {
-        if (!supabase) throw new Error("Supabase SDK não inicializado.");
+        if (!sb) throw new Error("Supabase SDK não inicializado.");
         const cleanCod = String(codigoTotvs).trim().toUpperCase();
-        const { data, error } = await supabase
+        const { data, error } = await sb
           .from("clientes_totvs")
           .select("*, projetos_depara(*)")
           .eq("codigo_totvs", cleanCod)
@@ -835,7 +835,7 @@
         return data;
       },
       async cadastrar(payload) {
-        if (!supabase) throw new Error("Supabase SDK não inicializado.");
+        if (!sb) throw new Error("Supabase SDK não inicializado.");
         let cod = String(payload.codigo_totvs || "").trim().toUpperCase();
         if (!cod.startsWith("T")) cod = "T" + cod;
         const clienteData = {
@@ -849,20 +849,20 @@
           observacoes: payload.observacoes ? String(payload.observacoes).trim() : null,
           updated_at: new Date().toISOString()
         };
-        const { data, error } = await supabase.from("clientes_totvs").insert([clienteData]).select().single();
+        const { data, error } = await sb.from("clientes_totvs").insert([clienteData]).select().single();
         if (error) throw error;
         return data;
       },
       async atualizar(id, payload) {
-        if (!supabase) throw new Error("Supabase SDK não inicializado.");
+        if (!sb) throw new Error("Supabase SDK não inicializado.");
         const updateData = { ...payload, updated_at: new Date().toISOString() };
-        const { data, error } = await supabase.from("clientes_totvs").update(updateData).eq("id", id).select().single();
+        const { data, error } = await sb.from("clientes_totvs").update(updateData).eq("id", id).select().single();
         if (error) throw error;
         return data;
       },
       async excluir(id) {
-        if (!supabase) throw new Error("Supabase SDK não inicializado.");
-        const { error } = await supabase.from("clientes_totvs").delete().eq("id", id);
+        if (!sb) throw new Error("Supabase SDK não inicializado.");
+        const { error } = await sb.from("clientes_totvs").delete().eq("id", id);
         if (error) throw error;
         return true;
       }
@@ -870,8 +870,8 @@
 
     const ProjetosService = {
       async listar() {
-        if (!supabase) throw new Error("Supabase SDK não inicializado.");
-        const { data, error } = await supabase
+        if (!sb) throw new Error("Supabase SDK não inicializado.");
+        const { data, error } = await sb
           .from("projetos_depara")
           .select(`*, clientes_totvs (id, codigo_totvs, razao_social, nome_fantasia, cnpj)`)
           .order("created_at", { ascending: false });
@@ -879,9 +879,9 @@
         return data || [];
       },
       async obterPorCodigo(codigoProjeto) {
-        if (!supabase) throw new Error("Supabase SDK não inicializado.");
+        if (!sb) throw new Error("Supabase SDK não inicializado.");
         const cleanCode = String(codigoProjeto).trim().toUpperCase();
-        const { data, error } = await supabase
+        const { data, error } = await sb
           .from("projetos_depara")
           .select(`*, clientes_totvs (id, codigo_totvs, razao_social, nome_fantasia, cnpj)`)
           .eq("codigo_projeto", cleanCode)
@@ -890,9 +890,9 @@
         return data;
       },
       async obterProximoCodigoProjeto(codigoTotvs) {
-        if (!supabase) throw new Error("Supabase SDK não inicializado.");
+        if (!sb) throw new Error("Supabase SDK não inicializado.");
         const codCliente = String(codigoTotvs).trim().toUpperCase();
-        const { data, error } = await supabase
+        const { data, error } = await sb
           .from("projetos_depara")
           .select("codigo_projeto, clientes_totvs!inner(codigo_totvs)")
           .eq("clientes_totvs.codigo_totvs", codCliente);
@@ -911,7 +911,7 @@
         return `${codCliente}-P${nextSeqStr}`;
       },
       async criar(payload, rawDatabase = null) {
-        if (!supabase) throw new Error("Supabase SDK não inicializado.");
+        if (!sb) throw new Error("Supabase SDK não inicializado.");
         const projData = {
           codigo_projeto: String(payload.codigo_projeto).trim().toUpperCase(),
           cliente_id: payload.cliente_id,
@@ -921,7 +921,7 @@
           passkey: String(payload.passkey || "1234").trim(),
           updated_at: new Date().toISOString()
         };
-        const { data: novoProjeto, error: errProj } = await supabase.from("projetos_depara").insert([projData]).select().single();
+        const { data: novoProjeto, error: errProj } = await sb.from("projetos_depara").insert([projData]).select().single();
         if (errProj) throw errProj;
         if (rawDatabase && typeof rawDatabase === "object") {
           await DeParaDataService.importarBaseCompleta(novoProjeto.id, rawDatabase);
@@ -929,8 +929,8 @@
         return novoProjeto;
       },
       async excluir(id) {
-        if (!supabase) throw new Error("Supabase SDK não inicializado.");
-        const { error } = await supabase.from("projetos_depara").delete().eq("id", id);
+        if (!sb) throw new Error("Supabase SDK não inicializado.");
+        const { error } = await sb.from("projetos_depara").delete().eq("id", id);
         if (error) throw error;
         return true;
       }
@@ -955,9 +955,9 @@
         "DADOS_RM_SECOES": "dados_rm_secoes"
       },
       async carregarProjetoCompleto(projetoId) {
-        if (!supabase) throw new Error("Supabase SDK não inicializado.");
+        if (!sb) throw new Error("Supabase SDK não inicializado.");
         const queries = Object.entries(this.TABLE_MAP).map(async ([sheetName, tableName]) => {
-          const { data, error } = await supabase.from(tableName).select("*").eq("projeto_id", projetoId);
+          const { data, error } = await sb.from(tableName).select("*").eq("projeto_id", projetoId);
           if (error) {
             console.warn(`Aviso ao ler ${tableName}:`, error.message);
             return { sheetName, rows: [] };
@@ -970,14 +970,14 @@
         return db;
       },
       async salvarLinha(tableName, rowId, payload) {
-        if (!supabase) throw new Error("Supabase SDK não inicializado.");
+        if (!sb) throw new Error("Supabase SDK não inicializado.");
         const updatePayload = { ...payload, updated_at: new Date().toISOString() };
-        const { data, error } = await supabase.from(tableName).update(updatePayload).eq("id", rowId).select().single();
+        const { data, error } = await sb.from(tableName).update(updatePayload).eq("id", rowId).select().single();
         if (error) throw error;
         return data;
       },
       async importarBaseCompleta(projetoId, rawDatabase) {
-        if (!supabase) throw new Error("Supabase SDK não inicializado.");
+        if (!sb) throw new Error("Supabase SDK não inicializado.");
         for (const [sheetName, rows] of Object.entries(rawDatabase)) {
           const tableName = this.TABLE_MAP[sheetName];
           if (!tableName || !Array.isArray(rows) || rows.length === 0) continue;
@@ -1002,7 +1002,7 @@
           const chunkSize = 200;
           for (let i = 0; i < formattedRows.length; i += chunkSize) {
             const chunk = formattedRows.slice(i, i + chunkSize);
-            const { error } = await supabase.from(tableName).insert(chunk);
+            const { error } = await sb.from(tableName).insert(chunk);
             if (error) console.warn(`Erro ao inserir lote na tabela ${tableName}:`, error.message);
           }
         }
@@ -1021,9 +1021,9 @@
       switchLoginTab('master');
 
       // 1. Verifica se já existe sessão ativa no Supabase Auth
-      if (supabase) {
+      if (sb) {
         try {
-          const { data: { session } } = await supabase.auth.getSession();
+          const { data: { session } } = await sb.auth.getSession();
           if (session && session.user) {
             liberarAcessoHub(session.user.email);
             return;
@@ -1068,7 +1068,7 @@
       errEl.style.display = "none";
 
       try {
-        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+        const { data, error } = await sb.auth.signInWithPassword({ email, password });
         if (error) throw error;
 
         liberarAcessoHub(data.user.email);
@@ -1095,7 +1095,7 @@
       errEl.style.display = "none";
 
       try {
-        const { data, error } = await supabase.auth.signUp({
+        const { data, error } = await sb.auth.signUp({
           email,
           password,
           options: { data: { full_name: nome } }
@@ -1145,8 +1145,8 @@
     }
 
     async function bloquearHub() {
-      if (supabase) {
-        await supabase.auth.signOut();
+      if (sb) {
+        await sb.auth.signOut();
       }
       sessionStorage.removeItem("hub_admin_auth");
       sessionStorage.removeItem("hub_user_name");
