@@ -1018,12 +1018,18 @@
     // CONTROLE DE AUTENTICAÇÃO DO HUB (SUPABASE AUTH + MASTER)
     // ==============================================================================
     window.addEventListener("DOMContentLoaded", async () => {
+      switchLoginTab('master');
+
       // 1. Verifica se já existe sessão ativa no Supabase Auth
       if (supabase) {
-        const { data: { session } } = await supabase.auth.getSession();
-        if (session && session.user) {
-          liberarAcessoHub(session.user.email);
-          return;
+        try {
+          const { data: { session } } = await supabase.auth.getSession();
+          if (session && session.user) {
+            liberarAcessoHub(session.user.email);
+            return;
+          }
+        } catch (e) {
+          console.warn("Sessão Supabase Auth:", e);
         }
       }
 
