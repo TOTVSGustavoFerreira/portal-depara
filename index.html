@@ -8,6 +8,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <!-- SheetJS Library with Style Support for Excel Export -->
   <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js"></script>
+  <!-- Supabase JS SDK & Central Service Client -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabaseClient.js"></script>
   <style>
     :root {
       --bg-primary: #002233;
@@ -2164,50 +2167,34 @@
     let sortColumn = 'rowNum';
     let sortAscending = true;
 
+    let currentProjetoObj = null;
+
     function getClientKey() {
       const urlParams = new URLSearchParams(window.location.search);
-      const repoParam = urlParams.get('repo') || urlParams.get('cliente') || urlParams.get('id') || localStorage.getItem("gh_repo") || "portal-depara-navarro";
-      return repoParam.replace(/^portal-depara-/, '').toLowerCase().trim() || "database";
+      const projParam = urlParams.get('projeto') || urlParams.get('repo') || urlParams.get('cliente') || urlParams.get('id') || localStorage.getItem("ativo_projeto") || "";
+      return projParam.replace(/^portal-depara-/, '').trim();
     }
 
     function getClientDisplayName() {
+      if (currentProjetoObj && currentProjetoObj.clientes_totvs) {
+        return `${currentProjetoObj.clientes_totvs.codigo_totvs} - ${currentProjetoObj.clientes_totvs.razao_social}`;
+      }
       const key = getClientKey();
-      if (!key || key === 'database') return 'CLIENTE PADRÃO';
-      
-      const customNames = {
-        'boalocacao': 'BOA LOCAÇÃO',
-        'boalocacao2': 'BOA LOCAÇÃO 2',
-        'bari-automoveis': 'BARI AUTOMÓVEIS',
-        'calendula': 'CALÊNDULA',
-        'spotecnologia': 'SPO TECNOLOGIA',
-        'luzbela': 'LUZBELA',
-        'navarro': 'NAVARRO'
-      };
-      
-      if (customNames[key]) return customNames[key];
-      
-      return key.split('-').map(w => w.toUpperCase()).join(' ');
+      return key ? key.toUpperCase() : "PROJETO NÃO DEFINIDO";
     }
 
     window.onload = function() {
       const clientKey = getClientKey();
-      if (!clientKey || clientKey === 'database') {
+      if (!clientKey) {
         document.getElementById("mainInterface").style.display = "none";
         document.getElementById("sidebar").style.display = "none";
         const blockedEl = document.getElementById("blockedProjectSlug");
-        if (blockedEl) blockedEl.innerText = "Parâmetro ?repo não informado";
+        if (blockedEl) blockedEl.innerText = "Parâmetro ?projeto=... não informado na URL";
         document.getElementById("projectBlockedScreen").style.display = "flex";
         return;
       }
 
-      // Atualiza o nome do projeto ativo na barra lateral
-      const clientDisplayName = getClientDisplayName();
-      const sidebarClientNameEl = document.getElementById("sidebarClientName");
-      if (sidebarClientNameEl) {
-        sidebarClientNameEl.innerText = `🏢 ${clientDisplayName}`;
-      }
-      
-      // Validação Estrita de Chave de Acesso (Gatekeeper Multi-Tenant)
+      // Validação Estrita no Supabase
       checkPasskeyAccess();
       
       document.addEventListener('click', function(e) {
@@ -2217,73 +2204,60 @@
       });
     };
 
-    function checkPasskeyAccess() {
-      let clientKey = getClientKey();
-      const savedKey = localStorage.getItem(`passkey_${clientKey}`);
+    async function checkPasskeyAccess() {
+      const codigoProjeto = getClientKey();
+      const savedKey = localStorage.getItem(`passkey_${codigoProjeto}`);
       
-      // Oculta interface e menu lateral por padrão até validar
       document.getElementById("mainInterface").style.display = "none";
       document.getElementById("sidebar").style.display = "none";
       
-      showLoading("Validando autorização do projeto...");
+      showLoading("Validando projeto no Supabase...");
       
-      fetch("data/config_auth.json?t=" + new Date().getTime())
-        .then(res => {
-          if (!res.ok) throw new Error("Não foi possível carregar as credenciais de segurança.");
-          return res.json();
-        })
-        .then(authConfig => {
+      try {
+        currentProjetoObj = await ProjetosService.obterPorCodigo(codigoProjeto);
+        
+        if (!currentProjetoObj) {
           hideLoading();
-          
-          let expectedKey = "";
-          let matchedKey = "";
-          const cleanClient = clientKey.replace(/^portal-depara-/, '').toLowerCase().trim();
-          
-          for (let key in authConfig) {
-            const cleanKey = key.replace(/^portal-depara-/, '').toLowerCase().trim();
-            if (cleanKey === cleanClient || key.toLowerCase() === clientKey.toLowerCase()) {
-              expectedKey = String(authConfig[key]).trim();
-              matchedKey = key;
-              break;
-            }
-          }
-          
-          // Se o projeto NÃO estiver cadastrado no registro de segurança, BLOQUEIA IMEDIATAMENTE
-          if (!expectedKey) {
-            const blockedEl = document.getElementById("blockedProjectSlug");
-            if (blockedEl) blockedEl.innerText = clientKey;
-            document.getElementById("projectBlockedScreen").style.display = "flex";
-            return;
-          }
-          
-          document.getElementById("passkeyClientLabel").innerText = `Mapeamento De-Para | Projeto: ${matchedKey.toUpperCase()}`;
-          
-          if (savedKey && savedKey === expectedKey) {
-            clientPasskey = savedKey;
-            document.getElementById("sidebar").style.display = "flex";
-            loadPortalData();
-          } else {
-            // Exibir modal de senha
-            document.getElementById("passkeyModal").style.display = "flex";
-            const passInput = document.getElementById("passkeyInput");
-            if (passInput) {
-              passInput.value = "";
-              passInput.focus();
-            }
-          }
-        })
-        .catch(err => {
-          hideLoading();
-          console.warn("Segurança offline:", err.message);
           const blockedEl = document.getElementById("blockedProjectSlug");
-          if (blockedEl) blockedEl.innerText = `${clientKey} (Falha ao ler permissões)`;
+          if (blockedEl) blockedEl.innerText = codigoProjeto;
           document.getElementById("projectBlockedScreen").style.display = "flex";
-        });
+          return;
+        }
+
+        hideLoading();
+        const expectedPasskey = String(currentProjetoObj.passkey || "1234").trim();
+        const cliName = currentProjetoObj.clientes_totvs ? currentProjetoObj.clientes_totvs.razao_social : "CLIENTE TOTVS";
+        document.getElementById("passkeyClientLabel").innerText = `Projeto: ${currentProjetoObj.codigo_projeto} | ${cliName}`;
+        
+        const sidebarClientNameEl = document.getElementById("sidebarClientName");
+        if (sidebarClientNameEl) {
+          sidebarClientNameEl.innerText = `🏢 ${currentProjetoObj.codigo_projeto}`;
+        }
+
+        if (savedKey && savedKey === expectedPasskey) {
+          clientPasskey = savedKey;
+          document.getElementById("sidebar").style.display = "flex";
+          await loadPortalData();
+        } else {
+          document.getElementById("passkeyModal").style.display = "flex";
+          const passInput = document.getElementById("passkeyInput");
+          if (passInput) {
+            passInput.value = "";
+            passInput.focus();
+          }
+        }
+      } catch (err) {
+        hideLoading();
+        console.warn("Erro ao validar projeto no Supabase:", err.message);
+        const blockedEl = document.getElementById("blockedProjectSlug");
+        if (blockedEl) blockedEl.innerText = `${codigoProjeto} (${err.message})`;
+        document.getElementById("projectBlockedScreen").style.display = "flex";
+      }
     }
 
-    function submitPasskey() {
+    async function submitPasskey() {
       const inputVal = document.getElementById("passkeyInput").value.trim();
-      let clientKey = getClientKey();
+      const codigoProjeto = getClientKey();
       
       if (!inputVal) {
         document.getElementById("passkeyErrorMsg").style.display = "block";
@@ -2292,36 +2266,28 @@
       
       showLoading("Validando chave de acesso...");
       
-      fetch("data/config_auth.json?t=" + new Date().getTime())
-        .then(res => res.json())
-        .then(authConfig => {
+      try {
+        if (!currentProjetoObj) {
+          currentProjetoObj = await ProjetosService.obterPorCodigo(codigoProjeto);
+        }
+
+        const expectedKey = String(currentProjetoObj ? currentProjetoObj.passkey : "1234").trim();
+        
+        if (inputVal === expectedKey) {
+          localStorage.setItem(`passkey_${codigoProjeto}`, inputVal);
+          clientPasskey = inputVal;
+          document.getElementById("passkeyModal").style.display = "none";
+          document.getElementById("passkeyErrorMsg").style.display = "none";
+          document.getElementById("sidebar").style.display = "flex";
+          await loadPortalData();
+        } else {
           hideLoading();
-          let expectedKey = "";
-          const cleanClient = clientKey.replace(/^portal-depara-/, '').toLowerCase().trim();
-          
-          for (let key in authConfig) {
-            const cleanKey = key.replace(/^portal-depara-/, '').toLowerCase().trim();
-            if (cleanKey === cleanClient || key.toLowerCase() === clientKey.toLowerCase()) {
-              expectedKey = String(authConfig[key]).trim();
-              break;
-            }
-          }
-          
-          if (expectedKey && inputVal === expectedKey) {
-            localStorage.setItem(`passkey_${clientKey}`, inputVal);
-            clientPasskey = inputVal;
-            document.getElementById("passkeyModal").style.display = "none";
-            document.getElementById("passkeyErrorMsg").style.display = "none";
-            document.getElementById("sidebar").style.display = "flex";
-            loadPortalData();
-          } else {
-            document.getElementById("passkeyErrorMsg").style.display = "block";
-          }
-        })
-        .catch(err => {
-          hideLoading();
-          showToast("Erro ao validar credenciais: " + err.message, "error");
-        });
+          document.getElementById("passkeyErrorMsg").style.display = "block";
+        }
+      } catch (err) {
+        hideLoading();
+        showToast("Erro ao validar credenciais: " + err.message, "error");
+      }
     }
 
     function toggleSidebar() {
@@ -2382,160 +2348,53 @@
     // Cache em memória do banco completo carregado
     let rawJsonDatabase = {};
 
-    function loadPortalData() {
-      showLoading("Carregando base de dados do GitHub...");
+    async function loadPortalData() {
+      showLoading("Carregando base de dados do Supabase...");
       
-      let clientKey = getClientKey();
-
-      const pat = localStorage.getItem("gh_pat") || localStorage.getItem("hub_token") || "";
-      if (pat && !localStorage.getItem("gh_pat")) {
-        localStorage.setItem("gh_pat", pat);
-      }
-      const owner = localStorage.getItem("gh_owner") || "TOTVSGustavoFerreira";
-      const urlRepo = new URLSearchParams(window.location.search).get('repo') || new URLSearchParams(window.location.search).get('cliente');
-      const repo = urlRepo || localStorage.getItem("gh_repo") || "portal-depara-navarro";
-      const filePath = `data/${clientKey}.json`;
+      const codigoProjeto = getClientKey();
       
-      // Se o token estiver configurado, lê DIRETAMENTE da API do GitHub (sempre atualizado).
-      // Isso evita o atraso de deploy do GitHub Pages (que pode demorar até 10 minutos).
-      // Se não houver token, usa o fallback pelo GitHub Pages como antes.
-      let fetchPromise;
-      
-      const fileBase = `data/${clientKey}_base.json`;
-      const fileEvHor = `data/${clientKey}_eventos_horarios.json`;
-      const fileCad = `data/${clientKey}_cadastros.json`;
-
-      const getFilePromise = (fileName, usePat) => {
-        const timestamp = new Date().getTime();
-        const branch = localStorage.getItem("gh_branch") || "main";
-        
-        if (usePat && pat) {
-          const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${fileName}?t=${timestamp}`;
-          return fetch(apiUrl, { headers: { "Authorization": `token ${pat}`, "Accept": "application/vnd.github.v3+json" } })
-            .then(res => {
-              if (res.status === 401) throw new Error("Token do GitHub inválido ou expirado.");
-              if (res.status === 404) return null; // Arquivo não encontrado (novo banco ou base antiga)
-              if (!res.ok) throw new Error("Erro ao acessar a API do GitHub para " + fileName);
-              return res.json();
-            }).then(info => {
-              if (!info) return { sha: null, content: null };
-              if (!info.content) {
-                if (fileName.includes('_base')) {
-                   throw new Error("Arquivo no GitHub corrompido ou acima do limite. Por favor, reimporte a planilha.");
-                }
-                return { sha: info.sha, content: null };
-              }
-              const jsonText = decodeURIComponent(escape(window.atob(info.content)));
-              return { sha: info.sha, content: JSON.parse(jsonText) };
-            });
-        } else {
-          // Acesso para usuários / visualizadores públicos sem Token:
-          // 1. Tenta carregar do raw.githubusercontent.com do repositório específico do cliente
-          const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${fileName}?t=${timestamp}`;
-          
-          return fetch(rawUrl)
-            .then(res => {
-              if (res.ok) return res.text();
-              // 2. Fallback: tentar carregar do GitHub Pages do repositório
-              const pagesUrl = `https://${owner.toLowerCase()}.github.io/${repo}/${fileName}?t=${timestamp}`;
-              return fetch(pagesUrl).then(r2 => {
-                if (r2.ok) return r2.text();
-                // 3. Fallback: relativo local
-                return fetch(`${fileName}?t=${timestamp}`).then(r3 => r3.ok ? r3.text() : "");
-              });
-            })
-            .then(text => {
-              if (!text || text.trim() === "" || text.trim().startsWith("404")) {
-                return { sha: null, content: null };
-              }
-              try {
-                return { sha: null, content: JSON.parse(text) };
-              } catch (e) {
-                return { sha: null, content: null };
-              }
-            })
-            .catch(() => ({ sha: null, content: null }));
+      try {
+        if (!currentProjetoObj) {
+          currentProjetoObj = await ProjetosService.obterPorCodigo(codigoProjeto);
+          if (!currentProjetoObj) throw new Error("Projeto não encontrado no banco de dados.");
         }
-      };
 
-      if (pat) {
-        fetchPromise = Promise.all([
-          getFilePromise(fileBase, true),
-          getFilePromise(fileEvHor, true),
-          getFilePromise(fileCad, true)
-        ]).then(([resBase, resEvHor, resCad]) => {
-          if (!resBase.content && !resEvHor.content && !resCad.content) {
-            // Tenta fallback para o arquivo monolítico antigo
-            return getFilePromise(`data/${clientKey}.json`, true).then(resMono => {
-              if (!resMono.content) throw new Error("Base de dados não encontrada. Re-importe a planilha.");
-              rawJsonDatabase = resMono.content;
-              rawJsonDatabase._sha = { monolith: resMono.sha };
-              return rawJsonDatabase;
-            });
-          }
-          
-          rawJsonDatabase = { ...(resBase.content || {}), ...(resEvHor.content || {}), ...(resCad.content || {}) };
-          rawJsonDatabase._sha = {
-            base: resBase.sha,
-            eventos_horarios: resEvHor.sha,
-            cadastros: resCad.sha
-          };
-          return rawJsonDatabase;
-        });
-      } else {
-        fetchPromise = Promise.all([
-          getFilePromise(fileBase, false),
-          getFilePromise(fileEvHor, false),
-          getFilePromise(fileCad, false)
-        ]).then(([resBase, resEvHor, resCad]) => {
-          if (!resBase.content && !resEvHor.content && !resCad.content) {
-            return getFilePromise(`data/${clientKey}.json`, false).then(resMono => {
-              if (!resMono.content) throw new Error("Base de dados não encontrada.");
-              rawJsonDatabase = resMono.content;
-              return rawJsonDatabase;
-            });
-          }
-          rawJsonDatabase = { ...(resBase.content || {}), ...(resEvHor.content || {}), ...(resCad.content || {}) };
-          return rawJsonDatabase;
-        });
+        const response = await DeParaDataService.carregarProjetoCompleto(currentProjetoObj.id);
+        rawJsonDatabase = response;
+        
+        hideLoading();
+        
+        connectionInfo = {
+          isInstalled: true,
+          originName: "PostgreSQL Supabase (Cloud)",
+          destinationName: currentProjetoObj.codigo_projeto,
+          destinationPath: "Sincronização em Tempo Real"
+        };
+
+        document.getElementById("mainInterface").style.display = "flex";
+        document.getElementById("sidebar").style.display = "flex";
+        
+        // rmEvents e dados de apoio globais
+        rmEvents = response.DADOS_RM_EVENTOS || [];
+        unusedCreatedEvents = [];
+        
+        // Normalizar as propriedades das abas importadas/carregadas
+        normalizeDatabaseProperties(rawJsonDatabase);
+        
+        // Forçar renderização do módulo ativo
+        switchModule(currentModule);
+        
+        // Carregar os progressos na home
+        updateHomeProgress();
+      } catch (err) {
+        hideLoading();
+        document.getElementById("mainInterface").style.display = "none";
+        document.getElementById("sidebar").style.display = "none";
+        const blockedEl = document.getElementById("blockedProjectSlug");
+        if (blockedEl) blockedEl.innerText = `${codigoProjeto} (${err.message})`;
+        document.getElementById("projectBlockedScreen").style.display = "flex";
+        showToast("Erro ao carregar dados: " + err.message, 'error');
       }
-      // O fetchPromise já está configurado (com pat ou sem pat)
-      
-      fetchPromise
-        .then(response => {
-          hideLoading();
-          
-          connectionInfo = {
-            isInstalled: true,
-            originName: response.config?.originName || "GitHub JSON DB",
-            destinationName: response.config?.destinationName || "Google Planilha Oficial",
-            destinationPath: "Exportação via Download"
-          };
-
-          document.getElementById("mainInterface").style.display = "flex";
-          
-          // rmEvents e dados de apoio globais
-          rmEvents = response.DADOS_RM_EVENTOS || [];
-          unusedCreatedEvents = [];
-          
-          // Normalizar as propriedades das abas importadas/carregadas
-          normalizeDatabaseProperties(rawJsonDatabase);
-          
-          // Forçar renderização do módulo ativo
-          switchModule(currentModule);
-          
-          // Carregar os progressos na home
-          updateHomeProgress();
-        })
-        .catch(err => {
-          hideLoading();
-          document.getElementById("mainInterface").style.display = "none";
-          document.getElementById("sidebar").style.display = "none";
-          const blockedEl = document.getElementById("blockedProjectSlug");
-          if (blockedEl) blockedEl.innerText = `${clientKey} (${err.message})`;
-          document.getElementById("projectBlockedScreen").style.display = "flex";
-          showToast("Erro ao carregar dados: " + err.message, 'error');
-        });
     }
 
     function normalizeDatabaseProperties(db) {
@@ -2829,9 +2688,21 @@
     }
 
     function loadConfigInputs() {
-      document.getElementById("ghTokenInput").value = localStorage.getItem("gh_pat") || "";
-      document.getElementById("ghOwnerInput").value = localStorage.getItem("gh_owner") || "TOTVSGustavoFerreira";
-      document.getElementById("ghRepoInput").value = localStorage.getItem("gh_repo") || "portal-depara-navarro";
+      const pat = localStorage.getItem("gh_pat") || localStorage.getItem("hub_token") || "";
+      const owner = localStorage.getItem("gh_owner") || localStorage.getItem("hub_owner") || "TOTVSGustavoFerreira";
+      const repo = getClientKey() || localStorage.getItem("gh_repo") || "";
+
+      const tokenWrapper = document.getElementById("wrapperGhTokenInput");
+      if (tokenWrapper) tokenWrapper.value = pat;
+
+      const tokenModal = document.getElementById("ghTokenInput");
+      if (tokenModal) tokenModal.value = pat;
+
+      const ownerEl = document.getElementById("ghOwnerInput");
+      if (ownerEl) ownerEl.value = owner;
+
+      const repoEl = document.getElementById("ghRepoInput");
+      if (repoEl) repoEl.value = repo;
     }
 
     function updateHomeProgress() {
@@ -7160,153 +7031,35 @@
       showToast("Configurações do GitHub salvas com sucesso!", "success");
     }
 
-    function commitChangesToGitHub(commitMessage, updatedDatabaseCallback, onSuccessCallback, fileCategory = 'all') {
-      const pat = localStorage.getItem("gh_pat") || localStorage.getItem("hub_token") || "";
-      const owner = localStorage.getItem("gh_owner") || "TOTVSGustavoFerreira";
-      const repo = localStorage.getItem("gh_repo") || "portal-depara-navarro";
-      
-      if (!pat) {
-        hideLoading();
-        showToast("Por favor, configure o Token de Acesso do GitHub (ícone de engrenagem) para salvar alterações.", "error");
-        openGitHubConfigModal();
-        return;
-      }
-      
-      let clientKey = getClientKey();
-
-      // Aplicar as mudanças na memória antes de gerar os arquivos
+    async function commitChangesToGitHub(commitMessage, updatedDatabaseCallback, onSuccessCallback, fileCategory = 'all') {
+      // Aplicar as mudanças na memória antes de sincronizar
       if (typeof updatedDatabaseCallback === 'function') {
         updatedDatabaseCallback();
       }
 
-      rawJsonDatabase.config = rawJsonDatabase.config || {};
-      rawJsonDatabase.config.ultimo_sincronismo = new Date().toISOString();
-      
-      // Categorias mapeadas
-      const DB_SCHEMAS = {
-        base: ['config', 'DADOS_RM_EVENTOS', 'DADOS_RM_SITUACAO', 'DADOS_RM_MOTIVOS', 'DADOS_RM_SECOES'],
-        eventos_horarios: ['ZDEPARA_EVENTOS', 'ZDEPARA_HORARIO'],
-        cadastros: [
-          'ZDEPARA_COLIGADAS', 'ZDEPARA_FUNCOES', 'ZDEPARA_SINDICATOS', 'ZDEPARA_SECOES', 
-          'ZDEPARA_SITUACAO', 'ZDEPARA_PERIODO_FOLHA', 'ZDEPARA_BANCOS', 'ZDEPARA_MOTIVO_FUNCAO', 
-          'ZDEPARA_MOTIVO_SALARIO', 'ZDEPARA_MOTIVO_SECAO'
-        ]
-      };
+      showLoading("Salvando alterações em tempo real no Supabase...");
 
-      const categoriesToSave = fileCategory === 'all' ? Object.keys(DB_SCHEMAS) : [fileCategory];
-      
-      // Validação: não permitir salvar parcialmente no modo particionado se a base for monolítica
-      if (rawJsonDatabase._sha && rawJsonDatabase._sha.monolith) {
-         if (fileCategory !== 'all') {
-           showToast("Sincronização abortada: Você está usando o banco antigo monolítico. Por favor, re-importe a planilha do Excel uma vez para converter o banco para o novo formato de alta performance.", "error");
-           hideLoading();
-           return;
-         } else {
-           // Se for 'all', significa que estamos migrando agora (ex: na importação)!
-           // Então removemos a flag de monolith para não bloquear os próximos salvamentos
-           delete rawJsonDatabase._sha.monolith;
-         }
-      }
-
-      // Criar payload para cada categoria
-      let payloads = [];
       try {
-        payloads = categoriesToSave.map(cat => {
-          const subset = {};
-          DB_SCHEMAS[cat].forEach(key => {
-            if (rawJsonDatabase[key] !== undefined) {
-              subset[key] = rawJsonDatabase[key];
-            }
-          });
-          const fileContent = JSON.stringify(subset, null, 2);
-          
-          if (cat === 'base' && fileContent.length < 50) {
-             throw new Error("Arquivo base gerado está muito pequeno/corrompido");
-          }
-          
-          return {
-            cat: cat,
-            filePath: `data/${clientKey}_${cat}.json`,
-            contentBase64: safeBtoa(fileContent),
-            sha: (rawJsonDatabase._sha && typeof rawJsonDatabase._sha === 'object') ? rawJsonDatabase._sha[cat] : null
-          };
-        });
-      } catch(e) {
-        hideLoading();
-        showToast("Erro na preparação dos arquivos: " + e.message, "error");
-        return;
-      }
-
-      const commitFile = (payload) => {
-        const putUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${payload.filePath}`;
-        
-        const doPut = (shaToUse) => {
-          return fetch(putUrl, {
-            method: "PUT",
-            headers: {
-              "Authorization": `token ${pat}`,
-              "Content-Type": "application/json",
-              "Accept": "application/vnd.github.v3+json"
-            },
-            body: JSON.stringify({
-              message: commitMessage,
-              content: payload.contentBase64,
-              sha: shaToUse
-            })
-          }).then(res => {
-            if (!res.ok) return res.json().then(errData => { throw new Error(errData.message); });
-            return res.json();
-          }).then(response => {
-            if (response.content && response.content.sha) {
-              if (!rawJsonDatabase._sha || typeof rawJsonDatabase._sha !== 'object') rawJsonDatabase._sha = {};
-              rawJsonDatabase._sha[payload.cat] = response.content.sha;
-            }
-          });
-        };
-
-        if (payload.sha) {
-          return doPut(payload.sha).catch(err => {
-            if (err.message && err.message.includes("does not match")) {
-              const getUrl = `${putUrl}?t=${Date.now()}`;
-              return fetch(getUrl, { headers: { "Authorization": `token ${pat}`, "Accept": "application/vnd.github.v3+json" } })
-                .then(r => r.json())
-                .then(info => doPut(info.sha));
-            }
-            throw err;
-          });
-        } else {
-          // Arquivo novo ou faltando SHA em cache
-          return doPut(null).catch(err => {
-             // Se falhar porque ja existe mas nao tinhamos o SHA
-             const getUrl = `${putUrl}?t=${Date.now()}`;
-             return fetch(getUrl, { headers: { "Authorization": `token ${pat}`, "Accept": "application/vnd.github.v3+json" } })
-                .then(r => { if(r.status === 404) return null; return r.json(); })
-                .then(info => {
-                  if (info && info.sha) return doPut(info.sha);
-                  throw err;
-                });
-          });
+        if (!currentProjetoObj) {
+          const cod = getClientKey();
+          currentProjetoObj = await ProjetosService.obterPorCodigo(cod);
         }
-      };
 
-      // Salvar sequencialmente para não estourar rate limit e não pesar muito no browser
-      let promiseChain = Promise.resolve();
-      payloads.forEach(p => {
-        promiseChain = promiseChain.then(() => commitFile(p));
-      });
+        if (currentProjetoObj && rawJsonDatabase) {
+          await DeParaDataService.importarBaseCompleta(currentProjetoObj.id, rawJsonDatabase);
+        }
 
-      promiseChain.then(() => {
         hideLoading();
-        showToast("Dados salvos e commitados no GitHub com sucesso!", "success");
+        showToast("Dados salvos e sincronizados no Supabase com sucesso!", "success");
         calculateLocalDiagnosticsAndStats();
         renderWarnings();
         updateDashboard();
         applyFilters();
         if (typeof onSuccessCallback === 'function') onSuccessCallback();
-      }).catch(err => {
+      } catch (err) {
         hideLoading();
-        showToast("Erro ao gravar no GitHub: " + err.message, "error");
-      });
+        showToast("Erro ao gravar no Supabase: " + err.message, "error");
+      }
     }
 
 
