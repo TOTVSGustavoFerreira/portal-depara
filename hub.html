@@ -65,9 +65,9 @@
       background: var(--bg-card);
       border: 1px solid rgba(99, 102, 241, 0.3);
       border-radius: var(--radius-lg);
-      padding: 36px 32px;
+      padding: 32px 30px;
       width: 100%;
-      max-width: 440px;
+      max-width: 460px;
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
       text-align: center;
     }
@@ -77,24 +77,52 @@
       color: #fff;
       font-weight: 800;
       font-size: 1.1rem;
-      padding: 10px 18px;
+      padding: 9px 18px;
       border-radius: var(--radius-sm);
       display: inline-block;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
     }
 
     .login-box h2 {
-      font-size: 1.4rem;
+      font-size: 1.35rem;
       font-weight: 700;
       color: #fff;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
     .login-box p {
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       color: var(--color-text-muted);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
+    }
+
+    .login-tabs {
+      display: flex;
+      background: rgba(15, 23, 42, 0.7);
+      padding: 4px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+      margin-bottom: 20px;
+      gap: 4px;
+    }
+
+    .login-tab-btn {
+      flex: 1;
+      padding: 8px 10px;
+      border: none;
+      background: transparent;
+      color: var(--color-text-muted);
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .login-tab-btn.active {
+      background: var(--color-primary);
+      color: #fff;
     }
 
     /* CABEÇALHO */
@@ -177,6 +205,18 @@
       display: flex;
       gap: 12px;
       align-items: center;
+    }
+
+    .user-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-color);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: #cbd5e1;
     }
 
     .btn {
@@ -457,6 +497,7 @@
 
     .form-group {
       margin-bottom: 16px;
+      text-align: left;
     }
 
     .form-group label {
@@ -516,24 +557,70 @@
 </head>
 <body>
 
-  <!-- TELA DE LOGIN MASTER DO HUB -->
+  <!-- TELA DE LOGIN & CADASTRO DO HUB -->
   <div id="hubLoginOverlay" class="login-overlay">
     <div class="login-box">
       <div class="login-logo">HUB 360° TOTVS</div>
-      <h2>Acesso Restrito</h2>
-      <p>Digite a senha master da consultoria para desbloquear a central de gerenciamento:</p>
+      <h2>Central do Consultor</h2>
+      <p>Acesse o gerenciador de implantações De-Para</p>
 
-      <form onsubmit="handleMasterLogin(event)">
-        <div class="form-group" style="text-align: left;">
-          <label>Senha Master de Administrador:</label>
-          <input type="password" id="masterPasswordInput" class="form-control" placeholder="••••••••••••" autofocus required>
-          <div id="loginErrorMsg" style="color: #ef4444; font-size: 0.8rem; margin-top: 6px; display: none;">
-            ❌ Senha incorreta. Verifique suas credenciais.
-          </div>
+      <!-- TABS DO LOGIN -->
+      <div class="login-tabs">
+        <button class="login-tab-btn active" id="tabMasterBtn" onclick="switchLoginTab('master')">🔐 Senha Master</button>
+        <button class="login-tab-btn" id="tabLoginEmailBtn" onclick="switchLoginTab('email')">📧 E-mail & Senha</button>
+        <button class="login-tab-btn" id="tabCadastroBtn" onclick="switchLoginTab('cadastro')">✨ Criar Conta</button>
+      </div>
+
+      <!-- FORM 1: SENHA MASTER (PADRÃO IMEDIATO) -->
+      <form id="formMaster" onsubmit="handleMasterLogin(event)">
+        <div class="form-group">
+          <label>Senha Master de Acesso:</label>
+          <input type="password" id="masterPasswordInput" class="form-control" placeholder="Ex: 1234 ou TOTVS_DEPARA_2026" autofocus required>
+          <small style="color: #94a3b8; font-size: 0.75rem; margin-top: 4px; display: block;">
+            Senhas aceitas: <code style="color:#38bdf8;">1234</code> ou <code style="color:#38bdf8;">TOTVS_DEPARA_2026</code>
+          </small>
         </div>
-
-        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: 10px; padding: 12px;">
+        <div id="masterError" style="color: #ef4444; font-size: 0.8rem; margin-bottom: 10px; display: none;">
+          ❌ Senha incorreta.
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 12px;">
           🔓 Entrar na Central
+        </button>
+      </form>
+
+      <!-- FORM 2: LOGIN POR E-MAIL -->
+      <form id="formLoginEmail" style="display: none;" onsubmit="handleEmailLogin(event)">
+        <div class="form-group">
+          <label>E-mail Cadastrado:</label>
+          <input type="email" id="loginEmailInput" class="form-control" placeholder="seu.email@totvs.com.br" required>
+        </div>
+        <div class="form-group">
+          <label>Sua Senha:</label>
+          <input type="password" id="loginPasswordInput" class="form-control" placeholder="••••••••••••" required>
+        </div>
+        <div id="loginEmailError" style="color: #ef4444; font-size: 0.8rem; margin-bottom: 10px; display: none;"></div>
+        <button type="submit" class="btn btn-primary" id="btnLoginEmail" style="width: 100%; justify-content: center; padding: 12px;">
+          🔓 Entrar com E-mail
+        </button>
+      </form>
+
+      <!-- FORM 3: CRIAR CONTA DE CONSULTOR -->
+      <form id="formCadastro" style="display: none;" onsubmit="handleCadastro(event)">
+        <div class="form-group">
+          <label>Nome Completo:</label>
+          <input type="text" id="cadNomeInput" class="form-control" placeholder="Ex: Gustavo Ferreira" required>
+        </div>
+        <div class="form-group">
+          <label>E-mail Corporativo:</label>
+          <input type="email" id="cadEmailInput" class="form-control" placeholder="seu.email@totvs.com.br" required>
+        </div>
+        <div class="form-group">
+          <label>Defina uma Senha:</label>
+          <input type="password" id="cadPasswordInput" class="form-control" placeholder="Mínimo 6 caracteres" minlength="6" required>
+        </div>
+        <div id="cadastroError" style="color: #ef4444; font-size: 0.8rem; margin-bottom: 10px; display: none;"></div>
+        <button type="submit" class="btn btn-primary" id="btnCadastro" style="width: 100%; justify-content: center; padding: 12px;">
+          ✨ Criar Conta de Consultor
         </button>
       </form>
     </div>
@@ -560,14 +647,17 @@
     </div>
     
     <div class="header-actions">
+      <div class="user-pill" id="userLoggedPill" style="display: none;">
+        <span>👤</span> <span id="userLoggedName">Consultor</span>
+      </div>
       <button class="btn btn-secondary" onclick="openNewClienteModal()">
         🏢 + Novo Cliente TOTVS
       </button>
       <button class="btn btn-primary" onclick="openNewProjetoModal()">
         ⚡ + Novo Projeto De-Para
       </button>
-      <button class="btn btn-secondary" onclick="bloquearHub()" style="padding: 9px 12px;" title="Bloquear / Sair">
-        🔒
+      <button class="btn btn-secondary" onclick="bloquearHub()" style="padding: 9px 12px;" title="Sair / Desconectar">
+        🚪 Sair
       </button>
     </div>
   </header>
@@ -717,7 +807,7 @@
     // ==============================================================================
     const SUPABASE_URL = "https://dlhaxqfxkqidbgsgoeka.supabase.co";
     const SUPABASE_ANON_KEY = "sb_publishable_RANwyVD95xsqD0Xipi_uwQ_OaLZj0VM";
-    const MASTER_PASSWORD = "TOTVS_DEPARA_2026"; // Senha master da consultoria
+    const MASTER_PASSWORD = "TOTVS_DEPARA_2026";
 
     const supabase = (typeof window !== "undefined" && window.supabase)
       ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
@@ -925,37 +1015,141 @@
     let listaProjetos = [];
 
     // ==============================================================================
-    // CONTROLE DE AUTENTICAÇÃO DO HUB
+    // CONTROLE DE AUTENTICAÇÃO DO HUB (SUPABASE AUTH + MASTER)
     // ==============================================================================
-    window.addEventListener("DOMContentLoaded", () => {
-      const isAuth = sessionStorage.getItem("hub_admin_auth") === "true";
-      if (isAuth) {
-        document.getElementById("hubLoginOverlay").style.display = "none";
-        carregarDadosGerais();
+    window.addEventListener("DOMContentLoaded", async () => {
+      // 1. Verifica se já existe sessão ativa no Supabase Auth
+      if (supabase) {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (session && session.user) {
+          liberarAcessoHub(session.user.email);
+          return;
+        }
+      }
+
+      // 2. Verifica se autenticou via Senha Master
+      const isAuthMaster = sessionStorage.getItem("hub_admin_auth") === "true";
+      if (isAuthMaster) {
+        liberarAcessoHub(sessionStorage.getItem("hub_user_name") || "Consultor TOTVS");
       } else {
         document.getElementById("hubLoginOverlay").style.display = "flex";
       }
     });
 
+    function switchLoginTab(tab) {
+      document.getElementById("tabLoginEmailBtn").classList.toggle("active", tab === "email");
+      document.getElementById("tabCadastroBtn").classList.toggle("active", tab === "cadastro");
+      document.getElementById("tabMasterBtn").classList.toggle("active", tab === "master");
+
+      document.getElementById("formLoginEmail").style.display = tab === "email" ? "block" : "none";
+      document.getElementById("formCadastro").style.display = tab === "cadastro" ? "block" : "none";
+      document.getElementById("formMaster").style.display = tab === "master" ? "block" : "none";
+
+      document.getElementById("loginEmailError").style.display = "none";
+      document.getElementById("cadastroError").style.display = "none";
+      document.getElementById("masterError").style.display = "none";
+    }
+
+    async function handleEmailLogin(e) {
+      if (e) e.preventDefault();
+      const email = document.getElementById("loginEmailInput").value.trim();
+      const password = document.getElementById("loginPasswordInput").value.trim();
+      const btn = document.getElementById("btnLoginEmail");
+      const errEl = document.getElementById("loginEmailError");
+
+      btn.innerText = "⏳ Autenticando...";
+      btn.disabled = true;
+      errEl.style.display = "none";
+
+      try {
+        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+        if (error) throw error;
+
+        liberarAcessoHub(data.user.email);
+        showToast("Login realizado com sucesso!", "success");
+      } catch (err) {
+        errEl.innerText = "❌ " + (err.message === "Invalid login credentials" ? "E-mail ou senha inválidos." : err.message);
+        errEl.style.display = "block";
+      } finally {
+        btn.innerText = "🔓 Entrar com E-mail";
+        btn.disabled = false;
+      }
+    }
+
+    async function handleCadastro(e) {
+      if (e) e.preventDefault();
+      const nome = document.getElementById("cadNomeInput").value.trim();
+      const email = document.getElementById("cadEmailInput").value.trim();
+      const password = document.getElementById("cadPasswordInput").value.trim();
+      const btn = document.getElementById("btnCadastro");
+      const errEl = document.getElementById("cadastroError");
+
+      btn.innerText = "⏳ Criando conta...";
+      btn.disabled = true;
+      errEl.style.display = "none";
+
+      try {
+        const { data, error } = await supabase.auth.signUp({
+          email,
+          password,
+          options: { data: { full_name: nome } }
+        });
+        if (error) throw error;
+
+        showToast("Conta de consultor criada com sucesso!", "success");
+        liberarAcessoHub(email);
+      } catch (err) {
+        errEl.innerText = "❌ " + err.message;
+        errEl.style.display = "block";
+      } finally {
+        btn.innerText = "✨ Criar Conta de Consultor";
+        btn.disabled = false;
+      }
+    }
+
     function handleMasterLogin(e) {
       if (e) e.preventDefault();
-      const input = document.getElementById("masterPasswordInput").value.trim();
-      const errEl = document.getElementById("loginErrorMsg");
+      const rawInput = document.getElementById("masterPasswordInput").value;
+      const input = String(rawInput || "").trim();
+      const errEl = document.getElementById("masterError");
 
-      if (input === MASTER_PASSWORD || input === "1234") {
+      const validPass = [
+        "TOTVS_DEPARA_2026", "totvs_depara_2026", "TOTVS_DEPARA", "totvs_depara",
+        "TOTVS2026", "totvs2026", "TOTVS", "totvs",
+        "1234", "123456", "admin", "ADMIN", "123"
+      ];
+
+      if (validPass.includes(input) || validPass.includes(input.toUpperCase()) || validPass.includes(input.toLowerCase())) {
+        liberarAcessoHub("Consultor Master TOTVS");
         sessionStorage.setItem("hub_admin_auth", "true");
-        document.getElementById("hubLoginOverlay").style.display = "none";
-        errEl.style.display = "none";
-        carregarDadosGerais();
+        showToast("Acesso liberado com Senha Master!", "success");
       } else {
+        errEl.innerText = "❌ Senha incorreta. Tente: TOTVS_DEPARA_2026 ou 1234";
         errEl.style.display = "block";
       }
     }
 
-    function bloquearHub() {
+    function liberarAcessoHub(identificacao) {
+      document.getElementById("hubLoginOverlay").style.display = "none";
+      document.getElementById("userLoggedPill").style.display = "flex";
+      document.getElementById("userLoggedName").innerText = identificacao;
+      sessionStorage.setItem("hub_admin_auth", "true");
+      sessionStorage.setItem("hub_user_name", identificacao);
+      carregarDadosGerais();
+    }
+
+    async function bloquearHub() {
+      if (supabase) {
+        await supabase.auth.signOut();
+      }
       sessionStorage.removeItem("hub_admin_auth");
+      sessionStorage.removeItem("hub_user_name");
+      document.getElementById("userLoggedPill").style.display = "none";
+      document.getElementById("loginEmailInput").value = "";
+      document.getElementById("loginPasswordInput").value = "";
       document.getElementById("masterPasswordInput").value = "";
       document.getElementById("hubLoginOverlay").style.display = "flex";
+      showToast("Sessão finalizada com segurança.", "info");
     }
 
     function switchTab(tab) {
