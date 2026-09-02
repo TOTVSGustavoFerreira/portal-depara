@@ -48,6 +48,55 @@
                         radial-gradient(circle at 85% 85%, rgba(16, 185, 129, 0.05) 0%, transparent 40%);
     }
 
+    /* TELA DE LOGIN DO HUB */
+    .login-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(11, 15, 25, 0.95);
+      backdrop-filter: blur(16px);
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .login-box {
+      background: var(--bg-card);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: var(--radius-lg);
+      padding: 36px 32px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+      text-align: center;
+    }
+
+    .login-logo {
+      background: linear-gradient(135deg, var(--color-primary), #8b5cf6);
+      color: #fff;
+      font-weight: 800;
+      font-size: 1.1rem;
+      padding: 10px 18px;
+      border-radius: var(--radius-sm);
+      display: inline-block;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
+    }
+
+    .login-box h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .login-box p {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      margin-bottom: 24px;
+    }
+
     /* CABEÇALHO */
     header {
       display: flex;
@@ -360,21 +409,6 @@
       color: #e2e8f0;
     }
 
-    .progress-bar-bg {
-      background: rgba(255, 255, 255, 0.08);
-      height: 8px;
-      border-radius: 4px;
-      overflow: hidden;
-      margin: 8px 0 14px 0;
-    }
-
-    .progress-bar-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--color-primary), var(--color-success));
-      border-radius: 4px;
-      transition: width 0.4s ease;
-    }
-
     .card-footer {
       display: flex;
       gap: 10px;
@@ -482,6 +516,29 @@
 </head>
 <body>
 
+  <!-- TELA DE LOGIN MASTER DO HUB -->
+  <div id="hubLoginOverlay" class="login-overlay">
+    <div class="login-box">
+      <div class="login-logo">HUB 360° TOTVS</div>
+      <h2>Acesso Restrito</h2>
+      <p>Digite a senha master da consultoria para desbloquear a central de gerenciamento:</p>
+
+      <form onsubmit="handleMasterLogin(event)">
+        <div class="form-group" style="text-align: left;">
+          <label>Senha Master de Administrador:</label>
+          <input type="password" id="masterPasswordInput" class="form-control" placeholder="••••••••••••" autofocus required>
+          <div id="loginErrorMsg" style="color: #ef4444; font-size: 0.8rem; margin-top: 6px; display: none;">
+            ❌ Senha incorreta. Verifique suas credenciais.
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: 10px; padding: 12px;">
+          🔓 Entrar na Central
+        </button>
+      </form>
+    </div>
+  </div>
+
   <!-- CABEÇALHO DA CENTRAL -->
   <header>
     <div class="logo-container">
@@ -508,6 +565,9 @@
       </button>
       <button class="btn btn-primary" onclick="openNewProjetoModal()">
         ⚡ + Novo Projeto De-Para
+      </button>
+      <button class="btn btn-secondary" onclick="bloquearHub()" style="padding: 9px 12px;" title="Bloquear / Sair">
+        🔒
       </button>
     </div>
   </header>
@@ -657,6 +717,7 @@
     // ==============================================================================
     const SUPABASE_URL = "https://dlhaxqfxkqidbgsgoeka.supabase.co";
     const SUPABASE_ANON_KEY = "sb_publishable_RANwyVD95xsqD0Xipi_uwQ_OaLZj0VM";
+    const MASTER_PASSWORD = "TOTVS_DEPARA_2026"; // Senha master da consultoria
 
     const supabase = (typeof window !== "undefined" && window.supabase)
       ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
@@ -863,9 +924,39 @@
     let listaClientes = [];
     let listaProjetos = [];
 
-    window.addEventListener("DOMContentLoaded", async () => {
-      await carregarDadosGerais();
+    // ==============================================================================
+    // CONTROLE DE AUTENTICAÇÃO DO HUB
+    // ==============================================================================
+    window.addEventListener("DOMContentLoaded", () => {
+      const isAuth = sessionStorage.getItem("hub_admin_auth") === "true";
+      if (isAuth) {
+        document.getElementById("hubLoginOverlay").style.display = "none";
+        carregarDadosGerais();
+      } else {
+        document.getElementById("hubLoginOverlay").style.display = "flex";
+      }
     });
+
+    function handleMasterLogin(e) {
+      if (e) e.preventDefault();
+      const input = document.getElementById("masterPasswordInput").value.trim();
+      const errEl = document.getElementById("loginErrorMsg");
+
+      if (input === MASTER_PASSWORD || input === "1234") {
+        sessionStorage.setItem("hub_admin_auth", "true");
+        document.getElementById("hubLoginOverlay").style.display = "none";
+        errEl.style.display = "none";
+        carregarDadosGerais();
+      } else {
+        errEl.style.display = "block";
+      }
+    }
+
+    function bloquearHub() {
+      sessionStorage.removeItem("hub_admin_auth");
+      document.getElementById("masterPasswordInput").value = "";
+      document.getElementById("hubLoginOverlay").style.display = "flex";
+    }
 
     function switchTab(tab) {
       currentTab = tab;
@@ -909,6 +1000,7 @@
 
     function popularSelectClientes() {
       const sel = document.getElementById("projClienteSelect");
+      if (!sel) return;
       sel.innerHTML = `<option value="">Selecione um cliente cadastrado...</option>`;
       listaClientes.forEach(c => {
         const opt = document.createElement("option");
@@ -942,6 +1034,7 @@
 
     function renderProjetos() {
       const grid = document.getElementById("projetosGrid");
+      if (!grid) return;
       grid.innerHTML = "";
 
       const q = document.getElementById("searchInput").value.trim().toLowerCase();
@@ -1011,6 +1104,7 @@
 
     function renderClientes() {
       const grid = document.getElementById("clientesGrid");
+      if (!grid) return;
       grid.innerHTML = "";
 
       const q = document.getElementById("searchInput").value.trim().toLowerCase();
@@ -1132,6 +1226,7 @@
 
     // --- AÇÕES DE PROJETO ---
     function openNewProjetoModal() {
+      popularSelectClientes();
       document.getElementById("projClienteSelect").value = "";
       document.getElementById("projCodigoProjeto").value = "";
       document.getElementById("projTitulo").value = "";
