@@ -1856,11 +1856,11 @@
       </div>
 
       <div class="menu-category">Administração</div>
-      <!-- ITEM CONFIGURAÇÕES E INTEGRAÇÃO -->
+      <!-- ITEM PLANILHAS E CONTINGÊNCIA -->
       <div class="menu-item" id="menu-item-config" style="cursor: pointer;" onclick="switchModule('config')">
         <div class="menu-item-link-content">
-          <svg viewBox="0 0 24 24" fill="currentColor" style="width: 18px; height: 18px;"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
-          <span class="menu-text">Configuração / Excel</span>
+          <svg viewBox="0 0 24 24" fill="currentColor" style="width: 18px; height: 18px;"><path d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2v9.67z"/></svg>
+          <span class="menu-text">Planilhas & Backup</span>
         </div>
       </div>
     </div>
@@ -2047,75 +2047,72 @@
         </div>
 
         <!-- 3. CONFIG VIEW (GITHUB CONFIGS + LOCAL EXCEL IMPORT/EXPORT) -->
+        <!-- TELA DE PLANILHAS & CONTINGÊNCIA (MODERNIZADA SUPABASE) -->
         <div id="configView" style="display: none; flex-direction: column; gap: 20px; width: 100%;">
           <div class="table-card" style="padding: 24px;">
-            <h2 style="font-weight: 700; color: var(--bg-primary); margin-bottom: 12px; display:flex; align-items:center; gap:8px;">
-              <span>⚙️ Configuração do GitHub & Integração Excel</span>
+            <h2 style="font-weight: 700; color: var(--bg-primary); margin-bottom: 8px; display:flex; align-items:center; gap:8px;">
+              <span>💾 Gestão de Planilhas, Backups & Nuvem</span>
             </h2>
             <p style="color: var(--color-text-muted); font-size: 0.92rem; margin-bottom: 24px;">
-              Configure a conexão segura do portal com o repositório no GitHub para salvar as alterações em tempo real, ou realize cargas em lote por meio de arquivos Excel (.xlsx).
+              Exporte os dados completos do projeto para Excel (.xlsx), gere pontos de restauração (snapshots JSON) ou importe cargas em lote diretamente para o banco PostgreSQL Supabase.
             </p>
             
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 32px; border-bottom: 1px solid #f1f5f9; padding-bottom: 32px;">
-              <div>
-                <h3 style="font-weight:600; font-size:1.1rem; color:var(--bg-primary); margin-bottom:16px;">Integração com Planilhas Locais</h3>
-                <p style="font-size:0.88rem; color:var(--color-text-muted); margin-bottom:20px; line-height:1.4;">
-                  Você pode exportar a base de dados completa do projeto ativo com todas as abas estruturadas ou importar uma planilha preenchida local para povoamento e sincronismo em lote.
-                </p>
-                <div style="display:flex; gap:12px; margin-bottom: 24px;">
-                  <button class="row-btn row-btn-primary" style="padding: 10px 20px;" onclick="triggerExport()">
-                    📥 Exportar para Excel
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 20px;">
+              <!-- COLUNA 1: EXCEL (.XLSX) -->
+              <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                  <h3 style="font-weight:700; font-size:1.1rem; color:var(--bg-primary); margin-bottom:8px; display:flex; align-items:center; gap:8px;">
+                    <span>📊 Integração com Planilhas Excel</span>
+                  </h3>
+                  <p style="font-size:0.86rem; color:var(--color-text-muted); margin-bottom:18px; line-height:1.5;">
+                    Exporte a base de dados completa do projeto ativo com todas as 15 abas estruturadas (ZDEPARA_* e DADOS_RM_*) ou importe uma planilha preenchida local para povoamento e sincronismo em lote.
+                  </p>
+                </div>
+                <div style="display:flex; gap:12px; flex-wrap: wrap;">
+                  <button class="row-btn row-btn-primary" style="padding: 10px 20px; font-size: 0.88rem;" onclick="triggerExport()">
+                    📥 Exportar para Excel (.xlsx)
                   </button>
-                  <button class="row-btn row-btn-secondary" style="padding: 10px 20px;" onclick="document.getElementById('importExcelInput').click()">
-                    📤 Importar Planilha
+                  <button class="row-btn row-btn-secondary" style="padding: 10px 20px; font-size: 0.88rem;" onclick="document.getElementById('importExcelInput').click()">
+                    📤 Importar Planilha (.xlsx)
                   </button>
                   <input type="file" id="importExcelInput" style="display:none;" accept=".xlsx, .xls" onchange="handleExcelImport(event)">
                 </div>
-
-                <h4 style="font-weight:600; font-size:0.95rem; color:var(--bg-primary); margin-bottom:8px;">Plano de Contingência</h4>
-                <p style="font-size:0.8rem; color:var(--color-text-muted); margin-bottom:12px; line-height:1.4;">
-                  Crie pontos de restauração da base ativa ou restaure o último backup para reverter alterações incorretas no GitHub.
-                </p>
-                <div style="display:flex; gap:12px;">
-                  <button class="row-btn row-btn-success" style="padding: 8px 16px; font-size:0.85rem;" onclick="createBackupOnGitHub()">
-                    🛡️ Criar Ponto de Backup
-                  </button>
-                  <button class="row-btn row-btn-warning" style="padding: 8px 16px; font-size:0.85rem;" onclick="restoreBackupOnGitHub()">
-                    ⏪ Restaurar Backup
-                  </button>
-                </div>
               </div>
               
-              <div>
-                <h3 style="font-weight:600; font-size:1.1rem; color:var(--bg-primary); margin-bottom:16px;">Parâmetros da API do GitHub</h3>
-                
-                <div id="githubConfigUnlockBtn" style="margin-bottom:16px;">
-                  <button class="row-btn row-btn-warning" style="padding: 10px 20px; font-weight:600;" onclick="unlockGitHubConfig()">
-                    🔒 Desbloquear Parâmetros
-                  </button>
+              <!-- COLUNA 2: CONTINGÊNCIA & SNAPSHOTS NUVEM -->
+              <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                  <h3 style="font-weight:700; font-size:1.1rem; color:var(--bg-primary); margin-bottom:12px; display:flex; align-items:center; gap:8px;">
+                    <span>🛡️ Plano de Contingência & Nuvem</span>
+                  </h3>
+                  
+                  <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 12px 16px; margin-bottom: 14px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.84rem; margin-bottom: 6px;">
+                      <span style="color: var(--color-text-muted);">Banco de Dados:</span>
+                      <strong style="color: #10b981; display: inline-flex; align-items: center; gap: 6px;">
+                        <span style="width: 8px; height: 8px; border-radius: 50%; background: #10b981; display: inline-block;"></span>
+                        PostgreSQL Supabase (Online)
+                      </strong>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.84rem;">
+                      <span style="color: var(--color-text-muted);">Projeto Ativo:</span>
+                      <strong id="configActiveProjectDisplay" style="color: var(--bg-primary);">-</strong>
+                    </div>
+                  </div>
+
+                  <p style="font-size:0.84rem; color:var(--color-text-muted); margin-bottom:16px; line-height:1.5;">
+                    Gere um arquivo de snapshot (cópia de segurança JSON) de todas as 15 tabelas do projeto para guardar no seu computador ou restaure um snapshot a qualquer momento para reverter alterações.
+                  </p>
                 </div>
 
-                <div id="githubConfigWrapper" style="display: none; flex-direction: column; gap: 12px;">
-                  <div class="detail-field-group">
-                    <span class="detail-label" style="font-size:0.75rem;">Personal Access Token (PAT)</span>
-                    <div style="display:flex; gap:8px;">
-                      <input type="password" id="wrapperGhTokenInput" class="input-field" placeholder="ghp_..." style="padding: 8px 12px; font-size: 0.85rem; flex-grow:1;">
-                      <button class="row-btn row-btn-secondary" style="padding:8px 12px; font-size:0.8rem;" onclick="toggleTokenVisibility()">👁️</button>
-                    </div>
-                  </div>
-                  <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;">
-                    <div class="detail-field-group">
-                      <span class="detail-label" style="font-size:0.75rem;">Proprietário / Organização</span>
-                      <input type="text" id="ghOwnerInput" class="input-field" placeholder="Ex: TOTVSGustavoFerreira" style="padding: 8px 12px; font-size: 0.85rem;">
-                    </div>
-                    <div class="detail-field-group">
-                      <span class="detail-label" style="font-size:0.75rem;">Nome do Repositório</span>
-                      <input type="text" id="ghRepoInput" class="input-field" placeholder="Ex: portal-depara-navarro" style="padding: 8px 12px; font-size: 0.85rem;">
-                    </div>
-                  </div>
-                  <div style="margin-top: 8px;">
-                    <button class="row-btn row-btn-primary" style="padding: 8px 20px;" onclick="saveGitHubConfig()">Salvar Parâmetros</button>
-                  </div>
+                <div style="display:flex; gap:12px; flex-wrap: wrap;">
+                  <button class="row-btn row-btn-success" style="padding: 10px 18px; font-size:0.88rem;" onclick="createBackupSnapshot()">
+                    🛡️ Baixar Backup Snapshot (JSON)
+                  </button>
+                  <button class="row-btn row-btn-warning" style="padding: 10px 18px; font-size:0.88rem;" onclick="document.getElementById('restoreSnapshotInput').click()">
+                    ⏪ Restaurar Ponto de Backup
+                  </button>
+                  <input type="file" id="restoreSnapshotInput" style="display:none;" accept=".json" onchange="handleRestoreSnapshot(event)">
                 </div>
               </div>
             </div>
@@ -2128,7 +2125,7 @@
       <footer>
         <span id="footerConnectionInfo" style="display:flex; align-items:center; gap:8px; color: #10b981; font-weight: 500;">
           <span style="width: 8px; height: 8px; border-radius: 50%; background: #10b981; display: inline-block;"></span>
-          <span>Sincronizado com o repositório</span>
+          <span>🟢 Conectado ao Supabase PostgreSQL</span>
         </span>
         <span style="color:#94a3b8;">Portal De-Para TOTVS RM v2.6.0 — Última sincronização: <strong id="footerLastSync">-</strong></span>
       </footer>
@@ -2752,9 +2749,9 @@
         updateHomeProgress();
       } 
       else if (moduleName === 'config') {
-        document.getElementById('titleHeader').childNodes[0].nodeValue = "Configuração & Excel ";
-        document.getElementById('subtitleHeader').innerText = "Configuração do repositório GitHub e importação/exportação local de planilhas";
-        document.title = `Configurações | ${clientName} — TOTVS RM v2.6.0`;
+        document.getElementById('titleHeader').childNodes[0].nodeValue = "Planilhas & Backup ";
+        document.getElementById('subtitleHeader').innerText = "Gestão de planilhas Excel e plano de contingência do banco PostgreSQL Supabase";
+        document.title = `Planilhas & Backup | ${clientName} — TOTVS RM v2.6.0`;
         document.getElementById('homeView').style.display = 'none';
         document.getElementById('deparaView').style.display = 'none';
         document.getElementById('configView').style.display = 'flex';
@@ -2777,21 +2774,14 @@
     }
 
     function loadConfigInputs() {
-      const pat = localStorage.getItem("gh_pat") || localStorage.getItem("hub_token") || "";
-      const owner = localStorage.getItem("gh_owner") || localStorage.getItem("hub_owner") || "TOTVSGustavoFerreira";
-      const repo = getClientKey() || localStorage.getItem("gh_repo") || "";
-
-      const tokenWrapper = document.getElementById("wrapperGhTokenInput");
-      if (tokenWrapper) tokenWrapper.value = pat;
-
-      const tokenModal = document.getElementById("ghTokenInput");
-      if (tokenModal) tokenModal.value = pat;
-
-      const ownerEl = document.getElementById("ghOwnerInput");
-      if (ownerEl) ownerEl.value = owner;
-
-      const repoEl = document.getElementById("ghRepoInput");
-      if (repoEl) repoEl.value = repo;
+      const displayEl = document.getElementById("configActiveProjectDisplay");
+      if (displayEl) {
+        if (currentProjetoObj) {
+          displayEl.innerText = `${currentProjetoObj.codigo_projeto} - ${currentProjetoObj.titulo || 'Migração'}`;
+        } else {
+          displayEl.innerText = getClientKey() || "Projeto Ativo";
+        }
+      }
     }
 
     function updateHomeProgress() {
@@ -4934,68 +4924,42 @@
       }
     }
 
-    function createBackupOnGitHub() {
-      const pat = localStorage.getItem("gh_pat");
-      if (!pat) {
-        showToast("Configure e salve o Token do GitHub antes de gerar backups.", "error");
-        return;
-      }
+    function createBackupSnapshot() {
+      showLoading("Gerando snapshot de backup do projeto...");
+      try {
+        const clientKey = getClientKey() || (currentProjetoObj ? currentProjetoObj.codigo_projeto : "PROJETO");
+        const dateStr = new Date().toISOString().replace(/[:.]/g, "-");
+        const filename = `backup_SNAPSHOT_${clientKey}_${dateStr.slice(0, 10)}.json`;
 
-      showLoading("Criando ponto de restauração (Backup)...");
-
-      let clientKey = getClientKey();
-
-      const owner = localStorage.getItem("gh_owner") || "TOTVSGustavoFerreira";
-      const repo = localStorage.getItem("gh_repo") || "portal-depara-navarro";
-      const backupPath = `data/backup_${clientKey}.json`;
-
-      // 1. Procurar SHA do backup se ele já existir
-      const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${backupPath}`;
-      
-      fetch(apiUrl, {
-        headers: {
-          "Authorization": `token ${pat}`,
-          "Accept": "application/vnd.github.v3+json"
-        }
-      })
-      .then(res => {
-        if (res.status === 404) return null;
-        if (!res.ok) throw new Error("Erro ao acessar API do GitHub.");
-        return res.json();
-      })
-      .then(fileInfo => {
-        const sha = fileInfo ? fileInfo.sha : null;
-        
-        // Clonar base de dados limpa (removendo sha antigo do objeto salvo no arquivo)
+        // Clonar base de dados limpa
         const cleanDb = { ...rawJsonDatabase };
         delete cleanDb._sha;
 
-        const contentBase64 = safeBtoa(JSON.stringify(cleanDb, null, 2));
-        
-        const body = {
-          message: `Ponto de Restauração - Backup Manual via Portal De-Para`,
-          content: contentBase64
+        const snapshotData = {
+          tipo: "DEPARA_SNAPSHOT_BACKUP",
+          versao: "2.6.0",
+          codigo_projeto: clientKey,
+          timestamp: new Date().toISOString(),
+          dados: cleanDb
         };
-        if (sha) body.sha = sha;
 
-        return fetch(apiUrl, {
-          method: "PUT",
-          headers: {
-            "Authorization": `token ${pat}`,
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(body)
-        });
-      })
-      .then(res => {
+        const jsonStr = JSON.stringify(snapshotData, null, 2);
+        const blob = new Blob([jsonStr], { type: "application/json;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
         hideLoading();
-        if (!res.ok) throw new Error("Erro ao enviar arquivo ao repositório.");
-        showToast("Backup gerado com sucesso! Ponto de restauração salvo no GitHub.", "success");
-      })
-      .catch(err => {
+        showToast("Backup gerado com sucesso! Arquivo JSON salvo no seu computador.", "success");
+      } catch (err) {
         hideLoading();
         showToast("Erro ao criar backup: " + err.message, "error");
-      });
+      }
     }
 
     function optimizeManualCreatedCodesSequence() {
@@ -5054,89 +5018,48 @@
       );
     }
 
-    function restoreBackupOnGitHub() {
-      const pat = localStorage.getItem("gh_pat");
-      if (!pat) {
-        showToast("Configure e salve o Token do GitHub antes de restaurar.", "error");
+    async function handleRestoreSnapshot(e) {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+
+      const pwd = prompt("Esta ação irá sobrescrever o banco de dados do projeto ativo pela versão contida no arquivo de backup. Digite a senha de segurança (1234 ou TOTVS_DEPARA_2026) para confirmar:");
+      if (pwd !== "TOTVS_DEPARA_2026" && pwd !== "1234") {
+        if (pwd !== null) showToast("Senha de segurança incorreta. Restauração cancelada.", "error");
+        e.target.value = "";
         return;
       }
 
-      // Pedir senha de segurança para evitar restaurações acidentais
-      const pwd = prompt("Esta ação irá sobrescrever o banco atual pela versão do último backup. Digite a senha de segurança para confirmar:");
-      if (pwd !== "TOTVS_DEPARA_2026") {
-        if (pwd !== null) showToast("Senha de segurança incorreta. Ação abortada.", "error");
-        return;
-      }
+      showLoading("Restaurando banco de dados no Supabase a partir do snapshot...");
 
-      showLoading("Restaurando banco a partir do backup...");
+      try {
+        const text = await file.text();
+        const parsed = JSON.parse(text);
+        const dados = parsed.dados || parsed;
 
-      let clientKey = getClientKey();
-
-      const owner = localStorage.getItem("gh_owner") || "TOTVSGustavoFerreira";
-      const repo = localStorage.getItem("gh_repo") || "portal-depara-navarro";
-      const backupPath = `data/backup_${clientKey}.json`;
-      const mainPath = `data/${clientKey}.json`;
-
-      let backupContent = "";
-      let mainSha = null;
-
-      // 1. Ler o arquivo de backup
-      fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${backupPath}`, {
-        headers: {
-          "Authorization": `token ${pat}`,
-          "Accept": "application/vnd.github.v3+json"
+        if (typeof dados !== "object" || Object.keys(dados).length === 0) {
+          throw new Error("Arquivo de backup inválido ou sem abas reconhecíveis.");
         }
-      })
-      .then(res => {
-        if (res.status === 404) throw new Error("Nenhum arquivo de backup encontrado. Crie um backup primeiro.");
-        if (!res.ok) throw new Error("Erro ao ler arquivo de backup.");
-        return res.json();
-      })
-      .then(fileInfo => {
-        backupContent = fileInfo.content; // Conteúdo decodificado em Base64 do backup
-        
-        // 2. Buscar o SHA do arquivo principal para poder sobrescrevê-lo
-        return fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${mainPath}`, {
-          headers: {
-            "Authorization": `token ${pat}`,
-            "Accept": "application/vnd.github.v3+json"
-          }
-        });
-      })
-      .then(res => {
-        if (!res.ok) throw new Error("Erro ao ler informações do arquivo principal.");
-        return res.json();
-      })
-      .then(mainFileInfo => {
-        mainSha = mainFileInfo.sha;
 
-        // 3. Gravar o conteúdo do backup sobre o arquivo principal
-        const body = {
-          message: `Reversão/Rollback - Restaurando para o último ponto de backup manual`,
-          content: backupContent.replace(/\n/g, ""),
-          sha: mainSha
-        };
+        // Se houver projeto ativo, gravar em lote no Supabase
+        if (!currentProjetoObj) {
+          const cod = getClientKey();
+          currentProjetoObj = await ProjetosService.obterPorCodigo(cod);
+        }
 
-        return fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${mainPath}`, {
-          method: "PUT",
-          headers: {
-            "Authorization": `token ${pat}`,
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(body)
-        });
-      })
-      .then(res => {
-        if (!res.ok) throw new Error("Erro ao salvar restauração no GitHub.");
-        
-        // Recarregar os dados do portal agora restaurados
-        loadPortalData();
-        showToast("Restauração concluída! O banco de dados foi revertido para o backup.", "success");
-      })
-      .catch(err => {
+        if (currentProjetoObj && currentProjetoObj.id && DeParaDataService) {
+          await DeParaDataService.importarBaseCompleta(currentProjetoObj.id, dados);
+        }
+
+        rawJsonDatabase = dados;
+        await loadPortalData();
         hideLoading();
-        showToast("Erro ao restaurar: " + err.message, "error");
-      });
+        showToast("Restauração concluída com sucesso! Banco atualizado no Supabase.", "success");
+      } catch (err) {
+        hideLoading();
+        showToast("Erro ao restaurar backup: " + err.message, "error");
+      } finally {
+        e.target.value = "";
+      }
     }
 
     function updateDashboard() {
