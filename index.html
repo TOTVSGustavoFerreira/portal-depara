@@ -2202,29 +2202,47 @@
         for (const [sheetName, rows] of Object.entries(rawDatabase)) {
           const tableName = this.TABLE_MAP[sheetName];
           if (!tableName || !Array.isArray(rows) || rows.length === 0) continue;
+
+          // Limpar registros anteriores desta aba para este projeto antes de inserir os novos
+          await sb.from(tableName).delete().eq("projeto_id", projetoId);
+
           const formattedRows = rows.map(r => {
             const item = { projeto_id: projetoId };
             Object.keys(r).forEach(k => {
               if (k === undefined || k === null || k === "") return;
-              const cleanKey = String(k).trim().toLowerCase()
+              let cleanKey = String(k).trim().toLowerCase()
                 .replace(/ /g, "_")
                 .replace(/[\u00C0-\u00FF]/g, c => ({ 'á':'a','à':'a','ã':'a','â':'a','é':'e','ê':'e','í':'i','ó':'o','ô':'o','õ':'o','ú':'u','ç':'c' })[c] || c)
                 .replace(/[^a-z0-9_]/g, "");
+
+              if (tableName === "depara_coligadas") {
+                if (cleanKey === "id") cleanKey = "id_origem";
+                if (cleanKey === "codcoligada") cleanKey = "codcoligada_para";
+              } else if (tableName === "dados_rm_eventos") {
+                if (cleanKey === "tipoevento") cleanKey = "tipo";
+              } else if (tableName === "dados_rm_secoes") {
+                if (cleanKey === "cod_secao" || cleanKey === "cod_seao" || cleanKey === "codigo") cleanKey = "cod_secao";
+                if (cleanKey === "descriao" || cleanKey === "descricao") cleanKey = "descricao";
+                if (cleanKey === "observaoes" || cleanKey === "observacoes") cleanKey = "observacoes";
+              }
+
               let val = r[k];
               if (val !== undefined && val !== null) val = String(val).trim();
               else val = null;
               if (cleanKey) item[cleanKey] = val;
             });
-            if (!item.status) {
-              item.status = (item.codigo_para || item.cod_rm || item.codcoligada_para) ? "MAPEADO" : "PENDENTE";
+
+            if (!item.status && tableName.startsWith("depara_")) {
+              item.status = (item.codigo_para || item.codcoligada_para || item.codsituacao_para || item.codigo_banco_para || item.codigo_motivo_para) ? "MAPEADO" : "PENDENTE";
             }
             return item;
           });
-          const chunkSize = 200;
+
+          const chunkSize = 150;
           for (let i = 0; i < formattedRows.length; i += chunkSize) {
             const chunk = formattedRows.slice(i, i + chunkSize);
             const { error } = await sb.from(tableName).insert(chunk);
-            if (error) console.warn(`Erro ao inserir lote na tabela ${tableName}:`, error.message);
+            if (error) console.warn(`Aviso ao gravar lote em ${tableName}:`, error.message);
           }
         }
       }
@@ -2653,25 +2671,50 @@
         if (arr && Array.isArray(arr)) {
           arr.forEach((item, idx) => {
             item.rowNum = idx + 1;
-            // Converter todas as chaves existentes do item para string e limpar espaços
+            // Converter todas as chaves existentes do item para string e espelhar maiúsculas/minúsculas
             for (let prop in item) {
               if (prop !== 'rowNum' && item[prop] !== undefined && item[prop] !== null) {
-                item[prop] = String(item[prop]).trim();
+                const cleanVal = String(item[prop]).trim();
+                item[prop] = cleanVal;
+                item[prop.toUpperCase()] = cleanVal;
+                item[prop.toLowerCase()] = cleanVal;
               }
             }
 
-            // Normalizar chaves comuns de De-Para para manter compatibilidade de exibição
-            const colPara = String(item.COLIGADA_PARA !== undefined ? item.COLIGADA_PARA : (item.coligadaPara !== undefined ? item.coligadaPara : "1")).trim();
-            item.COLIGADA_PARA = colPara;
-            item.coligadaPara = colPara;
+            // Espelhamento específico de campos-chave
+            const getField = (...names) => {
+              for (let n of names) {
+                if (item[n] !== undefined && item[n] !== null && String(item[n]).trim() !== "") return String(item[n]).trim();
+              }
+              return "";
+            };
 
-            const codPara = String(item.CODIGO_PARA !== undefined ? item.CODIGO_PARA : (item.codigoPara !== undefined ? item.codigoPara : "")).trim();
+            const codDe = getField("codigo_de", "CODIGO_DE", "codigoDe", "cod_de", "COD_DE", "codigo_motivo_de", "CODIGO_MOTIVO_DE");
+            if (codDe) { item.CODIGO_DE = codDe; item.codigo_de = codDe; item.codigoDe = codDe; }
+
+            const nomeDe = getField("nome_de", "NOME_DE", "nomeDe", "descricao_de", "DESCRICAO_DE", "nome_motivo_de", "NOME_MOTIVO_DE");
+            if (nomeDe) { item.NOME_DE = nomeDe; item.nome_de = nomeDe; item.nomeDe = nomeDe; }
+
+            const empDe = getField("empresa_de", "EMPRESA_DE", "empresaDe");
+            if (empDe) { item.EMPRESA_DE = empDe; item.empresa_de = empDe; item.empresaDe = empDe; }
+
+            const codPara = getField("codigo_para", "CODIGO_PARA", "codigoPara", "cod_para", "COD_PARA", "codigo_motivo_para", "CODIGO_MOTIVO_PARA", "codcoligada_para", "CODCOLIGADA");
             item.CODIGO_PARA = codPara;
+            item.codigo_para = codPara;
             item.codigoPara = codPara;
 
-            const obs = String(item.OBSERVACAO !== undefined ? item.OBSERVACAO : (item.observacao !== undefined ? item.observacao : "")).trim();
+            const colPara = getField("coligada_para", "COLIGADA_PARA", "coligadaPara") || "1";
+            item.COLIGADA_PARA = colPara;
+            item.coligada_para = colPara;
+            item.coligadaPara = colPara;
+
+            const obs = getField("observacao", "OBSERVACAO");
             item.OBSERVACAO = obs;
             item.observacao = obs;
+
+            const sug = getField("sugestoes", "SUGESTOES");
+            item.SUGESTOES = sug;
+            item.sugestoes = sug;
           });
         }
       });
@@ -4891,37 +4934,16 @@
       normalizeDatabaseProperties(rawJsonDatabase);
       progressLog.innerHTML += `Propriedades e compatibilidades normalizadas com sucesso.\n`;
 
-      const pat = localStorage.getItem("gh_pat");
-      if (pat) {
-        // Enviar alterações para o GitHub
-        progressLabel.innerText = "Enviando alterações para o repositório GitHub...";
-        progressLog.innerHTML += "Iniciando commit de sincronização no GitHub...\n";
+      // Gravar alterações diretamente no banco de dados Supabase
+      progressLabel.innerText = "Gravando dados no banco PostgreSQL Supabase...";
+      progressLog.innerHTML += "Sincronizando dados permanentemente no Supabase...\n";
 
-        commitChangesToGitHub(`Importação bilateral seletiva via planilha Excel - ${tempImportFileName}`, () => {}, () => {
-          let secondsLeft = 15;
-          progressLabel.innerText = `Organizando os dados... Aguarde um momento para atualizar as informações com segurança. (${secondsLeft}s)`;
-          progressBarFill.style.width = "100%";
-          progressPercentage.innerText = "100%";
-          
-          const interval = setInterval(() => {
-            secondsLeft--;
-            progressLabel.innerText = `Organizando os dados... Aguarde um momento para atualizar as informações com segurança. (${secondsLeft}s)`;
-            if (secondsLeft <= 0) {
-              clearInterval(interval);
-              progressModal.style.display = "none";
-              showToast(`Sucesso! ${totalAbas} abas importadas e sincronizadas com o GitHub.`, "success");
-              switchModule(currentModule);
-            }
-          }, 1000);
-        });
-      } else {
-        // Modo offline (sem salvar remoto)
-        setTimeout(() => {
-          progressModal.style.display = "none";
-          showToast(`Modo Offline: ${totalAbas} abas importadas apenas localmente na memória.`, "warning");
-          switchModule(currentModule);
-        }, 1200);
-      }
+      commitChangesToGitHub(`Importação de planilha Excel - ${tempImportFileName}`, () => {}, () => {
+        progressModal.style.display = "none";
+        showToast(`Sucesso! ${totalAbas} abas importadas e gravadas no Supabase com sucesso.`, "success");
+        switchModule(currentModule);
+        updateHomeProgress();
+      });
     }
 
     function createBackupSnapshot() {

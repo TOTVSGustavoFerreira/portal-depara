@@ -981,29 +981,47 @@
         for (const [sheetName, rows] of Object.entries(rawDatabase)) {
           const tableName = this.TABLE_MAP[sheetName];
           if (!tableName || !Array.isArray(rows) || rows.length === 0) continue;
+
+          // Limpar registros anteriores desta aba para este projeto antes de inserir os novos
+          await sb.from(tableName).delete().eq("projeto_id", projetoId);
+
           const formattedRows = rows.map(r => {
             const item = { projeto_id: projetoId };
             Object.keys(r).forEach(k => {
               if (k === undefined || k === null || k === "") return;
-              const cleanKey = String(k).trim().toLowerCase()
+              let cleanKey = String(k).trim().toLowerCase()
                 .replace(/ /g, "_")
                 .replace(/[\u00C0-\u00FF]/g, c => ({ 'á':'a','à':'a','ã':'a','â':'a','é':'e','ê':'e','í':'i','ó':'o','ô':'o','õ':'o','ú':'u','ç':'c' })[c] || c)
                 .replace(/[^a-z0-9_]/g, "");
+
+              if (tableName === "depara_coligadas") {
+                if (cleanKey === "id") cleanKey = "id_origem";
+                if (cleanKey === "codcoligada") cleanKey = "codcoligada_para";
+              } else if (tableName === "dados_rm_eventos") {
+                if (cleanKey === "tipoevento") cleanKey = "tipo";
+              } else if (tableName === "dados_rm_secoes") {
+                if (cleanKey === "cod_secao" || cleanKey === "cod_seao" || cleanKey === "codigo") cleanKey = "cod_secao";
+                if (cleanKey === "descriao" || cleanKey === "descricao") cleanKey = "descricao";
+                if (cleanKey === "observaoes" || cleanKey === "observacoes") cleanKey = "observacoes";
+              }
+
               let val = r[k];
               if (val !== undefined && val !== null) val = String(val).trim();
               else val = null;
               if (cleanKey) item[cleanKey] = val;
             });
-            if (!item.status) {
-              item.status = (item.codigo_para || item.cod_rm || item.codcoligada_para) ? "MAPEADO" : "PENDENTE";
+
+            if (!item.status && tableName.startsWith("depara_")) {
+              item.status = (item.codigo_para || item.codcoligada_para || item.codsituacao_para || item.codigo_banco_para || item.codigo_motivo_para) ? "MAPEADO" : "PENDENTE";
             }
             return item;
           });
-          const chunkSize = 200;
+
+          const chunkSize = 150;
           for (let i = 0; i < formattedRows.length; i += chunkSize) {
             const chunk = formattedRows.slice(i, i + chunkSize);
             const { error } = await sb.from(tableName).insert(chunk);
-            if (error) console.warn(`Erro ao inserir lote na tabela ${tableName}:`, error.message);
+            if (error) console.warn(`Aviso ao gravar lote em ${tableName}:`, error.message);
           }
         }
       }
