@@ -2195,12 +2195,21 @@
       async carregarProjetoCompleto(projetoId) {
         if (!sb) throw new Error("Supabase SDK não inicializado.");
         const queries = Object.entries(this.TABLE_MAP).map(async ([sheetName, tableName]) => {
-          const { data, error } = await sb.from(tableName).select("*").eq("projeto_id", projetoId);
-          if (error) {
-            console.warn(`Aviso ao ler ${tableName}:`, error.message);
-            return { sheetName, rows: [] };
+          let allRows = [];
+          let from = 0;
+          const step = 1000;
+          while (true) {
+            const { data, error } = await sb.from(tableName).select("*").eq("projeto_id", projetoId).range(from, from + step - 1);
+            if (error) {
+              console.warn(`Aviso ao ler ${tableName}:`, error.message);
+              break;
+            }
+            if (!data || data.length === 0) break;
+            allRows = allRows.concat(data);
+            if (data.length < step) break;
+            from += step;
           }
-          return { sheetName, rows: data || [] };
+          return { sheetName, rows: allRows };
         });
         const results = await Promise.all(queries);
         const db = {};
@@ -2624,35 +2633,42 @@
       if (db.ZDEPARA_EVENTOS && Array.isArray(db.ZDEPARA_EVENTOS)) {
         db.ZDEPARA_EVENTOS.forEach((item, idx) => {
           item.rowNum = idx + 1;
-          const getVal = (v1, v2) => {
-            const s1 = String(v1 !== undefined && v1 !== null ? v1 : "").trim();
-            const s2 = String(v2 !== undefined && v2 !== null ? v2 : "").trim();
-            return s1 !== "" ? s1 : s2;
+          const getVal = (...vals) => {
+            for (let v of vals) {
+              if (v !== undefined && v !== null && String(v).trim() !== "") return String(v).trim();
+            }
+            return "";
           };
 
-          const valEmpresa = getVal(item.EMPRESA_DE, item.empresaDe);
+          const valEmpresa = getVal(item.EMPRESA_DE, item.empresaDe, item.empresa_de);
           item.EMPRESA_DE = valEmpresa;
           item.empresaDe = valEmpresa;
+          item.empresa_de = valEmpresa;
           
-          const valCodigo = getVal(item.CODIGO_DE, item.codigoDe);
+          const valCodigo = getVal(item.CODIGO_DE, item.codigoDe, item.codigo_de);
           item.CODIGO_DE = valCodigo;
           item.codigoDe = valCodigo;
+          item.codigo_de = valCodigo;
           
-          const valNomeDe = getVal(item.NOME_DE, item.nomeDe);
+          const valNomeDe = getVal(item.NOME_DE, item.nomeDe, item.nome_de);
           item.NOME_DE = valNomeDe;
           item.nomeDe = valNomeDe;
+          item.nome_de = valNomeDe;
           
-          const valTipo = getVal(item.TIPO_EVENTO, item.tipoEvento);
+          const valTipo = getVal(item.TIPO_EVENTO, item.tipoEvento, item.tipo_evento);
           item.TIPO_EVENTO = valTipo;
           item.tipoEvento = valTipo;
+          item.tipo_evento = valTipo;
           
-          const valColigada = getVal(item.COLIGADA_PARA, item.coligadaPara);
+          const valColigada = getVal(item.COLIGADA_PARA, item.coligadaPara, item.coligada_para) || "1";
           item.COLIGADA_PARA = valColigada;
           item.coligadaPara = valColigada;
+          item.coligada_para = valColigada;
           
-          const valCodigoPara = getVal(item.CODIGO_PARA, item.codigoPara);
+          const valCodigoPara = getVal(item.CODIGO_PARA, item.codigoPara, item.codigo_para);
           item.CODIGO_PARA = valCodigoPara;
           item.codigoPara = valCodigoPara;
+          item.codigo_para = valCodigoPara;
           
           // Autoderivação inteligente vinculada EXCLUSIVAMENTE aos códigos RM 0076 e 0041
           const cod = String(item.codigoPara || item.CODIGO_PARA || "").padStart(4, '0');
@@ -2878,13 +2894,17 @@
         
         arr.forEach(item => {
           if (m.key === 'ZDEPARA_EVENTOS') {
-            if (item.codigoPara && !isCodeIgnored(item.codigoPara) && !isCodeToCreate(item.codigoPara)) mapped++;
+            const cod = item.codigoPara || item.CODIGO_PARA || item.codigo_para || "";
+            if (cod && !isCodeIgnored(cod) && !isCodeToCreate(cod)) mapped++;
           } else if (m.key === 'ZDEPARA_COLIGADAS') {
-            if (item.CODCOLIGADA) mapped++;
+            const col = item.CODCOLIGADA || item.codcoligada_para || item.CODCOLIGADA_PARA || item.codcoligada || item.CODIGO_PARA || "";
+            if (col) mapped++;
           } else if (m.key === 'ZDEPARA_SITUACAO') {
-            if (item.CODSITUACAO_PARA) mapped++;
+            const sit = item.CODSITUACAO_PARA || item.codsituacao_para || item.CODIGO_PARA || "";
+            if (sit) mapped++;
           } else {
-            if (item.CODIGO_PARA && !isCodeIgnored(item.CODIGO_PARA) && !isCodeToCreate(item.CODIGO_PARA)) mapped++;
+            const cod = item.CODIGO_PARA || item.codigoPara || item.codigo_para || item.cod_para || "";
+            if (cod && !isCodeIgnored(cod) && !isCodeToCreate(cod)) mapped++;
           }
         });
         
