@@ -2175,6 +2175,23 @@
         "DADOS_RM_MOTIVOS": "dados_rm_motivos",
         "DADOS_RM_SECOES": "dados_rm_secoes"
       },
+      TABLE_COLUMNS: {
+        "depara_coligadas": ['projeto_id', 'empresa_de', 'id_origem', 'nome_de', 'cnpj', 'codcoligada_para', 'status', 'sugestoes', 'observacao'],
+        "depara_funcoes": ['projeto_id', 'empresa_de', 'codigo_de', 'nome_de', 'cbo', 'cbo_2002', 'coligada_para', 'codigo_para', 'status', 'sugestoes', 'observacao'],
+        "depara_sindicatos": ['projeto_id', 'empresa_de', 'codigo_de', 'nome_de', 'cnpj', 'coligada_para', 'codigo_para', 'status', 'sugestoes', 'observacao'],
+        "depara_secoes": ['projeto_id', 'empresa_de', 'filial_de', 'codigo_de', 'nome_de', 'coligada_para', 'filial_para', 'codigo_para', 'descricao_secao', 'status', 'sugestoes', 'observacao'],
+        "depara_bancos": ['projeto_id', 'empresa_de', 'numbanco_de', 'nome_banco_de', 'numagencia_de', 'nome_agencia_de', 'codigo_banco_para', 'codigo_agencia_para', 'status', 'sugestoes', 'observacao'],
+        "depara_situacao": ['projeto_id', 'codigo_de', 'nome_de', 'codsituacao_para', 'codmotivo_para', 'codsituacao_retorno_para', 'codmotivo_retorno_para', 'status', 'sugestoes', 'observacao'],
+        "depara_eventos": ['projeto_id', 'empresa_de', 'codigo_de', 'nome_de', 'tipo_evento', 'coligada_para', 'codigo_para', 'nome_rm', 'codigo_para_ficha_mes1', 'nome_rm_2', 'codigo_para_ficha_mes2', 'nome_rm_3', 'codigo_para_verbas_ferias', 'nome_rm_4', 'status', 'sugestoes', 'observacao'],
+        "depara_horario": ['projeto_id', 'empresa_de', 'codigo_de', 'nome_de', 'coligada_para', 'codigo_para', 'status', 'sugestoes', 'observacao'],
+        "depara_motivo_funcao": ['projeto_id', 'empresa_de', 'codigo_motivo_de', 'nome_motivo_de', 'coligada_para', 'codigo_motivo_para', 'status', 'sugestoes', 'observacao'],
+        "depara_motivo_salario": ['projeto_id', 'empresa_de', 'codigo_motivo_de', 'nome_motivo_de', 'coligada_para', 'codigo_para', 'status', 'sugestoes', 'observacao'],
+        "depara_motivo_secao": ['projeto_id', 'empresa_de', 'codigo_motivo_de', 'nome_motivo_de', 'coligada_para', 'codigo_motivo_para', 'status', 'sugestoes', 'observacao'],
+        "dados_rm_eventos": ['projeto_id', 'codigo', 'descricao', 'tipo', 'valhordiaref', 'nat_esocial'],
+        "dados_rm_situacao": ['projeto_id', 'codcliente', 'descricao'],
+        "dados_rm_motivos": ['projeto_id', 'codcliente', 'descricao'],
+        "dados_rm_secoes": ['projeto_id', 'coligada', 'filial', 'cod_secao', 'descricao', 'cnpj', 'observacoes']
+      },
       async carregarProjetoCompleto(projetoId) {
         if (!sb) throw new Error("Supabase SDK não inicializado.");
         const queries = Object.entries(this.TABLE_MAP).map(async ([sheetName, tableName]) => {
@@ -2206,8 +2223,10 @@
           // Limpar registros anteriores desta aba para este projeto antes de inserir os novos
           await sb.from(tableName).delete().eq("projeto_id", projetoId);
 
+          const allowedCols = new Set(this.TABLE_COLUMNS[tableName] || []);
+
           const formattedRows = rows.map(r => {
-            const item = { projeto_id: projetoId };
+            const rawItem = {};
             Object.keys(r).forEach(k => {
               if (k === undefined || k === null || k === "") return;
               let cleanKey = String(k).trim().toLowerCase()
@@ -2215,6 +2234,7 @@
                 .replace(/[\u00C0-\u00FF]/g, c => ({ 'á':'a','à':'a','ã':'a','â':'a','é':'e','ê':'e','í':'i','ó':'o','ô':'o','õ':'o','ú':'u','ç':'c' })[c] || c)
                 .replace(/[^a-z0-9_]/g, "");
 
+              if (cleanKey === "empresa__de") cleanKey = "empresa_de";
               if (tableName === "depara_coligadas") {
                 if (cleanKey === "id") cleanKey = "id_origem";
                 if (cleanKey === "codcoligada") cleanKey = "codcoligada_para";
@@ -2229,8 +2249,17 @@
               let val = r[k];
               if (val !== undefined && val !== null) val = String(val).trim();
               else val = null;
-              if (cleanKey) item[cleanKey] = val;
+              rawItem[cleanKey] = val;
             });
+
+            // Filtro estrito: incluir apenas colunas que existem na tabela Supabase
+            const item = { projeto_id: projetoId };
+            for (const col of allowedCols) {
+              if (col === 'projeto_id') continue;
+              if (rawItem[col] !== undefined) {
+                item[col] = rawItem[col];
+              }
+            }
 
             if (!item.status && tableName.startsWith("depara_")) {
               item.status = (item.codigo_para || item.codcoligada_para || item.codsituacao_para || item.codigo_banco_para || item.codigo_motivo_para) ? "MAPEADO" : "PENDENTE";
@@ -2242,7 +2271,10 @@
           for (let i = 0; i < formattedRows.length; i += chunkSize) {
             const chunk = formattedRows.slice(i, i + chunkSize);
             const { error } = await sb.from(tableName).insert(chunk);
-            if (error) console.warn(`Aviso ao gravar lote em ${tableName}:`, error.message);
+            if (error) {
+              console.error(`Erro ao gravar lote em ${tableName}:`, error);
+              throw new Error(`Falha ao gravar na tabela ${tableName}: ${error.message}`);
+            }
           }
         }
       }
