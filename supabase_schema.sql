@@ -304,7 +304,72 @@ ALTER TABLE dados_rm_situacao ENABLE ROW LEVEL SECURITY;
 ALTER TABLE dados_rm_motivos ENABLE ROW LEVEL SECURITY;
 ALTER TABLE dados_rm_secoes ENABLE ROW LEVEL SECURITY;
 
--- POLÍTICAS ANONIMAS
+-- 6. TABELA DE PERFIS DE USUÁRIOS E GOVERNANÇA RBAC
+CREATE TABLE IF NOT EXISTS public.perfis_usuarios (
+    id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+    email TEXT NOT NULL,
+    nome_completo TEXT,
+    role TEXT NOT NULL DEFAULT 'CLIENTE' CHECK (role IN ('ADMIN', 'CONSULTOR', 'CLIENTE')),
+    status TEXT NOT NULL DEFAULT 'PENDENTE' CHECK (status IN ('PENDENTE', 'APROVADO', 'BLOQUEADO')),
+    projetos_autorizados TEXT[] DEFAULT '{}',
+    created_at TIMESTAMPTZ DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL,
+    updated_at TIMESTAMPTZ DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL
+);
+
+-- 7. FUNÇÕES DE SUPORTE À SEGURANÇA (SECURITY DEFINER)
+CREATE OR REPLACE FUNCTION public.is_consultor_or_admin()
+RETURNS BOOLEAN
+SECURITY DEFINER
+SET search_path = public
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    RETURN EXISTS (
+        SELECT 1 FROM public.perfis_usuarios
+        WHERE id = auth.uid()
+          AND role IN ('ADMIN', 'CONSULTOR')
+          AND status = 'APROVADO'
+    );
+END;
+$$;
+
+CREATE OR REPLACE FUNCTION public.is_admin()
+RETURNS BOOLEAN
+SECURITY DEFINER
+SET search_path = public
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    RETURN EXISTS (
+        SELECT 1 FROM public.perfis_usuarios
+        WHERE id = auth.uid()
+          AND role = 'ADMIN'
+          AND status = 'APROVADO'
+    );
+END;
+$$;
+
+-- 8. HABILITAR ROW LEVEL SECURITY (RLS) EM TODAS AS TABELAS
+ALTER TABLE public.perfis_usuarios ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.clientes_totvs ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.projetos_depara ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.depara_coligadas ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.depara_funcoes ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.depara_sindicatos ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.depara_secoes ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.depara_bancos ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.depara_situacao ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.depara_eventos ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.depara_horario ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.depara_motivo_funcao ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.depara_motivo_salario ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.depara_motivo_secao ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.dados_rm_eventos ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.dados_rm_situacao ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.dados_rm_motivos ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.dados_rm_secoes ENABLE ROW LEVEL SECURITY;
+
+-- 9. REMOÇÃO DE QUALQUER POLÍTICA ANÔNIMA RESIDUAL
 DO $$ 
 DECLARE 
     t text;
@@ -321,6 +386,169 @@ BEGIN
         )
     LOOP
         EXECUTE format('DROP POLICY IF EXISTS "Acesso Total Anonimo %I" ON %I;', t, t);
-        EXECUTE format('CREATE POLICY "Acesso Total Anonimo %I" ON %I FOR ALL USING (true) WITH CHECK (true);', t, t);
+        EXECUTE format('DROP POLICY IF EXISTS "Acesso Autenticado %I" ON %I;', t, t);
     END LOOP;
 END $$;
+
+-- 10. POLÍTICAS DE RLS SEGURAS (RBAC - EXCLUSIVAMENTE AUTENTICADO)
+
+-- 10.1 Perfis de Usuários
+DROP POLICY IF EXISTS "Perfis: Leitura Propria ou Admin" ON public.perfis_usuarios;
+CREATE POLICY "Perfis: Leitura Propria ou Admin" ON public.perfis_usuarios
+    FOR SELECT
+    TO authenticated
+    USING (id = auth.uid() OR public.is_admin());
+
+DROP POLICY IF EXISTS "Perfis: Atualizacao Apenas por Admin" ON public.perfis_usuarios;
+CREATE POLICY "Perfis: Atualizacao Apenas por Admin" ON public.perfis_usuarios
+    FOR UPDATE
+    TO authenticated
+    USING (public.is_admin())
+    WITH CHECK (public.is_admin());
+
+DROP POLICY IF EXISTS "Perfis: Insercao Propria ou Trigger" ON public.perfis_usuarios;
+CREATE POLICY "Perfis: Insercao Propria ou Trigger" ON public.perfis_usuarios
+    FOR INSERT
+    TO authenticated
+    WITH CHECK (id = auth.uid() OR public.is_admin());
+
+-- 10.2 Clientes TOTVS: Consultores e Admins
+DROP POLICY IF EXISTS "Clientes: Consultores e Admins" ON public.clientes_totvs;
+CREATE POLICY "Clientes: Consultores e Admins" ON public.clientes_totvs
+    FOR ALL
+    TO authenticated
+    USING (public.is_consultor_or_admin())
+    WITH CHECK (public.is_consultor_or_admin());
+
+-- 10.3 Projetos DePara: Consultor/Admin vê todos; Cliente vê estritamente projetos autorizados
+DROP POLICY IF EXISTS "Projetos: Acesso por Perfil" ON public.projetos_depara;
+CREATE POLICY "Projetos: Acesso por Perfil" ON public.projetos_depara
+    FOR ALL
+    TO authenticated
+    USING (
+        public.is_consultor_or_admin()
+        OR (
+            EXISTS (
+                SELECT 1 FROM public.perfis_usuarios p
+                WHERE p.id = auth.uid()
+                  AND p.status = 'APROVADO'
+                  AND p.role = 'CLIENTE'
+                  AND projetos_depara.codigo_projeto = ANY(p.projetos_autorizados)
+            )
+        )
+    )
+    WITH CHECK (
+        public.is_consultor_or_admin()
+        OR (
+            EXISTS (
+                SELECT 1 FROM public.perfis_usuarios p
+                WHERE p.id = auth.uid()
+                  AND p.status = 'APROVADO'
+                  AND p.role = 'CLIENTE'
+                  AND projetos_depara.codigo_projeto = ANY(p.projetos_autorizados)
+            )
+        )
+    );
+
+-- 10.4 Tabelas Operacionais DePara e Dados RM (Acesso granular restrito ao projeto)
+DO $$ 
+DECLARE 
+    t text;
+BEGIN
+    FOR t IN 
+        SELECT table_name FROM information_schema.tables 
+        WHERE table_schema = 'public' 
+        AND table_name IN (
+            'depara_coligadas', 'depara_funcoes', 'depara_sindicatos', 'depara_secoes', 
+            'depara_bancos', 'depara_situacao', 'depara_eventos', 'depara_horario', 
+            'depara_motivo_funcao', 'depara_motivo_salario', 'depara_motivo_secao',
+            'dados_rm_eventos', 'dados_rm_situacao', 'dados_rm_motivos', 'dados_rm_secoes'
+        )
+    LOOP
+        EXECUTE format('DROP POLICY IF EXISTS "Leitura por Projeto %I" ON public.%I;', t, t);
+        EXECUTE format('
+            CREATE POLICY "Leitura por Projeto %I" ON public.%I
+                FOR SELECT
+                TO authenticated
+                USING (
+                    public.is_consultor_or_admin()
+                    OR EXISTS (
+                        SELECT 1 FROM public.projetos_depara proj
+                        JOIN public.perfis_usuarios u ON u.id = auth.uid()
+                        WHERE proj.id = %I.projeto_id
+                          AND u.status = ''APROVADO''
+                          AND u.role = ''CLIENTE''
+                          AND proj.codigo_projeto = ANY(u.projetos_autorizados)
+                    )
+                );
+        ', t, t, t);
+
+        EXECUTE format('DROP POLICY IF EXISTS "Gravacao por Projeto %I" ON public.%I;', t, t);
+        EXECUTE format('
+            CREATE POLICY "Gravacao por Projeto %I" ON public.%I
+                FOR ALL
+                TO authenticated
+                USING (
+                    public.is_consultor_or_admin()
+                    OR EXISTS (
+                        SELECT 1 FROM public.projetos_depara proj
+                        JOIN public.perfis_usuarios u ON u.id = auth.uid()
+                        WHERE proj.id = %I.projeto_id
+                          AND u.status = ''APROVADO''
+                          AND u.role = ''CLIENTE''
+                          AND proj.codigo_projeto = ANY(u.projetos_autorizados)
+                    )
+                )
+                WITH CHECK (
+                    public.is_consultor_or_admin()
+                    OR EXISTS (
+                        SELECT 1 FROM public.projetos_depara proj
+                        JOIN public.perfis_usuarios u ON u.id = auth.uid()
+                        WHERE proj.id = %I.projeto_id
+                          AND u.status = ''APROVADO''
+                          AND u.role = ''CLIENTE''
+                          AND proj.codigo_projeto = ANY(u.projetos_autorizados)
+                    )
+                );
+        ', t, t, t);
+    END LOOP;
+END $$;
+
+-- 11. TRIGGER DE CADASTRO AUTOMÁTICO DE USUÁRIO (auth.users -> perfis_usuarios)
+CREATE OR REPLACE FUNCTION public.handle_new_user()
+RETURNS TRIGGER 
+SECURITY DEFINER
+SET search_path = public
+LANGUAGE plpgsql
+AS $$
+DECLARE
+    is_totvs BOOLEAN;
+    assigned_role TEXT;
+    assigned_status TEXT;
+    user_nome TEXT;
+BEGIN
+    is_totvs := (NEW.email ILIKE '%@totvs.com.br');
+    user_nome := COALESCE(NEW.raw_user_meta_data->>'nome_completo', split_part(NEW.email, '@', 1));
+    
+    IF is_totvs THEN
+        assigned_role := 'CONSULTOR';
+        assigned_status := 'APROVADO';
+    ELSE
+        assigned_role := 'CLIENTE';
+        assigned_status := 'PENDENTE';
+    END IF;
+
+    INSERT INTO public.perfis_usuarios (id, email, nome_completo, role, status, projetos_autorizados)
+    VALUES (NEW.id, NEW.email, user_nome, assigned_role, assigned_status, '{}')
+    ON CONFLICT (id) DO UPDATE
+    SET email = EXCLUDED.email,
+        nome_completo = COALESCE(EXCLUDED.nome_completo, perfis_usuarios.nome_completo);
+
+    RETURN NEW;
+END;
+$$;
+
+DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
+CREATE TRIGGER on_auth_user_created
+    AFTER INSERT ON auth.users
+    FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();
