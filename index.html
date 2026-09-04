@@ -10,7 +10,7 @@
   <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js"></script>
   <!-- Supabase JS SDK & Central Service Client -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="supabaseClient.js?v=2.6.3"></script>
+  <script src="supabaseClient.js?v=2.6.4"></script>
   <style>
     :root {
       --bg-primary: #002233;
@@ -2345,6 +2345,31 @@
     }
 
     window.onload = function() {
+      // 1. Detecta se veio por link de recuperação de senha por e-mail
+      const isRecovery = (window.location.hash && (window.location.hash.includes("type=recovery") || window.location.hash.includes("access_token"))) ||
+                         (window.location.search && window.location.search.includes("type=recovery"));
+
+      if (isRecovery) {
+        document.getElementById("mainInterface").style.display = "none";
+        document.getElementById("sidebar").style.display = "none";
+        document.getElementById("portalAuthModal").style.display = "none";
+        document.getElementById("projectBlockedScreen").style.display = "none";
+        abrirModalTrocarSenha();
+        return;
+      }
+
+      if (typeof AuthService !== "undefined") {
+        AuthService.onAuthStateChange((event) => {
+          if (event === "PASSWORD_RECOVERY") {
+            document.getElementById("mainInterface").style.display = "none";
+            document.getElementById("sidebar").style.display = "none";
+            document.getElementById("portalAuthModal").style.display = "none";
+            document.getElementById("projectBlockedScreen").style.display = "none";
+            abrirModalTrocarSenha();
+          }
+        });
+      }
+
       const clientKey = getClientKey();
       if (!clientKey) {
         document.getElementById("mainInterface").style.display = "none";

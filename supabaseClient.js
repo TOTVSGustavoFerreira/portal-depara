@@ -85,8 +85,14 @@ var AuthService = {
   async resetPasswordForEmail(email, redirectTo) {
     if (!sb) throw new Error("Supabase SDK não inicializado.");
     const cleanEmail = String(email).trim().toLowerCase();
+    
+    let defaultRedirect = window.location.href.split('?')[0].split('#')[0];
+    if (window.location.hostname.includes("github.io")) {
+      defaultRedirect = "https://totvsgustavoferreira.github.io/portal-depara/hub.html";
+    }
+
     const { data, error } = await sb.auth.resetPasswordForEmail(cleanEmail, {
-      redirectTo: redirectTo || window.location.href.split('?')[0]
+      redirectTo: redirectTo || defaultRedirect
     });
     if (error) throw error;
     return data;

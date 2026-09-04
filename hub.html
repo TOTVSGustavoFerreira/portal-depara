@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="supabaseClient.js?v=2.6.3"></script>
+  <script src="supabaseClient.js?v=2.6.4"></script>
 
   <style>
     :root {
@@ -1067,34 +1067,54 @@
     let usuarioSelecionadoParaProjetos = null;
 
     window.addEventListener("DOMContentLoaded", async () => {
-      switchLoginTab('email');
+      // 1. Detecta se o link de redefinição de senha foi aberto
+      const isRecovery = (window.location.hash && (window.location.hash.includes("type=recovery") || window.location.hash.includes("access_token"))) ||
+                         (window.location.search && window.location.search.includes("type=recovery"));
+
+      if (isRecovery) {
+        document.getElementById("hubLoginOverlay").style.display = "none";
+        abrirModalTrocarSenha();
+      } else {
+        switchLoginTab('email');
+      }
 
       if (typeof AuthService !== "undefined") {
-        try {
-          const session = await AuthService.getSession();
-          if (session && session.user) {
-            const profile = await AuthService.getProfile(session.user.id);
-            if (profile) {
-              if (profile.status === 'APROVADO' && ['ADMIN', 'CONSULTOR'].includes(profile.role)) {
-                liberarAcessoHub(profile);
-                return;
-              } else if (profile.role === 'CLIENTE') {
-                mostrarErroLogin("🔒 Acesso Restrito: Usuários do tipo Cliente devem acessar diretamente o link do seu projeto no Portal De-Para. O Hub 360° é exclusivo para a equipe técnica TOTVS.");
-                await AuthService.logout();
-              } else if (profile.status === 'PENDENTE') {
-                mostrarErroLogin("⏳ Cadastro em Análise: Seu usuário está PENDENTE e aguarda aprovação pelo Administrador.");
-                await AuthService.logout();
-              } else if (profile.status === 'BLOQUEADO') {
-                mostrarErroLogin("🚫 Acesso Bloqueado: Este usuário foi desativado pelo Administrador.");
-                await AuthService.logout();
+        AuthService.onAuthStateChange((event) => {
+          if (event === "PASSWORD_RECOVERY") {
+            document.getElementById("hubLoginOverlay").style.display = "none";
+            abrirModalTrocarSenha();
+          }
+        });
+
+        if (!isRecovery) {
+          try {
+            const session = await AuthService.getSession();
+            if (session && session.user) {
+              const profile = await AuthService.getProfile(session.user.id);
+              if (profile) {
+                if (profile.status === 'APROVADO' && ['ADMIN', 'CONSULTOR'].includes(profile.role)) {
+                  liberarAcessoHub(profile);
+                  return;
+                } else if (profile.role === 'CLIENTE') {
+                  mostrarErroLogin("🔒 Acesso Restrito: Usuários do tipo Cliente devem acessar diretamente o link do seu projeto no Portal De-Para. O Hub 360° é exclusivo para a equipe técnica TOTVS.");
+                  await AuthService.logout();
+                } else if (profile.status === 'PENDENTE') {
+                  mostrarErroLogin("⏳ Cadastro em Análise: Seu usuário está PENDENTE e aguarda aprovação pelo Administrador.");
+                  await AuthService.logout();
+                } else if (profile.status === 'BLOQUEADO') {
+                  mostrarErroLogin("🚫 Acesso Bloqueado: Este usuário foi desativado pelo Administrador.");
+                  await AuthService.logout();
+                }
               }
             }
+          } catch (e) {
+            console.warn("Verificação inicial de sessão:", e);
           }
-        } catch (e) {
-          console.warn("Verificação inicial de sessão:", e);
         }
       }
-      document.getElementById("hubLoginOverlay").style.display = "flex";
+      if (!isRecovery) {
+        document.getElementById("hubLoginOverlay").style.display = "flex";
+      }
     });
 
     function switchLoginTab(tab) {
