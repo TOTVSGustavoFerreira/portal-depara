@@ -65,6 +65,34 @@ var AuthService = {
   },
 
   /**
+   * Altera a senha do usuário atualmente autenticado
+   */
+  async updatePassword(newPassword) {
+    if (!sb) throw new Error("Supabase SDK não inicializado.");
+    if (!newPassword || newPassword.length < 6) {
+      throw new Error("A nova senha deve ter no mínimo 6 caracteres.");
+    }
+    const { data, error } = await sb.auth.updateUser({
+      password: String(newPassword)
+    });
+    if (error) throw error;
+    return data;
+  },
+
+  /**
+   * Envia e-mail de recuperação de senha pelo Supabase Auth
+   */
+  async resetPasswordForEmail(email, redirectTo) {
+    if (!sb) throw new Error("Supabase SDK não inicializado.");
+    const cleanEmail = String(email).trim().toLowerCase();
+    const { data, error } = await sb.auth.resetPasswordForEmail(cleanEmail, {
+      redirectTo: redirectTo || window.location.href.split('?')[0]
+    });
+    if (error) throw error;
+    return data;
+  },
+
+  /**
    * Obtém a sessão ativa
    */
   async getSession() {

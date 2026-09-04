@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="supabaseClient.js?v=2.6.2"></script>
+  <script src="supabaseClient.js?v=2.6.3"></script>
 
   <style>
     :root {
@@ -685,10 +685,36 @@
           <label>Sua Senha:</label>
           <input type="password" id="loginPasswordInput" class="form-control" placeholder="••••••••••••" required>
         </div>
+        <div style="display: flex; justify-content: flex-end; margin-top: -6px; margin-bottom: 12px;">
+          <a href="javascript:void(0)" onclick="switchLoginTab('recuperar')" style="color: var(--color-primary); font-size: 0.78rem; text-decoration: none; font-weight: 500;">Esqueceu sua senha?</a>
+        </div>
         <div id="loginEmailError" style="color: #ef4444; font-size: 0.8rem; margin-bottom: 12px; display: none; line-height: 1.4; background: rgba(239,68,68,0.1); padding: 8px 12px; border-radius: 6px; border: 1px solid rgba(239,68,68,0.25);"></div>
         <button type="submit" class="btn btn-primary" id="btnLoginEmail" style="width: 100%; justify-content: center; padding: 12px;">
           🔓 Acessar Central
         </button>
+      </form>
+
+      <!-- FORM 3: RECUPERAR SENHA POR E-MAIL -->
+      <form id="formRecuperarSenha" style="display: none;" onsubmit="handleRecuperarSenha(event)">
+        <p style="color: #94a3b8; font-size: 0.82rem; margin-bottom: 14px; line-height: 1.4;">
+          Informe o e-mail corporativo cadastrado. Enviaremos as instruções para você redefinir sua senha com segurança.
+        </p>
+        <div class="form-group">
+          <label>Seu E-mail Corporativo:</label>
+          <input type="email" id="recuperarEmailInput" class="form-control" placeholder="seu.email@totvs.com.br" required>
+        </div>
+        <div id="recuperarError" style="color: #ef4444; font-size: 0.8rem; margin-bottom: 12px; display: none; line-height: 1.4; background: rgba(239,68,68,0.1); padding: 8px 12px; border-radius: 6px;"></div>
+        <div id="recuperarSuccess" style="color: #10b981; font-size: 0.8rem; margin-bottom: 12px; display: none; line-height: 1.4; background: rgba(16,185,129,0.1); padding: 8px 12px; border-radius: 6px; border: 1px solid rgba(16,185,129,0.25);">
+          ✅ Link de recuperação enviado! Verifique sua caixa de entrada e pasta de spam.
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button type="button" class="btn btn-secondary" onclick="switchLoginTab('email')" style="flex: 1; justify-content: center;">
+            Voltar
+          </button>
+          <button type="submit" class="btn btn-primary" id="btnRecuperarSenha" style="flex: 2; justify-content: center;">
+            📨 Enviar Link
+          </button>
+        </div>
       </form>
 
       <!-- FORM 2: SOLICITAR NOVO CADASTRO -->
@@ -754,6 +780,9 @@
       <div class="user-pill" id="userLoggedPill" style="display: none; align-items: center; gap: 8px;">
         <span>👤</span> <span id="userLoggedName" style="font-weight: 600;">Consultor</span>
         <span id="userLoggedRole" class="badge-role badge-admin">ADMIN</span>
+        <button class="btn btn-secondary" onclick="abrirModalTrocarSenha()" style="padding: 4px 8px; font-size: 0.72rem; margin-left: 2px;" title="Alterar minha senha de acesso">
+          🔑 Senha
+        </button>
       </div>
       <button class="btn btn-secondary" onclick="openNewClienteModal()">
         🏢 + Novo Cliente TOTVS
@@ -985,6 +1014,38 @@
     </div>
   </div>
 
+  <!-- MODAL: ALTERAR SENHA DE ACESSO -->
+  <div id="modalTrocarSenha" class="modal-overlay" style="display: none; z-index: 10002;">
+    <div class="modal-card" style="max-width: 420px;">
+      <div class="modal-header">
+        <h3>🔑 Alterar Senha de Acesso</h3>
+        <p>Defina sua nova senha de acesso ao sistema (mínimo 6 caracteres):</p>
+      </div>
+
+      <form onsubmit="handleSalvarNovaSenha(event)">
+        <div class="form-group" style="margin-top: 14px;">
+          <label>Nova Senha:</label>
+          <input type="password" id="inputNovaSenha" class="form-control" placeholder="••••••••••••" minlength="6" required>
+        </div>
+
+        <div class="form-group">
+          <label>Confirmar Nova Senha:</label>
+          <input type="password" id="inputConfirmaNovaSenha" class="form-control" placeholder="Repita a nova senha" minlength="6" required>
+        </div>
+
+        <div id="msgTrocaSenhaErro" style="color: #ef4444; font-size: 0.8rem; margin-bottom: 12px; display: none; line-height: 1.4; background: rgba(239,68,68,0.1); padding: 8px 12px; border-radius: 6px; border: 1px solid rgba(239,68,68,0.25);"></div>
+        <div id="msgTrocaSenhaSucesso" style="color: #10b981; font-size: 0.8rem; margin-bottom: 12px; display: none; line-height: 1.4; background: rgba(16,185,129,0.1); padding: 8px 12px; border-radius: 6px; border: 1px solid rgba(16,185,129,0.25);">
+          ✅ Senha alterada com sucesso!
+        </div>
+
+        <div class="modal-buttons">
+          <button type="button" class="btn btn-secondary" onclick="fecharModalTrocarSenha()">Cancelar</button>
+          <button type="submit" class="btn btn-primary" id="btnSalvarNovaSenha">💾 Salvar Nova Senha</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
 
   <script>
     // ==============================================================================
@@ -1042,10 +1103,96 @@
 
       document.getElementById("formLoginEmail").style.display = tab === "email" ? "block" : "none";
       document.getElementById("formCadastro").style.display = tab === "cadastro" ? "block" : "none";
+      const formRec = document.getElementById("formRecuperarSenha");
+      if (formRec) formRec.style.display = tab === "recuperar" ? "block" : "none";
 
       document.getElementById("loginEmailError").style.display = "none";
       document.getElementById("cadastroError").style.display = "none";
       document.getElementById("cadastroSuccess").style.display = "none";
+      const recErr = document.getElementById("recuperarError");
+      if (recErr) recErr.style.display = "none";
+      const recSucc = document.getElementById("recuperarSuccess");
+      if (recSucc) recSucc.style.display = "none";
+    }
+
+    async function handleRecuperarSenha(e) {
+      if (e) e.preventDefault();
+      const email = document.getElementById("recuperarEmailInput").value.trim().toLowerCase();
+      const errEl = document.getElementById("recuperarError");
+      const succEl = document.getElementById("recuperarSuccess");
+      const btn = document.getElementById("btnRecuperarSenha");
+
+      errEl.style.display = "none";
+      succEl.style.display = "none";
+      btn.innerText = "⏳ Enviando...";
+      btn.disabled = true;
+
+      try {
+        await AuthService.resetPasswordForEmail(email);
+        succEl.style.display = "block";
+      } catch (err) {
+        errEl.innerText = "Erro ao enviar e-mail: " + err.message;
+        errEl.style.display = "block";
+      } finally {
+        btn.innerText = "📨 Enviar Link";
+        btn.disabled = false;
+      }
+    }
+
+    function abrirModalTrocarSenha() {
+      document.getElementById("inputNovaSenha").value = "";
+      document.getElementById("inputConfirmaNovaSenha").value = "";
+      document.getElementById("msgTrocaSenhaErro").style.display = "none";
+      document.getElementById("msgTrocaSenhaSucesso").style.display = "none";
+      document.getElementById("btnSalvarNovaSenha").disabled = false;
+      document.getElementById("btnSalvarNovaSenha").innerText = "💾 Salvar Nova Senha";
+      document.getElementById("modalTrocarSenha").style.display = "flex";
+    }
+
+    function fecharModalTrocarSenha() {
+      document.getElementById("modalTrocarSenha").style.display = "none";
+    }
+
+    async function handleSalvarNovaSenha(e) {
+      if (e) e.preventDefault();
+      const senha1 = document.getElementById("inputNovaSenha").value;
+      const senha2 = document.getElementById("inputConfirmaNovaSenha").value;
+      const errEl = document.getElementById("msgTrocaSenhaErro");
+      const succEl = document.getElementById("msgTrocaSenhaSucesso");
+      const btn = document.getElementById("btnSalvarNovaSenha");
+
+      errEl.style.display = "none";
+      succEl.style.display = "none";
+
+      if (!senha1 || senha1.length < 6) {
+        errEl.innerText = "A senha deve conter no mínimo 6 caracteres.";
+        errEl.style.display = "block";
+        return;
+      }
+
+      if (senha1 !== senha2) {
+        errEl.innerText = "As senhas digitadas não coincidem.";
+        errEl.style.display = "block";
+        return;
+      }
+
+      btn.innerText = "⏳ Alterando...";
+      btn.disabled = true;
+
+      try {
+        await AuthService.updatePassword(senha1);
+        succEl.style.display = "block";
+        setTimeout(() => {
+          fecharModalTrocarSenha();
+          showToast("Senha alterada com sucesso!", "success");
+        }, 1500);
+      } catch (err) {
+        errEl.innerText = "Erro ao atualizar senha: " + err.message;
+        errEl.style.display = "block";
+      } finally {
+        btn.innerText = "💾 Salvar Nova Senha";
+        btn.disabled = false;
+      }
     }
 
     function mostrarErroLogin(msg) {
