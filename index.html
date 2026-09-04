@@ -10,6 +10,7 @@
   <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js"></script>
   <!-- Supabase JS SDK & Central Service Client -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabaseClient.js?v=2.6.2"></script>
   <style>
     :root {
       --bg-primary: #002233;
@@ -22,6 +23,33 @@
       --color-text-light: #ffffff;
       --color-text-muted: #64748b;
       --border-color: #e2e8f0;
+
+    /* ESTILOS RBAC */
+    .badge-role {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .badge-admin {
+      background: rgba(99, 102, 241, 0.2);
+      color: #a5b4fc;
+      border: 1px solid rgba(99, 102, 241, 0.4);
+    }
+    .badge-consultor {
+      background: rgba(16, 185, 129, 0.2);
+      color: #6ee7b7;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+    }
+    .badge-cliente {
+      background: rgba(56, 189, 248, 0.2);
+      color: #7dd3fc;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+    }
       
       /* Row backgrounds based on state */
       --row-provento: #f0fdf4;
@@ -1667,25 +1695,86 @@
     </div>
   </div>
 
-  <!-- TELA DE BLOQUEIO POR CHAVE DE ACESSO (PASSKEY LOGIN) -->
-  <div id="passkeyModal" class="modal-overlay" style="display: none; z-index: 30000; background-color: var(--bg-primary);">
-    <div class="modal-card" style="max-width: 420px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); background-color: var(--bg-secondary);">
-      <div style="padding: 32px; text-align: center; display: flex; flex-direction: column; gap: 20px;">
+  <!-- TELA DE AUTENTICAÇÃO E CONTROLE DE ACESSO DO PORTAL (SUPABASE AUTH RBAC) -->
+  <div id="portalAuthModal" class="modal-overlay" style="display: none; z-index: 30000; background-color: var(--bg-primary);">
+    <div class="modal-card" style="max-width: 440px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.1); background-color: var(--bg-secondary);">
+      <div style="padding: 28px; text-align: center; display: flex; flex-direction: column; gap: 18px;">
         <div>
-          <img src="https://midias-sites.totvs.com/marca/wp-content/uploads/2025/11/Vector-3.png.webp" alt="TOTVS" style="width: 140px; height: auto; max-height: 48px; object-fit: contain; margin-bottom: 12px;">
-          <h2 style="color: white; font-weight: 700; font-size: 1.5rem; letter-spacing: 0.5px;">Acesso Restrito</h2>
-          <p style="color: var(--color-text-muted); font-size: 0.85rem; margin-top: 6px;" id="passkeyClientLabel">Mapeamento De-Para</p>
+          <img src="https://midias-sites.totvs.com/marca/wp-content/uploads/2025/11/Vector-3.png.webp" alt="TOTVS" style="width: 130px; height: auto; max-height: 44px; object-fit: contain; margin-bottom: 10px;">
+          <h2 style="color: white; font-weight: 700; font-size: 1.4rem;">Portal De-Para TOTVS</h2>
+          <p style="color: var(--color-primary); font-size: 0.85rem; margin-top: 4px; font-weight: 600;" id="portalAuthProjectLabel">Validando Projeto...</p>
         </div>
-        
-        <div style="text-align: left; display: flex; flex-direction: column; gap: 8px;">
-          <label for="passkeyInput" style="color: white; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Chave de Acesso do Projeto</label>
-          <input type="password" id="passkeyInput" class="input-field" placeholder="Digite a chave..." style="background-color: var(--bg-primary); border-color: rgba(255,255,255,0.1); color: white; padding: 12px; font-size: 0.95rem;" onkeydown="if(event.key === 'Enter') submitPasskey()">
-          <span id="passkeyErrorMsg" style="color: var(--danger); font-size: 0.75rem; font-weight: 600; display: none;">Chave incorreta ou inválida para este projeto.</span>
+
+        <!-- TABS DE LOGIN E CADASTRO -->
+        <div style="display: flex; background: rgba(0,0,0,0.3); padding: 4px; border-radius: 8px; gap: 4px;" id="portalAuthTabsContainer">
+          <button id="tabPortalLoginBtn" type="button" onclick="switchPortalAuthTab('login')" style="flex: 1; padding: 8px; border: none; border-radius: 6px; background: var(--color-primary); color: #000; font-weight: 700; font-size: 0.8rem; cursor: pointer;">
+            🔑 Entrar
+          </button>
+          <button id="tabPortalRegisterBtn" type="button" onclick="switchPortalAuthTab('register')" style="flex: 1; padding: 8px; border: none; border-radius: 6px; background: transparent; color: #94a3b8; font-weight: 600; font-size: 0.8rem; cursor: pointer;">
+            ✨ Solicitar Acesso
+          </button>
         </div>
-        
-        <button class="row-btn row-btn-primary" style="padding: 12px; font-weight: 600; font-size: 0.95rem; justify-content: center; width: 100%;" onclick="submitPasskey()">
-          Confirmar e Acessar
-        </button>
+
+        <!-- FORM 1: LOGIN -->
+        <form id="formPortalLogin" onsubmit="handlePortalLogin(event)" style="display: flex; flex-direction: column; gap: 14px; text-align: left;">
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <label style="color: white; font-size: 0.78rem; font-weight: 600; text-transform: uppercase;">Seu E-mail:</label>
+            <input type="email" id="portalLoginEmail" class="input-field" placeholder="seu.email@empresa.com.br" style="background-color: var(--bg-primary); border-color: rgba(255,255,255,0.1); color: white; padding: 11px;" required>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 6px;">
+            <label style="color: white; font-size: 0.78rem; font-weight: 600; text-transform: uppercase;">Sua Senha:</label>
+            <input type="password" id="portalLoginPassword" class="input-field" placeholder="••••••••••••" style="background-color: var(--bg-primary); border-color: rgba(255,255,255,0.1); color: white; padding: 11px;" required>
+          </div>
+          <div id="portalLoginError" style="color: var(--danger); font-size: 0.78rem; font-weight: 600; display: none; line-height: 1.4; background: rgba(239,68,68,0.1); padding: 8px 10px; border-radius: 6px;"></div>
+          <button type="submit" class="row-btn row-btn-primary" id="btnPortalLoginSubmit" style="padding: 12px; font-weight: 700; font-size: 0.95rem; justify-content: center; width: 100%; margin-top: 4px;">
+            Acessar Projeto
+          </button>
+        </form>
+
+        <!-- FORM 2: SOLICITAR ACESSO / CADASTRO -->
+        <form id="formPortalRegister" onsubmit="handlePortalRegister(event)" style="display: none; flex-direction: column; gap: 12px; text-align: left;">
+          <div style="display: flex; flex-direction: column; gap: 5px;">
+            <label style="color: white; font-size: 0.75rem; font-weight: 600; text-transform: uppercase;">Nome Completo:</label>
+            <input type="text" id="portalRegNome" class="input-field" placeholder="Ex: Maria Silva" style="background-color: var(--bg-primary); border-color: rgba(255,255,255,0.1); color: white; padding: 10px;" required>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 5px;">
+            <label style="color: white; font-size: 0.75rem; font-weight: 600; text-transform: uppercase;">E-mail Corporativo:</label>
+            <input type="email" id="portalRegEmail" class="input-field" placeholder="maria@empresa.com.br" style="background-color: var(--bg-primary); border-color: rgba(255,255,255,0.1); color: white; padding: 10px;" required>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 5px;">
+            <label style="color: white; font-size: 0.75rem; font-weight: 600; text-transform: uppercase;">Cargo na Empresa:</label>
+            <input type="text" id="portalRegCargo" class="input-field" placeholder="Ex: Analista de RH / Folha" style="background-color: var(--bg-primary); border-color: rgba(255,255,255,0.1); color: white; padding: 10px;">
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 5px;">
+            <label style="color: white; font-size: 0.75rem; font-weight: 600; text-transform: uppercase;">Defina uma Senha:</label>
+            <input type="password" id="portalRegPassword" class="input-field" placeholder="Mínimo 6 caracteres" minlength="6" style="background-color: var(--bg-primary); border-color: rgba(255,255,255,0.1); color: white; padding: 10px;" required>
+          </div>
+          <div id="portalRegError" style="color: var(--danger); font-size: 0.78rem; font-weight: 600; display: none; line-height: 1.4; background: rgba(239,68,68,0.1); padding: 8px 10px; border-radius: 6px;"></div>
+          <div id="portalRegSuccess" style="color: var(--success); font-size: 0.78rem; font-weight: 600; display: none; line-height: 1.4; background: rgba(16,185,129,0.1); padding: 8px 10px; border-radius: 6px; border: 1px solid rgba(16,185,129,0.3);">
+            ✅ Solicitação enviada! Seu acesso está pendente de aprovação pelo Administrador.
+          </div>
+          <button type="submit" class="row-btn row-btn-primary" id="btnPortalRegSubmit" style="padding: 12px; font-weight: 700; font-size: 0.95rem; justify-content: center; width: 100%; margin-top: 4px;">
+            Enviar Solicitação
+          </button>
+        </form>
+
+        <!-- TELA DE PROJETO NÃO AUTORIZADO PARA CLIENTE LOGADO -->
+        <div id="portalUnauthorizedBox" style="display: none; flex-direction: column; gap: 14px; text-align: center; background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.25); padding: 16px; border-radius: 8px;">
+          <div style="font-size: 1.8rem;">🔒</div>
+          <div style="font-weight: 700; color: #fbbf24; font-size: 1rem;">Acesso Não Autorizado</div>
+          <p style="color: #cbd5e1; font-size: 0.82rem; line-height: 1.5; margin: 0;">
+            Você está autenticado como <strong id="portalLoggedUserEmail" style="color: white;">-</strong>, mas sua conta ainda não tem permissão para visualizar este projeto.
+          </p>
+          <div id="portalRequestStatusMsg" style="color: #34d399; font-size: 0.78rem; font-weight: 600; display: none;">
+            ✅ Solicitação de autorização enviada com sucesso! Aguarde a liberação pelo Administrador.
+          </div>
+          <button type="button" class="row-btn row-btn-primary" onclick="solicitarAcessoAoProjetoAtual()" id="btnSolicitarAcessoProj" style="padding: 10px; font-weight: 600; justify-content: center; width: 100%;">
+            📨 Solicitar Permissão para este Projeto
+          </button>
+          <button type="button" class="row-btn" style="background: rgba(255,255,255,0.08); color: white; padding: 8px; justify-content: center; width: 100%;" onclick="portalLogout()">
+            🚪 Sair / Trocar de Conta
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -1793,6 +1882,23 @@
     <div id="sidebarClientContainer" class="sidebar-client-box">
       <div class="sidebar-client-label">PROJETO ATIVO</div>
       <div class="sidebar-client-name" id="sidebarClientName">🏢 CARREGANDO...</div>
+    </div>
+
+    <!-- IDENTIFICAÇÃO DO USUÁRIO LOGADO -->
+    <div id="sidebarUserContainer" class="sidebar-client-box" style="margin-top: 8px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); padding: 8px 12px; border-radius: 6px;">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <span style="font-size: 0.7rem; color: #94a3b8; font-weight: 700; text-transform: uppercase;">USUÁRIO</span>
+        <span id="sidebarUserRoleBadge" class="badge-role badge-admin" style="font-size: 0.65rem; padding: 1px 6px;">-</span>
+      </div>
+      <div id="sidebarUserEmail" style="font-size: 0.78rem; color: #fff; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px;">-</div>
+      <div style="display: flex; gap: 6px; margin-top: 6px;">
+        <button onclick="portalLogout()" style="background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.3); border-radius: 4px; padding: 3px 8px; font-size: 0.7rem; cursor: pointer; display: flex; align-items: center; gap: 4px; width: 100%; justify-content: center;">
+          🚪 Sair
+        </button>
+        <a id="sidebarHubLink" href="hub.html" style="background: rgba(99,102,241,0.15); color: #a5b4fc; border: 1px solid rgba(99,102,241,0.3); border-radius: 4px; padding: 3px 8px; font-size: 0.7rem; text-decoration: none; display: none; align-items: center; gap: 4px; width: 100%; justify-content: center;">
+          🏠 Hub
+        </a>
+      </div>
     </div>
     
     <div class="sidebar-menu-wrapper">
@@ -2134,160 +2240,9 @@
 
   <script>
     // ==============================================================================
-    // CONFIGURAÇÃO SUPABASE & SERVIÇOS
+    // SERVIÇOS & INTEGRAÇÃO SUPABASE (CENTRALIZADOS EM supabaseClient.js)
     // ==============================================================================
-    const SUPABASE_URL = "https://dlhaxqfxkqidbgsgoeka.supabase.co";
-    const SUPABASE_ANON_KEY = "sb_publishable_RANwyVD95xsqD0Xipi_uwQ_OaLZj0VM";
-
-    const sb = (typeof window !== "undefined" && window.supabase)
-      ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
-      : null;
-
-    const ProjetosService = {
-      async obterPorCodigo(codigoProjeto) {
-        if (!sb) throw new Error("Supabase SDK não inicializado.");
-        const cleanCode = String(codigoProjeto).trim().toUpperCase();
-        const { data, error } = await sb
-          .from("projetos_depara")
-          .select(`*, clientes_totvs (id, codigo_totvs, razao_social, nome_fantasia, cnpj)`)
-          .eq("codigo_projeto", cleanCode)
-          .maybeSingle();
-        if (error) throw error;
-        return data;
-      }
-    };
-
-    const DeParaDataService = {
-      TABLE_MAP: {
-        "ZDEPARA_COLIGADAS": "depara_coligadas",
-        "ZDEPARA_FUNCOES": "depara_funcoes",
-        "ZDEPARA_SINDICATOS": "depara_sindicatos",
-        "ZDEPARA_SECOES": "depara_secoes",
-        "ZDEPARA_BANCOS": "depara_bancos",
-        "ZDEPARA_SITUACAO": "depara_situacao",
-        "ZDEPARA_EVENTOS": "depara_eventos",
-        "ZDEPARA_HORARIO": "depara_horario",
-        "ZDEPARA_MOTIVO_FUNCAO": "depara_motivo_funcao",
-        "ZDEPARA_MOTIVO_SALARIO": "depara_motivo_salario",
-        "ZDEPARA_MOTIVO_SECAO": "depara_motivo_secao",
-        "DADOS_RM_EVENTOS": "dados_rm_eventos",
-        "DADOS_RM_SITUACAO": "dados_rm_situacao",
-        "DADOS_RM_MOTIVOS": "dados_rm_motivos",
-        "DADOS_RM_SECOES": "dados_rm_secoes"
-      },
-      TABLE_COLUMNS: {
-        "depara_coligadas": ['projeto_id', 'empresa_de', 'id_origem', 'nome_de', 'cnpj', 'codcoligada_para', 'status', 'sugestoes', 'observacao'],
-        "depara_funcoes": ['projeto_id', 'empresa_de', 'codigo_de', 'nome_de', 'cbo', 'cbo_2002', 'coligada_para', 'codigo_para', 'status', 'sugestoes', 'observacao'],
-        "depara_sindicatos": ['projeto_id', 'empresa_de', 'codigo_de', 'nome_de', 'cnpj', 'coligada_para', 'codigo_para', 'status', 'sugestoes', 'observacao'],
-        "depara_secoes": ['projeto_id', 'empresa_de', 'filial_de', 'codigo_de', 'nome_de', 'coligada_para', 'filial_para', 'codigo_para', 'descricao_secao', 'status', 'sugestoes', 'observacao'],
-        "depara_bancos": ['projeto_id', 'empresa_de', 'numbanco_de', 'nome_banco_de', 'numagencia_de', 'nome_agencia_de', 'codigo_banco_para', 'codigo_agencia_para', 'status', 'sugestoes', 'observacao'],
-        "depara_situacao": ['projeto_id', 'codigo_de', 'nome_de', 'codsituacao_para', 'codmotivo_para', 'codsituacao_retorno_para', 'codmotivo_retorno_para', 'status', 'sugestoes', 'observacao'],
-        "depara_eventos": ['projeto_id', 'empresa_de', 'codigo_de', 'nome_de', 'tipo_evento', 'coligada_para', 'codigo_para', 'nome_rm', 'codigo_para_ficha_mes1', 'nome_rm_2', 'codigo_para_ficha_mes2', 'nome_rm_3', 'codigo_para_verbas_ferias', 'nome_rm_4', 'status', 'sugestoes', 'observacao'],
-        "depara_horario": ['projeto_id', 'empresa_de', 'codigo_de', 'nome_de', 'coligada_para', 'codigo_para', 'status', 'sugestoes', 'observacao'],
-        "depara_motivo_funcao": ['projeto_id', 'empresa_de', 'codigo_motivo_de', 'nome_motivo_de', 'coligada_para', 'codigo_motivo_para', 'status', 'sugestoes', 'observacao'],
-        "depara_motivo_salario": ['projeto_id', 'empresa_de', 'codigo_motivo_de', 'nome_motivo_de', 'coligada_para', 'codigo_para', 'status', 'sugestoes', 'observacao'],
-        "depara_motivo_secao": ['projeto_id', 'empresa_de', 'codigo_motivo_de', 'nome_motivo_de', 'coligada_para', 'codigo_motivo_para', 'status', 'sugestoes', 'observacao'],
-        "dados_rm_eventos": ['projeto_id', 'codigo', 'descricao', 'tipo', 'valhordiaref', 'nat_esocial'],
-        "dados_rm_situacao": ['projeto_id', 'codcliente', 'descricao'],
-        "dados_rm_motivos": ['projeto_id', 'codcliente', 'descricao'],
-        "dados_rm_secoes": ['projeto_id', 'coligada', 'filial', 'cod_secao', 'descricao', 'cnpj', 'observacoes']
-      },
-      async carregarProjetoCompleto(projetoId) {
-        if (!sb) throw new Error("Supabase SDK não inicializado.");
-        const queries = Object.entries(this.TABLE_MAP).map(async ([sheetName, tableName]) => {
-          let allRows = [];
-          let from = 0;
-          const step = 1000;
-          while (true) {
-            const { data, error } = await sb.from(tableName).select("*").eq("projeto_id", projetoId).range(from, from + step - 1);
-            if (error) {
-              console.warn(`Aviso ao ler ${tableName}:`, error.message);
-              break;
-            }
-            if (!data || data.length === 0) break;
-            allRows = allRows.concat(data);
-            if (data.length < step) break;
-            from += step;
-          }
-          return { sheetName, rows: allRows };
-        });
-        const results = await Promise.all(queries);
-        const db = {};
-        results.forEach(res => { db[res.sheetName] = res.rows; });
-        return db;
-      },
-      async salvarLinha(tableName, rowId, payload) {
-        if (!sb) throw new Error("Supabase SDK não inicializado.");
-        const updatePayload = { ...payload, updated_at: new Date().toISOString() };
-        const { data, error } = await sb.from(tableName).update(updatePayload).eq("id", rowId).select().single();
-        if (error) throw error;
-        return data;
-      },
-      async importarBaseCompleta(projetoId, rawDatabase) {
-        if (!sb) throw new Error("Supabase SDK não inicializado.");
-        for (const [sheetName, rows] of Object.entries(rawDatabase)) {
-          const tableName = this.TABLE_MAP[sheetName];
-          if (!tableName || !Array.isArray(rows) || rows.length === 0) continue;
-
-          // Limpar registros anteriores desta aba para este projeto antes de inserir os novos
-          await sb.from(tableName).delete().eq("projeto_id", projetoId);
-
-          const allowedCols = new Set(this.TABLE_COLUMNS[tableName] || []);
-
-          const formattedRows = rows.map(r => {
-            const rawItem = {};
-            Object.keys(r).forEach(k => {
-              if (k === undefined || k === null || k === "") return;
-              let cleanKey = String(k).trim().toLowerCase()
-                .replace(/ /g, "_")
-                .replace(/[\u00C0-\u00FF]/g, c => ({ 'á':'a','à':'a','ã':'a','â':'a','é':'e','ê':'e','í':'i','ó':'o','ô':'o','õ':'o','ú':'u','ç':'c' })[c] || c)
-                .replace(/[^a-z0-9_]/g, "");
-
-              if (cleanKey === "empresa__de") cleanKey = "empresa_de";
-              if (tableName === "depara_coligadas") {
-                if (cleanKey === "id") cleanKey = "id_origem";
-                if (cleanKey === "codcoligada") cleanKey = "codcoligada_para";
-              } else if (tableName === "dados_rm_eventos") {
-                if (cleanKey === "tipoevento") cleanKey = "tipo";
-              } else if (tableName === "dados_rm_secoes") {
-                if (cleanKey === "cod_secao" || cleanKey === "cod_seao" || cleanKey === "codigo") cleanKey = "cod_secao";
-                if (cleanKey === "descriao" || cleanKey === "descricao") cleanKey = "descricao";
-                if (cleanKey === "observaoes" || cleanKey === "observacoes") cleanKey = "observacoes";
-              }
-
-              let val = r[k];
-              if (val !== undefined && val !== null) val = String(val).trim();
-              else val = null;
-              rawItem[cleanKey] = val;
-            });
-
-            // Filtro estrito: incluir apenas colunas que existem na tabela Supabase
-            const item = { projeto_id: projetoId };
-            for (const col of allowedCols) {
-              if (col === 'projeto_id') continue;
-              if (rawItem[col] !== undefined) {
-                item[col] = rawItem[col];
-              }
-            }
-
-            if (!item.status && tableName.startsWith("depara_")) {
-              item.status = (item.codigo_para || item.codcoligada_para || item.codsituacao_para || item.codigo_banco_para || item.codigo_motivo_para) ? "MAPEADO" : "PENDENTE";
-            }
-            return item;
-          });
-
-          const chunkSize = 150;
-          for (let i = 0; i < formattedRows.length; i += chunkSize) {
-            const chunk = formattedRows.slice(i, i + chunkSize);
-            const { error } = await sb.from(tableName).insert(chunk);
-            if (error) {
-              console.error(`Erro ao gravar lote em ${tableName}:`, error);
-              throw new Error(`Falha ao gravar na tabela ${tableName}: ${error.message}`);
-            }
-          }
-        }
-      }
-    };
+    var sb = window.sb;
 
     let database = [];
     let rmEvents = [];
@@ -2339,8 +2294,8 @@
         return;
       }
 
-      // Validação Estrita no Supabase
-      checkPasskeyAccess();
+      // Validação Estrita de Autenticação e Permissão de Projeto (RBAC)
+      checkUserAuthAndProjectAccess();
       
       document.addEventListener('click', function(e) {
         if (!e.target.closest('.autocomplete-wrapper') && !e.target.closest('.autocomplete-td-wrapper')) {
@@ -2349,14 +2304,39 @@
       });
     };
 
-    async function checkPasskeyAccess() {
+    let currentUserProfile = null;
+
+    async function checkUserAuthAndProjectAccess() {
       const codigoProjeto = getClientKey();
-      const savedKey = localStorage.getItem(`passkey_${codigoProjeto}`);
       
       document.getElementById("mainInterface").style.display = "none";
       document.getElementById("sidebar").style.display = "none";
       
-      showLoading("Validando projeto no Supabase...");
+      const authProjLabel = document.getElementById("portalAuthProjectLabel");
+      if (authProjLabel) {
+        authProjLabel.innerText = `Projeto: ${codigoProjeto}`;
+      }
+      const regProjInput = document.getElementById("portalRegProjeto");
+      if (regProjInput) {
+        regProjInput.value = codigoProjeto;
+      }
+
+      // 1. Verifica autenticação do usuário primeiro
+      let session = null;
+      try {
+        session = await AuthService.getSession();
+      } catch (err) {
+        console.warn("Aviso ao checar sessão:", err.message);
+      }
+
+      if (!session || !session.user) {
+        hideLoading();
+        abrirModalAuthPortal('login');
+        return;
+      }
+
+      // 2. Usuário autenticado: busca os dados do projeto no banco
+      showLoading("Validando projeto e permissões no Supabase...");
       
       try {
         currentProjetoObj = await ProjetosService.obterPorCodigo(codigoProjeto);
@@ -2369,28 +2349,81 @@
           return;
         }
 
-        hideLoading();
-        const expectedPasskey = String(currentProjetoObj.passkey || "1234").trim();
         const cliName = currentProjetoObj.clientes_totvs ? currentProjetoObj.clientes_totvs.razao_social : "CLIENTE TOTVS";
-        document.getElementById("passkeyClientLabel").innerText = `Projeto: ${currentProjetoObj.codigo_projeto} | ${cliName}`;
+        if (authProjLabel) {
+          authProjLabel.innerText = `Projeto: ${currentProjetoObj.codigo_projeto} | ${cliName}`;
+        }
         
         const sidebarClientNameEl = document.getElementById("sidebarClientName");
         if (sidebarClientNameEl) {
           sidebarClientNameEl.innerText = `🏢 ${currentProjetoObj.codigo_projeto}`;
         }
 
-        if (savedKey && savedKey === expectedPasskey) {
-          clientPasskey = savedKey;
-          document.getElementById("sidebar").style.display = "flex";
-          await loadPortalData();
-        } else {
-          document.getElementById("passkeyModal").style.display = "flex";
-          const passInput = document.getElementById("passkeyInput");
-          if (passInput) {
-            passInput.value = "";
-            passInput.focus();
-          }
+        // Carrega perfil de acesso RBAC
+        const profile = await AuthService.getProfile(session.user.id);
+        currentUserProfile = profile;
+
+        if (!profile) {
+          hideLoading();
+          abrirModalAuthPortal('login');
+          mostrarErroAuthPortal("Perfil de usuário não localizado. Solicite cadastro.");
+          return;
         }
+
+        if (profile.status === 'BLOQUEADO') {
+          hideLoading();
+          abrirModalAuthPortal('login');
+          mostrarErroAuthPortal("🚫 Acesso Bloqueado: Este usuário foi desativado pelo Administrador.");
+          await AuthService.logout();
+          return;
+        }
+
+        if (profile.status === 'PENDENTE') {
+          hideLoading();
+          abrirModalAuthPortal('login');
+          mostrarErroAuthPortal("⏳ Cadastro Pendente: Sua solicitação de acesso está aguardando aprovação pelo Administrador Gustavo.");
+          return;
+        }
+
+        // Usuário APROVADO! Agora verificar se pode acessar este projeto específico:
+        const isStaff = ['ADMIN', 'CONSULTOR'].includes(profile.role);
+        const userProjs = Array.isArray(profile.projetos_autorizados) ? profile.projetos_autorizados : [];
+        const isAuthorized = isStaff || userProjs.includes(codigoProjeto);
+
+        if (!isAuthorized) {
+          // Cliente logado, mas não autorizado para este projeto
+          hideLoading();
+          document.getElementById("portalLoggedUserEmail").innerText = profile.email;
+          document.getElementById("portalAuthTabsContainer").style.display = "none";
+          document.getElementById("formPortalLogin").style.display = "none";
+          document.getElementById("formPortalRegister").style.display = "none";
+          document.getElementById("portalUnauthorizedBox").style.display = "flex";
+          document.getElementById("portalAuthModal").style.display = "flex";
+          return;
+        }
+
+        // ACESSO AUTORIZADO!
+        hideLoading();
+        document.getElementById("portalAuthModal").style.display = "none";
+        
+        // Atualiza elementos da sidebar com o usuário
+        const emailEl = document.getElementById("sidebarUserEmail");
+        if (emailEl) emailEl.innerText = profile.email;
+        
+        const roleBadge = document.getElementById("sidebarUserRoleBadge");
+        if (roleBadge) {
+          roleBadge.innerText = profile.role;
+          roleBadge.className = `badge-role ${profile.role === 'ADMIN' ? 'badge-admin' : (profile.role === 'CONSULTOR' ? 'badge-consultor' : 'badge-cliente')}`;
+        }
+
+        const hubLink = document.getElementById("sidebarHubLink");
+        if (hubLink) {
+          hubLink.style.display = isStaff ? "flex" : "none";
+        }
+
+        document.getElementById("sidebar").style.display = "flex";
+        await loadPortalData();
+
       } catch (err) {
         hideLoading();
         console.warn("Erro ao validar projeto no Supabase:", err.message);
@@ -2400,39 +2433,126 @@
       }
     }
 
-    async function submitPasskey() {
-      const inputVal = document.getElementById("passkeyInput").value.trim();
-      const codigoProjeto = getClientKey();
-      
-      if (!inputVal) {
-        document.getElementById("passkeyErrorMsg").style.display = "block";
-        return;
-      }
-      
-      showLoading("Validando chave de acesso...");
-      
-      try {
-        if (!currentProjetoObj) {
-          currentProjetoObj = await ProjetosService.obterPorCodigo(codigoProjeto);
-        }
+    function abrirModalAuthPortal(tab = 'login') {
+      document.getElementById("portalAuthTabsContainer").style.display = "flex";
+      document.getElementById("portalUnauthorizedBox").style.display = "none";
+      document.getElementById("portalAuthModal").style.display = "flex";
+      switchPortalAuthTab(tab);
+    }
 
-        const expectedKey = String(currentProjetoObj ? currentProjetoObj.passkey : "1234").trim();
-        
-        if (inputVal === expectedKey) {
-          localStorage.setItem(`passkey_${codigoProjeto}`, inputVal);
-          clientPasskey = inputVal;
-          document.getElementById("passkeyModal").style.display = "none";
-          document.getElementById("passkeyErrorMsg").style.display = "none";
-          document.getElementById("sidebar").style.display = "flex";
-          await loadPortalData();
-        } else {
-          hideLoading();
-          document.getElementById("passkeyErrorMsg").style.display = "block";
-        }
-      } catch (err) {
-        hideLoading();
-        showToast("Erro ao validar credenciais: " + err.message, "error");
+    function switchPortalAuthTab(tab) {
+      const isLogin = tab === 'login';
+      const tabLogin = document.getElementById("tabPortalLoginBtn");
+      const tabReg = document.getElementById("tabPortalRegisterBtn");
+
+      tabLogin.style.background = isLogin ? "var(--color-primary)" : "transparent";
+      tabLogin.style.color = isLogin ? "#000" : "#94a3b8";
+      tabLogin.style.fontWeight = isLogin ? "700" : "600";
+
+      tabReg.style.background = !isLogin ? "var(--color-primary)" : "transparent";
+      tabReg.style.color = !isLogin ? "#000" : "#94a3b8";
+      tabReg.style.fontWeight = !isLogin ? "700" : "600";
+
+      document.getElementById("formPortalLogin").style.display = isLogin ? "flex" : "none";
+      document.getElementById("formPortalRegister").style.display = !isLogin ? "flex" : "none";
+      
+      const errLogin = document.getElementById("portalLoginError");
+      if (errLogin) errLogin.style.display = "none";
+      const errReg = document.getElementById("portalRegError");
+      if (errReg) errReg.style.display = "none";
+      const succReg = document.getElementById("portalRegSuccess");
+      if (succReg) succReg.style.display = "none";
+    }
+
+    function mostrarErroAuthPortal(msg) {
+      const errLogin = document.getElementById("portalLoginError");
+      if (errLogin) {
+        errLogin.innerText = msg;
+        errLogin.style.display = "block";
       }
+    }
+
+    async function handlePortalLogin(e) {
+      if (e) e.preventDefault();
+      const email = document.getElementById("portalLoginEmail").value.trim().toLowerCase();
+      const password = document.getElementById("portalLoginPassword").value.trim();
+      const btn = document.getElementById("btnPortalLoginSubmit");
+      const errEl = document.getElementById("portalLoginError");
+
+      btn.innerText = "⏳ Autenticando...";
+      btn.disabled = true;
+      errEl.style.display = "none";
+
+      try {
+        await AuthService.login(email, password);
+        await checkUserAuthAndProjectAccess();
+      } catch (err) {
+        errEl.innerText = err.message === "Invalid login credentials" ? "❌ E-mail ou senha incorretos." : err.message;
+        errEl.style.display = "block";
+      } finally {
+        btn.innerText = "Acessar Projeto";
+        btn.disabled = false;
+      }
+    }
+
+    async function handlePortalRegister(e) {
+      if (e) e.preventDefault();
+      const nome = document.getElementById("portalRegNome").value.trim();
+      const email = document.getElementById("portalRegEmail").value.trim().toLowerCase();
+      const cargo = document.getElementById("portalRegCargo").value.trim();
+      const password = document.getElementById("portalRegPassword").value.trim();
+      const btn = document.getElementById("btnPortalRegSubmit");
+      const errEl = document.getElementById("portalRegError");
+      const successEl = document.getElementById("portalRegSuccess");
+      const codigoProjeto = getClientKey();
+
+      btn.innerText = "⏳ Enviando solicitação...";
+      btn.disabled = true;
+      errEl.style.display = "none";
+      successEl.style.display = "none";
+
+      try {
+        await AuthService.signUp(email, password, {
+          nome_completo: nome,
+          cargo: cargo || "Usuário do Cliente",
+          role: "CLIENTE",
+          projeto: codigoProjeto
+        });
+
+        successEl.style.display = "block";
+        document.getElementById("formPortalRegister").reset();
+      } catch (err) {
+        errEl.innerText = "❌ " + err.message;
+        errEl.style.display = "block";
+      } finally {
+        btn.innerText = "Enviar Solicitação";
+        btn.disabled = false;
+      }
+    }
+
+    async function solicitarAcessoAoProjetoAtual() {
+      const codigoProjeto = getClientKey();
+      const session = await AuthService.getSession();
+      if (!session) return;
+
+      const btn = document.getElementById("btnSolicitarAcessoProj");
+      btn.innerText = "⏳ Solicitando...";
+      btn.disabled = true;
+
+      try {
+        await AuthService.solicitarAcessoProjeto(session.user.id, codigoProjeto);
+        document.getElementById("portalRequestStatusMsg").style.display = "block";
+        showToast("Solicitação de acesso enviada para o administrador!", "success");
+      } catch (err) {
+        showToast("Erro ao solicitar acesso: " + err.message, "error");
+      } finally {
+        btn.innerText = "📨 Solicitação Enviada";
+      }
+    }
+
+    async function portalLogout() {
+      await AuthService.logout();
+      window.location.reload();
     }
 
     function toggleSidebar() {
