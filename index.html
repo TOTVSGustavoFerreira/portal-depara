@@ -2,6 +2,9 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>Portal De-Para - TOTVS RM v2.6.0</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -10,7 +13,7 @@
   <script src="https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js"></script>
   <!-- Supabase JS SDK & Central Service Client -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="supabaseClient.js?v=2.6.5"></script>
+  <script src="supabaseClient.js?v=2.6.6"></script>
   <style>
     :root {
       --bg-primary: #002233;
@@ -2344,7 +2347,12 @@
       return key ? key.toUpperCase() : "PROJETO NÃO DEFINIDO";
     }
 
-    window.onload = function() {
+    var portalInitialized = false;
+
+    function initPortalApp() {
+      if (portalInitialized) return;
+      portalInitialized = true;
+
       // 1. Detecta se veio por link de recuperação de senha por e-mail
       const isRecovery = (window.location.hash && (window.location.hash.includes("type=recovery") || window.location.hash.includes("access_token"))) ||
                          (window.location.search && window.location.search.includes("type=recovery"));
@@ -2388,7 +2396,15 @@
           closeAllAutocompletes();
         }
       });
-    };
+    }
+
+    // Inicialização robusta (não depende unicamente de window.onload)
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+      setTimeout(initPortalApp, 10);
+    } else {
+      document.addEventListener('DOMContentLoaded', initPortalApp);
+      window.addEventListener('load', initPortalApp);
+    }
 
     let currentUserProfile = null;
 
@@ -2407,10 +2423,15 @@
         regProjInput.value = codigoProjeto;
       }
 
-      // 1. Verifica autenticação do usuário primeiro
+      // 1. Abre o modal de login por padrão para evitar tela branca em caso de lentidão de rede
+      abrirModalAuthPortal('login');
+
+      // 2. Verifica autenticação do usuário com timeout de segurança (máx 3.5s)
       let session = null;
       try {
-        session = await AuthService.getSession();
+        const sessionPromise = AuthService.getSession();
+        const timeoutPromise = new Promise((resolve) => setTimeout(() => resolve(null), 3500));
+        session = await Promise.race([sessionPromise, timeoutPromise]);
       } catch (err) {
         console.warn("Aviso ao checar sessão:", err.message);
       }
@@ -2421,11 +2442,14 @@
         return;
       }
 
-      // 2. Usuário autenticado: valida perfil RBAC primeiro
+      // 3. Usuário autenticado: fecha modal de login e valida perfil RBAC
+      document.getElementById("portalAuthModal").style.display = "none";
       showLoading("Validando credenciais e perfil de acesso...");
       
       try {
-        const profile = await AuthService.getProfile(session.user.id);
+        const profilePromise = AuthService.getProfile(session.user.id);
+        const timeoutProfile = new Promise((resolve) => setTimeout(() => resolve(null), 4000));
+        const profile = await Promise.race([profilePromise, timeoutProfile]);
         currentUserProfile = profile;
 
         if (!profile) {
